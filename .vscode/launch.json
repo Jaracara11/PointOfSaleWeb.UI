@@ -1,0 +1,15 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Launch Firefox",
+      "type": "firefox",
+      "request": "launch",
+      "reAttach": true,
+      "webRoot": "${workspaceFolder}",
+      "firefoxExecutable": "C:\\Program Files\\Firefox Developer Edition\\firefox.exe",
+      "url": "https://localhost:3000",
+      "skipFiles": ["node_modules/**/*.js", "<node_internals>/**/*.js"]
+    }
+  ]
+}
