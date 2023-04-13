@@ -5,9 +5,5 @@ export default defineConfig({
   plugins: [react()],
   server: {
     port: 3000,
-    https: {
-      key: 'public/server.key',
-      cert: 'public/server.crt',
-    },
   },
 });
