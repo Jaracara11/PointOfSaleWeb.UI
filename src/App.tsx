@@ -1,8 +1,13 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
+import { Router } from './routes/router';
 
-function App() {
-  return <div className="App">HI!</div>;
-}
-
-export default App;
+export const App = () => {
+  return (
+    <div className="App">
+      <main>
+        <Router />
+      </main>
+    </div>
+  );
+};
