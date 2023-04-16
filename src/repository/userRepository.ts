@@ -1,12 +1,11 @@
 import axios from 'axios';
 import { UserLogin } from '../interfaces/UserLogin';
 
-const apiURL = import.meta.env.VITE_API_URL;
+const userURL = import.meta.env.VITE_API_URL + '/api/user';
 
 export const login = async (userData: UserLogin): Promise<UserInfo> => {
   try {
-    console.log(`${apiURL}/login`);
-    const response = await axios.post(`${apiURL}/login`, userData);
+    const response = await axios.post(`${userURL}/login`, userData);
     return response.data;
   } catch (error: any) {
     return Promise.reject(error.message);
