@@ -6,6 +6,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { loginValidation } from '../../services/yupValidation.service';
 import { UserLogin } from '../../interfaces/UserLogin';
 import { ErrorView } from '../../components/errorView/ErrorView';
+import { login } from '../../repository/userRepository';
 
 export const Login = () => {
   const [loadingData, setLoadingData] = useState(false);
@@ -20,9 +21,16 @@ export const Login = () => {
   });
 
   const submitLogin: any = async (userData: UserLogin) => {
-    setLoadingData(true);
-    console.log(userData);
-    setLoadingData(false);
+    try {
+      setLoadingData(true);
+      const userInfo = await login(userData);
+      console.log(userInfo);
+      setLoadingData(false);
+      //navigate('/home');
+    } catch (error) {
+      console.log(error);
+      setLoadingData(false);
+    }
   };
 
   return (
