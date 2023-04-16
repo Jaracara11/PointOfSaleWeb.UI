@@ -1,12 +1,15 @@
 .container {
   max-width: 400px;
-  justify-content: center;
   margin-top: 25%;
-  align-items: center;
+}
+
+.container h2 {
+  text-align: center;
+  margin-top: 0.5rem;
 }
 
 input {
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 }
 
 .btn {

@@ -2,6 +2,9 @@ import './login.css';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { loginValidation } from '../../services/yupValidation.service';
+import { UserLogin } from '../../interfaces/UserLogin';
 
 export const Login = () => {
   const [loadingData, setLoadingData] = useState(false);
@@ -10,14 +13,21 @@ export const Login = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors }
   } = useForm({
-    resolver: yupResolver(signInValidation),
+    resolver: yupResolver(loginValidation)
   });
+
+  const submitAuth: any = async (userData: UserLogin) => {
+    setLoadingData(true);
+    console.log(userData);
+    setLoadingData(false);
+  };
 
   return (
     <div className="container">
       <div className="card">
+        <h2>Login</h2>
         <div className="card-body">
           <div>
             <input
@@ -37,7 +47,3 @@ export const Login = () => {
     </div>
   );
 };
-function yupResolver(signInValidation: any): import("react-hook-form").Resolver<import("react-hook-form").FieldValues, any> | undefined {
-  throw new Error('Function not implemented.');
-}
-
