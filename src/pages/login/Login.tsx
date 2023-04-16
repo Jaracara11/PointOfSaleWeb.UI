@@ -8,6 +8,7 @@ import { UserLogin } from '../../interfaces/UserLogin';
 import { ErrorView } from '../../components/errorView/ErrorView';
 import { login } from '../../repository/userRepository';
 import { swalErrorAlert } from '../../services/swal.service';
+import { LoadingSpinner } from '../../components/loadingSpinner/LoadingSpinner';
 
 export const Login = () => {
   const [loadingData, setLoadingData] = useState(false);
@@ -28,11 +29,14 @@ export const Login = () => {
       navigate('/home');
     } catch (error: any) {
       swalErrorAlert(error.UserError[0], 'Login Error');
+    } finally {
+      setLoadingData(false);
     }
-    setLoadingData(false);
   };
 
-  return (
+  return loadingData ? (
+    <LoadingSpinner />
+  ) : (
     <div className="container">
       <div className="card">
         <h2>Login</h2>
