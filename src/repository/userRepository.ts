@@ -8,6 +8,6 @@ export const login = async (userData: UserLogin): Promise<UserInfo> => {
     const response = await axios.post(`${userURL}/login`, userData);
     return response.data;
   } catch (error: any) {
-    return Promise.reject(error.message);
+    return Promise.reject(error.response.data);
   }
 };

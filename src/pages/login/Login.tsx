@@ -7,6 +7,7 @@ import { loginValidation } from '../../services/yupValidation.service';
 import { UserLogin } from '../../interfaces/UserLogin';
 import { ErrorView } from '../../components/errorView/ErrorView';
 import { login } from '../../repository/userRepository';
+import { swalErrorAlert } from '../../services/swal.service';
 
 export const Login = () => {
   const [loadingData, setLoadingData] = useState(false);
@@ -24,13 +25,13 @@ export const Login = () => {
     try {
       setLoadingData(true);
       const userInfo = await login(userData);
-      console.log(userInfo);
-      setLoadingData(false);
+      console.log('userInfo: ', userInfo);
+
       //navigate('/home');
-    } catch (error) {
-      console.log(error);
-      setLoadingData(false);
+    } catch (error: any) {
+      swalErrorAlert(error.UserError[0], "Login Error");
     }
+    setLoadingData(false);
   };
 
   return (
