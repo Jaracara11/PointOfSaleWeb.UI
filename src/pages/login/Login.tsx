@@ -24,12 +24,10 @@ export const Login = () => {
   const submitLogin: any = async (userData: UserLogin) => {
     try {
       setLoadingData(true);
-      const userInfo = await login(userData);
-      console.log('userInfo: ', userInfo);
-
-      //navigate('/home');
+      await login(userData);
+      navigate('/home');
     } catch (error: any) {
-      swalErrorAlert(error.UserError[0], "Login Error");
+      swalErrorAlert(error.UserError[0], 'Login Error');
     }
     setLoadingData(false);
   };
