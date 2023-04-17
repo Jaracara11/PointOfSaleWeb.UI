@@ -6,6 +6,7 @@ export default defineConfig({
   server: {
     port: 3000,
     https: {
+      protocol: 'TLSv1.2',
       key: 'public/key.pem',
       cert: 'public/cert.pem'
     }
