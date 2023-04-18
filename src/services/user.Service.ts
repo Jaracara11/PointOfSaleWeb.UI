@@ -1,6 +1,6 @@
-export const userAuth = (): boolean => {
+export const getUserAuth = (): UserInfo | null => {
   const user = localStorage.getItem('user');
-  return user ? true : false;
+  return user ? JSON.parse(user) : null;
 };
 
 export const setUserAuth = (userInfo: UserInfo) =>
