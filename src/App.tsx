@@ -1,16 +1,16 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import { Router } from './router/Router';
-import { useState } from 'react';
+import { UserProvider } from './context/UserContext';
 
 export const App = () => {
-  const [user, setUser] = useState('hello from context!');
-
   return (
     <div className="App">
-      <main>
-        <Router />
-      </main>
+      <UserProvider>
+        <main>
+          <Router />
+        </main>
+      </UserProvider>
     </div>
   );
 };

@@ -5,3 +5,5 @@ export const getUserAuth = (): UserInfo | null => {
 
 export const setUserAuth = (userInfo: UserInfo) =>
   localStorage.setItem('user', JSON.stringify(userInfo));
+
+export const deleteUserAuth = (): void => localStorage.removeItem('user');

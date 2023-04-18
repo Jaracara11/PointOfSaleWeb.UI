@@ -1,17 +1,18 @@
 import './login.css';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { loginValidation } from '../../services/yupValidation.service';
 import { UserLogin } from '../../interfaces/UserLogin';
 import { ErrorView } from '../../components/errorView/ErrorView';
-import { login } from '../../repository/userRepository';
 import { swalErrorAlert } from '../../services/swal.service';
 import { LoadingSpinner } from '../../components/loadingSpinner/LoadingSpinner';
+import { UserContext } from '../../context/UserContext';
 
 export const Login = () => {
   const [loadingData, setLoadingData] = useState(false);
+  const { signIn } = useContext(UserContext);
 
   const navigate = useNavigate();
   const {
@@ -25,7 +26,7 @@ export const Login = () => {
   const submitLogin: any = async (userData: UserLogin) => {
     try {
       setLoadingData(true);
-      await login(userData);
+      await signIn(userData);
       navigate('/home');
     } catch (error: any) {
       swalErrorAlert(error.UserError[0], 'Login Error');
