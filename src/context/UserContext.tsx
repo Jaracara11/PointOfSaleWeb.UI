@@ -10,7 +10,7 @@ import { login } from '../repository/userRepository';
 export const UserContext = createContext<any>(null);
 
 export const UserContextProvider = ({ children }: any) => {
-  const [user, setUser] = useState(getUserAuth());
+  const [user, setUser] = useState<UserInfo | null>(getUserAuth());
 
   const signIn = async (userData: UserLogin) => {
     const userInfo = await login(userData);
