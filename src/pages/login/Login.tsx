@@ -8,11 +8,11 @@ import { UserLogin } from '../../interfaces/UserLogin';
 import { ErrorView } from '../../components/errorView/ErrorView';
 import { swalErrorAlert } from '../../services/swal.service';
 import { LoadingSpinner } from '../../components/loadingSpinner/LoadingSpinner';
-import { UserContext } from '../../context/UserContext';
+import { UserAuth } from '../../context/UserContext';
 
 export const Login = () => {
   const [loadingData, setLoadingData] = useState(false);
-  const { signIn } = useContext(UserContext);
+  const { signIn } = UserAuth();
 
   const navigate = useNavigate();
   const {

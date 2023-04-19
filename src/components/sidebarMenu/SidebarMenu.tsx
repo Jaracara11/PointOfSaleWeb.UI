@@ -1,9 +1,8 @@
-import { useContext } from 'react';
-import { UserContext } from '../../context/UserContext';
+import { UserAuth } from '../../context/UserContext';
 
 export const SidebarMenu = () => {
-  const { user } = useContext(UserContext);
-  console.log(user);
+  const { user } = UserAuth();
+  //console.log(user);
   return (
     user && (
       <div className="container-fluid">
