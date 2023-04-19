@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from 'react';
+import { createContext, useState } from 'react';
 import { UserLogin } from '../interfaces/UserLogin';
 import { login } from '../repository/userRepository';
 import { setUserAuth, deleteUserAuth } from '../services/user.Service';

@@ -1,14 +1,15 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 import './App.css';
 import { Router } from './router/Router';
 import { UserProvider } from './context/UserContext';
-import { Navbar } from './components/sidenav/Navbar';
+import { SidebarMenu } from './components/sidebarMenu/SidebarMenu';
 
 export const App = () => {
   return (
     <div className="App">
       <UserProvider>
-        <Navbar />
+        <SidebarMenu />
         <main>
           <Router />
         </main>

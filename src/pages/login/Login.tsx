@@ -58,7 +58,7 @@ export const Login = () => {
             />
             <ErrorView error={errors.password} />
           </div>
-          <button className="btn btn-primary">Login</button>
+          <button className="btn btn-dark">Login</button>
         </form>
       </div>
     </div>
