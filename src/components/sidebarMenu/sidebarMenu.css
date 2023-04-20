@@ -1,5 +1,6 @@
 #sidebar-menu {
-  background-color: red;
+  max-width: 235px;
+  height: 100vh;
 }
 
 span {
