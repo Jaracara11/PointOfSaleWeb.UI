@@ -1,26 +1,33 @@
-#sidebar-menu {
-  max-width: 235px;
-  height: 100vh;
-}
-
 span {
   color: #fff;
 }
 
 i {
   color: #fff;
+  margin-right: 0.5rem;
+  font-size: 1.3rem;
 }
 
-span:first-child {
+.sidebar-menu {
+  min-height: 100vh;
+}
+
+.brand {
+  padding: 0.5rem 1rem;
+  text-align: center;
+  font-weight: bold;
   font-size: 1.5rem;
-  margin: 0 1rem;
 }
 
-li {
-  margin: 0.25rem 0;
-  padding: 0.5rem 0;
+.links {
+  width: 18rem;
 }
 
-li span {
-  font-size: 1.25rem;
+.nav-link {
+  padding: 0.8rem;
+  margin-left: 1rem;
+}
+
+.nav-link span {
+  font-size: 1.3rem;
 }

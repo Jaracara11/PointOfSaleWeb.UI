@@ -4,41 +4,35 @@ import { NavLink } from 'react-router-dom';
 
 export const SidebarMenu = () => {
   const { user } = UserAuth();
-  //console.log(user);
   return (
-    user && (
-      <div className="bg-dark" id="sidebar-menu">
-        <div>
-          <span>PointOfSale.Web</span>
-          <hr className="text-secondary d-none d-sm-block" />
-          <ul className="nav nav-pills flex-column">
-            <li className="nav-item py-sm-0">
-              <NavLink className="nav-link fs-5" to="/home">
-                <i className="bi bi-house"></i>
-                <span className="ms-2 d-none d-sm-inline">Home</span>
-              </NavLink>
-            </li>
-            <li className="nav-item py-sm-0">
-              <NavLink className="nav-link fs-5" to="sales">
-                <i className="bi bi-cash-coin"></i>
-                <span className="ms-2 d-none d-sm-inline">Sales</span>
-              </NavLink>
-            </li>
-            <li className="nav-item py-sm-0">
-              <NavLink className="nav-link fs-5" to="/products">
-                <i className="bi bi-box"></i>
-                <span className="ms-2 d-none d-sm-inline">Products</span>
-              </NavLink>
-            </li>
-            <li className="nav-item py-sm-0">
-              <NavLink className="nav-link fs-5" to="inventory">
-                <i className="bi bi-clipboard-check"></i>
-                <span className="ms-2 d-none d-sm-inline">Inventory</span>
-              </NavLink>
-            </li>
-          </ul>
-        </div>
+    <div className="sidebar-menu bg-dark">
+      <div className="brand">
+        <span>PointOfSale.Web</span>
       </div>
-    )
+
+      <hr className="text-secondary" />
+
+      <div className="links">
+        <NavLink className="nav-link" to="/home">
+          <i className="bi bi-house"></i>
+          <span>Home</span>
+        </NavLink>
+
+        <NavLink className="nav-link" to="sales">
+          <i className="bi bi-cash-coin"></i>
+          <span>Sales</span>
+        </NavLink>
+
+        <NavLink className="nav-link" to="/products">
+          <i className="bi bi-box"></i>
+          <span>Products</span>
+        </NavLink>
+
+        <NavLink className="nav-link" to="inventory">
+          <i className="bi bi-clipboard-check"></i>
+          <span>Inventory</span>
+        </NavLink>
+      </div>
+    </div>
   );
 };
