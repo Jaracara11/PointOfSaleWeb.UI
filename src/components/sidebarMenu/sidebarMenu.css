@@ -25,9 +25,17 @@ i {
 
 .nav-link {
   padding: 0.8rem;
-  margin-left: 1rem;
+  margin: 0 1rem;
 }
 
 .nav-link span {
   font-size: 1.3rem;
+}
+
+.nav-link:hover {
+  background-color: #343a40;
+}
+
+.active {
+  background-color: #343a40;
 }
