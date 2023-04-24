@@ -9,7 +9,10 @@ export const Categories = () => {
     <div className="categories-container container-fluid">
       <ul className="categories-list list-group">
         {categories.map((category: Category) => (
-          <li className="list-group-item list-group-item-action">
+          <li
+            className="list-group-item list-group-item-action"
+            key={category.categoryID}
+          >
             {category.categoryName}
           </li>
         ))}
