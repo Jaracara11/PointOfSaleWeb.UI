@@ -1,3 +1,10 @@
 export const Inventory = () => {
-  return <>Inventory</>;
+  return (
+    <>
+      <ul>
+        <li>Products</li>
+        <li>Categories</li>
+      </ul>
+    </>
+  );
 };
