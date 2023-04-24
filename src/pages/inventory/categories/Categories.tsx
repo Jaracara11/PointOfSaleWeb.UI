@@ -1,7 +1,9 @@
+import './categories.css'
+
 export const Categories = () => {
   return (
-    <div className="container-fluid">
-      <table className="table">
+    <div className="categories-menu container-fluid">
+      <table className="table table-bordered table-striped table-hover">
         <thead>
           <tr>
             <td>Category ID</td>
