@@ -12,6 +12,7 @@ import { PrivateRoutes } from './PrivateRoutes';
 import { RootLayout } from '../layouts/RootLayout';
 import { Categories } from '../pages/inventory/categories/Categories';
 import { Products } from '../pages/inventory/products/Products';
+import { getAllCategories } from '../repository/categoryRepository';
 
 export const AppRouter = () => {
   const router = createBrowserRouter(
@@ -24,7 +25,11 @@ export const AppRouter = () => {
             <Route path="/home" element={<Home />} />
             <Route path="/inventory">
               <Route index element={<Inventory />} />
-              <Route path="categories" element={<Categories />} />
+              <Route
+                path="categories"
+                element={<Categories />}
+                loader={getAllCategories}
+              />
               <Route path="products" element={<Products />} />
             </Route>
           </Route>

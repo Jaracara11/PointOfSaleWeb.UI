@@ -6,6 +6,7 @@ import {
   setUserAuth
 } from '../services/user.Service';
 import { login } from '../repository/userRepository';
+import { UserInfo } from '../interfaces/UserInfo';
 
 export const UserContext = createContext<any>(null);
 

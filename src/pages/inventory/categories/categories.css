@@ -1,3 +1,7 @@
-.categories-menu {
+.categories-container {
   margin-top: 1rem;
+}
+
+.categories-list {
+  display: inline-block;
 }

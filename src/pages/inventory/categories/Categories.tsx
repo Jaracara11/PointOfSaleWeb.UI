@@ -1,22 +1,19 @@
 import './categories.css';
+import { useLoaderData } from 'react-router-dom';
+import { Category } from '../../../interfaces/Category';
 
 export const Categories = () => {
+  const categories = useLoaderData() as Category[];
+
   return (
-    <div className="categories-menu container-fluid">
-      <table className="table table-bordered table-striped table-hover">
-        <thead>
-          <tr>
-            <td>Category ID</td>
-            <td>Category Name</td>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>1</td>
-            <td>Placeholder</td>
-          </tr>
-        </tbody>
-      </table>
+    <div className="categories-container container-fluid">
+      <ul className="categories-list list-group">
+        {categories.map((category: Category) => (
+          <li className="list-group-item list-group-item-action">
+            {category.categoryName}
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };
