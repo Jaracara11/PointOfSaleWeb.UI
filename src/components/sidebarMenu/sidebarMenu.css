@@ -1,15 +1,15 @@
-span {
+.sidebar-menu {
+  min-height: 100vh;
+}
+
+.sidebar-menu span {
   color: #fff;
 }
 
-i {
+.sidebar-menu i {
   color: #fff;
   margin-right: 0.5rem;
   font-size: 1.3rem;
-}
-
-.sidebar-menu {
-  min-height: 100vh;
 }
 
 .brand {
