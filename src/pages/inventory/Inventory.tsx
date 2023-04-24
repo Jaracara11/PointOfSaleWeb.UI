@@ -5,13 +5,13 @@ export const Inventory = () => {
     <>
       <ul>
         <li>
-          <NavLink to="/home">
-            <span>Home</span>
+          <NavLink to="/inventory/products">
+            <span>Products</span>
           </NavLink>
         </li>
         <li>
-          <NavLink to="/home">
-            <span>Home</span>
+          <NavLink to="/inventory/categories">
+            <span>Categories</span>
           </NavLink>
         </li>
       </ul>
