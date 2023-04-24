@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { loginValidation } from '../../services/yupValidation.service';
 import { UserLogin } from '../../interfaces/UserLogin';
-import { ErrorView } from '../../components/errorView/ErrorView';
+import { ErrorInputView } from '../../components/errorInputView/ErrorInputView';
 import { swalErrorAlert } from '../../services/swal.service';
 import { LoadingSpinner } from '../../components/loadingSpinner/LoadingSpinner';
 import { UserAuth } from '../../context/UserContext';
@@ -49,14 +49,14 @@ export const Login = () => {
               placeholder="Username..."
               {...register('username')}
             />
-            <ErrorView error={errors.username} />
+            <ErrorInputView error={errors.username} />
             <input
               type="password"
               className="form-control"
               placeholder="Password..."
               {...register('password')}
             />
-            <ErrorView error={errors.password} />
+            <ErrorInputView error={errors.password} />
           </div>
           <button className="btn btn-dark">Login</button>
         </form>

@@ -1,6 +1,6 @@
 import { FieldErrorsImpl } from 'react-hook-form';
 
-export const ErrorView = ({ error }: FieldErrorsImpl) => {
+export const ErrorInputView = ({ error }: FieldErrorsImpl) => {
   return (
     <>
       {error && (
