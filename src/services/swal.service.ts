@@ -8,9 +8,13 @@ const SwalObj = Swal.mixin({
   buttonsStyling: false
 });
 
-export const swalErrorAlert = (error: Error, title?: string) => {
+export const swalErrorAlert = (
+  statusCode: number,
+  error: Error,
+  title?: string
+) => {
   return SwalObj.fire({
-    title: title,
+    title: `Error ${statusCode}: ${title}`,
     html: `<strong>${error}</strong>`,
     icon: 'error',
     showConfirmButton: false

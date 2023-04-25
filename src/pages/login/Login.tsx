@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { loginValidation } from '../../services/yupValidation.service';
 import { UserLogin } from '../../interfaces/UserLogin';
-import { ErrorInputView } from '../../components/errorInputView/ErrorInputView';
+import { ErrorInputView } from '../../components/errorHandlers/errorInputView/ErrorInputView';
 import { swalErrorAlert } from '../../services/swal.service';
 import { LoadingSpinner } from '../../components/loadingSpinner/LoadingSpinner';
 import { UserAuth } from '../../context/UserContext';
@@ -29,7 +29,8 @@ export const Login = () => {
       await signIn(userData);
       navigate('/home');
     } catch (error: any) {
-      swalErrorAlert(error.UserError[0], 'Login Error');
+      console.log(error);
+      swalErrorAlert(error.status, error.data.UserError[0], error.statusText);
     } finally {
       setLoadingData(false);
     }

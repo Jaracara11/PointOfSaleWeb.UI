@@ -13,6 +13,7 @@ import { RootLayout } from '../layouts/RootLayout';
 import { Categories } from '../pages/inventory/categories/Categories';
 import { Products } from '../pages/inventory/products/Products';
 import { getAllCategories } from '../repository/categoryRepository';
+import { ErrorRouterView } from '../components/errorHandlers/errorRouterView/ErrorRouterView';
 
 export const AppRouter = () => {
   const router = createBrowserRouter(
@@ -29,6 +30,7 @@ export const AppRouter = () => {
                 path="categories"
                 element={<Categories />}
                 loader={getAllCategories}
+                errorElement={<ErrorRouterView />}
               />
               <Route path="products" element={<Products />} />
             </Route>

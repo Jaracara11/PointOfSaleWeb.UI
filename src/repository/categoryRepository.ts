@@ -15,6 +15,6 @@ export const getAllCategories = async (): Promise<Category[]> => {
     });
     return response.data as Category[];
   } catch (error: any) {
-    return Promise.reject(error.response.data);
+    return Promise.reject(error.response);
   }
 };

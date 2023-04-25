@@ -9,6 +9,6 @@ export const login = async (userData: UserLogin): Promise<UserInfo> => {
     const response = await axios.post(`${USER_URL}/login`, userData);
     return response.data as UserInfo;
   } catch (error: any) {
-    return Promise.reject(error.response.data);
+    return Promise.reject(error.response);
   }
 };
