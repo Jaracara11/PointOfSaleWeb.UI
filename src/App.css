@@ -11,3 +11,8 @@ body {
   padding: 0;
   background-color: whitesmoke;
 }
+
+h1 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}

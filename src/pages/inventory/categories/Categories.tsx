@@ -7,6 +7,7 @@ export const Categories = () => {
 
   return (
     <div className="categories-container container-fluid">
+      <h1>Categories</h1>
       <ul className="categories-list list-group">
         {categories.map((category: Category) => (
           <li
