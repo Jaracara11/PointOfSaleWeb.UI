@@ -1,4 +1,5 @@
 import Swal from 'sweetalert2';
+import { ErrorInfo } from '../interfaces/ErrorInfo';
 
 const SwalObj = Swal.mixin({
   customClass: {
@@ -8,14 +9,10 @@ const SwalObj = Swal.mixin({
   buttonsStyling: false
 });
 
-export const swalErrorAlert = (
-  statusCode: number,
-  error: Error,
-  title?: string
-) => {
+export const swalErrorAlert = (error: ErrorInfo, errorKey: string) => {
   return SwalObj.fire({
-    title: `Error ${statusCode}: ${title}`,
-    html: `<strong>${error}</strong>`,
+    title: `Error ${error.status}: ${error.statusText}`,
+    html: `<strong>${error.data[errorKey][0]}</strong>`,
     icon: 'error',
     showConfirmButton: false
   });

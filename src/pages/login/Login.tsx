@@ -1,5 +1,5 @@
 import './login.css';
-import { useState } from 'react';
+import { ErrorInfo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -28,9 +28,8 @@ export const Login = () => {
       setLoadingData(true);
       await signIn(userData);
       navigate('/home');
-    } catch (error: any) {
-      console.log(error);
-      swalErrorAlert(error.status, error.data.UserError[0], error.statusText);
+    } catch (error: ErrorInfo | any) {
+      swalErrorAlert(error, 'UserError');
     } finally {
       setLoadingData(false);
     }
