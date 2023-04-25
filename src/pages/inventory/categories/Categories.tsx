@@ -8,16 +8,23 @@ export const Categories = () => {
   return (
     <div className="categories-container container-fluid">
       <h1>Categories</h1>
-      <ul className="categories-list list-group">
-        {categories.map((category: Category) => (
-          <li
-            className="list-group-item list-group-item-action"
-            key={category.categoryID}
-          >
-            {category.categoryName}
-          </li>
-        ))}
-      </ul>
+      <table className="table table-hover">
+        <thead>
+          <tr>
+            <th>Name</th>
+          </tr>
+        </thead>
+        <tbody>
+          {categories.map((category: Category) => (
+            <tr key={category.categoryID}>
+              <td>{category.categoryName}</td>
+              <td>
+                <button className="btn btn-success">Edit</button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };
