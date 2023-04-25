@@ -8,6 +8,8 @@ export const Categories = () => {
   return (
     <div className="categories-container container-fluid">
       <h1>Categories</h1>
+      <button className="mb-3 btn btn-dark">Add New Category</button>
+
       <table className="table table-hover">
         <thead>
           <tr>
