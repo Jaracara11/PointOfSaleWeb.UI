@@ -3,5 +3,5 @@ import { handleErrorResponse } from '../../../services/error.Service';
 
 export const ErrorRouterView = () => {
   const error = useRouteError();
-  error && handleErrorResponse(error, '');
+  return error ? <>{handleErrorResponse(error, '')}</> : <p>Unknown Error.</p>;
 };

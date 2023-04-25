@@ -1,6 +1,5 @@
 import { ErrorInfo } from '../interfaces/ErrorInfo';
 import { swalErrorAlert, swalWarningAlert } from './swal.service';
-import { Link } from 'react-router-dom';
 
 export const handleErrorResponse = (error: any, errorKey: string) => {
   if (error.code === 'ERR_NETWORK') {
