@@ -8,7 +8,10 @@ export const Categories = () => {
   return (
     <div className="categories-container container-fluid">
       <h1>Categories</h1>
-      <button className="mb-3 btn btn-dark">Add New Category</button>
+      <button className="mb-3 btn btn-dark">
+        <i className="bi bi-plus-lg"></i>
+        &nbsp;Add New Category
+      </button>
 
       <table className="table table-hover">
         <thead>
@@ -19,9 +22,14 @@ export const Categories = () => {
         <tbody>
           {categories.map((category: Category) => (
             <tr key={category.categoryID}>
-              <td>{category.categoryName}</td>
               <td>
-                <button className="btn btn-outline-dark">Edit</button>
+                <i className="bi bi-dot"></i>
+                {category.categoryName}
+              </td>
+              <td>
+                <button className="btn btn-outline-dark">
+                  <i className="bi bi-pencil"></i>&nbsp;Edit
+                </button>
               </td>
             </tr>
           ))}
