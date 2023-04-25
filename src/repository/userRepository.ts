@@ -11,7 +11,7 @@ export const login = async (userData: UserLogin): Promise<UserInfo> => {
     return response.data as UserInfo;
   } catch (error: any) {
     const errorResponse: ErrorInfo = {
-      status: error.response.status,
+      statusCode: error.response.status,
       statusText: error.response.statusText,
       data: error.response.data
     };

@@ -17,7 +17,7 @@ export const getAllCategories = async (): Promise<Category[]> => {
     return response.data as Category[];
   } catch (error: any) {
     const errorResponse: ErrorInfo = {
-      status: error.response.status,
+      statusCode: error.response.status,
       statusText: error.response.statusText,
       data: error.response.data
     };

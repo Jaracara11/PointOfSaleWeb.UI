@@ -1,5 +1,5 @@
 export interface ErrorInfo {
-  status: number;
+  statusCode: number;
   statusText: string;
   data: any;
 }
