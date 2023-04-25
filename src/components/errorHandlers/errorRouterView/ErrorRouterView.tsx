@@ -1,15 +1,7 @@
-import { isRouteErrorResponse, useRouteError } from 'react-router-dom';
+import { useRouteError } from 'react-router-dom';
+import { handleErrorResponse } from '../../../services/error.Service';
 
 export const ErrorRouterView = () => {
   const error = useRouteError();
-
-  return (
-    <div>
-      <p className="alert alert-danger mt-1" role="alert">
-        {isRouteErrorResponse(error)
-          ? error.error?.message
-          : 'Unknown error message'}
-      </p>
-    </div>
-  );
+  error && handleErrorResponse(error, '');
 };

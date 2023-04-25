@@ -11,8 +11,17 @@ const SwalObj = Swal.mixin({
 export const swalErrorAlert = (title: string, message: string) => {
   return SwalObj.fire({
     title: `Error: ${title}`,
-    html: `<strong>${message}</strong>`,
+    html: message,
     icon: 'error',
+    showConfirmButton: false
+  });
+};
+
+export const swalWarningAlert = (title: string, message: string) => {
+  return SwalObj.fire({
+    title: `Error: ${title}`,
+    html: message,
+    icon: 'warning',
     showConfirmButton: false
   });
 };
