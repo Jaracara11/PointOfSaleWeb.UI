@@ -1,5 +1,5 @@
 import './login.css';
-import { ErrorInfo, useState } from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -9,6 +9,7 @@ import { ErrorInputView } from '../../components/errorHandlers/errorInputView/Er
 import { swalErrorAlert } from '../../services/swal.service';
 import { LoadingSpinner } from '../../components/loadingSpinner/LoadingSpinner';
 import { UserAuth } from '../../context/UserContext';
+import { handleErrorResponse } from '../../services/error.Service';
 
 export const Login = () => {
   const [loadingData, setLoadingData] = useState(false);
@@ -28,8 +29,8 @@ export const Login = () => {
       setLoadingData(true);
       await signIn(userData);
       navigate('/home');
-    } catch (error: ErrorInfo | any) {
-      swalErrorAlert(error, 'UserError');
+    } catch (error: any) {
+      handleErrorResponse(error, 'UserError');
     } finally {
       setLoadingData(false);
     }
