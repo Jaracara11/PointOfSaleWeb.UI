@@ -19,7 +19,7 @@ export const Categories = () => {
             <tr key={category.categoryID}>
               <td>{category.categoryName}</td>
               <td>
-                <button className="btn btn-success">Edit</button>
+                <button className="btn btn-outline-dark">Edit</button>
               </td>
             </tr>
           ))}
