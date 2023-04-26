@@ -1,14 +1,23 @@
 import './categories.css';
 import { useLoaderData } from 'react-router-dom';
 import { Category } from '../../../interfaces/Category';
+import { useState } from 'react';
+import { CategoryModal } from '../../../components/categoryModal/CategoryModa';
 
 export const Categories = () => {
   const categories = useLoaderData() as Category[];
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const toggleModal = () => setShowModal((prev) => !prev);
 
   return (
     <div className="categories-container container-fluid">
       <h1>Categories</h1>
-      <button className="mb-3 btn btn-dark">
+      <button
+        className="mb-3 btn btn-dark"
+        onClick={() => {
+          toggleModal();
+        }}
+      >
         <i className="bi bi-plus-lg"></i>
         &nbsp;Add New Category
       </button>
@@ -35,6 +44,8 @@ export const Categories = () => {
           ))}
         </tbody>
       </table>
+
+      {showModal && <CategoryModal toggle={toggleModal} />}
     </div>
   );
 };
