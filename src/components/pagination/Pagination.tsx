@@ -1,50 +1,45 @@
 export const Pagination = ({ currentPage, totalPages, onPageChange }: any) => {
-  const pageNumbers = [];
-
-  for (let i = 1; i <= totalPages; i++) {
-    pageNumbers.push(i);
-  }
-
   const handlePageChange = (pageNumber: number) => {
     if (pageNumber < 1 || pageNumber > totalPages) return;
     onPageChange(pageNumber);
   };
 
   return (
-    <nav>
-      <ul className="pagination">
-        <li className={`page-item ${currentPage === 1 && 'disabled'}`}>
-          <button
-            className="page-link"
-            disabled={currentPage === 1}
-            onClick={() => handlePageChange(currentPage - 1)}
-          >
-            Previous
-          </button>
-        </li>
-        {pageNumbers.map((number) => (
+    <ul className="pagination justify-content-center">
+      <li className={`page-item ${currentPage === 1 && 'disabled'}`}>
+        <button
+          className="page-link"
+          disabled={currentPage === 1}
+          onClick={() => handlePageChange(currentPage - 1)}
+        >
+          <i className="bi bi-chevron-left"></i>
+        </button>
+      </li>
+      {[...Array(totalPages)].map((_, index) => {
+        const pageNumber = index + 1;
+        return (
           <li
-            key={number}
-            className={`page-item ${currentPage === number && 'active'}`}
+            key={pageNumber}
+            className={`page-item ${currentPage === pageNumber && 'active'}`}
           >
             <button
               className="page-link"
-              onClick={() => handlePageChange(number)}
+              onClick={() => handlePageChange(pageNumber)}
             >
-              {number}
+              {pageNumber}
             </button>
           </li>
-        ))}
-        <li className={`page-item ${currentPage === totalPages && 'disabled'}`}>
-          <button
-            className="page-link"
-            disabled={currentPage === totalPages}
-            onClick={() => handlePageChange(currentPage + 1)}
-          >
-            Next
-          </button>
-        </li>
-      </ul>
-    </nav>
+        );
+      })}
+      <li className={`page-item ${currentPage === totalPages && 'disabled'}`}>
+        <button
+          className="page-link"
+          disabled={currentPage === totalPages}
+          onClick={() => handlePageChange(currentPage + 1)}
+        >
+          <i className="bi bi-chevron-right"></i>
+        </button>
+      </li>
+    </ul>
   );
 };
