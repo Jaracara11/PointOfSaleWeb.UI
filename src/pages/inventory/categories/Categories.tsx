@@ -1,5 +1,6 @@
 import './categories.css';
 import { useLoaderData } from 'react-router-dom';
+import Table from 'react-bootstrap/Table';
 import { Category } from '../../../interfaces/Category';
 import { useState } from 'react';
 import { CategoryModal } from '../../../components/categoryModal/CategoryModal';
@@ -26,7 +27,7 @@ export const Categories = () => {
         </button>
       )}
 
-      <table className="table table-hover">
+      <Table hover>
         <thead>
           <tr>
             <th>Name</th>
@@ -47,7 +48,7 @@ export const Categories = () => {
             </tr>
           ))}
         </tbody>
-      </table>
+      </Table>
 
       {showModal && <CategoryModal toggle={toggleModal} />}
     </div>
