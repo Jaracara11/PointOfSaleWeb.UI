@@ -12,6 +12,8 @@ export const Categories = () => {
   const categories = useLoaderData() as Category[];
   const [showModal, setShowModal] = useState<boolean>(false);
   const toggleModal = () => setShowModal((prev) => !prev);
+
+  ///////////////////////////Pagination////////////////////////////////
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [categoriesPerPage] = useState<number>(10);
   const totalPages = Math.ceil(categories.length / categoriesPerPage);
@@ -60,7 +62,7 @@ export const Categories = () => {
         </tbody>
       </Table>
 
-      {categories.length > 0 && (
+      {categories.length && (
         <Pagination
           currentPage={currentPage}
           totalPages={totalPages}
