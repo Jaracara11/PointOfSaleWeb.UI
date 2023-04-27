@@ -11,6 +11,20 @@ export const Categories = () => {
   const categories = useLoaderData() as Category[];
   const [showModal, setShowModal] = useState<boolean>(false);
   const toggleModal = () => setShowModal((prev) => !prev);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [categoriesPerPage, setCategoriesPerPage] = useState<number>(10);
+
+  const indexOfLastCategory = currentPage * categoriesPerPage;
+  const indexOfFirstCategory = indexOfLastCategory - categoriesPerPage;
+  const currentCategories = categories.slice(
+    indexOfFirstCategory,
+    indexOfLastCategory
+  );
+
+  const pageNumbers = [];
+  for (let i = 1; i <= Math.ceil(categories.length / categoriesPerPage); i++) {
+    pageNumbers.push(i);
+  }
 
   return (
     <div className="categories-container container-fluid">
@@ -34,7 +48,7 @@ export const Categories = () => {
           </tr>
         </thead>
         <tbody>
-          {categories.map((category: Category) => (
+          {currentCategories.map((category: Category) => (
             <tr key={category.categoryID}>
               <td>
                 <i className="bi bi-dot"></i>
@@ -49,6 +63,39 @@ export const Categories = () => {
           ))}
         </tbody>
       </Table>
+
+      <nav>
+        <ul className="pagination">
+          <li key="first" className="page-item">
+            <button
+              disabled={currentPage === 1}
+              onClick={() => setCurrentPage(1)}
+              className="page-link"
+            >
+              First
+            </button>
+          </li>
+          {pageNumbers.map((number) => (
+            <li key={number} className="page-item">
+              <button
+                onClick={() => setCurrentPage(number)}
+                className={`page-link ${currentPage === number && 'active'}`}
+              >
+                {number}
+              </button>
+            </li>
+          ))}
+          <li key="last" className="page-item">
+            <button
+              disabled={currentPage === pageNumbers.length}
+              onClick={() => setCurrentPage(pageNumbers.length)}
+              className="page-link"
+            >
+              Last
+            </button>
+          </li>
+        </ul>
+      </nav>
 
       {showModal && <CategoryModal toggle={toggleModal} />}
     </div>
