@@ -1,16 +1,14 @@
 import axios from 'axios';
 import { Category } from '../interfaces/Category';
-import { getUserAuth } from '../services/user.Service';
+import { getUserToken } from '../services/user.Service';
 
 const API_URL = import.meta.env.VITE_API_URL + '/category';
 
 export const getAllCategories = async (): Promise<Category[]> => {
-  const user = getUserAuth();
-
   try {
     const response = await axios.get(API_URL, {
       headers: {
-        Authorization: `Bearer ${user?.token}`
+        Authorization: `Bearer ${getUserToken()}`
       }
     });
     return response.data as Category[];
