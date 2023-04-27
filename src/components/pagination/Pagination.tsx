@@ -1,3 +1,5 @@
+import './pagination.css';
+
 export const Pagination = ({ currentPage, totalPages, onPageChange }: any) => {
   const handlePageChange = (pageNumber: number) => {
     if (pageNumber < 1 || pageNumber > totalPages) return;
@@ -5,7 +7,7 @@ export const Pagination = ({ currentPage, totalPages, onPageChange }: any) => {
   };
 
   return (
-    <ul className="pagination justify-content-center">
+    <ul className="pagination">
       <li className={`page-item ${currentPage === 1 && 'disabled'}`}>
         <button
           className="page-link"
