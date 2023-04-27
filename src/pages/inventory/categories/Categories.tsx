@@ -2,9 +2,11 @@ import './categories.css';
 import { useLoaderData } from 'react-router-dom';
 import { Category } from '../../../interfaces/Category';
 import { useState } from 'react';
-import { CategoryModal } from '../../../components/categoryModal/CategoryModa';
+import { CategoryModal } from '../../../components/categoryModal/CategoryModal';
+import { UserAuth } from '../../../context/UserContext';
 
 export const Categories = () => {
+  const { user } = UserAuth();
   const categories = useLoaderData() as Category[];
   const [showModal, setShowModal] = useState<boolean>(false);
   const toggleModal = () => setShowModal((prev) => !prev);
@@ -12,15 +14,17 @@ export const Categories = () => {
   return (
     <div className="categories-container container-fluid">
       <h1>Categories</h1>
-      <button
-        className="mb-3 btn btn-dark"
-        onClick={() => {
-          toggleModal();
-        }}
-      >
-        <i className="bi bi-plus-lg"></i>
-        &nbsp;Add New Category
-      </button>
+      {user.role === 'Admin' && (
+        <button
+          className="mb-3 btn btn-dark"
+          onClick={() => {
+            toggleModal();
+          }}
+        >
+          <i className="bi bi-plus-lg"></i>
+          &nbsp;Add New Category
+        </button>
+      )}
 
       <table className="table table-hover">
         <thead>
