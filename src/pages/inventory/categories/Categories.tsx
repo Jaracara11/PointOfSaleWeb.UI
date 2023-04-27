@@ -5,6 +5,7 @@ import { Category } from '../../../interfaces/Category';
 import { useState } from 'react';
 import { CategoryModal } from '../../../components/categoryModal/CategoryModal';
 import { UserAuth } from '../../../context/UserContext';
+import { Pagination } from '../../../components/pagination/Pagination';
 
 export const Categories = () => {
   const { user } = UserAuth();
@@ -12,19 +13,14 @@ export const Categories = () => {
   const [showModal, setShowModal] = useState<boolean>(false);
   const toggleModal = () => setShowModal((prev) => !prev);
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [categoriesPerPage, setCategoriesPerPage] = useState<number>(10);
-
+  const [categoriesPerPage] = useState<number>(10);
+  const totalPages = Math.ceil(categories.length / categoriesPerPage);
   const indexOfLastCategory = currentPage * categoriesPerPage;
   const indexOfFirstCategory = indexOfLastCategory - categoriesPerPage;
   const currentCategories = categories.slice(
     indexOfFirstCategory,
     indexOfLastCategory
   );
-
-  const pageNumbers = [];
-  for (let i = 1; i <= Math.ceil(categories.length / categoriesPerPage); i++) {
-    pageNumbers.push(i);
-  }
 
   return (
     <div className="categories-container container-fluid">
@@ -64,38 +60,13 @@ export const Categories = () => {
         </tbody>
       </Table>
 
-      <nav>
-        <ul className="pagination">
-          <li key="first" className="page-item">
-            <button
-              disabled={currentPage === 1}
-              onClick={() => setCurrentPage(1)}
-              className="page-link"
-            >
-              First
-            </button>
-          </li>
-          {pageNumbers.map((number) => (
-            <li key={number} className="page-item">
-              <button
-                onClick={() => setCurrentPage(number)}
-                className={`page-link ${currentPage === number && 'active'}`}
-              >
-                {number}
-              </button>
-            </li>
-          ))}
-          <li key="last" className="page-item">
-            <button
-              disabled={currentPage === pageNumbers.length}
-              onClick={() => setCurrentPage(pageNumbers.length)}
-              className="page-link"
-            >
-              Last
-            </button>
-          </li>
-        </ul>
-      </nav>
+      {categories.length > 0 && (
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={setCurrentPage}
+        />
+      )}
 
       {showModal && <CategoryModal toggle={toggleModal} />}
     </div>
