@@ -10,6 +10,7 @@ import { useState } from 'react';
 import { LoadingSpinner } from '../loadingSpinner/LoadingSpinner';
 import { firstCharToUpper } from '../../utils/string.helper';
 import { addCategory } from '../../repository/categoryRepository';
+import { swalSaveConfirm } from '../../services/swal.service';
 
 export const CategoryModal = (props: any) => {
   const [loadingData, setLoadingData] = useState<boolean>(false);
@@ -25,7 +26,12 @@ export const CategoryModal = (props: any) => {
     try {
       setLoadingData(true);
       categoryData.categoryName = firstCharToUpper(categoryData.categoryName);
-      await addCategory(categoryData);
+      await swalSaveConfirm(
+        `Are you sure you want to add ${categoryData.categoryName} as a new category?`,
+        `New category ${categoryData.categoryName} added!`,
+        () => addCategory(categoryData)
+      );
+      props.toggle();
     } catch (error: any) {
       handleErrorResponse(error, 'CategoryError');
     } finally {
