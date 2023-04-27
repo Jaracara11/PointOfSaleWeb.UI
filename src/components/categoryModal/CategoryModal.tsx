@@ -8,6 +8,7 @@ import { Category } from '../../interfaces/Category';
 import { handleErrorResponse } from '../../services/error.Service';
 import { useState } from 'react';
 import { LoadingSpinner } from '../loadingSpinner/LoadingSpinner';
+import { firstCharToUpper } from '../../utils/string.helper';
 
 export const CategoryModal = (props: any) => {
   const [loadingData, setLoadingData] = useState<boolean>(false);
@@ -22,6 +23,7 @@ export const CategoryModal = (props: any) => {
   const addNewCategory: any = async (categoryData: Category) => {
     try {
       setLoadingData(true);
+      categoryData.categoryName = firstCharToUpper(categoryData.categoryName);
       await console.log(categoryData);
     } catch (error: any) {
       handleErrorResponse(error, 'CategoryError');

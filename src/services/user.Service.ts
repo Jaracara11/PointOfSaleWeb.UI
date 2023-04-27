@@ -9,5 +9,3 @@ export const setUserAuth = (userInfo: UserInfo) =>
   localStorage.setItem('user', JSON.stringify(userInfo));
 
 export const deleteUserAuth = (): void => localStorage.removeItem('user');
-
-export const getUserToken = () => getUserAuth()?.token || '';
