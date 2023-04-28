@@ -11,9 +11,11 @@ import { LoadingSpinner } from '../loadingSpinner/LoadingSpinner';
 import { firstCharToUpper } from '../../utils/string.helper';
 import { addCategory } from '../../repository/categoryRepository';
 import { swalSaveConfirm } from '../../services/swal.service';
+import { useNavigate } from 'react-router-dom';
 
 export const CategoryModal = (props: any) => {
   const [loadingData, setLoadingData] = useState<boolean>(false);
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -32,6 +34,7 @@ export const CategoryModal = (props: any) => {
         () => addCategory(categoryData)
       );
       props.toggle();
+      navigate('/inventory/categories');
     } catch (error: any) {
       handleErrorResponse(error, 'CategoryError');
     } finally {
