@@ -1,9 +1,22 @@
 import './sidebarMenu.css';
 import { UserAuth } from '../../context/UserContext';
 import { NavLink } from 'react-router-dom';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Popover from 'react-bootstrap/Popover';
 
 export const SidebarMenu = () => {
-  const { user } = UserAuth();
+  const { user, signOut } = UserAuth();
+
+  const userPopover = (
+    <Popover className="sidebar-popover">
+      <Popover.Header as="h3">{user && user.name}</Popover.Header>
+      <Popover.Body>
+        <NavLink className="btn btn-dark" to="/" onClick={() => signOut()}>
+          Sign Out
+        </NavLink>
+      </Popover.Body>
+    </Popover>
+  );
 
   return (
     <div className="sidebar-menu bg-dark">
@@ -36,8 +49,17 @@ export const SidebarMenu = () => {
 
         {user && (
           <div className="user-profile">
-            <i className="bi bi-person-circle"></i>
-            <span>{user.name}</span>
+            <OverlayTrigger
+              trigger="click"
+              placement="top"
+              rootClose={true}
+              overlay={userPopover}
+            >
+              <div>
+                <i className="bi bi-person-circle"></i>
+                <span>{user.username}</span>
+              </div>
+            </OverlayTrigger>
           </div>
         )}
       </div>

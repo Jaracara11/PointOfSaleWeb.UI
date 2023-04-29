@@ -41,6 +41,7 @@
 }
 
 .user-profile {
+  font-size: 1.3rem;
   cursor: pointer;
   position: absolute;
   margin: 0 1rem;
@@ -49,4 +50,13 @@
 
 .user-profile :hover {
   background-color: #343a40;
+}
+
+.sidebar-popover h3 {
+  font-weight: bold;
+}
+
+.sidebar-popover a {
+  float: left;
+  margin-bottom: 1rem;
 }
