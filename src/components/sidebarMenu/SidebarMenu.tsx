@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom';
 
 export const SidebarMenu = () => {
   const { user } = UserAuth();
+
   return (
     <div className="sidebar-menu bg-dark">
       <div className="brand">
@@ -32,6 +33,13 @@ export const SidebarMenu = () => {
           <i className="bi bi-clipboard-check"></i>
           <span>Inventory</span>
         </NavLink>
+
+        {user && (
+          <div className="user-profile">
+            <i className="bi bi-person-circle"></i>
+            <span>{user.name}</span>
+          </div>
+        )}
       </div>
     </div>
   );

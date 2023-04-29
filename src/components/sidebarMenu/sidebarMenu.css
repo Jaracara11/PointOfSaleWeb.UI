@@ -39,3 +39,14 @@
 .active {
   background-color: #343a40;
 }
+
+.user-profile {
+  cursor: pointer;
+  position: absolute;
+  margin: 0 1rem;
+  bottom: 4%;
+}
+
+.user-profile :hover {
+  background-color: #343a40;
+}
