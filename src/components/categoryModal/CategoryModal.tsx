@@ -6,10 +6,13 @@ import { categoryValidation } from '../../services/yupValidation.service';
 import { ErrorInputView } from '../errorHandlers/errorInputView/ErrorInputView';
 import { Category } from '../../interfaces/Category';
 import { handleErrorResponse } from '../../services/error.Service';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { LoadingSpinner } from '../loadingSpinner/LoadingSpinner';
 import { firstCharToUpper } from '../../utils/string.helper';
-import { addCategory } from '../../repository/categoryRepository';
+import {
+  addCategory,
+  updateCategory
+} from '../../repository/categoryRepository';
 import { swalSaveConfirm } from '../../services/swal.service';
 import { useNavigate } from 'react-router-dom';
 
@@ -19,20 +22,40 @@ export const CategoryModal = (props: any) => {
   const {
     register,
     handleSubmit,
-    formState: { errors }
+    formState: { errors },
+    setValue
   } = useForm({
     resolver: yupResolver(categoryValidation)
   });
 
-  const addNewCategory: any = async (categoryData: Category) => {
+  useEffect(() => {
+    if (props.category) {
+      setValue('categoryName', props.category.categoryName);
+      setValue('categoryID', props.category.categoryID);
+    }
+  }, [props.category, setValue]);
+
+  const saveCategory: any = async (categoryData: Category) => {
     try {
       setLoadingData(true);
       categoryData.categoryName = firstCharToUpper(categoryData.categoryName);
-      await swalSaveConfirm(
-        `Are you sure you want to add ${categoryData.categoryName} as a new category?`,
-        `New category ${categoryData.categoryName} added!`,
-        () => addCategory(categoryData)
-      );
+
+      let confirmTitle = '';
+      let confirmMessage = '';
+      let confirmAction = null;
+
+      if (props.category) {
+        confirmTitle = `Are you sure you want to change category ${props.category.categoryName} to ${categoryData.categoryName}?`;
+        confirmMessage = `Category ${categoryData.categoryName} updated!`;
+        confirmAction = () => updateCategory(categoryData);
+      } else {
+        confirmTitle = `Are you sure you want to add ${categoryData.categoryName} as a new category?`;
+        confirmMessage = `New category ${categoryData.categoryName} added!`;
+        confirmAction = () => addCategory(categoryData);
+      }
+
+      await swalSaveConfirm(confirmTitle, confirmMessage, confirmAction);
+
       props.toggle();
       navigate('/inventory/categories');
     } catch (error: any) {
@@ -52,7 +75,7 @@ export const CategoryModal = (props: any) => {
       centered
     >
       <Modal.Body>
-        <Form onSubmit={handleSubmit(addNewCategory)}>
+        <Form onSubmit={handleSubmit(saveCategory)}>
           <Form.Control
             className="mt-4"
             type="text"
@@ -61,8 +84,8 @@ export const CategoryModal = (props: any) => {
           />
           <ErrorInputView error={errors.categoryName} />
         </Form>
-        <Button variant="dark ms-3" onClick={handleSubmit(addNewCategory)}>
-          Save
+        <Button variant="dark ms-3" onClick={handleSubmit(saveCategory)}>
+          {props.category ? 'Update' : 'Save'}
         </Button>
         <Button variant="outline-dark" onClick={props.toggle}>
           Cancel

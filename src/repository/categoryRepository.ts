@@ -25,3 +25,18 @@ export const addCategory = async (newCategory: Category): Promise<Category> => {
     return Promise.reject(error);
   }
 };
+
+export const updateCategory = async (category: Category): Promise<Category> => {
+  try {
+    const response = await axios.put(
+      `${API_URL}/${category.categoryID}/edit`,
+      category,
+      {
+        headers: authorizationHeaders()
+      }
+    );
+    return response.data as Category;
+  } catch (error: any) {
+    return Promise.reject(error);
+  }
+};

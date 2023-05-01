@@ -11,6 +11,9 @@ export const Categories = () => {
   const { user } = UserAuth();
   const categories = useLoaderData() as Category[];
   const [showModal, setShowModal] = useState<boolean>(false);
+  const [selectedCategory, setSelectedCategory] = useState<Category | null>(
+    null
+  );
   const toggleModal = () => setShowModal((prev) => !prev);
 
   ///////////////////////////Pagination////////////////////////////////
@@ -31,6 +34,7 @@ export const Categories = () => {
         <button
           className="mb-3 btn btn-dark"
           onClick={() => {
+            setSelectedCategory(null);
             toggleModal();
           }}
         >
@@ -53,7 +57,13 @@ export const Categories = () => {
                 {category.categoryName}
               </td>
               <td>
-                <button className="btn btn-outline-dark">
+                <button
+                  className="btn btn-outline-dark"
+                  onClick={() => {
+                    setSelectedCategory(category);
+                    toggleModal();
+                  }}
+                >
                   <i className="bi bi-pencil"></i>&nbsp;Edit
                 </button>
               </td>
@@ -70,7 +80,9 @@ export const Categories = () => {
         />
       )}
 
-      {showModal && <CategoryModal toggle={toggleModal} />}
+      {showModal && (
+        <CategoryModal toggle={toggleModal} category={selectedCategory} />
+      )}
     </div>
   );
 };
