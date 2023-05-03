@@ -1,5 +1,4 @@
 import './categories.css';
-import { useLoaderData } from 'react-router-dom';
 import Table from 'react-bootstrap/Table';
 import { Category } from '../../../interfaces/Category';
 import { useEffect, useState } from 'react';
