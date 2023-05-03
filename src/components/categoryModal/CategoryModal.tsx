@@ -3,7 +3,7 @@ import { Button, Form } from 'react-bootstrap';
 import Modal from 'react-bootstrap/Modal';
 import { useForm } from 'react-hook-form';
 import { categoryValidation } from '../../services/yupValidation.service';
-import { ErrorInputView } from '../errorHandlers/errorInputView/ErrorInputView';
+import { ErrorInputView } from '../errorInputView/ErrorInputView';
 import { Category } from '../../interfaces/Category';
 import { handleErrorResponse } from '../../services/error.Service';
 import { useEffect, useState } from 'react';

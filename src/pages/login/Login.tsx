@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { loginValidation } from '../../services/yupValidation.service';
 import { UserLogin } from '../../interfaces/UserLogin';
-import { ErrorInputView } from '../../components/errorHandlers/errorInputView/ErrorInputView';
+import { ErrorInputView } from '../../components/errorInputView/ErrorInputView';
 import { LoadingSpinner } from '../../components/loadingSpinner/LoadingSpinner';
 import { UserAuth } from '../../context/UserContext';
 import { handleErrorResponse } from '../../services/error.Service';
