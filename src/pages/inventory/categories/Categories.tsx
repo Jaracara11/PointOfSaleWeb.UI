@@ -1,7 +1,8 @@
 import './categories.css';
 import Table from 'react-bootstrap/Table';
+import { useQuery } from '@tanstack/react-query';
 import { Category } from '../../../interfaces/Category';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { CategoryModal } from '../../../components/categoryModal/CategoryModal';
 import { UserAuth } from '../../../context/UserContext';
 import { Pagination } from '../../../components/pagination/Pagination';
@@ -11,42 +12,37 @@ import { handleErrorResponse } from '../../../services/error.Service';
 
 export const Categories = () => {
   const { user } = UserAuth();
+  const categoriesQuery = useQuery({
+    queryKey: ['categories'],
+    queryFn: getAllCategories
+  });
   const [showModal, setShowModal] = useState<boolean>(false);
-  const [categories, setCategories] = useState<Category[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<Category | null>(
     null
   );
-  const [loadingData, setLoadingData] = useState<boolean>(false);
+
   const toggleModal = () => setShowModal((prev) => !prev);
 
-  useEffect(() => {
-    setLoadingData(true);
-    getAllCategories()
-      .then((response) => {
-        setCategories(response);
-      })
-      .catch((err) => {
-        handleErrorResponse(err, '');
-      })
-      .finally(() => {
-        setLoadingData(false);
-      });
-  }, []);
+  console.log(categoriesQuery.data);
 
   ///////////////////////////Pagination////////////////////////////////
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [categoriesPerPage] = useState<number>(10);
-  const totalPages = Math.ceil(categories.length / categoriesPerPage);
+  const totalPages =
+    categoriesQuery.data &&
+    Math.ceil(categoriesQuery.data.length / categoriesPerPage);
   const indexOfLastCategory = currentPage * categoriesPerPage;
   const indexOfFirstCategory = indexOfLastCategory - categoriesPerPage;
-  const currentCategories = categories.slice(
+  const currentCategories = categoriesQuery.data?.slice(
     indexOfFirstCategory,
     indexOfLastCategory
   );
 
-  return loadingData ? (
-    <LoadingSpinner />
-  ) : (
+  if (categoriesQuery.isLoading) return <LoadingSpinner />;
+  if (categoriesQuery.isError)
+    return handleErrorResponse(categoriesQuery.error, '');
+
+  return (
     <div className="categories-container container-fluid">
       <h1>Categories</h1>
       {user.role === 'Admin' && (
@@ -62,7 +58,7 @@ export const Categories = () => {
         </button>
       )}
 
-      {categories.length > 0 && (
+      {categoriesQuery.data.length > 0 && (
         <>
           <Table hover>
             <thead>
@@ -71,7 +67,7 @@ export const Categories = () => {
               </tr>
             </thead>
             <tbody>
-              {currentCategories.map((category: Category) => (
+              {currentCategories?.map((category: Category) => (
                 <tr key={category.categoryID}>
                   <td>
                     <i className="bi bi-dot"></i>
