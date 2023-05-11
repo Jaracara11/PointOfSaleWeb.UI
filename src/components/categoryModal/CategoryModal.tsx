@@ -1,5 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useQuery, useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { Button, Form } from 'react-bootstrap';
 import Modal from 'react-bootstrap/Modal';
 import { useForm } from 'react-hook-form';
@@ -29,13 +29,17 @@ export const CategoryModal = (props: any) => {
     resolver: yupResolver(categoryValidation)
   });
 
+  const queryClient = useQueryClient();
+
   const newCategoryMutation = useMutation({
     mutationFn: addCategory,
+    onSuccess: () => queryClient.invalidateQueries(['categories']),
     onError: (error) => handleErrorResponse(error, 'CategoryError')
   });
 
   const updateCategoryMutation = useMutation({
     mutationFn: updateCategory,
+    onSuccess: () => queryClient.invalidateQueries(['categories']),
     onError: (error) => handleErrorResponse(error, 'CategoryError')
   });
 
