@@ -29,6 +29,16 @@ export const CategoryModal = (props: any) => {
     resolver: yupResolver(categoryValidation)
   });
 
+  const newCategoryMutation = useMutation({
+    mutationFn: addCategory,
+    onError: (error) => handleErrorResponse(error, 'CategoryError')
+  });
+
+  const updateCategoryMutation = useMutation({
+    mutationFn: updateCategory,
+    onError: (error) => handleErrorResponse(error, 'CategoryError')
+  });
+
   useEffect(() => {
     if (props.category) {
       setValue('categoryName', props.category.categoryName);
@@ -48,11 +58,11 @@ export const CategoryModal = (props: any) => {
       if (props.category) {
         confirmTitle = `Are you sure you want to change category ${props.category.categoryName} to ${categoryData.categoryName}?`;
         confirmMessage = `Category ${categoryData.categoryName} updated!`;
-        confirmAction = () => updateCategory(categoryData);
+        confirmAction = () => updateCategoryMutation.mutate(categoryData);
       } else {
         confirmTitle = `Are you sure you want to add ${categoryData.categoryName} as a new category?`;
         confirmMessage = `New category ${categoryData.categoryName} added!`;
-        confirmAction = () => addCategory(categoryData);
+        confirmAction = () => newCategoryMutation.mutate(categoryData);
       }
 
       await swalSaveConfirm(confirmTitle, confirmMessage, confirmAction);
@@ -66,8 +76,21 @@ export const CategoryModal = (props: any) => {
     }
   };
 
-  const deleteCategory: any = async (categoryID: number) => {
+  const deleteCategory = async (categoryID: number) => {
     console.log(categoryID);
+    //  try {
+    //    const result = await swalDeleteConfirm(
+    //      `Are you sure you want to delete category with ID ${categoryID}?`,
+    //      'Category deleted!'
+    //    );
+
+    //    if (result.isConfirmed) {
+    //      await mutateDeleteCategory(categoryID);
+    //      navigate('/inventory/categories');
+    //    }
+    //  } catch (error: any) {
+    //    handleErrorResponse(error, 'CategoryError');
+    //  }
   };
 
   return loadingData ? (

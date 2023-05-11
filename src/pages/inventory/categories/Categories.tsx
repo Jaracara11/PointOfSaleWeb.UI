@@ -14,7 +14,8 @@ export const Categories = () => {
   const { user } = UserAuth();
   const categoriesQuery = useQuery({
     queryKey: ['categories'],
-    queryFn: getAllCategories
+    queryFn: getAllCategories,
+    onError: (error) => handleErrorResponse(error, '')
   });
   const [showModal, setShowModal] = useState<boolean>(false);
   const [selectedCategory, setSelectedCategory] = useState<Category | null>(
@@ -22,8 +23,6 @@ export const Categories = () => {
   );
 
   const toggleModal = () => setShowModal((prev) => !prev);
-
-  console.log(categoriesQuery.data);
 
   ///////////////////////////Pagination////////////////////////////////
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -39,8 +38,6 @@ export const Categories = () => {
   );
 
   if (categoriesQuery.isLoading) return <LoadingSpinner />;
-  if (categoriesQuery.isError)
-    return handleErrorResponse(categoriesQuery.error, '');
 
   return (
     <div className="categories-container container-fluid">
@@ -58,7 +55,7 @@ export const Categories = () => {
         </button>
       )}
 
-      {categoriesQuery.data.length > 0 && (
+      {categoriesQuery.data && (
         <>
           <Table hover>
             <thead>

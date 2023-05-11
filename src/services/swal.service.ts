@@ -26,10 +26,10 @@ export const swalWarningAlert = (title: string, message: string) => {
   });
 };
 
-export const swalSaveConfirm = async <T>(
+export const swalSaveConfirm = async (
   title: string,
   successMsg: string,
-  callback: () => Promise<T>
+  callback: () => void
 ) =>
   SwalObj.fire({
     icon: 'info',
