@@ -65,6 +65,10 @@ export const CategoryModal = (props: any) => {
     }
   };
 
+  const deleteCategory: any = async (categoryID: number) => {
+    console.log(categoryID);
+  };
+
   return loadingData ? (
     <LoadingSpinner />
   ) : (
@@ -87,6 +91,13 @@ export const CategoryModal = (props: any) => {
         <Button variant="dark ms-3" onClick={handleSubmit(saveCategory)}>
           {props.category ? 'Update' : 'Save'}
         </Button>
+
+        {props.category && (
+          <Button variant="danger ms-3" onClick={handleSubmit(saveCategory)}>
+            Delete
+          </Button>
+        )}
+
         <Button variant="outline-dark" onClick={props.toggle}>
           Cancel
         </Button>

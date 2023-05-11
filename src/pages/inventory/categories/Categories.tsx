@@ -31,7 +31,7 @@ export const Categories = () => {
       .finally(() => {
         setLoadingData(false);
       });
-  }, [showModal]);
+  }, []);
 
   ///////////////////////////Pagination////////////////////////////////
   const [currentPage, setCurrentPage] = useState<number>(1);
