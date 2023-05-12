@@ -14,7 +14,7 @@ import {
   addCategory,
   updateCategory
 } from '../../repository/categoryRepository';
-import { swalSaveConfirm } from '../../services/swal.service';
+import { swalSaveConfirm, swalSuccessAlert } from '../../services/swal.service';
 import { useNavigate } from 'react-router-dom';
 
 export const CategoryModal = (props: any) => {
@@ -33,13 +33,19 @@ export const CategoryModal = (props: any) => {
 
   const newCategoryMutation = useMutation({
     mutationFn: addCategory,
-    onSuccess: () => queryClient.invalidateQueries(['categories']),
+    onSuccess: () => {
+      queryClient.invalidateQueries(['categories']);
+      swalSuccessAlert(`New category added successfully`);
+    },
     onError: (error) => handleErrorResponse(error, 'CategoryError')
   });
 
   const updateCategoryMutation = useMutation({
     mutationFn: updateCategory,
-    onSuccess: () => queryClient.invalidateQueries(['categories']),
+    onSuccess: () => {
+      queryClient.invalidateQueries(['categories']);
+      swalSuccessAlert(`Category updated successfully`);
+    },
     onError: (error) => handleErrorResponse(error, 'CategoryError')
   });
 
@@ -51,33 +57,25 @@ export const CategoryModal = (props: any) => {
   }, [props.category, setValue]);
 
   const saveCategory: any = async (categoryData: Category) => {
-    try {
-      setLoadingData(true);
-      categoryData.categoryName = firstCharToUpper(categoryData.categoryName);
+    setLoadingData(true);
+    categoryData.categoryName = firstCharToUpper(categoryData.categoryName);
 
-      let confirmTitle = '';
-      let confirmMessage = '';
-      let confirmAction = null;
+    let confirmTitle = '';
+    let confirmAction = null;
 
-      if (props.category) {
-        confirmTitle = `Are you sure you want to change category ${props.category.categoryName} to ${categoryData.categoryName}?`;
-        confirmMessage = `Category ${categoryData.categoryName} updated!`;
-        confirmAction = () => updateCategoryMutation.mutate(categoryData);
-      } else {
-        confirmTitle = `Are you sure you want to add ${categoryData.categoryName} as a new category?`;
-        confirmMessage = `New category ${categoryData.categoryName} added!`;
-        confirmAction = () => newCategoryMutation.mutate(categoryData);
-      }
-
-      await swalSaveConfirm(confirmTitle, confirmMessage, confirmAction);
-
-      props.toggle();
-      navigate('/inventory/categories');
-    } catch (error: any) {
-      handleErrorResponse(error, 'CategoryError');
-    } finally {
-      setLoadingData(false);
+    if (props.category) {
+      confirmTitle = `Are you sure you want to change category ${props.category.categoryName} name to ${categoryData.categoryName}?`;
+      confirmAction = () => updateCategoryMutation.mutate(categoryData);
+    } else {
+      confirmTitle = `Are you sure you want to add ${categoryData.categoryName} as a new category?`;
+      confirmAction = () => newCategoryMutation.mutate(categoryData);
     }
+
+    await swalSaveConfirm(confirmTitle, confirmAction);
+
+    props.toggle();
+    navigate('/inventory/categories');
+    setLoadingData(false);
   };
 
   const deleteCategory = async (categoryID: number) => {

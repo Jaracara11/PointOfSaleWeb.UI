@@ -26,25 +26,21 @@ export const swalWarningAlert = (title: string, message: string) => {
   });
 };
 
-export const swalSaveConfirm = async (
-  title: string,
-  successMsg: string,
-  callback: () => void
-) =>
+export const swalSuccessAlert = (successMsg: string) => {
+  return SwalObj.fire({
+    title: successMsg,
+    icon: 'success',
+    showConfirmButton: false
+  });
+};
+
+export const swalSaveConfirm = (title: string, callback: () => void) =>
   SwalObj.fire({
     icon: 'info',
     title: title,
     showCancelButton: true,
     confirmButtonText: 'Save',
     denyButtonText: 'Cancel'
-  }).then(async (result) => {
-    if (result.isConfirmed) {
-      const result = await callback();
-      Swal.fire({
-        icon: 'success',
-        title: successMsg,
-        showConfirmButton: false
-      });
-      return result;
-    }
+  }).then((result) => {
+    result.isConfirmed && callback();
   });
