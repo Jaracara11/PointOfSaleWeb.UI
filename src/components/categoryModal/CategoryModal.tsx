@@ -18,7 +18,6 @@ import { swalSaveConfirm, swalSuccessAlert } from '../../services/swal.service';
 import { useNavigate } from 'react-router-dom';
 
 export const CategoryModal = (props: any) => {
-  const [loadingData, setLoadingData] = useState<boolean>(false);
   const navigate = useNavigate();
   const {
     register,
@@ -57,7 +56,6 @@ export const CategoryModal = (props: any) => {
   }, [props.category, setValue]);
 
   const saveCategory: any = async (categoryData: Category) => {
-    setLoadingData(true);
     categoryData.categoryName = firstCharToUpper(categoryData.categoryName);
 
     let confirmTitle = '';
@@ -78,8 +76,6 @@ export const CategoryModal = (props: any) => {
       props.toggle();
       navigate('/inventory/categories');
     }
-
-    setLoadingData(false);
   };
 
   const deleteCategory = async (categoryID: number) => {
@@ -99,9 +95,11 @@ export const CategoryModal = (props: any) => {
     //  }
   };
 
-  return loadingData ? (
-    <LoadingSpinner />
-  ) : (
+  if (newCategoryMutation.isLoading || updateCategoryMutation.isLoading) {
+    return <LoadingSpinner />;
+  }
+
+  return (
     <Modal
       className="category-modal"
       show={props.toggle}
