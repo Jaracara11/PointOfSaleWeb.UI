@@ -15,10 +15,8 @@ import {
   updateCategory
 } from '../../repository/categoryRepository';
 import { swalSaveConfirm, swalSuccessAlert } from '../../services/swal.service';
-import { useNavigate } from 'react-router-dom';
 
 export const CategoryModal = (props: any) => {
-  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -74,7 +72,6 @@ export const CategoryModal = (props: any) => {
     if (isConfirmed) {
       confirmAction();
       props.toggle();
-      navigate('/inventory/categories');
     }
   };
 
