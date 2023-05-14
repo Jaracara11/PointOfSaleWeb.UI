@@ -33,9 +33,9 @@ export const CategoryModal = (props: any) => {
 
   const newCategoryMutation = useMutation({
     mutationFn: addCategory,
-    onSuccess: () => {
+    onSuccess: (data) => {
       queryClient.invalidateQueries(['categories']);
-      swalSuccessAlert(`New category added successfully`);
+      swalSuccessAlert(`New category ${data.categoryName} successfully added!`);
     },
     onError: (error) => handleErrorResponse(error, 'CategoryError')
   });
