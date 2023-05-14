@@ -71,10 +71,14 @@ export const CategoryModal = (props: any) => {
       confirmAction = () => newCategoryMutation.mutate(categoryData);
     }
 
-    await swalSaveConfirm(confirmTitle, confirmAction);
+    const isConfirmed = await swalSaveConfirm(confirmTitle);
 
-    props.toggle();
-    navigate('/inventory/categories');
+    if (isConfirmed) {
+      confirmAction();
+      props.toggle();
+      navigate('/inventory/categories');
+    }
+
     setLoadingData(false);
   };
 

@@ -34,7 +34,7 @@ export const swalSuccessAlert = (successMsg: string) => {
   });
 };
 
-export const swalSaveConfirm = (title: string, callback: () => void) =>
+export const swalSaveConfirm = (title: string): Promise<boolean> =>
   SwalObj.fire({
     icon: 'info',
     title: title,
@@ -42,5 +42,5 @@ export const swalSaveConfirm = (title: string, callback: () => void) =>
     confirmButtonText: 'Save',
     denyButtonText: 'Cancel'
   }).then((result) => {
-    result.isConfirmed && callback();
+    return result.isConfirmed;
   });
