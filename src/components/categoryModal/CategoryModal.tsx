@@ -63,10 +63,10 @@ export const CategoryModal = (props: any) => {
 
     if (props.category) {
       confirmTitle = `Are you sure you want to change category ${props.category.categoryName} name to ${categoryData.categoryName}?`;
-      confirmAction = () => updateCategoryMutation.mutate(categoryData);
+      confirmAction = () => updateCategoryMutation.mutateAsync(categoryData);
     } else {
       confirmTitle = `Are you sure you want to add ${categoryData.categoryName} as a new category?`;
-      confirmAction = () => newCategoryMutation.mutate(categoryData);
+      confirmAction = () => newCategoryMutation.mutateAsync(categoryData);
     }
 
     const isConfirmed = await swalSaveConfirm(confirmTitle);
