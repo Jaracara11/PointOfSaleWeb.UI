@@ -7,7 +7,7 @@ import { categoryValidation } from '../../services/yupValidation.service';
 import { ErrorInputView } from '../errorInputView/ErrorInputView';
 import { Category } from '../../interfaces/Category';
 import { handleErrorResponse } from '../../services/error.Service';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { LoadingSpinner } from '../loadingSpinner/LoadingSpinner';
 import { firstCharToUpper } from '../../utils/string.helper';
 import {
