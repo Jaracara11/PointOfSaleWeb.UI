@@ -12,11 +12,13 @@ import { handleErrorResponse } from '../../../services/error.Service';
 
 export const Categories = () => {
   const { user } = UserAuth();
+
   const categoriesQuery = useQuery({
     queryKey: ['categories'],
     queryFn: getAllCategories,
     onError: (error) => handleErrorResponse(error, '')
   });
+  
   const [showModal, setShowModal] = useState<boolean>(false);
   const [selectedCategory, setSelectedCategory] = useState<Category | null>(
     null
