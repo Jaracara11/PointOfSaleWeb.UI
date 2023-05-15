@@ -1,4 +1,4 @@
-import { UserInfo } from '../interfaces/UserInfo';
+import { UserInfo } from '../interfaces/user/UserInfo';
 
 export const getUserAuth = (): UserInfo | null => {
   const user = localStorage.getItem('user');

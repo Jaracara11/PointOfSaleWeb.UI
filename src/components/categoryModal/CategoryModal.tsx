@@ -4,12 +4,12 @@ import Modal from 'react-bootstrap/Modal';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { categoryValidation } from '../../services/yupValidation.service';
 import { ErrorInputView } from '../errorInputView/ErrorInputView';
-import { Category } from '../../interfaces/Category';
+import { Category } from '../../interfaces/category/Category';
 import { useEffect, useState } from 'react';
 import { LoadingSpinner } from '../loadingSpinner/LoadingSpinner';
 import { firstCharToUpper } from '../../utils/string.helper';
 import { swalSaveConfirm } from '../../services/swal.service';
-import { CategoryModalProps } from '../../interfaces/CategoryModalProps';
+import { CategoryModalProps } from '../../interfaces/category/CategoryModalProps';
 import {
   useSaveNewCategory,
   useUpdateCategory

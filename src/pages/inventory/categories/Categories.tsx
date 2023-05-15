@@ -1,6 +1,6 @@
 import './categories.css';
 import Table from 'react-bootstrap/Table';
-import { Category } from '../../../interfaces/Category';
+import { Category } from '../../../interfaces/category/Category';
 import { useState } from 'react';
 import { CategoryModal } from '../../../components/categoryModal/CategoryModal';
 import { UserAuth } from '../../../context/UserContext';
