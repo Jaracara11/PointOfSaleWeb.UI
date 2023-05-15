@@ -7,7 +7,7 @@ import { categoryValidation } from '../../services/yupValidation.service';
 import { ErrorInputView } from '../errorInputView/ErrorInputView';
 import { Category } from '../../interfaces/Category';
 import { handleErrorResponse } from '../../services/error.Service';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { LoadingSpinner } from '../loadingSpinner/LoadingSpinner';
 import { firstCharToUpper } from '../../utils/string.helper';
 import {
@@ -15,8 +15,9 @@ import {
   updateCategory
 } from '../../repository/categoryRepository';
 import { swalSaveConfirm, swalSuccessAlert } from '../../services/swal.service';
+import { CategoryModalProps } from '../../interfaces/CategoryModalProps';
 
-export const CategoryModal = (props: any) => {
+export const CategoryModal = ({ toggle, category }: CategoryModalProps) => {
   const {
     register,
     handleSubmit,
@@ -25,6 +26,8 @@ export const CategoryModal = (props: any) => {
   } = useForm({
     resolver: yupResolver(categoryValidation)
   });
+
+  const [showModal, setShowModal] = useState<boolean>(true);
 
   const queryClient = useQueryClient();
 
@@ -46,12 +49,17 @@ export const CategoryModal = (props: any) => {
     onError: (error) => handleErrorResponse(error, 'CategoryError')
   });
 
+  const closeModal = () => {
+    setShowModal(false);
+    toggle();
+  };
+
   useEffect(() => {
-    if (props.category) {
-      setValue('categoryName', props.category.categoryName);
-      setValue('categoryID', props.category.categoryID);
+    if (category) {
+      setValue('categoryName', category.categoryName);
+      setValue('categoryID', category.categoryID);
     }
-  }, [props.category, setValue]);
+  }, [category, setValue]);
 
   const saveCategory: any = async (categoryData: Category) => {
     categoryData.categoryName = firstCharToUpper(categoryData.categoryName);
@@ -59,8 +67,8 @@ export const CategoryModal = (props: any) => {
     let confirmTitle = '';
     let confirmAction = null;
 
-    if (props.category) {
-      confirmTitle = `Are you sure you want to change category ${props.category.categoryName} name to ${categoryData.categoryName}?`;
+    if (category) {
+      confirmTitle = `Are you sure you want to change category ${category.categoryName} name to ${categoryData.categoryName}?`;
       confirmAction = () => updateCategoryMutation.mutateAsync(categoryData);
     } else {
       confirmTitle = `Are you sure you want to add ${categoryData.categoryName} as a new category?`;
@@ -71,7 +79,7 @@ export const CategoryModal = (props: any) => {
 
     if (isConfirmed) {
       confirmAction();
-      props.toggle();
+      toggle();
     }
   };
 
@@ -99,8 +107,8 @@ export const CategoryModal = (props: any) => {
   return (
     <Modal
       className="category-modal"
-      show={props.toggle}
-      onHide={props.toggle}
+      show={showModal}
+      onHide={closeModal}
       centered
     >
       <Modal.Body>
@@ -114,16 +122,16 @@ export const CategoryModal = (props: any) => {
           <ErrorInputView error={errors.categoryName} />
         </Form>
         <Button variant="dark ms-3" onClick={handleSubmit(saveCategory)}>
-          {props.category ? 'Update' : 'Save'}
+          {category ? 'Update' : 'Save'}
         </Button>
 
-        {props.category && (
+        {category && (
           <Button variant="danger ms-3" onClick={handleSubmit(saveCategory)}>
             Delete
           </Button>
         )}
 
-        <Button variant="outline-dark" onClick={props.toggle}>
+        <Button variant="outline-dark" onClick={toggle}>
           Cancel
         </Button>
       </Modal.Body>

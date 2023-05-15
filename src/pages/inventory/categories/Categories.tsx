@@ -18,7 +18,7 @@ export const Categories = () => {
     queryFn: getAllCategories,
     onError: (error) => handleErrorResponse(error, '')
   });
-  
+
   const [showModal, setShowModal] = useState<boolean>(false);
   const [selectedCategory, setSelectedCategory] = useState<Category | null>(
     null
