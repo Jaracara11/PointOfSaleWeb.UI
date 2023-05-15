@@ -1,7 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Button, Form } from 'react-bootstrap';
 import Modal from 'react-bootstrap/Modal';
-import { useForm } from 'react-hook-form';
+import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { categoryValidation } from '../../services/yupValidation.service';
 import { ErrorInputView } from '../errorInputView/ErrorInputView';
 import { Category } from '../../interfaces/Category';
@@ -41,7 +41,12 @@ export const CategoryModal = ({ toggle, category }: CategoryModalProps) => {
     }
   }, [category, setValue]);
 
-  const saveCategory: any = async (categoryData: Category) => {
+  const saveCategory: SubmitHandler<FieldValues> = async (data) => {
+    const categoryData: Category = {
+      categoryID: data.categoryID,
+      categoryName: data.categoryName
+    };
+
     categoryData.categoryName = firstCharToUpper(categoryData.categoryName);
 
     let confirmTitle = '';
