@@ -1,24 +1,16 @@
 import './categories.css';
 import Table from 'react-bootstrap/Table';
-import { useQuery } from '@tanstack/react-query';
 import { Category } from '../../../interfaces/Category';
 import { useState } from 'react';
 import { CategoryModal } from '../../../components/categoryModal/CategoryModal';
 import { UserAuth } from '../../../context/UserContext';
 import { Pagination } from '../../../components/pagination/Pagination';
-import { getAllCategories } from '../../../repository/categoryRepository';
 import { LoadingSpinner } from '../../../components/loadingSpinner/LoadingSpinner';
-import { handleErrorResponse } from '../../../services/error.Service';
+import { useGetCategories } from '../../../hooks/categories.hooks';
 
 export const Categories = () => {
   const { user } = UserAuth();
-
-  const categoriesQuery = useQuery({
-    queryKey: ['categories'],
-    queryFn: getAllCategories,
-    onError: (error) => handleErrorResponse(error, '')
-  });
-
+  const categoriesQuery = useGetCategories();
   const [showModal, setShowModal] = useState<boolean>(false);
   const [selectedCategory, setSelectedCategory] = useState<Category | null>(
     null

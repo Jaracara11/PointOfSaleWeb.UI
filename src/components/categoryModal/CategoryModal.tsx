@@ -1,21 +1,19 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { Button, Form } from 'react-bootstrap';
 import Modal from 'react-bootstrap/Modal';
 import { useForm } from 'react-hook-form';
 import { categoryValidation } from '../../services/yupValidation.service';
 import { ErrorInputView } from '../errorInputView/ErrorInputView';
 import { Category } from '../../interfaces/Category';
-import { handleErrorResponse } from '../../services/error.Service';
 import { useEffect, useState } from 'react';
 import { LoadingSpinner } from '../loadingSpinner/LoadingSpinner';
 import { firstCharToUpper } from '../../utils/string.helper';
-import {
-  addCategory,
-  updateCategory
-} from '../../repository/categoryRepository';
-import { swalSaveConfirm, swalSuccessAlert } from '../../services/swal.service';
+import { swalSaveConfirm } from '../../services/swal.service';
 import { CategoryModalProps } from '../../interfaces/CategoryModalProps';
+import {
+  useSaveNewCategory,
+  useUpdateCategory
+} from '../../hooks/categories.hooks';
 
 export const CategoryModal = ({ toggle, category }: CategoryModalProps) => {
   const {
@@ -28,26 +26,8 @@ export const CategoryModal = ({ toggle, category }: CategoryModalProps) => {
   });
 
   const [showModal, setShowModal] = useState<boolean>(true);
-
-  const queryClient = useQueryClient();
-
-  const newCategoryMutation = useMutation({
-    mutationFn: addCategory,
-    onSuccess: (data) => {
-      queryClient.invalidateQueries(['categories']);
-      swalSuccessAlert(`New category ${data.categoryName} successfully added!`);
-    },
-    onError: (error) => handleErrorResponse(error, 'CategoryError')
-  });
-
-  const updateCategoryMutation = useMutation({
-    mutationFn: updateCategory,
-    onSuccess: () => {
-      queryClient.invalidateQueries(['categories']);
-      swalSuccessAlert(`Category updated successfully`);
-    },
-    onError: (error) => handleErrorResponse(error, 'CategoryError')
-  });
+  const newCategoryMutation = useSaveNewCategory();
+  const updateCategoryMutation = useUpdateCategory();
 
   const closeModal = () => {
     setShowModal(false);
