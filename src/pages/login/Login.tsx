@@ -1,6 +1,6 @@
 import './login.css';
 import { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { loginValidation } from '../../services/yupValidation.service';
@@ -23,10 +23,17 @@ export const Login = () => {
     resolver: yupResolver(loginValidation)
   });
 
-  const submitLogin: any = async (userData: UserLogin) => {
+  const submitLogin: SubmitHandler<FieldValues> = async (data) => {
     try {
       setLoadingData(true);
+
+      const userData: UserLogin = {
+        username: data.username,
+        password: data.password
+      };
+
       await signIn(userData);
+
       navigate('/home');
     } catch (error: any) {
       handleErrorResponse(error, 'UserError');
