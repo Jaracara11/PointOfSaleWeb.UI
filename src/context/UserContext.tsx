@@ -1,5 +1,4 @@
 import { createContext, useContext, useEffect, useState } from 'react';
-import { UserLogin } from '../interfaces/user/UserLogin';
 import {
   deleteUserAuth,
   getUserAuth,
@@ -9,6 +8,7 @@ import { login } from '../repository/userRepository';
 import { UserInfo } from '../interfaces/user/UserInfo';
 import { UserContextData } from '../interfaces/user/UserContextData';
 import { UserContextProviderProps } from '../interfaces/user/UserContextProviderProps';
+import { UserLogin } from '../interfaces/user/UserLogin';
 
 export const UserContext = createContext<UserContextData | null>(null);
 
