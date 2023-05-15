@@ -1,11 +1,12 @@
 import {
   addCategory,
+  deleteCategory,
   getAllCategories,
   updateCategory
 } from '../repository/categoryRepository';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { handleErrorResponse } from '../services/error.Service';
-import { swalSuccessAlert } from '../services/swal.service';
+import { swalMessageAlert } from '../services/swal.service';
 
 export const useGetCategories = () => {
   return useQuery({
@@ -22,7 +23,10 @@ export const useSaveNewCategory = () => {
     mutationFn: addCategory,
     onSuccess: (data) => {
       queryClient.invalidateQueries(['categories']);
-      swalSuccessAlert(`New category ${data.categoryName} added successfully!`);
+      swalMessageAlert(
+        `New category ${data.categoryName} added successfully!`,
+        'success'
+      );
     },
     onError: (error) => handleErrorResponse(error, 'CategoryError')
   });
@@ -35,7 +39,20 @@ export const useUpdateCategory = () => {
     mutationFn: updateCategory,
     onSuccess: () => {
       queryClient.invalidateQueries(['categories']);
-      swalSuccessAlert(`Category updated successfully`);
+      swalMessageAlert(`Category updated successfully`, 'info');
+    },
+    onError: (error) => handleErrorResponse(error, 'CategoryError')
+  });
+};
+
+export const useDeleteCategory = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: deleteCategory,
+    onSuccess: () => {
+      queryClient.invalidateQueries(['categories']);
+      swalMessageAlert(`Category deleted successfully`, 'warning');
     },
     onError: (error) => handleErrorResponse(error, 'CategoryError')
   });

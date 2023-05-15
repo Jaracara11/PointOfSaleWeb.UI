@@ -8,9 +8,10 @@ import { Category } from '../../interfaces/category/Category';
 import { useEffect, useState } from 'react';
 import { LoadingSpinner } from '../loadingSpinner/LoadingSpinner';
 import { firstCharToUpper } from '../../utils/string.helper';
-import { swalSaveConfirm } from '../../services/swal.service';
+import { swalConfirmAlert } from '../../services/swal.service';
 import { CategoryModalProps } from '../../interfaces/category/CategoryModalProps';
 import {
+  useDeleteCategory,
   useSaveNewCategory,
   useUpdateCategory
 } from '../../hooks/categories.hooks';
@@ -28,6 +29,7 @@ export const CategoryModal = ({ toggle, category }: CategoryModalProps) => {
   const [showModal, setShowModal] = useState<boolean>(true);
   const newCategoryMutation = useSaveNewCategory();
   const updateCategoryMutation = useUpdateCategory();
+  const deleteCategoryMutation = useDeleteCategory();
 
   const closeModal = () => {
     setShowModal(false);
@@ -41,7 +43,7 @@ export const CategoryModal = ({ toggle, category }: CategoryModalProps) => {
     }
   }, [category, setValue]);
 
-  const saveCategory: SubmitHandler<FieldValues> = async (data) => {
+  const upsertCategory: SubmitHandler<FieldValues> = async (data) => {
     const categoryData: Category = {
       categoryID: data.categoryID,
       categoryName: data.categoryName
@@ -53,14 +55,14 @@ export const CategoryModal = ({ toggle, category }: CategoryModalProps) => {
     let confirmAction = null;
 
     if (category) {
-      confirmTitle = `Are you sure you want to change category ${category.categoryName} name to ${categoryData.categoryName}?`;
+      confirmTitle = `Are you sure you want to change ${category.categoryName} category name to ${categoryData.categoryName}?`;
       confirmAction = () => updateCategoryMutation.mutateAsync(categoryData);
     } else {
       confirmTitle = `Are you sure you want to add ${categoryData.categoryName} as a new category?`;
       confirmAction = () => newCategoryMutation.mutateAsync(categoryData);
     }
 
-    const isConfirmed = await swalSaveConfirm(confirmTitle);
+    const isConfirmed = await swalConfirmAlert(confirmTitle, 'Save');
 
     if (isConfirmed) {
       confirmAction();
@@ -68,21 +70,15 @@ export const CategoryModal = ({ toggle, category }: CategoryModalProps) => {
     }
   };
 
-  const deleteCategory = async (categoryID: number) => {
-    console.log(categoryID);
-    //  try {
-    //    const result = await swalDeleteConfirm(
-    //      `Are you sure you want to delete category with ID ${categoryID}?`,
-    //      'Category deleted!'
-    //    );
+  const deleteCategory = async (categoryData: Category) => {
+    let confirmTitle = `Are you sure you want to <strong>DELETE</strong> the ${categoryData.categoryName} category?`;
 
-    //    if (result.isConfirmed) {
-    //      await mutateDeleteCategory(categoryID);
-    //      navigate('/inventory/categories');
-    //    }
-    //  } catch (error: any) {
-    //    handleErrorResponse(error, 'CategoryError');
-    //  }
+    const isConfirmed = await swalConfirmAlert(confirmTitle, 'Delete');
+
+    if (isConfirmed) {
+      deleteCategoryMutation.mutateAsync(categoryData.categoryID);
+      toggle();
+    }
   };
 
   if (newCategoryMutation.isLoading || updateCategoryMutation.isLoading) {
@@ -97,7 +93,7 @@ export const CategoryModal = ({ toggle, category }: CategoryModalProps) => {
       centered
     >
       <Modal.Body>
-        <Form onSubmit={handleSubmit(saveCategory)}>
+        <Form onSubmit={handleSubmit(upsertCategory)}>
           <Form.Control
             className="mt-4"
             type="text"
@@ -106,12 +102,15 @@ export const CategoryModal = ({ toggle, category }: CategoryModalProps) => {
           />
           <ErrorInputView error={errors.categoryName} />
         </Form>
-        <Button variant="dark ms-3" onClick={handleSubmit(saveCategory)}>
+        <Button variant="dark ms-3" onClick={handleSubmit(upsertCategory)}>
           {category ? 'Update' : 'Save'}
         </Button>
 
         {category && (
-          <Button variant="danger ms-3" onClick={handleSubmit(saveCategory)}>
+          <Button
+            variant="danger ms-3"
+            onClick={() => deleteCategory(category)}
+          >
             Delete
           </Button>
         )}

@@ -40,3 +40,13 @@ export const updateCategory = async (category: Category): Promise<Category> => {
     return Promise.reject(error);
   }
 };
+
+export const deleteCategory = async (categoryID: number): Promise<void> => {
+  try {
+    await axios.delete(`${API_URL}/${categoryID}/delete`, {
+      headers: authorizationHeaders()
+    });
+  } catch (error: any) {
+    return Promise.reject(error);
+  }
+};

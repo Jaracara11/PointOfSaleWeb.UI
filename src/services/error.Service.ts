@@ -1,12 +1,13 @@
 import { ErrorInfo } from '../interfaces/ErrorInfo';
-import { swalErrorAlert, swalWarningAlert } from './swal.service';
+import { swalMessageAlertWithTitle } from './swal.service';
 
 export const handleErrorResponse = (error: any, errorKey: string) => {
   if (error.code === 'ERR_NETWORK') {
-    return swalErrorAlert(
+    return swalMessageAlertWithTitle(
       error.code,
       `<strong>${error.message}</strong>` +
-        ': Check your connection or please try again later.'
+        ': Check your connection or please try again later.',
+      'error'
     );
   }
 
@@ -18,9 +19,10 @@ export const handleErrorResponse = (error: any, errorKey: string) => {
         message: error.response.data[errorKey][0]
       };
 
-      swalErrorAlert(
+      swalMessageAlertWithTitle(
         `${errorResponse400.statusCode}: ${errorResponse400.statusText}`,
-        errorResponse400.message
+        errorResponse400.message,
+        'error'
       );
       break;
 
@@ -32,9 +34,10 @@ export const handleErrorResponse = (error: any, errorKey: string) => {
           'User unauthenticated or session expired, please sign in again <a href="/">here</a>.'
       };
 
-      swalWarningAlert(
+      swalMessageAlertWithTitle(
         `${errorResponse401.statusCode}: ${errorResponse401.statusText}`,
-        errorResponse401.message
+        errorResponse401.message,
+        'error'
       );
       break;
   }
