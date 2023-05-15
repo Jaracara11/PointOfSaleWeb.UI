@@ -1,3 +1,4 @@
+import './categoryModal.css';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Button, Form } from 'react-bootstrap';
 import Modal from 'react-bootstrap/Modal';
