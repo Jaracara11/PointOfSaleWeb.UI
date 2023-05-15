@@ -9,7 +9,7 @@ import { LoadingSpinner } from '../../../components/loadingSpinner/LoadingSpinne
 import { useGetCategories } from '../../../hooks/categories.hooks';
 
 export const Categories = () => {
-  const { user } = UserAuth();
+  const { user } = UserAuth() || {};
   const categoriesQuery = useGetCategories();
   const [showModal, setShowModal] = useState<boolean>(false);
   const [selectedCategory, setSelectedCategory] = useState<Category | null>(
@@ -36,7 +36,7 @@ export const Categories = () => {
   return (
     <div className="categories-container container-fluid">
       <h1>Categories</h1>
-      {user.role === 'Admin' && (
+      {user?.role === 'Admin' && (
         <button
           className="mb-3 btn btn-dark"
           onClick={() => {
@@ -81,7 +81,7 @@ export const Categories = () => {
           </Table>
           <Pagination
             currentPage={currentPage}
-            totalPages={totalPages}
+            totalPages={totalPages || 0}
             onPageChange={setCurrentPage}
           />
         </>

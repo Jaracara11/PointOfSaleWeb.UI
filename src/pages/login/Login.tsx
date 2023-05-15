@@ -12,7 +12,7 @@ import { handleErrorResponse } from '../../services/error.Service';
 
 export const Login = () => {
   const [loadingData, setLoadingData] = useState<boolean>(false);
-  const { signIn } = UserAuth();
+  const { signIn } = UserAuth() || {};
 
   const navigate = useNavigate();
   const {
@@ -32,7 +32,7 @@ export const Login = () => {
         password: data.password
       };
 
-      await signIn(userData);
+      await signIn?.(userData);
 
       navigate('/home');
     } catch (error: any) {

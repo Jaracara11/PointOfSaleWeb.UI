@@ -5,13 +5,13 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Popover from 'react-bootstrap/Popover';
 
 export const SidebarMenu = () => {
-  const { user, signOut } = UserAuth();
+  const { user, signOut } = UserAuth() || {};
 
   const userPopover = (
     <Popover className="sidebar-popover">
       <Popover.Header as="h3">{user && user.name}</Popover.Header>
       <Popover.Body>
-        <NavLink className="btn btn-dark" to="/" onClick={() => signOut()}>
+        <NavLink className="btn btn-dark" to="/" onClick={() => signOut?.()}>
           Sign Out
         </NavLink>
       </Popover.Body>

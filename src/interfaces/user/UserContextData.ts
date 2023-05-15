@@ -1,5 +1,5 @@
-import { UserInfo } from '../user/UserInfo';
-import { UserLogin } from '../user/UserLogin';
+import { UserInfo } from './UserInfo';
+import { UserLogin } from './UserLogin';
 
 export interface UserContextData {
   user: UserInfo | null;

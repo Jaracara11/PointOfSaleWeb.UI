@@ -7,8 +7,8 @@ import {
 } from '../services/user.Service';
 import { login } from '../repository/userRepository';
 import { UserInfo } from '../interfaces/user/UserInfo';
-import { UserContextData } from '../interfaces/userContext/UserContextData';
-import { UserContextProviderProps } from '../interfaces/userContext/UserContextProviderProps';
+import { UserContextData } from '../interfaces/user/UserContextData';
+import { UserContextProviderProps } from '../interfaces/user/UserContextProviderProps';
 
 export const UserContext = createContext<UserContextData | null>(null);
 
