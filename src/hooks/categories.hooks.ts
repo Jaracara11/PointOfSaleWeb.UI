@@ -22,7 +22,7 @@ export const useSaveNewCategory = () => {
     mutationFn: addCategory,
     onSuccess: (data) => {
       queryClient.invalidateQueries(['categories']);
-      swalSuccessAlert(`New category ${data.categoryName} successfully added!`);
+      swalSuccessAlert(`New category ${data.categoryName} added successfully!`);
     },
     onError: (error) => handleErrorResponse(error, 'CategoryError')
   });
