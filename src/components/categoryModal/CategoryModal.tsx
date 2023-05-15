@@ -21,7 +21,7 @@ export const CategoryModal = ({ toggle, category }: CategoryModalProps) => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isDirty },
     setValue
   } = useForm({
     resolver: yupResolver(categoryValidation)
@@ -103,7 +103,11 @@ export const CategoryModal = ({ toggle, category }: CategoryModalProps) => {
           />
           <ErrorInputView error={errors.categoryName} />
         </Form>
-        <Button variant="dark ms-3" onClick={handleSubmit(upsertCategory)}>
+        <Button
+          variant="dark ms-3"
+          disabled={!isDirty}
+          onClick={handleSubmit(upsertCategory)}
+        >
           {category ? 'Update' : 'Save'}
         </Button>
 

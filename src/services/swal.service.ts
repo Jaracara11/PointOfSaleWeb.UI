@@ -37,7 +37,7 @@ export const swalConfirmAlert = (
     icon: 'question',
     title: title,
     showCancelButton: true,
-    confirmButtonText: buttonText,
+    confirmButtonText: `<strong>${buttonText}</strong>`,
     denyButtonText: 'Cancel'
   }).then((result) => {
     return result.isConfirmed;
