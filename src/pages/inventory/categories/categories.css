@@ -2,10 +2,12 @@
   margin-top: 1rem;
 }
 
-.categories-container .btn-dark {
-  float: left;
-}
-
 .categories-container table {
   cursor: pointer;
+  margin-top: 8rem;
+}
+
+.categories-container .btn-dark {
+  float: left;
+  margin-top: 2rem;
 }
