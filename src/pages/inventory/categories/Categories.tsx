@@ -7,8 +7,7 @@ import { UserAuth } from '../../../context/UserContext';
 import { Pagination } from '../../../components/pagination/Pagination';
 import { LoadingSpinner } from '../../../components/loadingSpinner/LoadingSpinner';
 import { useGetCategories } from '../../../hooks/categories.hooks';
-import Form from 'react-bootstrap/esm/Form';
-import { SearchInputForm } from '../../../components/searchInputForm/SearchInputForm';
+import { SearchInput } from '../../../components/searchInput/SearchInput';
 
 export const Categories = () => {
   const { user } = UserAuth() || {};
@@ -60,7 +59,7 @@ export const Categories = () => {
           </button>
         )}
         <div className="search-input">
-          <SearchInputForm
+          <SearchInput
             searchQuery={searchCategoryQuery}
             setSearchQuery={setSearchCategoryQuery}
           />
