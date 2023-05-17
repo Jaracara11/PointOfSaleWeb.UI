@@ -8,6 +8,7 @@ import { Pagination } from '../../../components/pagination/Pagination';
 import { LoadingSpinner } from '../../../components/loadingSpinner/LoadingSpinner';
 import { useGetCategories } from '../../../hooks/categories.hooks';
 import Form from 'react-bootstrap/esm/Form';
+import { SearchInputForm } from '../../../components/searchInputForm/SearchInputForm';
 
 export const Categories = () => {
   const { user } = UserAuth() || {};
@@ -59,16 +60,10 @@ export const Categories = () => {
           </button>
         )}
         <div className="search-input">
-          <Form.Control
-            type="text"
-            placeholder="Search Category..."
-            value={searchCategoryQuery}
-            onChange={(e) => setSearchCategoryQuery(e.target.value)}
+          <SearchInputForm
+            searchQuery={searchCategoryQuery}
+            setSearchQuery={setSearchCategoryQuery}
           />
-          <i
-            className={`bi ${searchCategoryQuery ? 'bi-x-lg' : 'bi-search'}`}
-            onClick={() => setSearchCategoryQuery('')}
-          ></i>
         </div>
       </div>
 
