@@ -116,7 +116,7 @@ export const CategoryModal = ({ toggle, category }: CategoryModalProps) => {
             variant="danger ms-3"
             onClick={() => deleteCategory(category)}
           >
-            Delete
+            <i className="bi bi-exclamation-circle"></i>&nbsp; Delete
           </Button>
         )}
 

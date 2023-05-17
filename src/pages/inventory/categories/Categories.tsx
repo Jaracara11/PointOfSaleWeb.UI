@@ -7,11 +7,13 @@ import { UserAuth } from '../../../context/UserContext';
 import { Pagination } from '../../../components/pagination/Pagination';
 import { LoadingSpinner } from '../../../components/loadingSpinner/LoadingSpinner';
 import { useGetCategories } from '../../../hooks/categories.hooks';
+import Form from 'react-bootstrap/esm/Form';
 
 export const Categories = () => {
   const { user } = UserAuth() || {};
   const categoriesQuery = useGetCategories();
   const [showModal, setShowModal] = useState<boolean>(false);
+  const [searchCategoryQuery, setSearchCategoryQuery] = useState<string>('');
   const [selectedCategory, setSelectedCategory] = useState<Category | null>(
     null
   );
@@ -24,30 +26,51 @@ export const Categories = () => {
   const totalPages =
     categoriesQuery.data &&
     Math.ceil(categoriesQuery.data.length / categoriesPerPage);
+
   const indexOfLastCategory = currentPage * categoriesPerPage;
+
   const indexOfFirstCategory = indexOfLastCategory - categoriesPerPage;
-  const currentCategories = categoriesQuery.data?.slice(
-    indexOfFirstCategory,
-    indexOfLastCategory
-  );
+
+  const currentCategories = (categoriesQuery.data || [])
+    .filter((category) =>
+      category.categoryName
+        .toLowerCase()
+        .includes(searchCategoryQuery.toLowerCase())
+    )
+    .slice(indexOfFirstCategory, indexOfLastCategory);
+  /////////////////////////Pagination End//////////////////////////////
 
   if (categoriesQuery.isLoading) return <LoadingSpinner />;
 
   return (
     <div className="categories-container container-fluid">
       <h1>Categories</h1>
-      {user?.role === 'Admin' && (
-        <button
-          className="mb-3 btn btn-dark"
-          onClick={() => {
-            setSelectedCategory(null);
-            toggleModal();
-          }}
-        >
-          <i className="bi bi-plus-lg"></i>
-          &nbsp;Add New Category
-        </button>
-      )}
+      <div className="btn-panel">
+        {user?.role === 'Admin' && (
+          <button
+            className="mb-3 btn btn-dark"
+            onClick={() => {
+              setSelectedCategory(null);
+              toggleModal();
+            }}
+          >
+            <i className="bi bi-plus-lg"></i>
+            &nbsp;Add New Category
+          </button>
+        )}
+        <div className="search-input">
+          <Form.Control
+            type="text"
+            placeholder="Search Category..."
+            value={searchCategoryQuery}
+            onChange={(e) => setSearchCategoryQuery(e.target.value)}
+          />
+          <i
+            className={`bi ${searchCategoryQuery ? 'bi-x-lg' : 'bi-search'}`}
+            onClick={() => setSearchCategoryQuery('')}
+          ></i>
+        </div>
+      </div>
 
       {categoriesQuery.data && (
         <>

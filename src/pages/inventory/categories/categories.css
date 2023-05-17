@@ -9,5 +9,22 @@
 
 .categories-container .btn-dark {
   float: left;
+}
+
+.categories-container .btn-panel {
   margin-top: 2rem;
+}
+
+.categories-container .search-input {
+  display: flex;
+  float: right;
+  max-width: 300px;
+}
+
+.categories-container .search-input i {
+  cursor: pointer;
+  margin-top: 0.5rem;
+  margin-right: 0.5rem;
+  position: absolute;
+  margin-left: 195px;
 }
