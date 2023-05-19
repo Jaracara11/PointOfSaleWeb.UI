@@ -31,10 +31,11 @@ export const swalMessageAlertWithTitle = (
 
 export const swalConfirmAlert = (
   title: string,
-  buttonText: string
+  buttonText: string,
+  alertType: SweetAlertIcon
 ): Promise<boolean> =>
   SwalObj.fire({
-    icon: 'question',
+    icon: alertType,
     title: title,
     showCancelButton: true,
     confirmButtonText: `<strong>${buttonText}</strong>`,

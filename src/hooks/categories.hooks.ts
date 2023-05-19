@@ -52,7 +52,7 @@ export const useDeleteCategory = () => {
     mutationFn: deleteCategory,
     onSuccess: () => {
       queryClient.invalidateQueries(['categories']);
-      swalMessageAlert(`Category deleted successfully`, 'warning');
+      swalMessageAlert(`Category deleted successfully`, 'info');
     },
     onError: (error) => handleErrorResponse(error, 'CategoryError')
   });
