@@ -58,12 +58,10 @@ export const Categories = () => {
             &nbsp;Add New Category
           </button>
         )}
-        <div className="search-input">
-          <SearchInput
-            searchQuery={searchCategoryQuery}
-            setSearchQuery={setSearchCategoryQuery}
-          />
-        </div>
+        <SearchInput
+          searchQuery={searchCategoryQuery}
+          setSearchQuery={setSearchCategoryQuery}
+        />
       </div>
 
       {categoriesQuery.data && (
