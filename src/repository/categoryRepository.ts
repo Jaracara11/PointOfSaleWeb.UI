@@ -28,13 +28,9 @@ export const addCategory = async (newCategory: Category): Promise<Category> => {
 
 export const updateCategory = async (category: Category): Promise<Category> => {
   try {
-    const response = await axios.put(
-      `${API_URL}/${category.categoryID}/edit`,
-      category,
-      {
-        headers: authorizationHeaders()
-      }
-    );
+    const response = await axios.put(`${API_URL}/${category.categoryID}/edit`, category, {
+      headers: authorizationHeaders()
+    });
     return response.data as Category;
   } catch (error: any) {
     return Promise.reject(error);

@@ -2,10 +2,7 @@ import './searchInput.css';
 import Form from 'react-bootstrap/esm/Form';
 import { SearchInputProps } from '../../interfaces/SearchInputProps';
 
-export const SearchInput = ({
-  searchQuery,
-  setSearchQuery
-}: SearchInputProps) => {
+export const SearchInput = ({ searchQuery, setSearchQuery }: SearchInputProps) => {
   return (
     <div className="search-input">
       <Form.Control

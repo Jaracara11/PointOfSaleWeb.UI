@@ -49,12 +49,7 @@ export const SidebarMenu = () => {
 
         {user && (
           <div className="user-profile">
-            <OverlayTrigger
-              trigger="click"
-              placement="top"
-              rootClose={true}
-              overlay={userPopover}
-            >
+            <OverlayTrigger trigger="click" placement="top" rootClose={true} overlay={userPopover}>
               <div>
                 <i className="bi bi-person-circle"></i>
                 <span>{user.username}</span>

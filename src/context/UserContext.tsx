@@ -1,9 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react';
-import {
-  deleteUserAuth,
-  getUserAuth,
-  setUserAuth
-} from '../services/user.Service';
+import { deleteUserAuth, getUserAuth, setUserAuth } from '../services/user.Service';
 import { login } from '../repository/userRepository';
 import { UserInfo } from '../interfaces/user/UserInfo';
 import { UserContextData } from '../interfaces/user/UserContextData';
@@ -28,11 +24,7 @@ export const UserContextProvider = ({ children }: UserContextProviderProps) => {
     setUser(user);
   }, []);
 
-  return (
-    <UserContext.Provider value={{ user, signIn, signOut }}>
-      {children}
-    </UserContext.Provider>
-  );
+  return <UserContext.Provider value={{ user, signIn, signOut }}>{children}</UserContext.Provider>;
 };
 
 export const UserAuth = () => {

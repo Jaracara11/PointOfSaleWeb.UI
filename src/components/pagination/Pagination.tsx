@@ -1,11 +1,7 @@
 import './pagination.css';
 import { PaginationProps } from '../../interfaces/PaginationProps';
 
-export const Pagination = ({
-  currentPage,
-  totalPages,
-  onPageChange
-}: PaginationProps) => {
+export const Pagination = ({ currentPage, totalPages, onPageChange }: PaginationProps) => {
   const handlePageChange = (pageNumber: number) => {
     if (pageNumber < 1 || pageNumber > totalPages) return;
     onPageChange(pageNumber);
@@ -25,14 +21,8 @@ export const Pagination = ({
       {[...Array(totalPages)].map((_, index) => {
         const pageNumber = index + 1;
         return (
-          <li
-            key={pageNumber}
-            className={`page-item ${currentPage === pageNumber && 'active'}`}
-          >
-            <button
-              className="page-link"
-              onClick={() => handlePageChange(pageNumber)}
-            >
+          <li key={pageNumber} className={`page-item ${currentPage === pageNumber && 'active'}`}>
+            <button className="page-link" onClick={() => handlePageChange(pageNumber)}>
               {pageNumber}
             </button>
           </li>

@@ -5,8 +5,7 @@ export const handleErrorResponse = (error: any, errorKey: string) => {
   if (error.code === 'ERR_NETWORK') {
     return swalMessageAlertWithTitle(
       error.code,
-      `<strong>${error.message}</strong>` +
-        ': Check your connection or please try again later.',
+      `<strong>${error.message}</strong>` + ': Check your connection or please try again later.',
       'error'
     );
   }

@@ -14,9 +14,7 @@ export const Categories = () => {
   const categoriesQuery = useGetCategories();
   const [showModal, setShowModal] = useState<boolean>(false);
   const [searchCategoryQuery, setSearchCategoryQuery] = useState<string>('');
-  const [selectedCategory, setSelectedCategory] = useState<Category | null>(
-    null
-  );
+  const [selectedCategory, setSelectedCategory] = useState<Category | null>(null);
 
   const toggleModal = () => setShowModal((prev) => !prev);
 
@@ -24,8 +22,7 @@ export const Categories = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [categoriesPerPage] = useState<number>(10);
   const totalPages =
-    categoriesQuery.data &&
-    Math.ceil(categoriesQuery.data.length / categoriesPerPage);
+    categoriesQuery.data && Math.ceil(categoriesQuery.data.length / categoriesPerPage);
 
   const indexOfLastCategory = currentPage * categoriesPerPage;
 
@@ -33,9 +30,7 @@ export const Categories = () => {
 
   const currentCategories = (categoriesQuery.data || [])
     .filter((category) =>
-      category.categoryName
-        .toLowerCase()
-        .includes(searchCategoryQuery.toLowerCase())
+      category.categoryName.toLowerCase().includes(searchCategoryQuery.toLowerCase())
     )
     .slice(indexOfFirstCategory, indexOfLastCategory);
   /////////////////////////Pagination End//////////////////////////////
@@ -58,10 +53,7 @@ export const Categories = () => {
             &nbsp;Add New Category
           </button>
         )}
-        <SearchInput
-          searchQuery={searchCategoryQuery}
-          setSearchQuery={setSearchCategoryQuery}
-        />
+        <SearchInput searchQuery={searchCategoryQuery} setSearchQuery={setSearchCategoryQuery} />
       </div>
 
       {categoriesQuery.data && (
@@ -102,9 +94,7 @@ export const Categories = () => {
         </>
       )}
 
-      {showModal && (
-        <CategoryModal toggle={toggleModal} category={selectedCategory} />
-      )}
+      {showModal && <CategoryModal toggle={toggleModal} category={selectedCategory} />}
     </div>
   );
 };

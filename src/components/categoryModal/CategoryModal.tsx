@@ -63,11 +63,7 @@ export const CategoryModal = ({ toggle, category }: CategoryModalProps) => {
       confirmAction = () => newCategoryMutation.mutateAsync(categoryData);
     }
 
-    const isConfirmed = await swalConfirmAlert(
-      confirmTitle,
-      'Save',
-      'question'
-    );
+    const isConfirmed = await swalConfirmAlert(confirmTitle, 'Save', 'question');
 
     if (isConfirmed) {
       confirmAction();
@@ -91,12 +87,7 @@ export const CategoryModal = ({ toggle, category }: CategoryModalProps) => {
   }
 
   return (
-    <Modal
-      className="category-modal"
-      show={showModal}
-      onHide={closeModal}
-      centered
-    >
+    <Modal className="category-modal" show={showModal} onHide={closeModal} centered>
       <Modal.Body>
         <Form onSubmit={handleSubmit(upsertCategory)}>
           <Form.Control
@@ -107,19 +98,12 @@ export const CategoryModal = ({ toggle, category }: CategoryModalProps) => {
           />
           <ErrorInputView error={errors.categoryName} />
         </Form>
-        <Button
-          variant="dark ms-3"
-          disabled={!isDirty}
-          onClick={handleSubmit(upsertCategory)}
-        >
+        <Button variant="dark ms-3" disabled={!isDirty} onClick={handleSubmit(upsertCategory)}>
           {category ? 'Update' : 'Save'}
         </Button>
 
         {category && (
-          <Button
-            variant="danger ms-3"
-            onClick={() => deleteCategory(category)}
-          >
+          <Button variant="danger ms-3" onClick={() => deleteCategory(category)}>
             <i className="bi bi-exclamation-circle"></i>&nbsp; Delete
           </Button>
         )}
