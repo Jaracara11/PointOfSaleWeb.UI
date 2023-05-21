@@ -10,48 +10,43 @@ export const handleErrorResponse = (error: any, errorKey: string) => {
     );
   }
 
-  switch (error.response.status) {
-    case 400:
-      const errorResponse400: ErrorInfo = {
-        statusCode: error.response.status,
-        statusText: error.response.statusText,
-        message: error.response.data[errorKey][0]
-      };
+  const status = error.response?.status || -1;
+  const statusText = error.response?.statusText || 'Unknown';
 
-      swalMessageAlertWithTitle(
-        `${errorResponse400.statusCode}: ${errorResponse400.statusText}`,
-        errorResponse400.message,
-        'error'
-      );
+  switch (status) {
+    case 400:
+      const error400Message = error.response?.data?.[errorKey]?.[0] || 'Bad Request';
+      handleErrorMessage(status, statusText, error400Message);
       break;
 
     case 401:
-      const errorResponse401: ErrorInfo = {
-        statusCode: error.response.status,
-        statusText: error.response.statusText,
-        message:
-          'User unauthenticated or session expired, please sign in again <a href="/">here</a>.'
-      };
-
-      swalMessageAlertWithTitle(
-        `${errorResponse401.statusCode}: ${errorResponse401.statusText}`,
-        errorResponse401.message,
-        'error'
-      );
+      const unauthorizedMessage =
+        'User unauthenticated or session expired, please sign in again <a href="/">here</a>.';
+      handleErrorMessage(status, statusText, unauthorizedMessage);
       break;
 
     case 403:
-      const errorResponse403: ErrorInfo = {
-        statusCode: error.response.status,
-        statusText: error.response.statusText,
-        message: 'Your user does not have permission to perform this action.'
-      };
+      const forbiddenMessage = 'Your user does not have permission to perform this action.';
+      handleErrorMessage(status, statusText, forbiddenMessage);
+      break;
 
-      swalMessageAlertWithTitle(
-        `${errorResponse403.statusCode}: ${errorResponse403.statusText}`,
-        errorResponse403.message,
-        'error'
-      );
+    default:
+      const defaultErrorMessage = 'An error occurred. Please try again later.';
+      handleErrorMessage(status, statusText, defaultErrorMessage);
       break;
   }
+};
+
+const handleErrorMessage = (statusCode: number, statusText: string, message: string) => {
+  const errorResponse: ErrorInfo = {
+    statusCode,
+    statusText,
+    message
+  };
+
+  swalMessageAlertWithTitle(
+    `${errorResponse.statusCode}: ${errorResponse.statusText}`,
+    errorResponse.message,
+    'error'
+  );
 };
