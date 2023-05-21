@@ -4,7 +4,7 @@ import { Product } from '../../../interfaces/product';
 import { Category } from '../../../interfaces/category/Category';
 import Form from 'react-bootstrap/esm/Form';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
-import { productValidation } from '../../../services/yupValidation.service';
+import { productValidationSchema } from '../../../services/yupValidation.service';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { ErrorInputView } from '../../../components/errorInputView/ErrorInputView';
 
@@ -14,7 +14,7 @@ export const UpsertProduct = () => {
     handleSubmit,
     formState: { errors }
   } = useForm({
-    resolver: yupResolver(productValidation)
+    resolver: yupResolver(productValidationSchema)
   });
 
   const location = useLocation();
@@ -62,8 +62,9 @@ export const UpsertProduct = () => {
             defaultValue={product?.productDescription}
             {...register('productDescription')}
           />
+          <ErrorInputView error={errors.productDescription} />
           <Form.Label>Product Category</Form.Label>
-          <Form.Select defaultValue={product?.productCategoryID} {...register('productCategoryID')}>
+          <Form.Select value={product?.productCategoryID} {...register('productCategoryID')}>
             <option>Select a category...</option>
             {categories &&
               categories.map((category) => (
@@ -72,6 +73,7 @@ export const UpsertProduct = () => {
                 </option>
               ))}
           </Form.Select>
+          <ErrorInputView error={errors.productCategoryID} />
           <Form.Label>Product Stock</Form.Label>
           <Form.Control
             type="number"
@@ -79,6 +81,7 @@ export const UpsertProduct = () => {
             defaultValue={product?.productStock}
             {...register('productStock')}
           />
+          <ErrorInputView error={errors.productStock} />
           <Form.Label>Product Cost</Form.Label>
           <Form.Control
             type="number"
@@ -86,6 +89,7 @@ export const UpsertProduct = () => {
             defaultValue={product?.productCost}
             {...register('productCost')}
           />
+          <ErrorInputView error={errors.productCost} />
           <Form.Label>Product Price</Form.Label>
           <Form.Control
             type="number"
@@ -93,6 +97,7 @@ export const UpsertProduct = () => {
             defaultValue={product?.productPrice}
             {...register('productPrice')}
           />
+          <ErrorInputView error={errors.productPrice} />
         </Form.Group>
       </Form>
     </div>

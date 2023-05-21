@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
 
-export const loginValidation = Yup.object({
+export const loginValidationSchema = Yup.object({
   username: Yup.string()
     .max(25, 'Username cannot exceed 25 characters.')
     .min(3, 'Username cannot have less than 3 characters.')
@@ -12,14 +12,14 @@ export const loginValidation = Yup.object({
     .required('This field is mandatory!')
 });
 
-export const categoryValidation = Yup.object({
+export const categoryValidationSchema = Yup.object({
   categoryName: Yup.string()
     .max(25, 'Category name cannot exceed 50 characters.')
     .min(4, 'Category name cannot have less than 4 characters.')
     .required('This field is mandatory!')
 });
 
-export const productValidation = Yup.object({
+export const productValidationSchema = Yup.object({
   productName: Yup.string()
     .required('Product name is required.')
     .max(50, 'Product name cannot exceed 50 characters.')

@@ -3,7 +3,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Button, Form } from 'react-bootstrap';
 import Modal from 'react-bootstrap/Modal';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
-import { categoryValidation } from '../../services/yupValidation.service';
+import { categoryValidationSchema } from '../../services/yupValidation.service';
 import { ErrorInputView } from '../errorInputView/ErrorInputView';
 import { Category } from '../../interfaces/category/Category';
 import { useEffect, useState } from 'react';
@@ -24,7 +24,7 @@ export const CategoryModal = ({ toggle, category }: CategoryModalProps) => {
     formState: { errors, isDirty },
     setValue
   } = useForm({
-    resolver: yupResolver(categoryValidation)
+    resolver: yupResolver(categoryValidationSchema)
   });
 
   const [showModal, setShowModal] = useState<boolean>(true);

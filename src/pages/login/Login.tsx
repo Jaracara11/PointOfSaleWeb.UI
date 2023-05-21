@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { loginValidation } from '../../services/yupValidation.service';
+import { loginValidationSchema } from '../../services/yupValidation.service';
 import { UserLogin } from '../../interfaces/user/UserLogin';
 import { ErrorInputView } from '../../components/errorInputView/ErrorInputView';
 import { LoadingSpinner } from '../../components/loadingSpinner/LoadingSpinner';
@@ -20,7 +20,7 @@ export const Login = () => {
     handleSubmit,
     formState: { errors }
   } = useForm({
-    resolver: yupResolver(loginValidation)
+    resolver: yupResolver(loginValidationSchema)
   });
 
   const submitLogin: SubmitHandler<FieldValues> = async (data) => {
