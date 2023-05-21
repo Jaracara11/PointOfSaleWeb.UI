@@ -73,16 +73,17 @@ export const Categories = () => {
                     {category.categoryName}
                   </td>
                   <td>
-                    <button
-                      className="btn btn-outline-dark"
-                      onClick={() => {
-                        setSelectedCategory(category);
-                        toggleModal();
-                      }}
-                      disabled={!validateUserRolePermission(['Admin', 'Manager'])}
-                    >
-                      <i className="bi bi-pencil"></i>&nbsp;Edit
-                    </button>
+                    {validateUserRolePermission(['Admin', 'Manager']) && (
+                      <button
+                        className="btn btn-outline-dark"
+                        onClick={() => {
+                          setSelectedCategory(category);
+                          toggleModal();
+                        }}
+                      >
+                        <i className="bi bi-pencil"></i>&nbsp;Edit
+                      </button>
+                    )}
                   </td>
                 </tr>
               ))}

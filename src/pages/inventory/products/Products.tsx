@@ -10,6 +10,7 @@ import { SearchInput } from '../../../components/searchInput/SearchInput';
 import { useState } from 'react';
 import { Pagination } from '../../../components/pagination/Pagination';
 import { validateUserRolePermission } from '../../../services/user.Service';
+import { Link } from 'react-router-dom';
 
 export const Products = () => {
   const { user } = UserAuth() || {};
@@ -19,7 +20,7 @@ export const Products = () => {
 
   ///////////////////////////Pagination////////////////////////////////
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [productsPerPage] = useState<number>(5);
+  const [productsPerPage] = useState<number>(10);
   const totalPages = productsQuery.data && Math.ceil(productsQuery.data.length / productsPerPage);
 
   const indexOfLastProduct = currentPage * productsPerPage;
@@ -40,10 +41,10 @@ export const Products = () => {
       <h1>Products</h1>
       <div className="btn-panel">
         {user && validateUserRolePermission(['Admin', 'Manager']) && (
-          <button className="mb-3 btn btn-dark" onClick={() => {}}>
+          <Link className="mb-3 btn btn-dark" to="/inventory/upsert-product">
             <i className="bi bi-plus-lg"></i>
             &nbsp;Add New Product
-          </button>
+          </Link>
         )}
         <SearchInput searchQuery={searchProductQuery} setSearchQuery={setSearchProductQuery} />
       </div>
@@ -76,12 +77,15 @@ export const Products = () => {
                       getProductCategoryName(product.productCategoryID, categoriesQuery.data)}
                   </td>
                   <td>
-                    <button
-                      className="btn btn-outline-dark"
-                      disabled={!validateUserRolePermission(['Admin', 'Manager'])}
-                    >
-                      <i className="bi bi-pencil"></i>&nbsp;Edit
-                    </button>
+                    {validateUserRolePermission(['Admin', 'Manager']) && (
+                      <Link
+                        className="btn btn-outline-dark"
+                        state={product}
+                        to="/inventory/upsert-product"
+                      >
+                        <i className="bi bi-pencil"></i>&nbsp;Edit
+                      </Link>
+                    )}
                   </td>
                 </tr>
               ))}
