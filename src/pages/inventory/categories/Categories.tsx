@@ -41,7 +41,7 @@ export const Categories = () => {
     <div className="categories-container container-fluid">
       <h1>Categories</h1>
       <div className="btn-panel">
-        {user?.role === 'Admin' && (
+        {user && user.role === 'Admin' && (
           <button
             className="mb-3 btn btn-dark"
             onClick={() => {
@@ -65,7 +65,7 @@ export const Categories = () => {
               </tr>
             </thead>
             <tbody>
-              {currentCategories?.map((category: Category) => (
+              {currentCategories.map((category: Category) => (
                 <tr key={category.categoryID}>
                   <td>
                     <i className="bi bi-dot"></i>

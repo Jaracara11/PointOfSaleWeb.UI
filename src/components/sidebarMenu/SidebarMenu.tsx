@@ -37,11 +37,6 @@ export const SidebarMenu = () => {
           <span>Sales</span>
         </NavLink>
 
-        <NavLink className="nav-link" to="/products">
-          <i className="bi bi-box"></i>
-          <span>Products</span>
-        </NavLink>
-
         <NavLink className="nav-link" to="inventory">
           <i className="bi bi-clipboard-check"></i>
           <span>Inventory</span>

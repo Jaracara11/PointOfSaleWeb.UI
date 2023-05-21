@@ -1,0 +1,22 @@
+.products-container {
+  margin-top: 1rem;
+}
+
+.products-container table {
+  cursor: pointer;
+  margin-top: 8rem;
+}
+
+.products-container .btn-dark {
+  float: left;
+}
+
+.products-container .btn-panel {
+  margin-top: 2rem;
+}
+
+.products-container .search-input {
+  display: flex;
+  float: right;
+  max-width: 300px;
+}
