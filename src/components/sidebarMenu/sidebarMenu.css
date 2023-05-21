@@ -2,12 +2,11 @@
   min-height: 100vh;
 }
 
-.sidebar-menu span {
+.sidebar-menu {
   color: #fff;
 }
 
 .sidebar-menu i {
-  color: #fff;
   margin-right: 0.5rem;
   font-size: 1.3rem;
 }
@@ -45,11 +44,16 @@
   cursor: pointer;
   position: absolute;
   margin: 0 1rem;
-  bottom: 4%;
+  bottom: 1%;
 }
 
 .user-profile :hover {
   background-color: #343a40;
+}
+
+.user-profile p {
+  margin-left: 1.8rem;
+  font-size: 15px;
 }
 
 .sidebar-popover h3 {

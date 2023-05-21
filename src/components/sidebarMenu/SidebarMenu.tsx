@@ -48,6 +48,7 @@ export const SidebarMenu = () => {
               <div>
                 <i className="bi bi-person-circle"></i>
                 <span>{user.username}</span>
+                <p>{user.role}</p>
               </div>
             </OverlayTrigger>
           </div>
