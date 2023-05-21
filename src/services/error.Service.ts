@@ -39,5 +39,19 @@ export const handleErrorResponse = (error: any, errorKey: string) => {
         'error'
       );
       break;
+
+    case 403:
+      const errorResponse403: ErrorInfo = {
+        statusCode: error.response.status,
+        statusText: error.response.statusText,
+        message: 'Your user does not have permission to perform this action.'
+      };
+
+      swalMessageAlertWithTitle(
+        `${errorResponse403.statusCode}: ${errorResponse403.statusText}`,
+        errorResponse403.message,
+        'error'
+      );
+      break;
   }
 };

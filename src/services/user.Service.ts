@@ -9,3 +9,6 @@ export const setUserAuth = (userInfo: UserInfo) =>
   localStorage.setItem('user', JSON.stringify(userInfo));
 
 export const deleteUserAuth = (): void => localStorage.removeItem('user');
+
+export const validateUserRolePermission = (roles: string[]) =>
+  roles.includes(getUserAuth()?.role || '');

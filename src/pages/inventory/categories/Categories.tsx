@@ -8,6 +8,7 @@ import { Pagination } from '../../../components/pagination/Pagination';
 import { LoadingSpinner } from '../../../components/loadingSpinner/LoadingSpinner';
 import { useGetCategories } from '../../../hooks/categories.hooks';
 import { SearchInput } from '../../../components/searchInput/SearchInput';
+import { validateUserRolePermission } from '../../../services/user.Service';
 
 export const Categories = () => {
   const { user } = UserAuth() || {};
@@ -41,7 +42,7 @@ export const Categories = () => {
     <div className="categories-container container-fluid">
       <h1>Categories</h1>
       <div className="btn-panel">
-        {user && user.role === 'Admin' && (
+        {user && validateUserRolePermission(['Admin', 'Manager']) && (
           <button
             className="mb-3 btn btn-dark"
             onClick={() => {
@@ -78,6 +79,7 @@ export const Categories = () => {
                         setSelectedCategory(category);
                         toggleModal();
                       }}
+                      disabled={!validateUserRolePermission(['Admin', 'Manager'])}
                     >
                       <i className="bi bi-pencil"></i>&nbsp;Edit
                     </button>

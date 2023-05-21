@@ -9,6 +9,7 @@ import { UserAuth } from '../../../context/UserContext';
 import { SearchInput } from '../../../components/searchInput/SearchInput';
 import { useState } from 'react';
 import { Pagination } from '../../../components/pagination/Pagination';
+import { validateUserRolePermission } from '../../../services/user.Service';
 
 export const Products = () => {
   const { user } = UserAuth() || {};
@@ -38,7 +39,7 @@ export const Products = () => {
     <div className="products-container container-fluid">
       <h1>Products</h1>
       <div className="btn-panel">
-        {user?.role === 'Admin' && (
+        {user && validateUserRolePermission(['Admin', 'Manager']) && (
           <button className="mb-3 btn btn-dark" onClick={() => {}}>
             <i className="bi bi-plus-lg"></i>
             &nbsp;Add New Product
@@ -75,7 +76,10 @@ export const Products = () => {
                       getProductCategoryName(product.productCategoryID, categoriesQuery.data)}
                   </td>
                   <td>
-                    <button className="btn btn-outline-dark">
+                    <button
+                      className="btn btn-outline-dark"
+                      disabled={!validateUserRolePermission(['Admin', 'Manager'])}
+                    >
                       <i className="bi bi-pencil"></i>&nbsp;Edit
                     </button>
                   </td>
