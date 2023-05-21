@@ -41,7 +41,11 @@ export const Products = () => {
       <h1>Products</h1>
       <div className="btn-panel">
         {user && validateUserRolePermission(['Admin', 'Manager']) && (
-          <Link className="mb-3 btn btn-dark" to="/inventory/upsert-product">
+          <Link
+            className="mb-3 btn btn-dark"
+            state={categoriesQuery.data}
+            to="/inventory/upsert-product"
+          >
             <i className="bi bi-plus-lg"></i>
             &nbsp;Add New Product
           </Link>
@@ -80,7 +84,7 @@ export const Products = () => {
                     {validateUserRolePermission(['Admin', 'Manager']) && (
                       <Link
                         className="btn btn-outline-dark"
-                        state={product}
+                        state={{ product, categories: categoriesQuery.data }}
                         to="/inventory/upsert-product"
                       >
                         <i className="bi bi-pencil"></i>&nbsp;Edit
