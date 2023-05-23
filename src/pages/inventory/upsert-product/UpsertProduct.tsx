@@ -69,7 +69,7 @@ export const UpsertProduct = () => {
           <ErrorInputView error={errors.productDescription} />
           <Form.Label>Product Category</Form.Label>
           <Form.Select value={product?.productCategoryID} {...register('productCategoryID')}>
-            <option>Select a category...</option>
+            <option value={0}>Select a category...</option>
             {categories &&
               categories.map((category) => (
                 <option key={category.categoryID} value={category.categoryID}>
@@ -104,7 +104,7 @@ export const UpsertProduct = () => {
           <ErrorInputView error={errors.productPrice} />
         </Form.Group>
         <div>
-          <Button variant="btn btn-dark" disabled={!isDirty}>
+          <Button variant="btn btn-dark" disabled={!isDirty} onClick={handleSubmit(upsertProduct)}>
             <i className="bi bi-database"></i>&nbsp;
             {product ? ' Update' : ' Save'}
           </Button>

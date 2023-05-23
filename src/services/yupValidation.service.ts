@@ -42,6 +42,6 @@ export const productValidationSchema = Yup.object({
 
   productCategoryID: Yup.number()
     .required('Product category is required.')
-    .integer('Product category ID must be an integer.')
-    .min(1, 'Product category ID must be greater than zero.')
+    .integer('Please select a valid product category.')
+    .min(1, 'Please select a valid product category.')
 });
