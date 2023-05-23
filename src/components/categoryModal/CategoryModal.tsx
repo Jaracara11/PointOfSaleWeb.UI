@@ -9,7 +9,7 @@ import { Category } from '../../interfaces/category/Category';
 import { useEffect, useState } from 'react';
 import { LoadingSpinner } from '../loadingSpinner/LoadingSpinner';
 import { firstCharToUpper } from '../../utils/string.helper';
-import { swalConfirmAlert } from '../../services/swal.service';
+import { swalConfirmAlert, swalMessageAlert } from '../../services/swal.service';
 import { CategoryModalProps } from '../../interfaces/category/CategoryModalProps';
 import {
   useDeleteCategory,
@@ -77,7 +77,12 @@ export const CategoryModal = ({ toggle, category }: CategoryModalProps) => {
     const isConfirmed = await swalConfirmAlert(confirmTitle, 'Delete', 'warning');
 
     if (isConfirmed) {
-      deleteCategoryMutation.mutateAsync(categoryData.categoryID);
+      categoryData.categoryID
+        ? deleteCategoryMutation.mutateAsync(categoryData.categoryID)
+        : swalMessageAlert(
+            'Error while trying to delete category, please refresh the page and try again.',
+            'error'
+          );
       toggle();
     }
   };
