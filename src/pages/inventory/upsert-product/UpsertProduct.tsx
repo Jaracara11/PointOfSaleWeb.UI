@@ -1,5 +1,6 @@
+import './upsertProduct.css';
 import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Product } from '../../../interfaces/product';
 import { Category } from '../../../interfaces/category/Category';
 import Form from 'react-bootstrap/esm/Form';
@@ -7,6 +8,7 @@ import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { productValidationSchema } from '../../../services/yupValidation.service';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { ErrorInputView } from '../../../components/errorInputView/ErrorInputView';
+import Button from 'react-bootstrap/esm/Button';
 
 export const UpsertProduct = () => {
   const {
@@ -43,10 +45,10 @@ export const UpsertProduct = () => {
   };
 
   return (
-    <div className="upsert-product container-fluid">
+    <div className="upsert-product-container container-fluid">
       <h1>{location.state ? 'Edit' : 'Add New'} Product</h1>
-      <Form onSubmit={handleSubmit(upsertProduct)}>
-        <Form.Group className="">
+      <Form className="card" onSubmit={handleSubmit(upsertProduct)}>
+        <Form.Group>
           <Form.Label>Product Name</Form.Label>
           <Form.Control
             type="text"
@@ -57,7 +59,7 @@ export const UpsertProduct = () => {
           <ErrorInputView error={errors.productName} />
           <Form.Label>Product Description</Form.Label>
           <Form.Control
-            type="text"
+            as="textarea"
             placeholder="Enter product description"
             defaultValue={product?.productDescription}
             {...register('productDescription')}
@@ -99,6 +101,15 @@ export const UpsertProduct = () => {
           />
           <ErrorInputView error={errors.productPrice} />
         </Form.Group>
+        <div>
+          <Button variant="btn btn-dark">Save</Button>
+          <Button variant="btn btn-danger">
+            <i className="bi bi-exclamation-circle"></i>&nbsp;Delete
+          </Button>
+          <Link className="btn btn-outline-dark" to="/inventory/products">
+            <i className="bi bi-arrow-left"></i>&nbsp;Back
+          </Link>
+        </div>
       </Form>
     </div>
   );

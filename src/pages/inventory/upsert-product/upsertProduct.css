@@ -1,0 +1,30 @@
+.upsert-product-container {
+  margin-top: 1rem;
+  max-width: 400px;
+}
+
+.upsert-product-container .btn-danger {
+  margin-right: 2rem;
+}
+
+.upsert-product-container a {
+  float: left;
+}
+
+.upsert-product-container label {
+  font-weight: bold;
+}
+
+.upsert-product-container form {
+  margin-top: 4rem;
+  padding: 1rem;
+}
+
+.upsert-product-container div:nth-child(2) {
+  margin-top: 3rem;
+}
+
+.upsert-product-container textarea,
+select {
+  margin-bottom: 1rem;
+}
