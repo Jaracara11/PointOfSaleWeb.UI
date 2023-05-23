@@ -55,7 +55,7 @@ export const UpsertProduct = () => {
           <Form.Control
             type="text"
             placeholder="Enter product name"
-            defaultValue={product?.productName}
+            value={product?.productName}
             {...register('productName')}
           />
           <ErrorInputView error={errors.productName} />
@@ -63,7 +63,7 @@ export const UpsertProduct = () => {
           <Form.Control
             as="textarea"
             placeholder="Enter product description"
-            defaultValue={product?.productDescription}
+            value={product?.productDescription}
             {...register('productDescription')}
           />
           <ErrorInputView error={errors.productDescription} />
@@ -82,7 +82,7 @@ export const UpsertProduct = () => {
           <Form.Control
             type="number"
             placeholder="Enter product stock"
-            defaultValue={product?.productStock}
+            value={product?.productStock || 0}
             {...register('productStock')}
           />
           <ErrorInputView error={errors.productStock} />
@@ -90,7 +90,7 @@ export const UpsertProduct = () => {
           <Form.Control
             type="number"
             placeholder="Enter product cost"
-            defaultValue={product?.productCost}
+            value={product?.productCost || 0.00}
             {...register('productCost')}
           />
           <ErrorInputView error={errors.productCost} />
@@ -98,7 +98,7 @@ export const UpsertProduct = () => {
           <Form.Control
             type="number"
             placeholder="Enter product price"
-            defaultValue={product?.productPrice}
+            value={product?.productPrice || 0.00}
             {...register('productPrice')}
           />
           <ErrorInputView error={errors.productPrice} />
