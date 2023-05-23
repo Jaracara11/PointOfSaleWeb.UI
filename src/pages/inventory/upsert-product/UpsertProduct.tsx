@@ -105,8 +105,8 @@ export const UpsertProduct = () => {
         </Form.Group>
         <div>
           <Button variant="btn btn-dark" disabled={!isDirty}>
-            <i className={`bi bi-database-${product ? 'exclamation' : 'add'}`}></i>&nbsp;{' '}
-            {product ? 'Update' : 'Save'}
+            <i className="bi bi-database"></i>&nbsp;
+            {product ? ' Update' : ' Save'}
           </Button>
           <Button variant="btn btn-danger">
             <i className="bi bi-exclamation-circle"></i>&nbsp; Delete

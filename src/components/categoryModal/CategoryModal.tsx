@@ -99,8 +99,7 @@ export const CategoryModal = ({ toggle, category }: CategoryModalProps) => {
           <ErrorInputView error={errors.categoryName} />
         </Form>
         <Button variant="dark ms-3" disabled={!isDirty} onClick={handleSubmit(upsertCategory)}>
-          <i className={`bi bi-database-${category ? 'exclamation' : 'add'}`}></i>
-          &nbsp; {category ? 'Update' : 'Save'}
+          <i className="bi bi-database"></i>&nbsp;{category ? ' Update' : ' Save'}
         </Button>
 
         {category && (
