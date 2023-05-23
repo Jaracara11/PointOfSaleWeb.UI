@@ -28,6 +28,7 @@ export const CategoryModal = ({ toggle, category }: CategoryModalProps) => {
   });
 
   const [showModal, setShowModal] = useState<boolean>(true);
+
   const newCategoryMutation = useSaveNewCategory();
   const updateCategoryMutation = useUpdateCategory();
   const deleteCategoryMutation = useDeleteCategory();
@@ -47,16 +48,14 @@ export const CategoryModal = ({ toggle, category }: CategoryModalProps) => {
   const upsertCategory: SubmitHandler<FieldValues> = async (data) => {
     const categoryData: Category = {
       categoryID: data.categoryID,
-      categoryName: data.categoryName
+      categoryName: firstCharToUpper(data.categoryName)
     };
-
-    categoryData.categoryName = firstCharToUpper(categoryData.categoryName);
 
     let confirmTitle = '';
     let confirmAction = null;
 
     if (category) {
-      confirmTitle = `Are you sure you want to change ${category.categoryName} category name to ${categoryData.categoryName}?`;
+      confirmTitle = `Are you sure you want to change ${category.categoryName}'s name to ${categoryData.categoryName}?`;
       confirmAction = () => updateCategoryMutation.mutateAsync(categoryData);
     } else {
       confirmTitle = `Are you sure you want to add ${categoryData.categoryName} as a new category?`;
@@ -65,10 +64,7 @@ export const CategoryModal = ({ toggle, category }: CategoryModalProps) => {
 
     const isConfirmed = await swalConfirmAlert(confirmTitle, 'Save', 'question');
 
-    if (isConfirmed) {
-      confirmAction();
-      toggle();
-    }
+    isConfirmed && confirmAction().then(() => toggle());
   };
 
   const deleteCategory = async (categoryData: Category) => {

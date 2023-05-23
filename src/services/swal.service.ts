@@ -29,17 +29,19 @@ export const swalMessageAlertWithTitle = (
   });
 };
 
-export const swalConfirmAlert = (
+export const swalConfirmAlert = async (
   title: string,
   buttonText: string,
   alertType: SweetAlertIcon
-): Promise<boolean> =>
-  SwalObj.fire({
-    icon: alertType,
-    title: title,
-    showCancelButton: true,
-    confirmButtonText: `<strong>${buttonText}</strong>`,
-    denyButtonText: 'Cancel'
-  }).then((result) => {
-    return result.isConfirmed;
+): Promise<boolean> => {
+  return new Promise<boolean>(async (resolve) => {
+    const result = await SwalObj.fire({
+      icon: alertType,
+      title: title,
+      showCancelButton: true,
+      confirmButtonText: `<strong>${buttonText}</strong>`,
+      denyButtonText: 'Cancel'
+    });
+    resolve(result.isConfirmed);
   });
+};

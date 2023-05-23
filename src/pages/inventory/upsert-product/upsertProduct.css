@@ -7,7 +7,7 @@
   margin-right: 1rem;
 }
 
-.upsert-product-container a {
+.upsert-product-container .btn-outline-dark {
   float: left;
 }
 

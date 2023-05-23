@@ -1,6 +1,6 @@
 import './upsertProduct.css';
 import { useEffect, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Product } from '../../../interfaces/product';
 import { Category } from '../../../interfaces/category/Category';
 import Form from 'react-bootstrap/esm/Form';
@@ -10,6 +10,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { ErrorInputView } from '../../../components/errorInputView/ErrorInputView';
 import Button from 'react-bootstrap/esm/Button';
 import { firstCharToUpper } from '../../../utils/string.helper';
+import { useSaveNewProduct, useUpdateProduct } from '../../../hooks/products.hooks';
+import { swalConfirmAlert } from '../../../services/swal.service';
 
 export const UpsertProduct = () => {
   const {
@@ -21,8 +23,12 @@ export const UpsertProduct = () => {
   });
 
   const location = useLocation();
+  const navigate = useNavigate();
   const [product, setProduct] = useState<Product>();
   const [categories, setCategories] = useState<Category[]>();
+
+  const newProductMutation = useSaveNewProduct();
+  const updateProductMutation = useUpdateProduct();
 
   useEffect(() => {
     if (location.state.product) {
@@ -43,7 +49,20 @@ export const UpsertProduct = () => {
       productCategoryID: data.productCategoryID
     };
 
-    console.log(productData);
+    let confirmTitle = '';
+    let confirmAction = null;
+
+    if (product) {
+      confirmTitle = `Are you sure you want to update ${productData.productName}'s information?`;
+      confirmAction = () => updateProductMutation.mutateAsync(productData);
+    } else {
+      confirmTitle = `Are you sure you want to add ${productData.productName} as a new product?`;
+      confirmAction = () => newProductMutation.mutateAsync(productData);
+    }
+
+    const isConfirmed = await swalConfirmAlert(confirmTitle, 'Save', 'question');
+
+    isConfirmed && confirmAction().then(() => navigate('/inventory/products'));
   };
 
   return (
@@ -114,9 +133,9 @@ export const UpsertProduct = () => {
           <Button variant="btn btn-danger">
             <i className="bi bi-exclamation-circle"></i>&nbsp; Delete
           </Button>
-          <Link className="btn btn-outline-dark" to="/inventory/products">
+          <Button variant="outline-dark" onClick={() => navigate('/inventory/products')}>
             <i className="bi bi-arrow-left"></i>&nbsp; Back
-          </Link>
+          </Button>
         </div>
       </Form>
     </div>

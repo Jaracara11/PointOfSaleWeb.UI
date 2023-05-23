@@ -25,3 +25,14 @@ export const addProduct = async (newProduct: Product): Promise<Product> => {
     return Promise.reject(error);
   }
 };
+
+export const updateProduct = async (product: Product): Promise<Product> => {
+  try {
+    const response = await axios.put(`${API_URL}/${product.productID}/edit`, product, {
+      headers: userAuthorizationHeaders()
+    });
+    return response.data as Product;
+  } catch (error: any) {
+    return Promise.reject(error);
+  }
+};
