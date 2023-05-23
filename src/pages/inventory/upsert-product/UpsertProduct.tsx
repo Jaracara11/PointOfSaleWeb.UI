@@ -14,7 +14,7 @@ export const UpsertProduct = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors }
+    formState: { errors, isDirty }
   } = useForm({
     resolver: yupResolver(productValidationSchema)
   });
@@ -42,6 +42,8 @@ export const UpsertProduct = () => {
       productPrice: data.productPrice,
       productCategoryID: data.productCategoryID
     };
+
+    console.log(productData);
   };
 
   return (
@@ -102,12 +104,15 @@ export const UpsertProduct = () => {
           <ErrorInputView error={errors.productPrice} />
         </Form.Group>
         <div>
-          <Button variant="btn btn-dark">Save</Button>
+          <Button variant="btn btn-dark" disabled={!isDirty}>
+            <i className={`bi bi-database-${product ? 'exclamation' : 'add'}`}></i>&nbsp;{' '}
+            {product ? 'Update' : 'Save'}
+          </Button>
           <Button variant="btn btn-danger">
-            <i className="bi bi-exclamation-circle"></i>&nbsp;Delete
+            <i className="bi bi-exclamation-circle"></i>&nbsp; Delete
           </Button>
           <Link className="btn btn-outline-dark" to="/inventory/products">
-            <i className="bi bi-arrow-left"></i>&nbsp;Back
+            <i className="bi bi-arrow-left"></i>&nbsp; Back
           </Link>
         </div>
       </Form>
