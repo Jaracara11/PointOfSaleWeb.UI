@@ -30,7 +30,7 @@ export const productValidationSchema = Yup.object({
   productStock: Yup.number()
     .required('Product stock is required.')
     .integer('Product stock must be an integer.')
-    .min(0, 'Product stock must be greater than or equal to zero.'),
+    .min(0, 'Product stock must be greater than zero.'),
 
   productCost: Yup.number()
     .required('Product cost is required.')

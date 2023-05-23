@@ -9,6 +9,7 @@ import { productValidationSchema } from '../../../services/yupValidation.service
 import { yupResolver } from '@hookform/resolvers/yup';
 import { ErrorInputView } from '../../../components/errorInputView/ErrorInputView';
 import Button from 'react-bootstrap/esm/Button';
+import { firstCharToUpper } from '../../../utils/string.helper';
 
 export const UpsertProduct = () => {
   const {
@@ -34,9 +35,8 @@ export const UpsertProduct = () => {
 
   const upsertProduct: SubmitHandler<FieldValues> = async (data) => {
     const productData: Product = {
-      productID: data.productID,
-      productName: data.productName,
-      productDescription: data.productDescription,
+      productName: firstCharToUpper(data.productName),
+      productDescription: firstCharToUpper(data.productDescription),
       productStock: data.productStock,
       productCost: data.productCost,
       productPrice: data.productPrice,
@@ -82,7 +82,8 @@ export const UpsertProduct = () => {
           <Form.Control
             type="number"
             placeholder="Enter product stock"
-            value={product?.productStock || 0}
+            value={product?.productStock}
+            defaultValue={0}
             {...register('productStock')}
           />
           <ErrorInputView error={errors.productStock} />
@@ -90,7 +91,8 @@ export const UpsertProduct = () => {
           <Form.Control
             type="number"
             placeholder="Enter product cost"
-            value={product?.productCost || 0.00}
+            value={product?.productCost}
+            defaultValue={0}
             {...register('productCost')}
           />
           <ErrorInputView error={errors.productCost} />
@@ -98,7 +100,8 @@ export const UpsertProduct = () => {
           <Form.Control
             type="number"
             placeholder="Enter product price"
-            value={product?.productPrice || 0.00}
+            value={product?.productPrice}
+            defaultValue={0}
             {...register('productPrice')}
           />
           <ErrorInputView error={errors.productPrice} />
