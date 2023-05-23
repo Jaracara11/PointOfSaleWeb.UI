@@ -12,3 +12,10 @@ export const deleteUserAuth = (): void => localStorage.removeItem('user');
 
 export const validateUserRolePermission = (roles: string[]) =>
   roles.includes(getUserAuth()?.role || '');
+
+export const userAuthorizationHeaders = () => {
+  return {
+    Authorization: `Bearer ${getUserAuth()?.token || ''}`
+  };
+};
+
