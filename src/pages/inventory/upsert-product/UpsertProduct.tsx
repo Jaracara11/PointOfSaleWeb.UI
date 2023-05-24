@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Product } from '../../../interfaces/product';
 import { Category } from '../../../interfaces/category/Category';
-import {Form, Button} from 'react-bootstrap';
+import { Form, Button } from 'react-bootstrap';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { productValidationSchema } from '../../../services/yupValidation.service';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -17,14 +17,14 @@ export const UpsertProduct = () => {
     register,
     handleSubmit,
     formState: { errors, isDirty },
-    setValue
+    setValue,
+    watch
   } = useForm({
     resolver: yupResolver(productValidationSchema)
   });
 
   const location = useLocation();
   const navigate = useNavigate();
-  const [product, setProduct] = useState<Product>();
   const [categories, setCategories] = useState<Category[]>();
 
   const newProductMutation = useSaveNewProduct();
@@ -32,15 +32,20 @@ export const UpsertProduct = () => {
 
   useEffect(() => {
     if (location.state.product) {
-      setProduct(location.state.product);
-      setCategories(location.state.categories);
-    } else {
-      setCategories(location.state);
+      setValue('productID', location.state.product.productID);
+      setValue('productName', location.state.product.productName);
+      setValue('productDescription', location.state.product.productDescription);
+      setValue('productStock', location.state.product.productStock);
+      setValue('productCost', location.state.product.productCost);
+      setValue('productPrice', location.state.product.productPrice);
+      setValue('productCategoryID', location.state.product.productCategoryID);
     }
+    setCategories(location.state.categories || location.state);
   }, [location.state]);
 
   const upsertProduct: SubmitHandler<FieldValues> = async (data) => {
     const productData: Product = {
+      productID: data.productID,
       productName: firstCharToUpper(data.productName),
       productDescription: firstCharToUpper(data.productDescription),
       productStock: data.productStock,
@@ -52,7 +57,7 @@ export const UpsertProduct = () => {
     let confirmTitle = '';
     let confirmAction = null;
 
-    if (product) {
+    if (location.state.product) {
       confirmTitle = `Are you sure you want to update ${productData.productName}'s information?`;
       confirmAction = () => updateProductMutation.mutateAsync(productData);
     } else {
@@ -71,27 +76,25 @@ export const UpsertProduct = () => {
       <Form className="card" onSubmit={handleSubmit(upsertProduct)}>
         <Form.Group>
           <Form.Label>Product Name</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Enter product name"
-            value={product?.productName}
-            {...register('productName')}
-          />
+          <Form.Control type="text" placeholder="Enter product name" {...register('productName')} />
           <ErrorInputView error={errors.productName} />
           <Form.Label>Product Description</Form.Label>
           <Form.Control
             as="textarea"
             placeholder="Enter product description"
-            value={product?.productDescription}
             {...register('productDescription')}
           />
           <ErrorInputView error={errors.productDescription} />
           <Form.Label>Product Category</Form.Label>
-          <Form.Select value={product?.productCategoryID} {...register('productCategoryID')}>
+          <Form.Select {...register('productCategoryID')}>
             <option value={0}>Select a category...</option>
             {categories &&
               categories.map((category) => (
-                <option key={category.categoryID} value={category.categoryID}>
+                <option
+                  key={category.categoryID}
+                  value={category.categoryID}
+                  selected={category.categoryID === watch('productCategoryID')}
+                >
                   {category.categoryName}
                 </option>
               ))}
@@ -101,8 +104,6 @@ export const UpsertProduct = () => {
           <Form.Control
             type="number"
             placeholder="Enter product stock"
-            value={product?.productStock}
-            defaultValue={0}
             {...register('productStock')}
           />
           <ErrorInputView error={errors.productStock} />
@@ -110,8 +111,6 @@ export const UpsertProduct = () => {
           <Form.Control
             type="number"
             placeholder="Enter product cost"
-            value={product?.productCost}
-            defaultValue={0}
             {...register('productCost')}
           />
           <ErrorInputView error={errors.productCost} />
@@ -119,8 +118,6 @@ export const UpsertProduct = () => {
           <Form.Control
             type="number"
             placeholder="Enter product price"
-            value={product?.productPrice}
-            defaultValue={0}
             {...register('productPrice')}
           />
           <ErrorInputView error={errors.productPrice} />
@@ -128,7 +125,7 @@ export const UpsertProduct = () => {
         <div>
           <Button variant="btn btn-dark" disabled={!isDirty} onClick={handleSubmit(upsertProduct)}>
             <i className="bi bi-database"></i>&nbsp;
-            {product ? ' Update' : ' Save'}
+            {location.state.product ? ' Update' : ' Save'}
           </Button>
           <Button variant="btn btn-danger">
             <i className="bi bi-exclamation-circle"></i>&nbsp; Delete
