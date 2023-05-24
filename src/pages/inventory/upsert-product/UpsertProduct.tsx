@@ -3,12 +3,11 @@ import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Product } from '../../../interfaces/product';
 import { Category } from '../../../interfaces/category/Category';
-import Form from 'react-bootstrap/esm/Form';
+import {Form, Button} from 'react-bootstrap';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { productValidationSchema } from '../../../services/yupValidation.service';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { ErrorInputView } from '../../../components/errorInputView/ErrorInputView';
-import Button from 'react-bootstrap/esm/Button';
 import { firstCharToUpper } from '../../../utils/string.helper';
 import { useSaveNewProduct, useUpdateProduct } from '../../../hooks/products.hooks';
 import { swalConfirmAlert } from '../../../services/swal.service';
@@ -17,7 +16,8 @@ export const UpsertProduct = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isDirty }
+    formState: { errors, isDirty },
+    setValue
   } = useForm({
     resolver: yupResolver(productValidationSchema)
   });
