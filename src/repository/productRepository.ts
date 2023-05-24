@@ -36,3 +36,13 @@ export const updateProduct = async (product: Product): Promise<Product> => {
     return Promise.reject(error);
   }
 };
+
+export const deleteProduct = async (productID: number): Promise<void> => {
+  try {
+    await axios.delete(`${API_URL}/${productID}/delete`, {
+      headers: userAuthorizationHeaders()
+    });
+  } catch (error: any) {
+    return Promise.reject(error);
+  }
+};

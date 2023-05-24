@@ -9,8 +9,12 @@ import { productValidationSchema } from '../../../services/yupValidation.service
 import { yupResolver } from '@hookform/resolvers/yup';
 import { ErrorInputView } from '../../../components/errorInputView/ErrorInputView';
 import { firstCharToUpper } from '../../../utils/string.helper';
-import { useSaveNewProduct, useUpdateProduct } from '../../../hooks/products.hooks';
 import { swalConfirmAlert } from '../../../services/swal.service';
+import {
+  useDeleteProduct,
+  useSaveNewProduct,
+  useUpdateProduct
+} from '../../../hooks/products.hooks';
 
 export const UpsertProduct = () => {
   const {
@@ -29,6 +33,7 @@ export const UpsertProduct = () => {
 
   const newProductMutation = useSaveNewProduct();
   const updateProductMutation = useUpdateProduct();
+  const deleteProductMutation = useDeleteProduct();
 
   useEffect(() => {
     if (location.state.product) {
@@ -41,7 +46,7 @@ export const UpsertProduct = () => {
       setValue('productCategoryID', location.state.product.productCategoryID);
     }
     setCategories(location.state.categories || location.state);
-  }, [location.state]);
+  }, []);
 
   const upsertProduct: SubmitHandler<FieldValues> = async (data) => {
     const productData: Product = {
@@ -70,9 +75,18 @@ export const UpsertProduct = () => {
     isConfirmed && confirmAction().then(() => navigate('/inventory/products'));
   };
 
+  const deleteProduct = async (productID: number) => {
+    let confirmTitle = `Are you sure you want to <strong>DELETE</strong> the ${location.state.product.productName} product?`;
+
+    const isConfirmed = await swalConfirmAlert(confirmTitle, 'Delete', 'warning');
+
+    isConfirmed &&
+      deleteProductMutation.mutateAsync(productID).then(() => navigate('/inventory/products'));
+  };
+
   return (
     <div className="upsert-product-container container-fluid">
-      <h1>{location.state ? 'Edit' : 'Add New'} Product</h1>
+      <h1>{location.state.product ? 'Edit' : 'Add New'} Product</h1>
       <Form className="card" onSubmit={handleSubmit(upsertProduct)}>
         <Form.Group>
           <Form.Label>Product Name</Form.Label>
@@ -127,9 +141,16 @@ export const UpsertProduct = () => {
             <i className="bi bi-database"></i>&nbsp;
             {location.state.product ? ' Update' : ' Save'}
           </Button>
-          <Button variant="btn btn-danger">
-            <i className="bi bi-exclamation-circle"></i>&nbsp; Delete
-          </Button>
+
+          {location.state.product && (
+            <Button
+              variant="btn btn-danger"
+              onClick={() => deleteProduct(location.state.product.productID)}
+            >
+              <i className="bi bi-exclamation-circle"></i>&nbsp; Delete
+            </Button>
+          )}
+
           <Button variant="outline-dark" onClick={() => navigate('/inventory/products')}>
             <i className="bi bi-arrow-left"></i>&nbsp; Back
           </Button>

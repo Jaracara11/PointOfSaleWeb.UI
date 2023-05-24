@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { addProduct, getAllProducts, updateProduct } from '../repository/productRepository';
+import { addProduct, deleteProduct, getAllProducts, updateProduct } from '../repository/productRepository';
 import { handleErrorResponse } from '../services/error.Service';
 import { swalMessageAlert } from '../services/swal.service';
 
@@ -32,6 +32,19 @@ export const useUpdateProduct = () => {
     onSuccess: () => {
       queryClient.invalidateQueries(['products']);
       swalMessageAlert(`Product updated successfully`, 'info');
+    },
+    onError: (error) => handleErrorResponse(error, 'ProductError')
+  });
+};
+
+export const useDeleteProduct = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: deleteProduct,
+    onSuccess: () => {
+      queryClient.invalidateQueries(['products']);
+      swalMessageAlert(`Product deleted successfully`, 'info');
     },
     onError: (error) => handleErrorResponse(error, 'ProductError')
   });
