@@ -8,7 +8,7 @@ import { getProductCategoryName } from '../../../utils/inventory.helper';
 import { UserAuth } from '../../../context/UserContext';
 import { SearchInput } from '../../../components/searchInput/SearchInput';
 import { useState } from 'react';
-import { Pagination } from '../../../components/pagination/Pagination';
+import { PaginationControl } from '../../../components/paginationControl/PaginationControl';
 import { validateUserRolePermission } from '../../../services/user.Service';
 import { Link } from 'react-router-dom';
 
@@ -95,7 +95,7 @@ export const Products = () => {
               ))}
             </tbody>
           </Table>
-          <Pagination
+          <PaginationControl
             currentPage={currentPage}
             totalPages={totalPages || 0}
             onPageChange={setCurrentPage}

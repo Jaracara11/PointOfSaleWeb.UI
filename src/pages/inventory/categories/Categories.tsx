@@ -4,7 +4,7 @@ import { Category } from '../../../interfaces/category/Category';
 import { useState } from 'react';
 import { CategoryModal } from '../../../components/categoryModal/CategoryModal';
 import { UserAuth } from '../../../context/UserContext';
-import { Pagination } from '../../../components/pagination/Pagination';
+import { PaginationControl } from '../../../components/paginationControl/PaginationControl';
 import { LoadingSpinner } from '../../../components/loadingSpinner/LoadingSpinner';
 import { useGetCategories } from '../../../hooks/categories.hooks';
 import { SearchInput } from '../../../components/searchInput/SearchInput';
@@ -89,7 +89,7 @@ export const Categories = () => {
               ))}
             </tbody>
           </Table>
-          <Pagination
+          <PaginationControl
             currentPage={currentPage}
             totalPages={totalPages || 0}
             onPageChange={setCurrentPage}

@@ -1,7 +1,7 @@
-import './pagination.css';
+import './paginationControl.css';
 import { PaginationProps } from '../../interfaces/PaginationProps';
 
-export const Pagination = ({ currentPage, totalPages, onPageChange }: PaginationProps) => {
+export const PaginationControl = ({ currentPage, totalPages, onPageChange }: PaginationProps) => {
   const handlePageChange = (pageNumber: number) => {
     if (pageNumber < 1 || pageNumber > totalPages) return;
     onPageChange(pageNumber);
