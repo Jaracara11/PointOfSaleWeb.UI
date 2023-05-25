@@ -39,19 +39,20 @@ export const Products = () => {
   return (
     <div className="products-container container-fluid">
       <h1>Products</h1>
-      <div className="btn-panel">
-        {user && validateUserRolePermission(['Admin', 'Manager']) && (
-          <Link
-            className="mb-3 btn btn-dark"
-            state={categoriesQuery.data}
-            to="/inventory/upsert-product"
-          >
+      {user && validateUserRolePermission(['Admin', 'Manager']) && (
+        <div className="btn-panel">
+          <Link className="mb-3 btn btn-dark" state={categoriesQuery.data} to="/upsert-product">
             <i className="bi bi-plus-lg"></i>
             &nbsp;Add New Product
           </Link>
-        )}
-        <SearchInput searchQuery={searchProductQuery} setSearchQuery={setSearchProductQuery} />
-      </div>
+          <Link className="mb-3 btn btn-outline-dark" to="/categories">
+            <i className="bi bi-globe"></i>
+            &nbsp;Show All Categories
+          </Link>
+
+          <SearchInput searchQuery={searchProductQuery} setSearchQuery={setSearchProductQuery} />
+        </div>
+      )}
       {productsQuery.data && (
         <>
           <Table bordered hover>
@@ -86,7 +87,7 @@ export const Products = () => {
                       <Link
                         className="btn btn-outline-dark"
                         state={{ product, categories: categoriesQuery.data }}
-                        to="/inventory/upsert-product"
+                        to="/upsert-product"
                       >
                         <i className="bi bi-pencil"></i>&nbsp;Edit
                       </Link>

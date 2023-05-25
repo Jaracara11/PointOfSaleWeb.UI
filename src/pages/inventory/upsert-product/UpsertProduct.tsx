@@ -72,7 +72,7 @@ export const UpsertProduct = () => {
 
     const isConfirmed = await swalConfirmAlert(confirmTitle, 'Save', 'question');
 
-    isConfirmed && confirmAction().then(() => navigate('/inventory/products'));
+    isConfirmed && confirmAction().then(() => navigate('/products'));
   };
 
   const deleteProduct = async (productID: number) => {
@@ -80,8 +80,7 @@ export const UpsertProduct = () => {
 
     const isConfirmed = await swalConfirmAlert(confirmTitle, 'Delete', 'warning');
 
-    isConfirmed &&
-      deleteProductMutation.mutateAsync(productID).then(() => navigate('/inventory/products'));
+    isConfirmed && deleteProductMutation.mutateAsync(productID).then(() => navigate('/products'));
   };
 
   return (
@@ -151,7 +150,7 @@ export const UpsertProduct = () => {
             </Button>
           )}
 
-          <Button variant="outline-dark" onClick={() => navigate('/inventory/products')}>
+          <Button variant="outline-dark" onClick={() => navigate('/products')}>
             <i className="bi bi-arrow-left"></i>&nbsp; Back
           </Button>
         </div>

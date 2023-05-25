@@ -6,7 +6,6 @@ import {
 } from 'react-router-dom';
 import { Login } from '../pages/login/Login';
 import { Home } from '../pages/home/Home';
-import { Inventory } from '../pages/inventory/Inventory';
 import { NotFound } from '../pages/notFound/NotFound';
 import { PrivateRoutes } from './PrivateRoutes';
 import { RootLayout } from '../layouts/RootLayout';
@@ -23,12 +22,9 @@ export const AppRouter = () => {
         <Route element={<RootLayout />}>
           <Route element={<PrivateRoutes />}>
             <Route path="/home" element={<Home />} />
-            <Route path="/inventory">
-              <Route index element={<Inventory />} />
-              <Route path="categories" element={<Categories />} />
-              <Route path="products" element={<Products />} />
-              <Route path="upsert-product" element={<UpsertProduct />} />
-            </Route>
+            <Route path="/products" element={<Products />} />
+            <Route path="/categories" element={<Categories />} />
+            <Route path="/upsert-product" element={<UpsertProduct />} />
           </Route>
         </Route>
       </Route>
