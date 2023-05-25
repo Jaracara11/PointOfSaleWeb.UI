@@ -54,7 +54,7 @@ export const Products = () => {
       </div>
       {productsQuery.data && (
         <>
-          <Table hover>
+          <Table bordered hover>
             <thead>
               <tr>
                 <th>Name</th>
@@ -63,6 +63,7 @@ export const Products = () => {
                 <th>Cost</th>
                 <th>Price</th>
                 <th>Category</th>
+                <th></th>
               </tr>
             </thead>
             <tbody>

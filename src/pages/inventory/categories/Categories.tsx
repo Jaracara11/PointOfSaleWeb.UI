@@ -63,6 +63,7 @@ export const Categories = () => {
             <thead>
               <tr>
                 <th>Name</th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
