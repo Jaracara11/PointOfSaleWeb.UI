@@ -1,4 +1,4 @@
-import { Category } from '../interfaces/category/Category';
+import { Category } from '../interfaces/Category';
 
 export const getProductCategoryName = (productCategoryID: number, categoriesList: Category[]) => {
   const category = (categoriesList || []).find(

@@ -1,9 +1,9 @@
-import './upsertProduct.css';
+import './upsertProductModal.css';
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Product } from '../../../interfaces/product';
-import { Category } from '../../../interfaces/category/Category';
-import { Form, Button } from 'react-bootstrap';
+import { Product } from '../../../interfaces/inventory/product';
+import { Category } from '../../../interfaces/Category';
+import { Form, Button, Modal } from 'react-bootstrap';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { productValidationSchema } from '../../../services/yupValidation.service';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -16,7 +16,7 @@ import {
   useUpdateProduct
 } from '../../../hooks/products.hooks';
 
-export const UpsertProduct = () => {
+export const UpsertProductModal = ({ toggle, category, product }: any) => {
   const {
     register,
     handleSubmit,
@@ -30,10 +30,16 @@ export const UpsertProduct = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [categories, setCategories] = useState<Category[]>();
+  const [showModal, setShowModal] = useState<boolean>(true);
 
   const newProductMutation = useSaveNewProduct();
   const updateProductMutation = useUpdateProduct();
   const deleteProductMutation = useDeleteProduct();
+
+  const closeModal = () => {
+    setShowModal(false);
+    toggle();
+  };
 
   useEffect(() => {
     if (location.state.product) {
@@ -84,9 +90,9 @@ export const UpsertProduct = () => {
   };
 
   return (
-    <div className="upsert-product-container container-fluid">
-      <h1>{location.state.product ? 'Edit' : 'Add New'} Product</h1>
+    <Modal className="product-upsert-modal" show={showModal} onHide={closeModal} centered>
       <Form className="card" onSubmit={handleSubmit(upsertProduct)}>
+        <h1>{location.state.product ? 'Edit' : 'Add New'} Product</h1>
         <Form.Group>
           <Form.Label>Product Name</Form.Label>
           <Form.Control type="text" placeholder="Enter product name" {...register('productName')} />
@@ -135,7 +141,7 @@ export const UpsertProduct = () => {
           />
           <ErrorInputView error={errors.productPrice} />
         </Form.Group>
-        <div>
+        <div className="btn-panel">
           <Button variant="btn btn-dark" disabled={!isDirty} onClick={handleSubmit(upsertProduct)}>
             <i className="bi bi-database"></i>&nbsp;
             {location.state.product ? ' Update' : ' Save'}
@@ -155,6 +161,6 @@ export const UpsertProduct = () => {
           </Button>
         </div>
       </Form>
-    </div>
+    </Modal>
   );
 };

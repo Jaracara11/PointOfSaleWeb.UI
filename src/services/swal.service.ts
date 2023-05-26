@@ -12,7 +12,8 @@ export const swalMessageAlert = (msg: string, alertType: SweetAlertIcon) => {
   return SwalObj.fire({
     title: msg,
     icon: alertType,
-    showConfirmButton: false
+    showConfirmButton: false,
+    timer: 1500
   });
 };
 

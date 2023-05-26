@@ -1,0 +1,28 @@
+.product-upsert-modal .btn-panel {
+  margin-top: 3rem;
+}
+
+.product-upsert-modal .btn-danger {
+  margin-right: 1rem;
+}
+
+.product-upsert-modal .btn-outline-dark {
+  float: left;
+}
+
+.product-upsert-modal label {
+  font-weight: bold;
+}
+
+.product-upsert-modal form {
+  padding: 1rem;
+}
+
+.product-upsert-modal div:nth-child(2) {
+  margin-top: 1rem;
+}
+
+.product-upsert-modal textarea,
+select {
+  margin-bottom: 1rem;
+}

@@ -3,19 +3,19 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Button, Form } from 'react-bootstrap';
 import Modal from 'react-bootstrap/Modal';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
-import { categoryValidationSchema } from '../../services/yupValidation.service';
-import { ErrorInputView } from '../errorInputView/ErrorInputView';
-import { Category } from '../../interfaces/category/Category';
+import { categoryValidationSchema } from '../../../services/yupValidation.service';
+import { ErrorInputView } from '../../errorInputView/ErrorInputView';
+import { Category } from '../../../interfaces/Category';
 import { useEffect, useState } from 'react';
-import { LoadingSpinner } from '../loadingSpinner/LoadingSpinner';
-import { firstCharToUpper } from '../../utils/string.helper';
-import { swalConfirmAlert, swalMessageAlert } from '../../services/swal.service';
-import { CategoryModalProps } from '../../interfaces/category/CategoryModalProps';
+import { LoadingSpinner } from '../../loadingSpinner/LoadingSpinner';
+import { firstCharToUpper } from '../../../utils/string.helper';
+import { swalConfirmAlert, swalMessageAlert } from '../../../services/swal.service';
+import { CategoryModalProps } from '../../../interfaces/modals/CategoryModalProps';
 import {
   useDeleteCategory,
   useSaveNewCategory,
   useUpdateCategory
-} from '../../hooks/categories.hooks';
+} from '../../../hooks/categories.hooks';
 
 export const CategoryModal = ({ toggle, category }: CategoryModalProps) => {
   const {
@@ -43,7 +43,7 @@ export const CategoryModal = ({ toggle, category }: CategoryModalProps) => {
       setValue('categoryName', category.categoryName);
       setValue('categoryID', category.categoryID);
     }
-  }, [category, setValue]);
+  }, [category]);
 
   const upsertCategory: SubmitHandler<FieldValues> = async (data) => {
     const categoryData: Category = {
@@ -110,7 +110,7 @@ export const CategoryModal = ({ toggle, category }: CategoryModalProps) => {
         )}
 
         <Button variant="outline-dark" onClick={toggle}>
-          Cancel
+          <i className="bi bi-x-lg"></i>&nbsp;Cancel
         </Button>
       </Modal.Body>
     </Modal>

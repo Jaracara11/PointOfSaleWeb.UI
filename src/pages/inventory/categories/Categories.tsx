@@ -1,8 +1,8 @@
 import './categories.css';
 import Table from 'react-bootstrap/Table';
-import { Category } from '../../../interfaces/category/Category';
+import { Category } from '../../../interfaces/Category';
 import { useState } from 'react';
-import { CategoryModal } from '../../../components/categoryModal/CategoryModal';
+import { CategoryModal } from '../../../components/modals/categoryModal/CategoryModal';
 import { UserAuth } from '../../../context/UserContext';
 import { PaginationControl } from '../../../components/paginationControl/PaginationControl';
 import { LoadingSpinner } from '../../../components/loadingSpinner/LoadingSpinner';

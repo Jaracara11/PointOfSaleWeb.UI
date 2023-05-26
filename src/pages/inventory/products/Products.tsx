@@ -1,8 +1,8 @@
 import './products.css';
 import { useGetProducts } from '../../../hooks/products.hooks';
 import { LoadingSpinner } from '../../../components/loadingSpinner/LoadingSpinner';
-import { Table } from 'react-bootstrap';
-import { Product } from '../../../interfaces/product';
+import { Button, Table } from 'react-bootstrap';
+import { Product } from '../../../interfaces/inventory/product';
 import { useGetCategories } from '../../../hooks/categories.hooks';
 import { getProductCategoryName } from '../../../utils/inventory.helper';
 import { UserAuth } from '../../../context/UserContext';
@@ -11,12 +11,17 @@ import { useState } from 'react';
 import { PaginationControl } from '../../../components/paginationControl/PaginationControl';
 import { validateUserRolePermission } from '../../../services/user.Service';
 import { Link } from 'react-router-dom';
+import { UpsertProductModal } from '../../../components/modals/upsertProductModal/UpsertProductModal';
 
 export const Products = () => {
   const { user } = UserAuth() || {};
   const productsQuery = useGetProducts();
   const categoriesQuery = useGetCategories();
   const [searchProductQuery, setSearchProductQuery] = useState<string>('');
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [showModal, setShowModal] = useState<boolean>(false);
+
+  const toggleModal = () => setShowModal((prev) => !prev);
 
   ///////////////////////////Pagination////////////////////////////////
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -41,10 +46,16 @@ export const Products = () => {
       <h1>Products</h1>
       {user && validateUserRolePermission(['Admin', 'Manager']) && (
         <div className="btn-panel">
-          <Link className="mb-3 btn btn-dark" state={categoriesQuery.data} to="/upsert-product">
+          <Button
+            className="mb-3 btn btn-dark"
+            onClick={() => {
+              setSelectedProduct(null);
+              toggleModal();
+            }}
+          >
             <i className="bi bi-plus-lg"></i>
             &nbsp;Add New Product
-          </Link>
+          </Button>
           <Link className="mb-3 btn btn-outline-dark" to="/categories">
             <i className="bi bi-globe"></i>
             &nbsp;Show All Categories
@@ -84,13 +95,15 @@ export const Products = () => {
                   </td>
                   <td>
                     {validateUserRolePermission(['Admin', 'Manager']) && (
-                      <Link
-                        className="btn btn-outline-dark"
-                        state={{ product, categories: categoriesQuery.data }}
-                        to="/upsert-product"
+                      <Button
+                        variant="outline-dark"
+                        onClick={() => {
+                          setSelectedProduct(product);
+                          toggleModal();
+                        }}
                       >
                         <i className="bi bi-pencil"></i>&nbsp;Edit
-                      </Link>
+                      </Button>
                     )}
                   </td>
                 </tr>
@@ -103,6 +116,14 @@ export const Products = () => {
             onPageChange={setCurrentPage}
           />
         </>
+      )}
+
+      {showModal && (
+        <UpsertProductModal
+          toggle={toggleModal}
+          product={selectedProduct}
+          categories={categoriesQuery.data || []}
+        />
       )}
     </div>
   );
