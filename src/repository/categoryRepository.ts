@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Category } from '../interfaces/Category';
+import { Category } from '../interfaces/inventory/Category';
 import { userAuthorizationHeaders } from '../services/user.Service';
 
 const API_URL = import.meta.env.VITE_API_URL + '/category';

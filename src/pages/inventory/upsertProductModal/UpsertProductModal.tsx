@@ -2,7 +2,7 @@ import './upsertProductModal.css';
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Product } from '../../../interfaces/inventory/product';
-import { Category } from '../../../interfaces/Category';
+import { Category } from '../../../interfaces/inventory/Category';
 import { Form, Button, Modal } from 'react-bootstrap';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { productValidationSchema } from '../../../services/yupValidation.service';

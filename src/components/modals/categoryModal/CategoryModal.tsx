@@ -5,7 +5,7 @@ import Modal from 'react-bootstrap/Modal';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { categoryValidationSchema } from '../../../services/yupValidation.service';
 import { ErrorInputView } from '../../errorInputView/ErrorInputView';
-import { Category } from '../../../interfaces/Category';
+import { Category } from '../../../interfaces/inventory/Category';
 import { useEffect, useState } from 'react';
 import { LoadingSpinner } from '../../loadingSpinner/LoadingSpinner';
 import { firstCharToUpper } from '../../../utils/string.helper';

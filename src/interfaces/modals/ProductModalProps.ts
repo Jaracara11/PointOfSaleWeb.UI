@@ -1,5 +1,5 @@
 import { Product } from '../inventory/product';
-import { Category } from '../Category';
+import { Category } from '../inventory/Category';
 
 export interface ProductModalProps {
   toggle: () => void;
