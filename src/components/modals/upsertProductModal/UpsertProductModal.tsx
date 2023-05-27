@@ -48,7 +48,7 @@ export const UpsertProductModal = ({ toggle, product, categories }: ProductModal
       setValue('productPrice', product.productPrice);
       setValue('productCategoryID', product.productCategoryID);
     }
-  }, [[product]]);
+  }, [product]);
 
   const upsertProduct: SubmitHandler<FieldValues> = async (data) => {
     const productData: Product = {
