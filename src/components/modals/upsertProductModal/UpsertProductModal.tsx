@@ -124,21 +124,17 @@ export const UpsertProductModal = ({ toggle, product, categories }: ProductModal
           <ErrorInputView error={errors.productCategoryID} />
           <Form.Label>Product Stock</Form.Label>
           <Form.Control
-            type="number"
+            type="text"
             placeholder="Enter product stock"
             {...register('productStock')}
           />
           <ErrorInputView error={errors.productStock} />
           <Form.Label>Product Cost</Form.Label>
-          <Form.Control
-            type="number"
-            placeholder="Enter product cost"
-            {...register('productCost')}
-          />
+          <Form.Control type="text" placeholder="Enter product cost" {...register('productCost')} />
           <ErrorInputView error={errors.productCost} />
           <Form.Label>Product Price</Form.Label>
           <Form.Control
-            type="number"
+            type="text"
             placeholder="Enter product price"
             {...register('productPrice')}
           />
