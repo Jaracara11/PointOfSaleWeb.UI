@@ -4,15 +4,11 @@
 
 .categories-container table {
   cursor: pointer;
-  margin-top: 8rem;
+  margin-top: 7rem;
 }
 
 .categories-container .btn-dark {
   float: left;
-}
-
-.categories-container .btn-panel {
-  margin-top: 2rem;
 }
 
 .categories-container .search-input {

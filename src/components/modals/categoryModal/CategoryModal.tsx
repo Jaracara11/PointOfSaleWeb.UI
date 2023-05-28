@@ -89,30 +89,29 @@ export const CategoryModal = ({ toggle, category }: CategoryModalProps) => {
 
   return (
     <Modal className="category-modal" show={showModal} onHide={closeModal} centered>
-      <Modal.Body>
-        <Form onSubmit={handleSubmit(upsertCategory)}>
-          <Form.Control
-            className="mt-4"
-            type="text"
-            placeholder="New Category Name"
-            {...register('categoryName')}
-          />
+      <Form onSubmit={handleSubmit(upsertCategory)}>
+        <h3 className="title">{category ? 'Edit' : 'Add New'} Category</h3>
+        <Modal.Body>
+          <Form.Control type="text" placeholder="New Category Name" {...register('categoryName')} />
           <ErrorInputView error={errors.categoryName} />
-        </Form>
-        <Button variant="dark ms-3" disabled={!isDirty} onClick={handleSubmit(upsertCategory)}>
-          <i className="bi bi-database"></i>&nbsp;{category ? ' Update' : ' Save'}
-        </Button>
 
-        {category && (
-          <Button variant="danger ms-3" onClick={() => deleteCategory(category)}>
-            <i className="bi bi-exclamation-circle"></i>&nbsp; Delete
-          </Button>
-        )}
+          <div className="btn-panel">
+            <Button variant="dark" disabled={!isDirty} onClick={handleSubmit(upsertCategory)}>
+              <i className="bi bi-database"></i>&nbsp;{category ? ' Update' : ' Save'}
+            </Button>
 
-        <Button variant="outline-dark" onClick={toggle}>
-          <i className="bi bi-x-lg"></i>&nbsp;Cancel
-        </Button>
-      </Modal.Body>
+            {category && (
+              <Button variant="danger" onClick={() => deleteCategory(category)}>
+                <i className="bi bi-exclamation-circle"></i>&nbsp; Delete
+              </Button>
+            )}
+
+            <Button variant="outline-dark" onClick={toggle}>
+              <i className="bi bi-x-lg"></i>&nbsp;Cancel
+            </Button>
+          </div>
+        </Modal.Body>
+      </Form>
     </Modal>
   );
 };

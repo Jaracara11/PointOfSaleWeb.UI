@@ -96,7 +96,7 @@ export const UpsertProductModal = ({ toggle, product, categories }: ProductModal
   return (
     <Modal className="product-upsert-modal" show={showModal} onHide={closeModal} centered>
       <Form onSubmit={handleSubmit(upsertProduct)}>
-        <h1>{product ? 'Edit' : 'Add New'} Product</h1>
+        <h3 className="title">{product ? 'Edit' : 'Add New'} Product</h3>
         <Form.Group>
           <Form.Label>Product Name</Form.Label>
           <Form.Control type="text" placeholder="Enter product name" {...register('productName')} />
@@ -140,6 +140,7 @@ export const UpsertProductModal = ({ toggle, product, categories }: ProductModal
           />
           <ErrorInputView error={errors.productPrice} />
         </Form.Group>
+
         <div className="btn-panel">
           <Button variant="btn btn-dark" disabled={!isDirty} onClick={handleSubmit(upsertProduct)}>
             <i className="bi bi-database"></i>&nbsp;

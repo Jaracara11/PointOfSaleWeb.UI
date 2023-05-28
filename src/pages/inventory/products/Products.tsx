@@ -43,12 +43,12 @@ export const Products = () => {
 
   return (
     <div className="products-container container-fluid">
-      <h1>Products</h1>
+      <h1 className="title">Products</h1>
 
       <div className="btn-panel">
         {user && validateUserRolePermission(['Admin', 'Manager']) && (
           <Button
-            className="mb-3 btn btn-dark"
+            variant="dark"
             onClick={() => {
               setSelectedProduct(null);
               toggleModal();
@@ -58,7 +58,7 @@ export const Products = () => {
             &nbsp;Add New Product
           </Button>
         )}
-        <Link className="mb-3 btn btn-outline-dark" to="/categories">
+        <Link className="btn btn-outline-dark" to="/categories">
           <i className="bi bi-globe"></i>
           &nbsp;Show All Categories
         </Link>

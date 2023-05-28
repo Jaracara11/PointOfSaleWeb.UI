@@ -9,6 +9,7 @@ import { LoadingSpinner } from '../../../components/loadingSpinner/LoadingSpinne
 import { useGetCategories } from '../../../hooks/categories.hooks';
 import { SearchInput } from '../../../components/searchInput/SearchInput';
 import { validateUserRolePermission } from '../../../services/user.Service';
+import Button from 'react-bootstrap/esm/Button';
 
 export const Categories = () => {
   const { user } = UserAuth() || {};
@@ -40,11 +41,11 @@ export const Categories = () => {
 
   return (
     <div className="categories-container container-fluid">
-      <h1>Categories</h1>
+      <h1 className="title">Categories</h1>
       <div className="btn-panel">
         {user && validateUserRolePermission(['Admin', 'Manager']) && (
-          <button
-            className="mb-3 btn btn-dark"
+          <Button
+            variant="dark"
             onClick={() => {
               setSelectedCategory(null);
               toggleModal();
@@ -52,7 +53,7 @@ export const Categories = () => {
           >
             <i className="bi bi-plus-lg"></i>
             &nbsp;Add New Category
-          </button>
+          </Button>
         )}
         <SearchInput searchQuery={searchCategoryQuery} setSearchQuery={setSearchCategoryQuery} />
       </div>
@@ -75,15 +76,15 @@ export const Categories = () => {
                   </td>
                   <td>
                     {validateUserRolePermission(['Admin', 'Manager']) && (
-                      <button
-                        className="btn btn-outline-dark"
+                      <Button
+                        variant="outline-dark"
                         onClick={() => {
                           setSelectedCategory(category);
                           toggleModal();
                         }}
                       >
                         <i className="bi bi-pencil"></i>&nbsp;Edit
-                      </button>
+                      </Button>
                     )}
                   </td>
                 </tr>

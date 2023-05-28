@@ -92,7 +92,7 @@ export const UpsertProductModal = ({ toggle, category, product }: any) => {
   return (
     <Modal className="product-upsert-modal" show={showModal} onHide={closeModal} centered>
       <Form className="card" onSubmit={handleSubmit(upsertProduct)}>
-        <h1>{location.state.product ? 'Edit' : 'Add New'} Product</h1>
+        <h1 className="title">{location.state.product ? 'Edit' : 'Add New'} Product</h1>
         <Form.Group>
           <Form.Label>Product Name</Form.Label>
           <Form.Control type="text" placeholder="Enter product name" {...register('productName')} />
