@@ -44,8 +44,9 @@ export const Products = () => {
   return (
     <div className="products-container container-fluid">
       <h1>Products</h1>
-      {user && validateUserRolePermission(['Admin', 'Manager']) && (
-        <div className="btn-panel">
+
+      <div className="btn-panel">
+        {user && validateUserRolePermission(['Admin', 'Manager']) && (
           <Button
             className="mb-3 btn btn-dark"
             onClick={() => {
@@ -56,14 +57,15 @@ export const Products = () => {
             <i className="bi bi-plus-lg"></i>
             &nbsp;Add New Product
           </Button>
-          <Link className="mb-3 btn btn-outline-dark" to="/categories">
-            <i className="bi bi-globe"></i>
-            &nbsp;Show All Categories
-          </Link>
+        )}
+        <Link className="mb-3 btn btn-outline-dark" to="/categories">
+          <i className="bi bi-globe"></i>
+          &nbsp;Show All Categories
+        </Link>
 
-          <SearchInput searchQuery={searchProductQuery} setSearchQuery={setSearchProductQuery} />
-        </div>
-      )}
+        <SearchInput searchQuery={searchProductQuery} setSearchQuery={setSearchProductQuery} />
+      </div>
+
       {productsQuery.data && (
         <>
           <Table bordered hover>
