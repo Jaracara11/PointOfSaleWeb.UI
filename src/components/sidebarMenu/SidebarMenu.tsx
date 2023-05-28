@@ -1,8 +1,9 @@
 import './sidebarMenu.css';
 import { UserAuth } from '../../context/UserContext';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Popover from 'react-bootstrap/Popover';
+import { validateUserRolePermission } from '../../services/user.Service';
 
 export const SidebarMenu = () => {
   const { user, signOut } = UserAuth() || {};
@@ -11,9 +12,9 @@ export const SidebarMenu = () => {
     <Popover className="sidebar-popover">
       <Popover.Header as="h3">{user && user.name}</Popover.Header>
       <Popover.Body>
-        <NavLink className="btn btn-dark" to="/" onClick={() => signOut?.()}>
+        <Link className="btn btn-dark" to="/" onClick={() => signOut?.()}>
           Sign Out
-        </NavLink>
+        </Link>
       </Popover.Body>
     </Popover>
   );
@@ -41,6 +42,13 @@ export const SidebarMenu = () => {
           <i className="bi bi-clipboard-check"></i>
           <span>Inventory</span>
         </NavLink>
+
+        {user && validateUserRolePermission(['Admin', 'Manager']) && (
+          <NavLink className="nav-link" to="user">
+            <i className="bi bi-person-gear"></i>
+            <span>User Management</span>
+          </NavLink>
+        )}
 
         {user && (
           <div className="user-profile">
