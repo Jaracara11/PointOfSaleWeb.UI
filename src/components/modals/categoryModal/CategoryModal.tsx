@@ -1,7 +1,5 @@
-import './categoryModal.css';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Button, Form } from 'react-bootstrap';
-import Modal from 'react-bootstrap/Modal';
+import { Button, Form, Modal } from 'react-bootstrap';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { categoryValidationSchema } from '../../../services/yupValidation.service';
 import { ErrorInputView } from '../../errorInputView/ErrorInputView';
@@ -88,7 +86,7 @@ export const CategoryModal = ({ toggle, category }: CategoryModalProps) => {
   }
 
   return (
-    <Modal className="category-modal" show={showModal} onHide={closeModal} centered>
+    <Modal className="common-modal" show={showModal} onHide={closeModal} centered>
       <Form onSubmit={handleSubmit(upsertCategory)}>
         <h3 className="title">{category ? 'Edit' : 'Add New'} Category</h3>
         <Modal.Body>

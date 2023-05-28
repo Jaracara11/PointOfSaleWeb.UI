@@ -12,6 +12,23 @@ export const loginValidationSchema = Yup.object({
     .required('This field is mandatory!')
 });
 
+export const changePasswordValidationSchema = Yup.object().shape({
+  oldPassword: Yup.string().required('Old Password is required.'),
+  newPassword: Yup.string()
+    .required('New Password is required.')
+    .max(25, 'Password cannot exceed 25 characters.')
+    .min(4, 'Password must be at least 4 characters long.')
+    .notOneOf(
+      [Yup.ref('oldPassword'), undefined],
+      'The new password cannot be the same as the old one.'
+    ),
+  repeatNewPassword: Yup.string()
+    .max(25, 'Password cannot exceed 25 characters.')
+    .min(4, 'Password must be at least 4 characters long.')
+    .oneOf([Yup.ref('newPassword'), undefined], 'The new password must match.')
+    .required('Please repeat the new password.')
+});
+
 export const categoryValidationSchema = Yup.object({
   categoryName: Yup.string()
     .max(25, 'Category name cannot exceed 50 characters.')

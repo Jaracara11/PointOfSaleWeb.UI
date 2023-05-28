@@ -3,18 +3,27 @@ import { UserAuth } from '../../context/UserContext';
 import { Link, NavLink } from 'react-router-dom';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Popover from 'react-bootstrap/Popover';
-import { validateUserRolePermission } from '../../services/user.Service';
+import { deleteUserAuth, validateUserRolePermission } from '../../services/user.Service';
+import Button from 'react-bootstrap/esm/Button';
+import { ChangePasswordModal } from '../modals/changePasswordModal/ChangePasswordModal';
+import { useState } from 'react';
 
 export const SidebarMenu = () => {
-  const { user, signOut } = UserAuth() || {};
+  const { user } = UserAuth() || {};
+  const [showModal, setShowModal] = useState<boolean>(false);
+
+  const toggleModal = () => setShowModal((prev) => !prev);
 
   const userPopover = (
     <Popover className="sidebar-popover">
       <Popover.Header as="h3">{user && user.name}</Popover.Header>
       <Popover.Body>
-        <Link className="btn btn-dark" to="/" onClick={() => signOut?.()}>
+        <Link className="btn btn-dark" to="/" onClick={() => deleteUserAuth()}>
           Sign Out
         </Link>
+        <Button variant="outline-dark" onClick={() => toggleModal()}>
+          Change Password
+        </Button>
       </Popover.Body>
     </Popover>
   );
@@ -62,6 +71,8 @@ export const SidebarMenu = () => {
           </div>
         )}
       </div>
+
+      {showModal && user && <ChangePasswordModal toggle={toggleModal} username={user.username} />}
     </div>
   );
 };

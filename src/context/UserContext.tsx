@@ -17,14 +17,12 @@ export const UserContextProvider = ({ children }: UserContextProviderProps) => {
     userInfo && setUserAuth(userInfo);
   };
 
-  const signOut = () => deleteUserAuth();
-
   useEffect(() => {
     const user = getUserAuth();
     setUser(user);
   }, []);
 
-  return <UserContext.Provider value={{ user, signIn, signOut }}>{children}</UserContext.Provider>;
+  return <UserContext.Provider value={{ user, signIn }}>{children}</UserContext.Provider>;
 };
 
 export const UserAuth = () => {

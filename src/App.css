@@ -6,7 +6,7 @@
 }
 
 body {
-  overflow: scroll;
+  overflow: hidden;
   margin: 0;
   padding: 0;
   background-color: whitesmoke;
@@ -24,4 +24,17 @@ body {
 
 .btn-panel {
   margin-top: 2rem;
+}
+
+/* COMMON MODAL STYLE */
+.common-modal .btn-outline-dark {
+  float: left;
+}
+
+.common-modal button {
+  margin-bottom: 1rem;
+}
+
+.common-modal h3 {
+  margin: 0.5rem;
 }
