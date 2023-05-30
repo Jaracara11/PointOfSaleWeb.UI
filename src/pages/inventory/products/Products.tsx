@@ -41,6 +41,11 @@ export const Products = () => {
 
   if (productsQuery.isLoading || categoriesQuery.isLoading) return <LoadingSpinner />;
 
+  const handlePageChange = (pageNumber: number) => {
+    if (pageNumber < 1 || pageNumber > totalPages) return;
+    setCurrentPage(pageNumber);
+  };
+
   return (
     <div className="products-container container-fluid">
       <h1 className="title">Products</h1>
@@ -114,8 +119,8 @@ export const Products = () => {
           </Table>
           <PaginationControl
             currentPage={currentPage}
-            totalPages={totalPages || 0}
-            onPageChange={setCurrentPage}
+            totalPages={totalPages}
+            onPageChange={handlePageChange}
           />
         </>
       )}
