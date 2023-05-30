@@ -26,17 +26,17 @@ export const Products = () => {
   ///////////////////////////Pagination////////////////////////////////
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [productsPerPage] = useState<number>(10);
-  const totalPages = productsQuery.data && Math.ceil(productsQuery.data.length / productsPerPage);
 
-  const indexOfLastProduct = currentPage * productsPerPage;
+  const filteredProducts = (productsQuery.data || []).filter((product) =>
+    product.productName.toLowerCase().includes(searchProductQuery.trim().toLowerCase())
+  );
 
-  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+  const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
 
-  const currentProducts = (productsQuery.data || [])
-    .filter((product) =>
-      product.productName.toLowerCase().includes(searchProductQuery.toLowerCase())
-    )
-    .slice(indexOfFirstProduct, indexOfLastProduct);
+  const indexOfLastProduct = Math.min(currentPage * productsPerPage, filteredProducts.length);
+  const indexOfFirstProduct = (currentPage - 1) * productsPerPage;
+
+  const currentProducts = filteredProducts.slice(indexOfFirstProduct, indexOfLastProduct);
   /////////////////////////Pagination End//////////////////////////////
 
   if (productsQuery.isLoading || categoriesQuery.isLoading) return <LoadingSpinner />;

@@ -23,18 +23,17 @@ export const Categories = () => {
   ///////////////////////////Pagination////////////////////////////////
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [categoriesPerPage] = useState<number>(10);
-  const totalPages =
-    categoriesQuery.data && Math.ceil(categoriesQuery.data.length / categoriesPerPage);
 
-  const indexOfLastCategory = currentPage * categoriesPerPage;
+  const filteredCategories = (categoriesQuery.data || []).filter((category) =>
+    category.categoryName.toLowerCase().includes(searchCategoryQuery.trim().toLowerCase())
+  );
 
-  const indexOfFirstCategory = indexOfLastCategory - categoriesPerPage;
+  const totalPages = Math.ceil(filteredCategories.length / categoriesPerPage);
 
-  const currentCategories = (categoriesQuery.data || [])
-    .filter((category) =>
-      category.categoryName.toLowerCase().includes(searchCategoryQuery.toLowerCase())
-    )
-    .slice(indexOfFirstCategory, indexOfLastCategory);
+  const indexOfLastCategory = Math.min(currentPage * categoriesPerPage, filteredCategories.length);
+  const indexOfFirstCategory = (currentPage - 1) * categoriesPerPage;
+
+  const currentCategories = filteredCategories.slice(indexOfFirstCategory, indexOfLastCategory);
   /////////////////////////Pagination End//////////////////////////////
 
   if (categoriesQuery.isLoading) return <LoadingSpinner />;
