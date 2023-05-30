@@ -13,7 +13,7 @@ export const swalMessageAlert = (msg: string, alertType: SweetAlertIcon) => {
     title: msg,
     icon: alertType,
     showConfirmButton: false,
-    timer: 1500
+    timer: 2000
   });
 };
 

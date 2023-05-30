@@ -16,7 +16,7 @@ import {
   useUpdateProduct
 } from '../../../hooks/products.hooks';
 
-export const UpsertProductModal = ({ toggle, category, product }: any) => {
+export const UpsertProductModal = (toggle: () => void) => {
   const {
     register,
     handleSubmit,

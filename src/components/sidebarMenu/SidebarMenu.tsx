@@ -3,7 +3,7 @@ import { UserAuth } from '../../context/UserContext';
 import { Link, NavLink } from 'react-router-dom';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Popover from 'react-bootstrap/Popover';
-import { deleteUserAuth, validateUserRolePermission } from '../../services/user.Service';
+import { deleteUserAuth } from '../../services/user.Service';
 import Button from 'react-bootstrap/esm/Button';
 import { ChangePasswordModal } from '../modals/changePasswordModal/ChangePasswordModal';
 import { useState } from 'react';
@@ -52,8 +52,8 @@ export const SidebarMenu = () => {
           <span>Inventory</span>
         </NavLink>
 
-        {user && validateUserRolePermission(['Admin', 'Manager']) && (
-          <NavLink className="nav-link" to="user">
+        {user && user.role === 'Admin' && (
+          <NavLink className="nav-link" to="user-management">
             <i className="bi bi-person-gear"></i>
             <span>User Management</span>
           </NavLink>
