@@ -4,11 +4,11 @@ import { UserInfo } from '../interfaces/user/UserInfo';
 import { userAuthorizationHeaders } from '../services/user.Service';
 import { UserPasswordChangeRequest } from '../interfaces/user/UserPasswordChangeRequest';
 
-const USER_URL = import.meta.env.VITE_API_URL + '/user';
+const API_URL = import.meta.env.VITE_API_URL + '/user';
 
 export const login = async (userData: UserLogin): Promise<UserInfo> => {
   try {
-    const response = await axios.post(`${USER_URL}/login`, userData);
+    const response = await axios.post(`${API_URL}/login`, userData);
     return response.data as UserInfo;
   } catch (error: any) {
     return Promise.reject(error);
@@ -17,9 +17,20 @@ export const login = async (userData: UserLogin): Promise<UserInfo> => {
 
 export const changeUserPassword = async (userData: UserPasswordChangeRequest): Promise<void> => {
   try {
-    await axios.put(`${USER_URL}/change-password`, userData, {
+    await axios.put(`${API_URL}/change-password`, userData, {
       headers: userAuthorizationHeaders()
     });
+  } catch (error: any) {
+    return Promise.reject(error);
+  }
+};
+
+export const getAllUsers = async (): Promise<UserInfo[]> => {
+  try {
+    const response = await axios.get(API_URL, {
+      headers: userAuthorizationHeaders()
+    });
+    return response.data as UserInfo[];
   } catch (error: any) {
     return Promise.reject(error);
   }
