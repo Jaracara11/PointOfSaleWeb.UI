@@ -1,5 +1,7 @@
 .sidebar-menu {
-  min-height: 100vh;
+  overflow: hidden;
+  position: fixed;
+  height: 100%;
 }
 
 .sidebar-menu {

@@ -1,7 +1,5 @@
-.root-layout {
-  display: flex;
-}
-
 main {
-  width: 100%;
+  overflow-y: auto;
+  margin-left: 300px;
+  margin-right: 15px;
 }

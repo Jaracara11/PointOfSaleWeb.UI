@@ -4,7 +4,6 @@ import { Category } from '../../../interfaces/inventory/Category';
 import { useState } from 'react';
 import { CategoryModal } from '../../../components/modals/categoryModal/CategoryModal';
 import { UserAuth } from '../../../context/UserContext';
-import { PaginationControl } from '../../../components/paginationControl/PaginationControl';
 import { LoadingSpinner } from '../../../components/loadingSpinner/LoadingSpinner';
 import { useGetCategories } from '../../../hooks/categories.hooks';
 import { SearchInput } from '../../../components/searchInput/SearchInput';
@@ -20,31 +19,14 @@ export const Categories = () => {
 
   const toggleModal = () => setShowModal((prev) => !prev);
 
-  ///////////////////////////Pagination////////////////////////////////
-  const [currentPage, setCurrentPage] = useState<number>(1);
-  const [categoriesPerPage] = useState<number>(10);
-
   const filteredCategories = (categoriesQuery.data || []).filter((category) =>
     category.categoryName.toLowerCase().includes(searchCategoryQuery.trim().toLowerCase())
   );
 
-  const totalPages = Math.ceil(filteredCategories.length / categoriesPerPage);
-
-  const indexOfLastCategory = Math.min(currentPage * categoriesPerPage, filteredCategories.length);
-  const indexOfFirstCategory = (currentPage - 1) * categoriesPerPage;
-
-  const currentCategories = filteredCategories.slice(indexOfFirstCategory, indexOfLastCategory);
-  /////////////////////////Pagination End//////////////////////////////
-
   if (categoriesQuery.isLoading) return <LoadingSpinner />;
 
-  const handlePageChange = (pageNumber: number) => {
-    if (pageNumber < 1 || pageNumber > totalPages) return;
-    setCurrentPage(pageNumber);
-  };
-
   return (
-    <div className="categories-container container-fluid">
+    <div className="categories-container">
       <h1 className="title">Categories</h1>
       <div className="btn-panel">
         {user && validateUserRolePermission(['Admin', 'Manager']) && (
@@ -72,7 +54,7 @@ export const Categories = () => {
               </tr>
             </thead>
             <tbody>
-              {currentCategories.map((category: Category) => (
+              {filteredCategories.map((category: Category) => (
                 <tr key={category.categoryID}>
                   <td>
                     <i className="bi bi-dot"></i>
@@ -95,11 +77,6 @@ export const Categories = () => {
               ))}
             </tbody>
           </Table>
-          <PaginationControl
-            currentPage={currentPage}
-            totalPages={totalPages}
-            onPageChange={handlePageChange}
-          />
         </>
       )}
 

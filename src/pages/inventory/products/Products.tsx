@@ -8,7 +8,6 @@ import { getProductCategoryName } from '../../../utils/inventory.helper';
 import { UserAuth } from '../../../context/UserContext';
 import { SearchInput } from '../../../components/searchInput/SearchInput';
 import { useState } from 'react';
-import { PaginationControl } from '../../../components/paginationControl/PaginationControl';
 import { validateUserRolePermission } from '../../../services/user.Service';
 import { Link } from 'react-router-dom';
 import { UpsertProductModal } from '../../../components/modals/upsertProductModal/UpsertProductModal';
@@ -23,31 +22,14 @@ export const Products = () => {
 
   const toggleModal = () => setShowModal((prev) => !prev);
 
-  ///////////////////////////Pagination////////////////////////////////
-  const [currentPage, setCurrentPage] = useState<number>(1);
-  const [productsPerPage] = useState<number>(10);
-
   const filteredProducts = (productsQuery.data || []).filter((product) =>
     product.productName.toLowerCase().includes(searchProductQuery.trim().toLowerCase())
   );
 
-  const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
-
-  const indexOfLastProduct = Math.min(currentPage * productsPerPage, filteredProducts.length);
-  const indexOfFirstProduct = (currentPage - 1) * productsPerPage;
-
-  const currentProducts = filteredProducts.slice(indexOfFirstProduct, indexOfLastProduct);
-  /////////////////////////Pagination End//////////////////////////////
-
   if (productsQuery.isLoading || categoriesQuery.isLoading) return <LoadingSpinner />;
 
-  const handlePageChange = (pageNumber: number) => {
-    if (pageNumber < 1 || pageNumber > totalPages) return;
-    setCurrentPage(pageNumber);
-  };
-
   return (
-    <div className="products-container container-fluid">
+    <div className="products-container">
       <h1 className="title">Products</h1>
 
       <div className="btn-panel">
@@ -86,7 +68,7 @@ export const Products = () => {
               </tr>
             </thead>
             <tbody>
-              {currentProducts.map((product: Product) => (
+              {filteredProducts.map((product: Product) => (
                 <tr key={product.productID}>
                   <td>
                     <i className="bi bi-dot"></i>
@@ -117,11 +99,6 @@ export const Products = () => {
               ))}
             </tbody>
           </Table>
-          <PaginationControl
-            currentPage={currentPage}
-            totalPages={totalPages}
-            onPageChange={handlePageChange}
-          />
         </>
       )}
 
