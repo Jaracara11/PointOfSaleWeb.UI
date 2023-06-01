@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from 'react';
-import { deleteUserAuth, getUserAuth, setUserAuth } from '../services/user.Service';
-import { login } from '../repository/userRepository';
+import { getUserAuth, setUserAuth } from '../services/user.Service';
+import { loginUser } from '../repository/userRepository';
 import { UserInfo } from '../interfaces/user/UserInfo';
 import { UserContextData } from '../interfaces/user/UserContextData';
 import { UserContextProviderProps } from '../interfaces/user/UserContextProviderProps';
@@ -12,7 +12,7 @@ export const UserContextProvider = ({ children }: UserContextProviderProps) => {
   const [user, setUser] = useState<UserInfo | null>(getUserAuth());
 
   const signIn = async (userData: UserLogin) => {
-    const userInfo = await login(userData);
+    const userInfo = await loginUser(userData);
     setUser(userInfo);
     userInfo && setUserAuth(userInfo);
   };

@@ -6,7 +6,7 @@ import { UserPasswordChangeRequest } from '../interfaces/user/UserPasswordChange
 
 const API_URL = import.meta.env.VITE_API_URL + '/user';
 
-export const login = async (userData: UserLogin): Promise<UserInfo> => {
+export const loginUser = async (userData: UserLogin): Promise<UserInfo> => {
   try {
     const response = await axios.post(`${API_URL}/login`, userData);
     return response.data as UserInfo;
