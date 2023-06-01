@@ -3,7 +3,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { userValidationSchema } from '../../../services/yupValidation.service';
 import { useEffect, useState } from 'react';
 
-export const UpsertUserModal = (toggle: () => void, userID: number) => {
+export const UpsertUserModal = ({ toggle, userID }: { toggle: () => void; userID: number }) => {
   const {
     register,
     handleSubmit,
@@ -21,7 +21,7 @@ export const UpsertUserModal = (toggle: () => void, userID: number) => {
   };
 
   useEffect(() => {
-    if (username) {
+    if (userID) {
       setValue('productID', product.productID);
       setValue('productName', product.productName);
       setValue('productDescription', product.productDescription);

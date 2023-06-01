@@ -3,6 +3,7 @@ import { UserLogin } from '../interfaces/user/UserLogin';
 import { UserInfo } from '../interfaces/user/UserInfo';
 import { userAuthorizationHeaders } from '../services/user.Service';
 import { UserPasswordChangeRequest } from '../interfaces/user/UserPasswordChangeRequest';
+import { UserData } from '../interfaces/user/UserData';
 
 const API_URL = import.meta.env.VITE_API_URL + '/user';
 
@@ -31,6 +32,17 @@ export const getAllUsers = async (): Promise<UserInfo[]> => {
       headers: userAuthorizationHeaders()
     });
     return response.data as UserInfo[];
+  } catch (error: any) {
+    return Promise.reject(error);
+  }
+};
+
+export const getUserByID = async (): Promise<UserData> => {
+  try {
+    const response = await axios.get(API_URL, {
+      headers: userAuthorizationHeaders()
+    });
+    return response.data as UserData;
   } catch (error: any) {
     return Promise.reject(error);
   }

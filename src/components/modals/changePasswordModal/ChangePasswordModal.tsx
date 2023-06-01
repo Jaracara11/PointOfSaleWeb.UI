@@ -12,7 +12,13 @@ import { LoadingSpinner } from '../../loadingSpinner/LoadingSpinner';
 import { deleteUserAuth } from '../../../services/user.Service';
 import { useNavigate } from 'react-router-dom';
 
-export const ChangePasswordModal = (toggle: () => void, username: string) => {
+export const ChangePasswordModal = ({
+  toggle,
+  username
+}: {
+  toggle: () => void;
+  username: string;
+}) => {
   const {
     register,
     handleSubmit,
