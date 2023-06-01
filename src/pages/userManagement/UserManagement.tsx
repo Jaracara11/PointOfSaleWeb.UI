@@ -15,7 +15,7 @@ export const UserManagement = () => {
   const { user } = UserAuth() || {};
   const usersQuery = useGetUsers();
   const [searchUserQuery, setSearchUserQuery] = useState<string>('');
-  const [selectedUser, setSelectedUser] = useState<string>('');
+  const [selectedUserID, setSelectedUserID] = useState<number>(0);
   const [showModal, setShowModal] = useState<boolean>(false);
 
   const toggleModal = () => setShowModal((prev) => !prev);
@@ -36,7 +36,7 @@ export const UserManagement = () => {
         <Button
           variant="dark"
           onClick={() => {
-            setSelectedUser('');
+            setSelectedUserID(0);
             toggleModal();
           }}
         >
@@ -72,7 +72,7 @@ export const UserManagement = () => {
                   <Button
                     variant="outline-dark"
                     onClick={() => {
-                      setSelectedUser(user.username);
+                      setSelectedUserID(user.userID);
                       toggleModal();
                     }}
                   >
@@ -85,7 +85,7 @@ export const UserManagement = () => {
         </Table>
       )}
 
-      {showModal && <UpsertUserModal toggle={toggleModal} username={selectedUser} />}
+      {showModal && <UpsertUserModal toggle={toggleModal} userID={selectedUserID} />}
     </div>
   );
 };

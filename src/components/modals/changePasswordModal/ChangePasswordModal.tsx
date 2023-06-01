@@ -3,7 +3,6 @@ import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { changePasswordValidationSchema } from '../../../services/yupValidation.service';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useState } from 'react';
-import { UserModalProps } from '../../../interfaces/modals/UserModalProps';
 import { ErrorInputView } from '../../errorInputView/ErrorInputView';
 import { swalConfirmAlert, swalMessageAlert } from '../../../services/swal.service';
 import { changeUserPassword } from '../../../repository/userRepository';
@@ -13,7 +12,7 @@ import { LoadingSpinner } from '../../loadingSpinner/LoadingSpinner';
 import { deleteUserAuth } from '../../../services/user.Service';
 import { useNavigate } from 'react-router-dom';
 
-export const ChangePasswordModal = ({ toggle, username }: UserModalProps) => {
+export const ChangePasswordModal = (toggle: () => void, username: string) => {
   const {
     register,
     handleSubmit,

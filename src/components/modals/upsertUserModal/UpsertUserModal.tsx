@@ -1,10 +1,9 @@
 import { useForm } from 'react-hook-form';
-import { UserModalProps } from '../../../interfaces/modals/UserModalProps';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { userValidationSchema } from '../../../services/yupValidation.service';
 import { useEffect, useState } from 'react';
 
-export const UpsertUserModal = ({ toggle, username }: UserModalProps) => {
+export const UpsertUserModal = (toggle: () => void, userID: number) => {
   const {
     register,
     handleSubmit,
@@ -21,17 +20,17 @@ export const UpsertUserModal = ({ toggle, username }: UserModalProps) => {
     toggle();
   };
 
-   useEffect(() => {
-     if (username) {
-       setValue('productID', product.productID);
-       setValue('productName', product.productName);
-       setValue('productDescription', product.productDescription);
-       setValue('productStock', product.productStock);
-       setValue('productCost', product.productCost);
-       setValue('productPrice', product.productPrice);
-       setValue('productCategoryID', product.productCategoryID);
-     }
-   }, [product]);
+  useEffect(() => {
+    if (username) {
+      setValue('productID', product.productID);
+      setValue('productName', product.productName);
+      setValue('productDescription', product.productDescription);
+      setValue('productStock', product.productStock);
+      setValue('productCost', product.productCost);
+      setValue('productPrice', product.productPrice);
+      setValue('productCategoryID', product.productCategoryID);
+    }
+  }, [product]);
 
   return <></>;
 };
