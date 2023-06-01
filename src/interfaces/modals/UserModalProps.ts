@@ -1,4 +1,4 @@
-export interface ChangePasswordModalProps {
+export interface UserModalProps {
   toggle: () => void;
   username: string;
 }

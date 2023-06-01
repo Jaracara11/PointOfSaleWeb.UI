@@ -1,18 +1,3 @@
-.categories-container {
-  margin-top: 1rem;
-}
-
-.categories-container table {
-  cursor: pointer;
-  margin-top: 7rem;
-}
-
 .categories-container .btn-dark {
   float: left;
-}
-
-.categories-container .search-input {
-  display: flex;
-  float: right;
-  max-width: 300px;
 }

@@ -12,9 +12,15 @@ body {
   background-color: whitesmoke;
 }
 
+table {
+  cursor: pointer;
+  margin-top: 8rem;
+}
+
 .title {
   text-align: center;
   margin-bottom: 1.5rem;
+  margin-top: 1rem;
   font-weight: bold;
 }
 
@@ -24,6 +30,12 @@ body {
 
 .btn-panel {
   margin: 2rem 0.5rem;
+}
+
+.search-input {
+  display: flex;
+  float: right;
+  max-width: 300px;
 }
 
 /* COMMON MODAL STYLE */

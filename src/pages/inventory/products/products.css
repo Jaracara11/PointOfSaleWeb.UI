@@ -1,26 +1,7 @@
-.products-container {
-  margin-top: 1rem;
-}
-
-.products-container .btn-panel {
-  margin-top: 2rem;
-}
-
 .products-container .btn-panel > .btn-dark,
 .products-container .btn-panel > .btn-outline-dark {
   float: left;
   margin-right: 1rem;
-}
-
-.products-container .search-input {
-  display: flex;
-  float: right;
-  max-width: 300px;
-}
-
-.products-container table {
-  cursor: pointer;
-  margin-top: 8rem;
 }
 
 .products-container td .btn-outline-dark {
