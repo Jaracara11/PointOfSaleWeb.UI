@@ -2,20 +2,19 @@ import { Table } from 'react-bootstrap';
 import { LoadingSpinner } from '../../components/loadingSpinner/LoadingSpinner';
 import { UserAuth } from '../../context/UserContext';
 import { useGetUsers } from '../../hooks/users.hooks';
-import { swalMessageAlertWithTitle } from '../../services/swal.service';
+import { swalMessageAlert } from '../../services/swal.service';
 import { UserInfo } from '../../interfaces/user/UserInfo';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 export const UserManagement = () => {
+  const navigate = useNavigate();
   const { user } = UserAuth() || {};
   const usersQuery = useGetUsers();
 
   if ((user && user.role !== 'Admin') || !user) {
-    swalMessageAlertWithTitle(
-      'Forbidden',
-      'Your user does not have permission to view this page',
-      'warning'
+    swalMessageAlert('Your user does not have permission to view this page', 'warning').then(() =>
+      navigate('/home')
     );
-    return <p>Forbidden</p>;
   }
 
   if (usersQuery.isLoading) return <LoadingSpinner />;
