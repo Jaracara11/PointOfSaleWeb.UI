@@ -8,7 +8,7 @@ import { UserInfo } from '../../interfaces/user/UserInfo';
 import { useNavigate } from 'react-router-dom';
 import { SearchInput } from '../../components/searchInput/SearchInput';
 import { useState } from 'react';
-import UpsertUserModal from '../../components/modals/upsertUserModal/UpsertUserModal';
+import { UpsertUserModal } from '../../components/modals/upsertUserModal/UpsertUserModal';
 
 export const UserManagement = () => {
   const navigate = useNavigate();
