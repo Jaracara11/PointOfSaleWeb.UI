@@ -48,7 +48,7 @@ export const UpsertUserModal = ({ toggle, userID }: { toggle: () => void; userID
   };
 
   return (
-    <Modal className="user-upsert-modal" show={showModal} onHide={closeModal} centered>
+    <Modal className="form-modal" show={showModal} onHide={closeModal} centered>
       <Form onSubmit={handleSubmit(upsertUser)}>
         <h3 className="title">{userID ? 'Edit' : 'Add New'} User</h3>
         <Form.Group>

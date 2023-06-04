@@ -50,3 +50,21 @@ table {
 .common-modal h3 {
   margin: 0.5rem;
 }
+
+/*FORM MODAL*/
+.form-modal form {
+  padding: 1rem;
+}
+
+.form-modal label {
+  font-weight: bold;
+}
+
+.form-modal .btn-outline-dark {
+  float: left;
+}
+
+.form-modal textarea,
+select {
+  margin-bottom: 1rem;
+}

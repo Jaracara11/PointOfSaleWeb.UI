@@ -1,4 +1,3 @@
-import './upsertProductModal.css';
 import { useEffect, useState } from 'react';
 import { Product } from '../../../interfaces/inventory/product';
 import { Category } from '../../../interfaces/inventory/Category';
@@ -94,7 +93,7 @@ export const UpsertProductModal = ({ toggle, product, categories }: ProductModal
   };
 
   return (
-    <Modal className="product-upsert-modal" show={showModal} onHide={closeModal} centered>
+    <Modal className="form-modal" show={showModal} onHide={closeModal} centered>
       <Form onSubmit={handleSubmit(upsertProduct)}>
         <h3 className="title">{product ? 'Edit' : 'Add New'} Product</h3>
         <Form.Group>
