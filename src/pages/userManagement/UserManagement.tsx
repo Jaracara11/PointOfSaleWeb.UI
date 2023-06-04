@@ -61,10 +61,7 @@ export const UserManagement = () => {
           <tbody>
             {usersQuery.data.map((user: UserInfo) => (
               <tr key={user.username}>
-                <td>
-                  <i className="bi bi-dot"></i>
-                  {user.username}
-                </td>
+                <td>{user.username}</td>
                 <td>{user.name}</td>
                 <td>{user.email}</td>
                 <td>{user.role}</td>

@@ -7,6 +7,7 @@ import { Button, Form, Modal } from 'react-bootstrap';
 import { ErrorInputView } from '../../errorInputView/ErrorInputView';
 import { UserRole } from '../../../interfaces/user/UserRole';
 import { UserData } from '../../../interfaces/user/UserData';
+import { swalConfirmAlert } from '../../../services/swal.service';
 
 export const UpsertUserModal = ({ toggle, userID }: { toggle: () => void; userID: number }) => {
   const {
@@ -34,6 +35,7 @@ export const UpsertUserModal = ({ toggle, userID }: { toggle: () => void; userID
     });
     if (userID) {
       getUserByID(userID).then((response) => {
+        setUser(response);
         setValue('username', response.username);
         setValue('firstName', response.firstName);
         setValue('lastName', response.lastName);
@@ -45,6 +47,21 @@ export const UpsertUserModal = ({ toggle, userID }: { toggle: () => void; userID
 
   const upsertUser: SubmitHandler<FieldValues> = async (data) => {
     console.log(data);
+  };
+
+  const deleteUser = async (username: string) => {
+    let confirmTitle = `Are you sure you want to <strong>DELETE</strong> the user ${username}?`;
+
+    const isConfirmed = await swalConfirmAlert(confirmTitle, 'Delete', 'warning');
+
+    // if (isConfirmed) {
+    //   product.productID
+    //     ? deleteProductMutation.mutateAsync(product.productID)
+    //     : swalMessageAlert(
+    //         'Error while trying to delete product, please refresh the page and try again.',
+    //         'error'
+    //       );
+    toggle();
   };
 
   return (
@@ -83,11 +100,11 @@ export const UpsertUserModal = ({ toggle, userID }: { toggle: () => void; userID
             {user ? ' Update' : ' Save'}
           </Button>
 
-          {/* {product && (
-            <Button variant="btn btn-danger" onClick={() => deleteProduct(product)}>
+          {user && (
+            <Button variant="btn btn-danger" onClick={() => deleteUser(user.username)}>
               <i className="bi bi-exclamation-circle"></i>&nbsp; Delete
             </Button>
-          )} */}
+          )}
 
           <Button variant="outline-dark" onClick={toggle}>
             <i className="bi bi-x-lg"></i>&nbsp;Cancel
