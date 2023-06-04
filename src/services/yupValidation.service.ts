@@ -37,7 +37,12 @@ export const userValidationSchema = Yup.object({
     .required('Last name is required.')
     .max(25, 'Last name cannot exceed 25 characters.')
     .min(3, 'Last name cannot have less than 3 characters.'),
-  email: Yup.string().email('Invalid email address.')
+  email: Yup.string().email('Invalid email address.'),
+  userRoleID: Yup.number()
+    .typeError('User role ID must be a number')
+    .required('User role is required.')
+    .integer('Please select a valid user role.')
+    .min(1, 'Please select a valid user role.')
 });
 
 export const changePasswordValidationSchema = Yup.object().shape({

@@ -1,18 +1,26 @@
-import { useForm } from 'react-hook-form';
+import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { userValidationSchema } from '../../../services/yupValidation.service';
 import { useEffect, useState } from 'react';
+import { getUserByID, getUserRoles } from '../../../repository/userRepository';
+import { Button, Form, Modal } from 'react-bootstrap';
+import { ErrorInputView } from '../../errorInputView/ErrorInputView';
+import { UserRole } from '../../../interfaces/user/UserRole';
+import { UserData } from '../../../interfaces/user/UserData';
 
 export const UpsertUserModal = ({ toggle, userID }: { toggle: () => void; userID: number }) => {
   const {
     register,
     handleSubmit,
     formState: { errors, isDirty },
-    setValue
+    setValue,
+    watch
   } = useForm({
     resolver: yupResolver(userValidationSchema)
   });
 
+  const [user, setUser] = useState<UserData>();
+  const [userRoles, setUserRoles] = useState<UserRole[]>([]);
   const [showModal, setShowModal] = useState<boolean>(true);
 
   const closeModal = () => {
@@ -21,16 +29,71 @@ export const UpsertUserModal = ({ toggle, userID }: { toggle: () => void; userID
   };
 
   useEffect(() => {
+    getUserRoles().then((response) => {
+      setUserRoles(response);
+    });
     if (userID) {
-      setValue('productID', product.productID);
-      setValue('productName', product.productName);
-      setValue('productDescription', product.productDescription);
-      setValue('productStock', product.productStock);
-      setValue('productCost', product.productCost);
-      setValue('productPrice', product.productPrice);
-      setValue('productCategoryID', product.productCategoryID);
+      getUserByID(userID).then((response) => {
+        setValue('username', response.username);
+        setValue('firstName', response.firstName);
+        setValue('lastName', response.lastName);
+        setValue('email', response.email);
+        setValue('userRoleID', response.userRoleID);
+      });
     }
-  }, [product]);
+  }, [userID]);
 
-  return <></>;
+  const upsertUser: SubmitHandler<FieldValues> = async (data) => {
+    console.log(data);
+  };
+
+  return (
+    <Modal className="user-upsert-modal" show={showModal} onHide={closeModal} centered>
+      <Form onSubmit={handleSubmit(upsertUser)}>
+        <h3 className="title">{userID ? 'Edit' : 'Add New'} User</h3>
+        <Form.Group>
+          <Form.Label>Username</Form.Label>
+          <Form.Control type="text" placeholder="Enter username" {...register('username')} />
+          <ErrorInputView error={errors.username} />
+          <Form.Label>First Name</Form.Label>
+          <Form.Control type="text" placeholder="Enter first name" {...register('firstName')} />
+          <ErrorInputView error={errors.firstName} />
+          <Form.Label>Last Name</Form.Label>
+          <Form.Control type="text" placeholder="Enter last name" {...register('lastName')} />
+          <ErrorInputView error={errors.lastName} />
+          <Form.Label>Email</Form.Label>
+          <Form.Control type="text" placeholder="Enter user email" {...register('email')} />
+          <ErrorInputView error={errors.email} />
+          <Form.Label>Product Category</Form.Label>
+          <Form.Select {...register('userRoleID')} defaultValue={watch('userRoleID') || 0}>
+            <option value={0}>Select a role...</option>
+            {userRoles &&
+              userRoles.map((role: UserRole) => (
+                <option key={role.roleID} value={role.roleID}>
+                  {role.roleName}
+                </option>
+              ))}
+          </Form.Select>
+          <ErrorInputView error={errors.productCategoryID} />
+        </Form.Group>
+
+        <div className="btn-panel">
+          <Button variant="btn btn-dark" disabled={!isDirty} onClick={handleSubmit(upsertUser)}>
+            <i className="bi bi-database"></i>&nbsp;
+            {user ? ' Update' : ' Save'}
+          </Button>
+
+          {/* {product && (
+            <Button variant="btn btn-danger" onClick={() => deleteProduct(product)}>
+              <i className="bi bi-exclamation-circle"></i>&nbsp; Delete
+            </Button>
+          )} */}
+
+          <Button variant="outline-dark" onClick={toggle}>
+            <i className="bi bi-x-lg"></i>&nbsp;Cancel
+          </Button>
+        </div>
+      </Form>
+    </Modal>
+  );
 };
