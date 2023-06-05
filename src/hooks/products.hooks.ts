@@ -1,5 +1,10 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { addProduct, deleteProduct, getAllProducts, updateProduct } from '../repository/productRepository';
+import {
+  addProduct,
+  deleteProduct,
+  getAllProducts,
+  updateProduct
+} from '../repository/productRepository';
 import { handleErrorResponse } from '../services/error.Service';
 import { swalMessageAlert } from '../services/swal.service';
 
@@ -7,7 +12,8 @@ export const useGetProducts = () => {
   return useQuery({
     queryKey: ['products'],
     queryFn: getAllProducts,
-    onError: (error) => handleErrorResponse(error, '')
+    onError: (error) => handleErrorResponse(error, ''),
+    cacheTime: 3600000
   });
 };
 

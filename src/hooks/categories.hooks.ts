@@ -12,7 +12,8 @@ export const useGetCategories = () => {
   return useQuery({
     queryKey: ['categories'],
     queryFn: getAllCategories,
-    onError: (error) => handleErrorResponse(error, '')
+    onError: (error) => handleErrorResponse(error, ''),
+    cacheTime: 3600000
   });
 };
 
