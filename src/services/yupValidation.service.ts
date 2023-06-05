@@ -17,7 +17,6 @@ export const userValidationSchema = Yup.object({
     .max(25, 'Username cannot exceed 25 characters.')
     .min(3, 'Username cannot have less than 3 characters.'),
   newPassword: Yup.string()
-    .required('New Password is required.')
     .max(25, 'Password cannot exceed 25 characters.')
     .min(4, 'Password must be at least 4 characters long.')
     .notOneOf(
@@ -27,8 +26,7 @@ export const userValidationSchema = Yup.object({
   repeatNewPassword: Yup.string()
     .max(25, 'Password cannot exceed 25 characters.')
     .min(4, 'Password must be at least 4 characters long.')
-    .oneOf([Yup.ref('newPassword'), undefined], 'The new password must match.')
-    .required('Please repeat the new password.'),
+    .oneOf([Yup.ref('newPassword'), undefined], 'The new password must match.'),
   firstName: Yup.string()
     .required('First name is required.')
     .max(25, 'First name cannot exceed 25 characters.')

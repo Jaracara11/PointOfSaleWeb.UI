@@ -32,6 +32,15 @@ table {
   margin: 2rem 0.5rem;
 }
 
+.form-switch {
+  margin-bottom: 1rem !important;
+}
+
+.form-check-input:checked {
+  background-color: #343a40 !important;
+  border-color: #343a40 !important;
+}
+
 .search-input {
   display: flex;
   float: right;

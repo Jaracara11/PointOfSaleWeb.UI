@@ -23,6 +23,7 @@ export const UpsertUserModal = ({ toggle, userID }: { toggle: () => void; userID
   const [user, setUser] = useState<UserData>();
   const [userRoles, setUserRoles] = useState<UserRole[]>([]);
   const [showModal, setShowModal] = useState<boolean>(true);
+  const [changePassword, setChangePassword] = useState(true);
 
   const closeModal = () => {
     setShowModal(false);
@@ -34,6 +35,7 @@ export const UpsertUserModal = ({ toggle, userID }: { toggle: () => void; userID
       setUserRoles(response);
     });
     if (userID) {
+      setChangePassword(false);
       getUserByID(userID).then((response) => {
         setUser(response);
         setValue('username', response.username);
@@ -92,20 +94,35 @@ export const UpsertUserModal = ({ toggle, userID }: { toggle: () => void; userID
               ))}
           </Form.Select>
           <ErrorInputView error={errors.userRoleID} />
-          <Form.Label>Password</Form.Label>
-          <Form.Control
-            type="password"
-            placeholder="New Password..."
-            {...register('newPassword')}
-          />
-          <ErrorInputView error={errors.newPassword} />
-          <Form.Label>Repeat Password</Form.Label>
-          <Form.Control
-            type="password"
-            placeholder="Repeat New Password..."
-            {...register('repeatNewPassword')}
-          />
-          <ErrorInputView error={errors.repeatNewPassword} />
+
+          {user && (
+            <Form.Check
+              type="switch"
+              id="password-switch"
+              label="Change user password?"
+              checked={changePassword}
+              onChange={(e) => setChangePassword(e.target.checked)}
+            />
+          )}
+
+          {changePassword && (
+            <div className="password-inputs">
+              <Form.Label>Password</Form.Label>
+              <Form.Control
+                type="password"
+                placeholder="New Password..."
+                {...register('newPassword')}
+              />
+              <ErrorInputView error={errors.newPassword} />
+              <Form.Label>Repeat Password</Form.Label>
+              <Form.Control
+                type="password"
+                placeholder="Repeat New Password..."
+                {...register('repeatNewPassword')}
+              />
+              <ErrorInputView error={errors.repeatNewPassword} />
+            </div>
+          )}
         </Form.Group>
 
         <div className="btn-panel">
