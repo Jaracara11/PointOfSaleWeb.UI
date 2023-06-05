@@ -68,3 +68,11 @@ table {
 select {
   margin-bottom: 1rem;
 }
+
+.form-modal select {
+  margin-bottom: 1rem;
+}
+
+.form-modal .btn-panel {
+  margin-top: 4rem;
+}

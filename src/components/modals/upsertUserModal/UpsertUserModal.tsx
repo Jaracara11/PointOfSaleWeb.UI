@@ -81,7 +81,7 @@ export const UpsertUserModal = ({ toggle, userID }: { toggle: () => void; userID
           <Form.Label>Email</Form.Label>
           <Form.Control type="text" placeholder="Enter user email" {...register('email')} />
           <ErrorInputView error={errors.email} />
-          <Form.Label>Product Category</Form.Label>
+          <Form.Label>User Role</Form.Label>
           <Form.Select {...register('userRoleID')} defaultValue={watch('userRoleID') || 0}>
             <option value={0}>Select a role...</option>
             {userRoles &&
@@ -91,7 +91,21 @@ export const UpsertUserModal = ({ toggle, userID }: { toggle: () => void; userID
                 </option>
               ))}
           </Form.Select>
-          <ErrorInputView error={errors.productCategoryID} />
+          <ErrorInputView error={errors.userRoleID} />
+          <Form.Label>Password</Form.Label>
+          <Form.Control
+            type="password"
+            placeholder="New Password..."
+            {...register('newPassword')}
+          />
+          <ErrorInputView error={errors.newPassword} />
+          <Form.Label>Repeat Password</Form.Label>
+          <Form.Control
+            type="password"
+            placeholder="Repeat New Password..."
+            {...register('repeatNewPassword')}
+          />
+          <ErrorInputView error={errors.repeatNewPassword} />
         </Form.Group>
 
         <div className="btn-panel">
