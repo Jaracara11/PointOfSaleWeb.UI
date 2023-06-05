@@ -8,6 +8,7 @@ import { ErrorInputView } from '../../errorInputView/ErrorInputView';
 import { UserRole } from '../../../interfaces/user/UserRole';
 import { UserData } from '../../../interfaces/user/UserData';
 import { swalConfirmAlert } from '../../../services/swal.service';
+import { useGetRoles } from '../../../hooks/users.hooks';
 
 export const UpsertUserModal = ({ toggle, userID }: { toggle: () => void; userID: number }) => {
   const {
@@ -20,10 +21,9 @@ export const UpsertUserModal = ({ toggle, userID }: { toggle: () => void; userID
     resolver: yupResolver(userValidationSchema)
   });
 
+  const rolesQuery = useGetRoles();
   const [user, setUser] = useState<UserData>();
-  const [userRoles, setUserRoles] = useState<UserRole[]>([]);
   const [showModal, setShowModal] = useState<boolean>(true);
-  const [changePassword, setChangePassword] = useState(true);
 
   const closeModal = () => {
     setShowModal(false);
@@ -31,11 +31,7 @@ export const UpsertUserModal = ({ toggle, userID }: { toggle: () => void; userID
   };
 
   useEffect(() => {
-    getUserRoles().then((response) => {
-      setUserRoles(response);
-    });
     if (userID) {
-      setChangePassword(false);
       getUserByID(userID).then((response) => {
         setUser(response);
         setValue('username', response.username);
@@ -86,26 +82,15 @@ export const UpsertUserModal = ({ toggle, userID }: { toggle: () => void; userID
           <Form.Label>User Role</Form.Label>
           <Form.Select {...register('userRoleID')} defaultValue={watch('userRoleID') || 0}>
             <option value={0}>Select a role...</option>
-            {userRoles &&
-              userRoles.map((role: UserRole) => (
+            {rolesQuery.data &&
+              rolesQuery.data.map((role: UserRole) => (
                 <option key={role.roleID} value={role.roleID}>
                   {role.roleName}
                 </option>
               ))}
           </Form.Select>
           <ErrorInputView error={errors.userRoleID} />
-
-          {user && (
-            <Form.Check
-              type="switch"
-              id="password-switch"
-              label="Change user password?"
-              checked={changePassword}
-              onChange={(e) => setChangePassword(e.target.checked)}
-            />
-          )}
-
-          {changePassword && (
+          {!userID && (
             <div className="password-inputs">
               <Form.Label>Password</Form.Label>
               <Form.Control

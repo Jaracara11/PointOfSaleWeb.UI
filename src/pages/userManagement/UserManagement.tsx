@@ -75,6 +75,9 @@ export const UserManagement = () => {
                   >
                     <i className="bi bi-pencil"></i>&nbsp;Edit
                   </Button>
+                  <Button variant="dark">
+                    <i className="bi bi-shield-exclamation"></i>&nbsp;Reset Password
+                  </Button>
                 </td>
               </tr>
             ))}
