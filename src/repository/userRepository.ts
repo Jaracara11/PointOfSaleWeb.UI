@@ -17,32 +17,12 @@ export const loginUser = async (userData: UserLogin): Promise<UserInfo> => {
   }
 };
 
-export const changeUserPassword = async (userData: UserPasswordChangeRequest): Promise<void> => {
-  try {
-    await axios.put(`${API_URL}/change-password`, userData, {
-      headers: userAuthorizationHeaders()
-    });
-  } catch (error: any) {
-    return Promise.reject(error);
-  }
-};
-
-export const resetUserPassword = async (userData: UserPasswordChangeRequest): Promise<void> => {
-  try {
-    await axios.put(`${API_URL}/new-password`, userData, {
-      headers: userAuthorizationHeaders()
-    });
-  } catch (error: any) {
-    return Promise.reject(error);
-  }
-};
-
-export const getAllUsers = async (): Promise<UserInfo[]> => {
+export const getAllUsers = async (): Promise<UserData[]> => {
   try {
     const response = await axios.get(API_URL, {
       headers: userAuthorizationHeaders()
     });
-    return response.data as UserInfo[];
+    return response.data as UserData[];
   } catch (error: any) {
     return Promise.reject(error);
   }
@@ -65,6 +45,26 @@ export const getUserRoles = async (): Promise<UserRole[]> => {
       headers: userAuthorizationHeaders()
     });
     return response.data as UserRole[];
+  } catch (error: any) {
+    return Promise.reject(error);
+  }
+};
+
+export const changeUserPassword = async (userData: UserPasswordChangeRequest): Promise<void> => {
+  try {
+    await axios.put(`${API_URL}/change-password`, userData, {
+      headers: userAuthorizationHeaders()
+    });
+  } catch (error: any) {
+    return Promise.reject(error);
+  }
+};
+
+export const resetUserPassword = async (userData: UserPasswordChangeRequest): Promise<void> => {
+  try {
+    await axios.put(`${API_URL}/new-password`, userData, {
+      headers: userAuthorizationHeaders()
+    });
   } catch (error: any) {
     return Promise.reject(error);
   }

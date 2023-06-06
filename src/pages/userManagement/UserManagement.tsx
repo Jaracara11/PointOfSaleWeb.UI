@@ -2,26 +2,35 @@ import './userManagement.css';
 import { Button, Table } from 'react-bootstrap';
 import { LoadingSpinner } from '../../components/loadingSpinner/LoadingSpinner';
 import { UserAuth } from '../../context/UserContext';
-import { useGetUsers } from '../../hooks/users.hooks';
+import { useGetRoles, useGetUsers } from '../../hooks/users.hooks';
 import { swalMessageAlert } from '../../services/swal.service';
-import { UserInfo } from '../../interfaces/user/UserInfo';
 import { useNavigate } from 'react-router-dom';
 import { SearchInput } from '../../components/searchInput/SearchInput';
 import { useState } from 'react';
 import { UpsertUserModal } from '../../components/modals/upsertUserModal/UpsertUserModal';
 import { ChangePasswordModal } from '../../components/modals/changePasswordModal/ChangePasswordModal';
+import { UserData } from '../../interfaces/user/UserData';
+import { getUserRoleName } from '../../utils/string.helper';
 
 export const UserManagement = () => {
   const navigate = useNavigate();
   const { user } = UserAuth() || {};
   const usersQuery = useGetUsers();
+  const rolesQuery = useGetRoles();
   const [searchUserQuery, setSearchUserQuery] = useState<string>('');
-  const [selectedUsername, setSelectedUsername] = useState<string>('');
+  const [selectedUser, setSelectedUser] = useState<UserData>();
   const [showUpsertModal, setShowUpsertModal] = useState<boolean>(false);
   const [showResetPasswordModal, setShowResetPasswordModal] = useState<boolean>(false);
 
   const toggleUpsertModal = () => setShowUpsertModal((prev) => !prev);
   const toggleResetPasswordModal = () => setShowResetPasswordModal((prev) => !prev);
+
+  const filteredUsers = (usersQuery.data || []).filter(
+    (user) =>
+      user.firstName.toLowerCase().includes(searchUserQuery.trim().toLowerCase()) ||
+      user.lastName.toLowerCase().includes(searchUserQuery.trim().toLowerCase()) ||
+      user.username.toLowerCase().includes(searchUserQuery.trim().toLowerCase())
+  );
 
   if ((user && user.role !== 'Admin') || !user) {
     swalMessageAlert('Your user does not have permission to view this page', 'warning').then(() =>
@@ -29,7 +38,7 @@ export const UserManagement = () => {
     );
   }
 
-  if (usersQuery.isLoading) return <LoadingSpinner />;
+  if (usersQuery.isLoading || rolesQuery.isLoading) return <LoadingSpinner />;
 
   return (
     <div className="user-container">
@@ -39,7 +48,7 @@ export const UserManagement = () => {
         <Button
           variant="dark"
           onClick={() => {
-            setSelectedUsername('');
+            setSelectedUser(undefined);
             toggleUpsertModal();
           }}
         >
@@ -62,17 +71,17 @@ export const UserManagement = () => {
             </tr>
           </thead>
           <tbody>
-            {usersQuery.data.map((user: UserInfo) => (
+            {filteredUsers.map((user: UserData) => (
               <tr key={user.username}>
                 <td>{user.username}</td>
-                <td>{user.name}</td>
+                <td>{`${user.firstName} ${user.lastName}`}</td>
                 <td>{user.email}</td>
-                <td>{user.role}</td>
+                <td>{getUserRoleName(user.userRoleID, rolesQuery.data ?? [])}</td>
                 <td>
                   <Button
                     variant="outline-dark"
                     onClick={() => {
-                      setSelectedUsername(user.username);
+                      setSelectedUser(user);
                       toggleUpsertModal();
                     }}
                   >
@@ -81,7 +90,7 @@ export const UserManagement = () => {
                   <Button
                     variant="dark"
                     onClick={() => {
-                      setSelectedUsername(user.username);
+                      setSelectedUser(user);
                       toggleResetPasswordModal();
                     }}
                   >
@@ -95,12 +104,16 @@ export const UserManagement = () => {
       )}
 
       {showUpsertModal && (
-        <UpsertUserModal toggle={toggleUpsertModal} username={selectedUsername} />
+        <UpsertUserModal
+          toggle={toggleUpsertModal}
+          user={selectedUser || null}
+          roles={rolesQuery.data || []}
+        />
       )}
-      {showResetPasswordModal && user && (
+      {showResetPasswordModal && selectedUser && (
         <ChangePasswordModal
           toggle={toggleResetPasswordModal}
-          username={user.username}
+          username={selectedUser.username}
           resetPasswordRequest={true}
         />
       )}

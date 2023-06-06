@@ -2,16 +2,13 @@ import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { userValidationSchema } from '../../../services/yupValidation.service';
 import { useEffect, useState } from 'react';
-import { getUserByUsername } from '../../../repository/userRepository';
 import { Button, Form, Modal } from 'react-bootstrap';
 import { ErrorInputView } from '../../errorInputView/ErrorInputView';
 import { UserRole } from '../../../interfaces/user/UserRole';
-import { UserData } from '../../../interfaces/user/UserData';
 import { swalConfirmAlert } from '../../../services/swal.service';
-import { useGetRoles, useGetSingleUser } from '../../../hooks/users.hooks';
-import { LoadingSpinner } from '../../loadingSpinner/LoadingSpinner';
+import { UpsertUserModalProps } from '../../../interfaces/modals/UpsertUserModalProps';
 
-export const UpsertUserModal = ({ toggle, username }: { toggle: () => void; username: string }) => {
+export const UpsertUserModal = ({ toggle, user, roles }: UpsertUserModalProps) => {
   const {
     register,
     handleSubmit,
@@ -22,8 +19,6 @@ export const UpsertUserModal = ({ toggle, username }: { toggle: () => void; user
     resolver: yupResolver(userValidationSchema)
   });
 
-  const userQuery = useGetSingleUser(username);
-  const rolesQuery = useGetRoles();
   const [showModal, setShowModal] = useState<boolean>(true);
 
   const closeModal = () => {
@@ -32,14 +27,14 @@ export const UpsertUserModal = ({ toggle, username }: { toggle: () => void; user
   };
 
   useEffect(() => {
-    if (userQuery.data) {
-      setValue('username', userQuery.data.username);
-      setValue('firstName', userQuery.data.firstName);
-      setValue('lastName', userQuery.data.lastName);
-      setValue('email', userQuery.data.email);
-      setValue('userRoleID', userQuery.data.userRoleID);
+    if (user) {
+      setValue('username', user.username);
+      setValue('firstName', user.firstName);
+      setValue('lastName', user.lastName);
+      setValue('email', user.email);
+      setValue('userRoleID', user.userRoleID);
     }
-  }, [username, setValue, userQuery.data]);
+  }, [user]);
 
   const upsertUser: SubmitHandler<FieldValues> = async (data) => {
     console.log(data);
@@ -60,14 +55,10 @@ export const UpsertUserModal = ({ toggle, username }: { toggle: () => void; user
     toggle();
   };
 
-  if (userQuery.isLoading || rolesQuery.isLoading) {
-    return <LoadingSpinner />;
-  }
-
   return (
     <Modal className="form-modal" show={showModal} onHide={closeModal} centered>
       <Form onSubmit={handleSubmit(upsertUser)}>
-        <h3 className="title">{username ? 'Edit' : 'Add New'} User</h3>
+        <h3 className="title">{user ? 'Edit' : 'Add New'} User</h3>
         <Form.Group>
           <Form.Label>Username</Form.Label>
           <Form.Control type="text" placeholder="Enter username" {...register('username')} />
@@ -84,15 +75,14 @@ export const UpsertUserModal = ({ toggle, username }: { toggle: () => void; user
           <Form.Label>User Role</Form.Label>
           <Form.Select {...register('userRoleID')} defaultValue={watch('userRoleID') || 0}>
             <option value={0}>Select a role...</option>
-            {rolesQuery.data &&
-              rolesQuery.data.map((role: UserRole) => (
-                <option key={role.roleID} value={role.roleID}>
-                  {role.roleName}
-                </option>
-              ))}
+            {roles.map((role: UserRole) => (
+              <option key={role.roleID} value={role.roleID}>
+                {role.roleName}
+              </option>
+            ))}
           </Form.Select>
           <ErrorInputView error={errors.userRoleID} />
-          {!username && (
+          {!user && (
             <div className="password-inputs">
               <Form.Label>Password</Form.Label>
               <Form.Control
@@ -115,11 +105,11 @@ export const UpsertUserModal = ({ toggle, username }: { toggle: () => void; user
         <div className="btn-panel">
           <Button variant="btn btn-dark" disabled={!isDirty} onClick={handleSubmit(upsertUser)}>
             <i className="bi bi-database"></i>&nbsp;
-            {userQuery.data ? ' Update' : ' Save'}
+            {user ? ' Update' : ' Save'}
           </Button>
 
-          {userQuery.data && (
-            <Button variant="btn btn-danger" onClick={() => deleteUser(username)}>
+          {user && (
+            <Button variant="btn btn-danger" onClick={() => deleteUser(user.username)}>
               <i className="bi bi-exclamation-circle"></i>&nbsp; Delete
             </Button>
           )}

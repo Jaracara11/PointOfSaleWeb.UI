@@ -3,5 +3,5 @@ export interface UserData {
   firstName: string;
   lastName: string;
   email: string;
-  userRoleID: string;
+  userRoleID: number;
 }
