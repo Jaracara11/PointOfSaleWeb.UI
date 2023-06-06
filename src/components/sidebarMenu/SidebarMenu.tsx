@@ -72,7 +72,13 @@ export const SidebarMenu = () => {
         )}
       </div>
 
-      {showModal && user && <ChangePasswordModal toggle={toggleModal} username={user.username} />}
+      {showModal && user && (
+        <ChangePasswordModal
+          toggle={toggleModal}
+          username={user.username}
+          resetPasswordRequest={false}
+        />
+      )}
     </div>
   );
 };

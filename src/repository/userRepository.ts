@@ -27,6 +27,16 @@ export const changeUserPassword = async (userData: UserPasswordChangeRequest): P
   }
 };
 
+export const resetUserPassword = async (userData: UserPasswordChangeRequest): Promise<void> => {
+  try {
+    await axios.put(`${API_URL}/new-password`, userData, {
+      headers: userAuthorizationHeaders()
+    });
+  } catch (error: any) {
+    return Promise.reject(error);
+  }
+};
+
 export const getAllUsers = async (): Promise<UserInfo[]> => {
   try {
     const response = await axios.get(API_URL, {
@@ -49,9 +59,9 @@ export const getUserRoles = async (): Promise<UserRole[]> => {
   }
 };
 
-export const getUserByID = async (userID: number): Promise<UserData> => {
+export const getUserByUsername = async (username: string): Promise<UserData> => {
   try {
-    const response = await axios.get(`${API_URL}/${userID}`, {
+    const response = await axios.get(`${API_URL}/${username}`, {
       headers: userAuthorizationHeaders()
     });
     return response.data as UserData;

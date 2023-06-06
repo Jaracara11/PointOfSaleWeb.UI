@@ -2,7 +2,7 @@ import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { userValidationSchema } from '../../../services/yupValidation.service';
 import { useEffect, useState } from 'react';
-import { getUserByID, getUserRoles } from '../../../repository/userRepository';
+import { getUserByUsername } from '../../../repository/userRepository';
 import { Button, Form, Modal } from 'react-bootstrap';
 import { ErrorInputView } from '../../errorInputView/ErrorInputView';
 import { UserRole } from '../../../interfaces/user/UserRole';
@@ -10,7 +10,7 @@ import { UserData } from '../../../interfaces/user/UserData';
 import { swalConfirmAlert } from '../../../services/swal.service';
 import { useGetRoles } from '../../../hooks/users.hooks';
 
-export const UpsertUserModal = ({ toggle, userID }: { toggle: () => void; userID: number }) => {
+export const UpsertUserModal = ({ toggle, username }: { toggle: () => void; username: string }) => {
   const {
     register,
     handleSubmit,
@@ -31,8 +31,8 @@ export const UpsertUserModal = ({ toggle, userID }: { toggle: () => void; userID
   };
 
   useEffect(() => {
-    if (userID) {
-      getUserByID(userID).then((response) => {
+    if (username) {
+      getUserByUsername(username).then((response) => {
         setUser(response);
         setValue('username', response.username);
         setValue('firstName', response.firstName);
@@ -41,7 +41,7 @@ export const UpsertUserModal = ({ toggle, userID }: { toggle: () => void; userID
         setValue('userRoleID', response.userRoleID);
       });
     }
-  }, [userID]);
+  }, [username]);
 
   const upsertUser: SubmitHandler<FieldValues> = async (data) => {
     console.log(data);
@@ -65,7 +65,7 @@ export const UpsertUserModal = ({ toggle, userID }: { toggle: () => void; userID
   return (
     <Modal className="form-modal" show={showModal} onHide={closeModal} centered>
       <Form onSubmit={handleSubmit(upsertUser)}>
-        <h3 className="title">{userID ? 'Edit' : 'Add New'} User</h3>
+        <h3 className="title">{username ? 'Edit' : 'Add New'} User</h3>
         <Form.Group>
           <Form.Label>Username</Form.Label>
           <Form.Control type="text" placeholder="Enter username" {...register('username')} />
@@ -90,7 +90,7 @@ export const UpsertUserModal = ({ toggle, userID }: { toggle: () => void; userID
               ))}
           </Form.Select>
           <ErrorInputView error={errors.userRoleID} />
-          {!userID && (
+          {!username && (
             <div className="password-inputs">
               <Form.Label>Password</Form.Label>
               <Form.Control

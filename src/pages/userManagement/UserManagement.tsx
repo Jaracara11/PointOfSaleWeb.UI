@@ -9,16 +9,19 @@ import { useNavigate } from 'react-router-dom';
 import { SearchInput } from '../../components/searchInput/SearchInput';
 import { useState } from 'react';
 import { UpsertUserModal } from '../../components/modals/upsertUserModal/UpsertUserModal';
+import { ChangePasswordModal } from '../../components/modals/changePasswordModal/ChangePasswordModal';
 
 export const UserManagement = () => {
   const navigate = useNavigate();
   const { user } = UserAuth() || {};
   const usersQuery = useGetUsers();
   const [searchUserQuery, setSearchUserQuery] = useState<string>('');
-  const [selectedUserID, setSelectedUserID] = useState<number>(0);
-  const [showModal, setShowModal] = useState<boolean>(false);
+  const [selectedUsername, setSelectedUsername] = useState<string>('');
+  const [showUpsertModal, setShowUpsertModal] = useState<boolean>(false);
+  const [showResetPasswordModal, setShowResetPasswordModal] = useState<boolean>(false);
 
-  const toggleModal = () => setShowModal((prev) => !prev);
+  const toggleUpsertModal = () => setShowUpsertModal((prev) => !prev);
+  const toggleResetPasswordModal = () => setShowResetPasswordModal((prev) => !prev);
 
   if ((user && user.role !== 'Admin') || !user) {
     swalMessageAlert('Your user does not have permission to view this page', 'warning').then(() =>
@@ -36,8 +39,8 @@ export const UserManagement = () => {
         <Button
           variant="dark"
           onClick={() => {
-            setSelectedUserID(0);
-            toggleModal();
+            setSelectedUsername('');
+            toggleUpsertModal();
           }}
         >
           <i className="bi bi-plus-lg"></i>
@@ -69,13 +72,19 @@ export const UserManagement = () => {
                   <Button
                     variant="outline-dark"
                     onClick={() => {
-                      setSelectedUserID(user.userID);
-                      toggleModal();
+                      setSelectedUsername(user.username);
+                      toggleUpsertModal();
                     }}
                   >
                     <i className="bi bi-pencil"></i>&nbsp;Edit
                   </Button>
-                  <Button variant="dark">
+                  <Button
+                    variant="dark"
+                    onClick={() => {
+                      setSelectedUsername(user.username);
+                      toggleResetPasswordModal();
+                    }}
+                  >
                     <i className="bi bi-shield-exclamation"></i>&nbsp;Reset Password
                   </Button>
                 </td>
@@ -85,7 +94,16 @@ export const UserManagement = () => {
         </Table>
       )}
 
-      {showModal && <UpsertUserModal toggle={toggleModal} userID={selectedUserID} />}
+      {showUpsertModal && (
+        <UpsertUserModal toggle={toggleUpsertModal} username={selectedUsername} />
+      )}
+      {showResetPasswordModal && user && (
+        <ChangePasswordModal
+          toggle={toggleResetPasswordModal}
+          username={user.username}
+          resetPasswordRequest={true}
+        />
+      )}
     </div>
   );
 };

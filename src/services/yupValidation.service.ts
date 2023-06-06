@@ -44,7 +44,7 @@ export const userValidationSchema = Yup.object({
 });
 
 export const changePasswordValidationSchema = Yup.object().shape({
-  oldPassword: Yup.string().required('Old Password is required.'),
+  oldPassword: Yup.string(),
   newPassword: Yup.string()
     .required('New Password is required.')
     .max(25, 'Password cannot exceed 25 characters.')
