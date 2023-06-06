@@ -8,7 +8,8 @@ import { ErrorInputView } from '../../errorInputView/ErrorInputView';
 import { UserRole } from '../../../interfaces/user/UserRole';
 import { UserData } from '../../../interfaces/user/UserData';
 import { swalConfirmAlert } from '../../../services/swal.service';
-import { useGetRoles } from '../../../hooks/users.hooks';
+import { useGetRoles, useGetSingleUser } from '../../../hooks/users.hooks';
+import { LoadingSpinner } from '../../loadingSpinner/LoadingSpinner';
 
 export const UpsertUserModal = ({ toggle, username }: { toggle: () => void; username: string }) => {
   const {
@@ -21,8 +22,8 @@ export const UpsertUserModal = ({ toggle, username }: { toggle: () => void; user
     resolver: yupResolver(userValidationSchema)
   });
 
+  const userQuery = useGetSingleUser(username);
   const rolesQuery = useGetRoles();
-  const [user, setUser] = useState<UserData>();
   const [showModal, setShowModal] = useState<boolean>(true);
 
   const closeModal = () => {
@@ -31,17 +32,14 @@ export const UpsertUserModal = ({ toggle, username }: { toggle: () => void; user
   };
 
   useEffect(() => {
-    if (username) {
-      getUserByUsername(username).then((response) => {
-        setUser(response);
-        setValue('username', response.username);
-        setValue('firstName', response.firstName);
-        setValue('lastName', response.lastName);
-        setValue('email', response.email);
-        setValue('userRoleID', response.userRoleID);
-      });
+    if (userQuery.data) {
+      setValue('username', userQuery.data.username);
+      setValue('firstName', userQuery.data.firstName);
+      setValue('lastName', userQuery.data.lastName);
+      setValue('email', userQuery.data.email);
+      setValue('userRoleID', userQuery.data.userRoleID);
     }
-  }, [username]);
+  }, [username, setValue, userQuery.data]);
 
   const upsertUser: SubmitHandler<FieldValues> = async (data) => {
     console.log(data);
@@ -61,6 +59,10 @@ export const UpsertUserModal = ({ toggle, username }: { toggle: () => void; user
     //       );
     toggle();
   };
+
+  if (userQuery.isLoading || rolesQuery.isLoading) {
+    return <LoadingSpinner />;
+  }
 
   return (
     <Modal className="form-modal" show={showModal} onHide={closeModal} centered>
@@ -113,11 +115,11 @@ export const UpsertUserModal = ({ toggle, username }: { toggle: () => void; user
         <div className="btn-panel">
           <Button variant="btn btn-dark" disabled={!isDirty} onClick={handleSubmit(upsertUser)}>
             <i className="bi bi-database"></i>&nbsp;
-            {user ? ' Update' : ' Save'}
+            {userQuery.data ? ' Update' : ' Save'}
           </Button>
 
-          {user && (
-            <Button variant="btn btn-danger" onClick={() => deleteUser(user.username)}>
+          {userQuery.data && (
+            <Button variant="btn btn-danger" onClick={() => deleteUser(username)}>
               <i className="bi bi-exclamation-circle"></i>&nbsp; Delete
             </Button>
           )}

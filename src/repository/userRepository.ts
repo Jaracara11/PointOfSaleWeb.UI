@@ -48,23 +48,23 @@ export const getAllUsers = async (): Promise<UserInfo[]> => {
   }
 };
 
-export const getUserRoles = async (): Promise<UserRole[]> => {
-  try {
-    const response = await axios.get(`${API_URL}/roles`, {
-      headers: userAuthorizationHeaders()
-    });
-    return response.data as UserRole[];
-  } catch (error: any) {
-    return Promise.reject(error);
-  }
-};
-
 export const getUserByUsername = async (username: string): Promise<UserData> => {
   try {
     const response = await axios.get(`${API_URL}/${username}`, {
       headers: userAuthorizationHeaders()
     });
     return response.data as UserData;
+  } catch (error: any) {
+    return Promise.reject(error);
+  }
+};
+
+export const getUserRoles = async (): Promise<UserRole[]> => {
+  try {
+    const response = await axios.get(`${API_URL}/roles`, {
+      headers: userAuthorizationHeaders()
+    });
+    return response.data as UserRole[];
   } catch (error: any) {
     return Promise.reject(error);
   }
