@@ -60,7 +60,6 @@ export const UpsertUserModal = ({ toggle, user, roles }: UpsertUserModalProps) =
         firstName: firstCharToUpper(data.firstName),
         lastName: firstCharToUpper(data.lastName),
         email: data.email,
-        userRoleID: data.userRoleID,
         password: data.repeatNewPassword
       };
     }

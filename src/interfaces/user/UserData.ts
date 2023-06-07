@@ -3,6 +3,6 @@ export interface UserData {
   firstName: string;
   lastName: string;
   email: string;
-  userRoleID: number;
+  userRoleID?: number;
   password?: string;
 }
