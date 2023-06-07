@@ -7,6 +7,9 @@ import { ErrorInputView } from '../../errorInputView/ErrorInputView';
 import { UserRole } from '../../../interfaces/user/UserRole';
 import { swalConfirmAlert } from '../../../services/swal.service';
 import { UpsertUserModalProps } from '../../../interfaces/modals/UpsertUserModalProps';
+import { UserData } from '../../../interfaces/user/UserData';
+import { useDeleteUser, useSaveNewUser, useUpdateUser } from '../../../hooks/users.hooks';
+import { firstCharToUpper } from '../../../utils/string.helper';
 
 export const UpsertUserModal = ({ toggle, user, roles }: UpsertUserModalProps) => {
   const {
@@ -20,6 +23,10 @@ export const UpsertUserModal = ({ toggle, user, roles }: UpsertUserModalProps) =
   });
 
   const [showModal, setShowModal] = useState<boolean>(true);
+
+  const newUserMutation = useSaveNewUser();
+  const updateUserMutation = useUpdateUser();
+  const deleteUserMutation = useDeleteUser();
 
   const closeModal = () => {
     setShowModal(false);
@@ -38,6 +45,28 @@ export const UpsertUserModal = ({ toggle, user, roles }: UpsertUserModalProps) =
 
   const upsertUser: SubmitHandler<FieldValues> = async (data) => {
     console.log(data);
+    const userData: UserData = {
+      username: data.username,
+      firstName: firstCharToUpper(data.firstName),
+      lastName: firstCharToUpper(data.lastName),
+      email: data.email,
+      userRoleID: data.userRoleID
+    };
+
+    let confirmTitle = '';
+    let confirmAction = null;
+
+    if (user) {
+      confirmTitle = `Are you sure you want to update ${userData.username}'s information?`;
+      confirmAction = () => updateUserMutation.mutateAsync(userData);
+    } else {
+      confirmTitle = `Are you sure you want to add ${userData.username} as a new user?`;
+      confirmAction = () => newUserMutation.mutateAsync(userData);
+    }
+
+    const isConfirmed = await swalConfirmAlert(confirmTitle, 'Save', 'question');
+
+    isConfirmed && confirmAction().then(() => toggle());
   };
 
   const deleteUser = async (username: string) => {
@@ -45,13 +74,7 @@ export const UpsertUserModal = ({ toggle, user, roles }: UpsertUserModalProps) =
 
     const isConfirmed = await swalConfirmAlert(confirmTitle, 'Delete', 'warning');
 
-    // if (isConfirmed) {
-    //   product.productID
-    //     ? deleteProductMutation.mutateAsync(product.productID)
-    //     : swalMessageAlert(
-    //         'Error while trying to delete product, please refresh the page and try again.',
-    //         'error'
-    //       );
+    isConfirmed && deleteUserMutation.mutateAsync(username);
     toggle();
   };
 

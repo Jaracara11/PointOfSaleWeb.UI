@@ -70,23 +70,33 @@ export const resetUserPassword = async (userData: UserPasswordChangeRequest): Pr
   }
 };
 
-export const addUser = async (newUser: UserData): Promise<Product> => {
+export const addUser = async (newUser: UserData): Promise<UserData> => {
   try {
-    const response = await axios.post(API_URL, newProduct, {
+    const response = await axios.post(`${API_URL}/register`, newUser, {
       headers: userAuthorizationHeaders()
     });
-    return response.data as Product;
+    return response.data as UserData;
   } catch (error: any) {
     return Promise.reject(error);
   }
 };
 
-export const updateProduct = async (product: Product): Promise<Product> => {
+export const updateUser = async (user: UserData): Promise<UserData> => {
   try {
-    const response = await axios.put(`${API_URL}/${product.productID}/edit`, product, {
+    const response = await axios.put(`${API_URL}/edit`, user, {
       headers: userAuthorizationHeaders()
     });
-    return response.data as Product;
+    return response.data as UserData;
+  } catch (error: any) {
+    return Promise.reject(error);
+  }
+};
+
+export const deleteUser = async (username: string): Promise<void> => {
+  try {
+    await axios.delete(`${API_URL}/${username}/delete`, {
+      headers: userAuthorizationHeaders()
+    });
   } catch (error: any) {
     return Promise.reject(error);
   }
