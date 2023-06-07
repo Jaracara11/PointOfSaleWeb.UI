@@ -107,16 +107,20 @@ export const UpsertUserModal = ({ toggle, user, roles }: UpsertUserModalProps) =
           <Form.Label>Email</Form.Label>
           <Form.Control type="text" placeholder="Enter user email" {...register('email')} />
           <ErrorInputView error={errors.email} />
-          <Form.Label>User Role</Form.Label>
-          <Form.Select {...register('userRoleID')} defaultValue={watch('userRoleID') || 0}>
-            <option value={0}>Select a role...</option>
-            {roles.map((role: UserRole) => (
-              <option key={role.roleID} value={role.roleID}>
-                {role.roleName}
-              </option>
-            ))}
-          </Form.Select>
-          <ErrorInputView error={errors.userRoleID} />
+          {user && (
+            <>
+              <Form.Label>User Role</Form.Label>
+              <Form.Select {...register('userRoleID')} defaultValue={watch('userRoleID') || 0}>
+                <option value={0}>Select a role...</option>
+                {roles.map((role: UserRole) => (
+                  <option key={role.roleID} value={role.roleID}>
+                    {role.roleName}
+                  </option>
+                ))}
+              </Form.Select>
+              <ErrorInputView error={errors.userRoleID} />
+            </>
+          )}
           {!user && (
             <div className="password-inputs">
               <Form.Label>Password</Form.Label>
