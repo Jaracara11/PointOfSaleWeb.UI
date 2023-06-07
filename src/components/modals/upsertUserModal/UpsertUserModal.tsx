@@ -45,13 +45,25 @@ export const UpsertUserModal = ({ toggle, user, roles }: UpsertUserModalProps) =
 
   const upsertUser: SubmitHandler<FieldValues> = async (data) => {
     console.log(data);
-    const userData: UserData = {
-      username: data.username,
-      firstName: firstCharToUpper(data.firstName),
-      lastName: firstCharToUpper(data.lastName),
-      email: data.email,
-      userRoleID: data.userRoleID
-    };
+    let userData: UserData;
+    if (user) {
+      userData = {
+        username: data.username,
+        firstName: firstCharToUpper(data.firstName),
+        lastName: firstCharToUpper(data.lastName),
+        email: data.email,
+        userRoleID: data.userRoleID
+      };
+    } else {
+      userData = {
+        username: data.username,
+        firstName: firstCharToUpper(data.firstName),
+        lastName: firstCharToUpper(data.lastName),
+        email: data.email,
+        userRoleID: data.userRoleID,
+        password: data.repeatNewPassword
+      };
+    }
 
     let confirmTitle = '';
     let confirmAction = null;
