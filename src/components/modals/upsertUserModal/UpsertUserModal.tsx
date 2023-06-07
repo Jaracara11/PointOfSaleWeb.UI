@@ -44,8 +44,8 @@ export const UpsertUserModal = ({ toggle, user, roles }: UpsertUserModalProps) =
   }, [user]);
 
   const upsertUser: SubmitHandler<FieldValues> = async (data) => {
-    console.log(data);
     let userData: UserData;
+
     if (user) {
       userData = {
         username: data.username,
@@ -95,7 +95,12 @@ export const UpsertUserModal = ({ toggle, user, roles }: UpsertUserModalProps) =
         <h3 className="title">{user ? 'Edit' : 'Add New'} User</h3>
         <Form.Group>
           <Form.Label>Username</Form.Label>
-          <Form.Control type="text" placeholder="Enter username" {...register('username')} />
+          <Form.Control
+            type="text"
+            placeholder="Enter username"
+            {...register('username')}
+            disabled={user !== null}
+          />
           <ErrorInputView error={errors.username} />
           <Form.Label>First Name</Form.Label>
           <Form.Control type="text" placeholder="Enter first name" {...register('firstName')} />

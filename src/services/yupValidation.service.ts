@@ -18,15 +18,11 @@ export const userValidationSchema = Yup.object({
     .min(3, 'Username cannot have less than 3 characters.'),
   newPassword: Yup.string()
     .max(25, 'Password cannot exceed 25 characters.')
-    .min(4, 'Password must be at least 4 characters long.')
-    .notOneOf(
-      [Yup.ref('oldPassword'), undefined],
-      'The new password cannot be the same as the old one.'
-    ),
+    .min(4, 'Password must be at least 4 characters long.'),
   repeatNewPassword: Yup.string()
     .max(25, 'Password cannot exceed 25 characters.')
     .min(4, 'Password must be at least 4 characters long.')
-    .oneOf([Yup.ref('newPassword'), undefined], 'The new password must match.'),
+    .oneOf([Yup.ref('newPassword'), undefined], 'Passwords must match.'),
   firstName: Yup.string()
     .required('First name is required.')
     .max(25, 'First name cannot exceed 25 characters.')
