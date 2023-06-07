@@ -38,7 +38,6 @@ export const userValidationSchema = Yup.object({
   email: Yup.string().email('Invalid email address.'),
   userRoleID: Yup.number()
     .typeError('User role ID must be a number')
-    .required('User role is required.')
     .integer('Please select a valid user role.')
     .min(1, 'Please select a valid user role.')
 });
