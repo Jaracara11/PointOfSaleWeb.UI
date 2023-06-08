@@ -6,3 +6,19 @@
 .user-container table .btn-dark {
   margin-right: 0.5rem;
 }
+
+@media (max-width: 1141px) {
+  .user-container .full-name {
+    max-width: 200px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .user-container table button:nth-child(2) {
+    max-width: 130px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+}

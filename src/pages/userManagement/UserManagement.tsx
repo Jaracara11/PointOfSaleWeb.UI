@@ -74,7 +74,7 @@ export const UserManagement = () => {
             {filteredUsers.map((user: UserData) => (
               <tr key={user.username}>
                 <td>{user.username}</td>
-                <td>{`${user.firstName} ${user.lastName}`}</td>
+                <td className="full-name">{`${user.firstName} ${user.lastName}`}</td>
                 <td>{user.email}</td>
                 <td>{getUserRoleName(user.userRoleID || 0, rolesQuery.data ?? [])}</td>
                 <td>
