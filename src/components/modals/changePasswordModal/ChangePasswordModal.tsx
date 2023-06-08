@@ -81,6 +81,7 @@ export const ChangePasswordModal = ({
         setLoadingData(true);
         await resetUserPassword(userData);
         swalMessageAlert('Password changed successfully!', 'success');
+        toggle();
       }
     } catch (error: any) {
       handleErrorResponse(error, 'UserError');
@@ -94,7 +95,7 @@ export const ChangePasswordModal = ({
   ) : (
     <Modal className="common-modal" show={showModal} onHide={closeModal} centered>
       <Form onSubmit={handleSubmit(resetPasswordRequest ? resetPassword : changePassword)}>
-        <h3 className="title">{resetPasswordRequest ? 'Reset' : 'Change'} Password</h3>
+        <h3 className="title">{resetPasswordRequest ? `Reset ${username}` : 'Change'} Password</h3>
         <Modal.Body>
           {!resetPasswordRequest && (
             <Form.Control

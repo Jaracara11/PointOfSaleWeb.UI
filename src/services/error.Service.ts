@@ -45,7 +45,7 @@ const handleErrorMessage = (statusCode: number, statusText: string, message: str
   };
 
   swalMessageAlertWithTitle(
-    `${errorResponse.statusCode}: ${errorResponse.statusText}`,
+    `Error ${errorResponse.statusCode}: ${errorResponse.statusText}`,
     errorResponse.message,
     'error'
   );
