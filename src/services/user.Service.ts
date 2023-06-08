@@ -15,7 +15,7 @@ export const validateUserRolePermission = (roles: string[]) =>
 
 export const userAuthorizationHeaders = () => {
   return {
+    'Content-Type': 'application/json',
     Authorization: `Bearer ${getUserAuth()?.token || ''}`
   };
 };
-
