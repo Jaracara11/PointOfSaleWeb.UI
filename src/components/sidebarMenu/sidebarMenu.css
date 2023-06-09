@@ -21,7 +21,7 @@
 }
 
 .links {
-  width: 18rem;
+  width: 13rem;
 }
 
 .nav-link {
@@ -34,11 +34,11 @@
 }
 
 .nav-link:hover {
-  background-color: #343a40;
+  transform: scale(1.2);
 }
 
 .active {
-  background-color: #343a40;
+  font-weight: bolder;
 }
 
 .user-profile {
@@ -51,7 +51,8 @@
 }
 
 .user-profile :hover {
-  background-color: #343a40;
+  transform: scale(1.2);
+  font-weight: bolder;
 }
 
 .user-profile p {

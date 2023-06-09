@@ -1,3 +1,4 @@
+import './sales.css';
 import { LoadingSpinner } from '../../components/loadingSpinner/LoadingSpinner';
 import { useGetProducts } from '../../hooks/products.hooks';
 

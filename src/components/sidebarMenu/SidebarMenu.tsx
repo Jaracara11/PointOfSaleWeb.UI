@@ -55,7 +55,7 @@ export const SidebarMenu = () => {
         {user && user.role === 'Admin' && (
           <NavLink className="nav-link" to="user-management">
             <i className="bi bi-person-gear"></i>
-            <span>User Management</span>
+            <span>Users</span>
           </NavLink>
         )}
 
