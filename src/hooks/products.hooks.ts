@@ -13,7 +13,8 @@ export const useGetProducts = () => {
     queryKey: ['products'],
     queryFn: getAllProducts,
     onError: (error) => handleErrorResponse(error, ''),
-    cacheTime: 3600000
+    cacheTime: 3600000,
+    staleTime: 3600000
   });
 };
 
