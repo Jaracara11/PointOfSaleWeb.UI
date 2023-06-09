@@ -1,7 +1,7 @@
 import './sales.css';
 import { LoadingSpinner } from '../../components/loadingSpinner/LoadingSpinner';
 import { useGetProducts } from '../../hooks/products.hooks';
-import { Table } from 'react-bootstrap';
+import { Button, OverlayTrigger, Table, Tooltip } from 'react-bootstrap';
 import { useState } from 'react';
 import { Product } from '../../interfaces/inventory/product';
 import { SearchInput } from '../../components/searchInput/SearchInput';
@@ -34,6 +34,7 @@ export const Sales = () => {
                     <th>Stock</th>
                     <th>Price</th>
                     <th>Category</th>
+                    <td></td>
                   </tr>
                 </thead>
                 <tbody>
@@ -48,6 +49,12 @@ export const Sales = () => {
                       <td>
                         {categoriesQuery.data &&
                           getProductCategoryName(product.productCategoryID, categoriesQuery.data)}
+                      </td>
+                      <td>
+                        <Button variant="dark">
+                          <i className="bi bi-plus"></i>
+                          &nbsp;Add to cart
+                        </Button>
                       </td>
                     </tr>
                   ))}
