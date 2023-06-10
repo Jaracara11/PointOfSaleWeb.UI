@@ -55,7 +55,7 @@ export const Sales = () => {
                       <td>
                         <Button variant="dark">
                           <i className="bi bi-plus"></i>
-                          &nbsp;Add to cart
+                          <span>&nbsp;Add to cart</span>
                         </Button>
                       </td>
                     </tr>
@@ -66,7 +66,7 @@ export const Sales = () => {
           </div>
         </div>
         <div className="col-6">
-          <div className="sales-calculator">aa</div>
+          <div className="sales-calculator"></div>
         </div>
       </div>
     </div>

@@ -35,8 +35,22 @@
     width: 45%;
   }
 
-  .sales-container td:nth-child(4) {
-    max-width: 100px;
+  .table-wrapper td:nth-child(1) {
+    max-width: 150px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .table-wrapper td:nth-child(4) {
+    max-width: 10px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .table-wrapper button {
+    max-width: 90px;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
