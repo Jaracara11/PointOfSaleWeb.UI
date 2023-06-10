@@ -29,7 +29,7 @@ export const Sales = () => {
           </div>
           <div className="row table-wrapper">
             {productsQuery.data && (
-              <Table bordered hover w-auto>
+              <Table bordered hover>
                 <thead>
                   <tr>
                     <th>Name</th>
