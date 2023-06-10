@@ -2,10 +2,13 @@
   overflow-x: hidden;
 }
 
+.sales-container h1 {
+  margin-bottom: 3rem;
+}
+
 .sales-container .table-wrapper {
   display: block;
   position: relative;
-  height: 84vh;
   overflow: auto;
   margin-left: 0.1rem;
 }
