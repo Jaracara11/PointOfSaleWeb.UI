@@ -1,15 +1,11 @@
-/* .sidebar-menu {
-  width: 5rem;
+.sales-container .card {
+  padding: 1rem;
 }
 
-.sidebar-menu span {
-  display: none;
+.sales-container table {
+  margin: 1rem;
 }
 
-.user-profile p {
-  display: none;
+.sales-container th {
+  width: 10px;
 }
-
-.sales-container {
-  border: solid 1px black;
-} */

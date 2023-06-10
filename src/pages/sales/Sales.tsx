@@ -1,7 +1,7 @@
 import './sales.css';
 import { LoadingSpinner } from '../../components/loadingSpinner/LoadingSpinner';
 import { useGetProducts } from '../../hooks/products.hooks';
-import { Button, OverlayTrigger, Table, Tooltip } from 'react-bootstrap';
+import { Button, Table } from 'react-bootstrap';
 import { useState } from 'react';
 import { Product } from '../../interfaces/inventory/product';
 import { SearchInput } from '../../components/searchInput/SearchInput';
@@ -22,47 +22,45 @@ export const Sales = () => {
   return (
     <div className="sales-container">
       <h1 className="title">Sales</h1>
-      <div className="products-table">
-        <div className="card">
-          <SearchInput searchQuery={searchProductQuery} setSearchQuery={setSearchProductQuery} />
-          {productsQuery.data && (
-            <>
-              <Table bordered hover>
-                <thead>
-                  <tr>
-                    <th>Name</th>
-                    <th>Stock</th>
-                    <th>Price</th>
-                    <th>Category</th>
-                    <td></td>
+      <div className="card bg-light">
+        <SearchInput searchQuery={searchProductQuery} setSearchQuery={setSearchProductQuery} />
+        {productsQuery.data && (
+          <>
+            <Table bordered hover>
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Stock</th>
+                  <th>Price</th>
+                  <th>Category</th>
+                  <td></td>
+                </tr>
+              </thead>
+              <tbody>
+                {filteredProducts.map((product: Product) => (
+                  <tr key={product.productID}>
+                    <td>
+                      <i className="bi bi-dot"></i>
+                      {product.productName}
+                    </td>
+                    <td>{product.productStock}</td>
+                    <td>{product.productPrice}</td>
+                    <td>
+                      {categoriesQuery.data &&
+                        getProductCategoryName(product.productCategoryID, categoriesQuery.data)}
+                    </td>
+                    <td>
+                      <Button variant="dark">
+                        <i className="bi bi-plus"></i>
+                        &nbsp;Add to cart
+                      </Button>
+                    </td>
                   </tr>
-                </thead>
-                <tbody>
-                  {filteredProducts.map((product: Product) => (
-                    <tr key={product.productID}>
-                      <td>
-                        <i className="bi bi-dot"></i>
-                        {product.productName}
-                      </td>
-                      <td>{product.productStock}</td>
-                      <td>{product.productPrice}</td>
-                      <td>
-                        {categoriesQuery.data &&
-                          getProductCategoryName(product.productCategoryID, categoriesQuery.data)}
-                      </td>
-                      <td>
-                        <Button variant="dark">
-                          <i className="bi bi-plus"></i>
-                          &nbsp;Add to cart
-                        </Button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </Table>
-            </>
-          )}
-        </div>
+                ))}
+              </tbody>
+            </Table>
+          </>
+        )}
       </div>
     </div>
   );
