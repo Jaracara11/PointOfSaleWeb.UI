@@ -1,11 +1,7 @@
-.sales-container .card {
-  padding: 1rem;
+.sales-container .search-input {
+  float: left;
 }
 
 .sales-container table {
-  margin: 1rem;
-}
-
-.sales-container th {
-  width: 10px;
+  margin-top: 0;
 }
