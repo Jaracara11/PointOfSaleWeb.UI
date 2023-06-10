@@ -15,6 +15,7 @@ body {
 table {
   cursor: pointer;
   margin-top: 8rem;
+  white-space: nowrap;
 }
 
 .title {
