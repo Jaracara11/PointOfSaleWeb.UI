@@ -7,15 +7,21 @@ import { Product } from '../../interfaces/inventory/product';
 import { SearchInput } from '../../components/searchInput/SearchInput';
 import { useGetCategories } from '../../hooks/categories.hooks';
 import { getProductCategoryName } from '../../utils/inventory.helper';
+import { SalesForm } from '../../components/salesForm/SalesForm';
 
 export const Sales = () => {
   const productsQuery = useGetProducts();
   const categoriesQuery = useGetCategories();
   const [searchProductQuery, setSearchProductQuery] = useState<string>('');
+  const [cartProducts, setCartProducts] = useState<Product[]>([]);
 
   const filteredProducts = (productsQuery.data || []).filter((product) =>
     product.productName.toLowerCase().includes(searchProductQuery.trim().toLowerCase())
   );
+
+  const addToCart = (product: Product) => {
+    setCartProducts((prevProducts) => [...prevProducts, product]);
+  };
 
   if (productsQuery.isLoading || categoriesQuery.isLoading) return <LoadingSpinner />;
 
@@ -53,7 +59,7 @@ export const Sales = () => {
                           getProductCategoryName(product.productCategoryID, categoriesQuery.data)}
                       </td>
                       <td>
-                        <Button variant="dark">
+                        <Button variant="dark" onClick={() => addToCart(product)}>
                           <i className="bi bi-plus"></i>
                           <span>&nbsp;Add to cart</span>
                         </Button>
@@ -66,7 +72,14 @@ export const Sales = () => {
           </div>
         </div>
         <div className="col-6">
-          <div className="sales-calculator"></div>
+          <div className="sales-calculator card bg-light">
+            <div className="row">
+              <div className="col-6">
+                <SalesForm products={cartProducts} />
+              </div>
+              <div className="col-6"></div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

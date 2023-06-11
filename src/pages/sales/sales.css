@@ -29,8 +29,7 @@
   position: fixed;
   width: 43%;
   min-height: 75%;
-  border: solid 1px black;
-  margin-right: 61rem !important;
+  margin-right: 61rem;
 }
 
 @media (max-width: 1280px) {
