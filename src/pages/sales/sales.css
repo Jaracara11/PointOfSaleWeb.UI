@@ -27,9 +27,10 @@
 
 .sales-calculator {
   position: fixed;
-  min-width: 100%;
+  width: 43%;
   min-height: 75%;
   border: solid 1px black;
+  margin-right: 61rem !important;
 }
 
 @media (max-width: 1280px) {
