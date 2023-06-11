@@ -1,5 +1,6 @@
 .sales-container {
-  overflow-x: hidden;
+  height: 50%;
+  overflow: hidden;
 }
 
 .sales-container h1 {
@@ -7,9 +8,6 @@
 }
 
 .sales-container .table-wrapper {
-  display: block;
-  position: relative;
-  overflow: auto;
   margin-left: 0.1rem;
 }
 
@@ -28,8 +26,9 @@
 }
 
 .sales-calculator {
+  position: fixed;
   min-width: 100%;
-  min-height: 100%;
+  min-height: 75%;
   border: solid 1px black;
 }
 
