@@ -47,7 +47,7 @@ export const Login = () => {
   ) : (
     <div className="container">
       <div className="card">
-        <h2>Login</h2>
+        <h2 className='title'>Login</h2>
         <form className="card-body" onSubmit={handleSubmit(submitLogin)}>
           <div>
             <input
