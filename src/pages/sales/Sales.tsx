@@ -2,7 +2,7 @@ import './sales.css';
 import { LoadingSpinner } from '../../components/loadingSpinner/LoadingSpinner';
 import { useGetProducts } from '../../hooks/products.hooks';
 import { Button, Table } from 'react-bootstrap';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Product } from '../../interfaces/inventory/product';
 import { SearchInput } from '../../components/searchInput/SearchInput';
 import { useGetCategories } from '../../hooks/categories.hooks';
@@ -15,6 +15,13 @@ export const Sales = () => {
   const [searchProductQuery, setSearchProductQuery] = useState<string>('');
   const [cartProducts, setCartProducts] = useState<Product[]>([]);
 
+  useEffect(() => {
+    const productsToRemove = cartProducts.filter((product) => product.productQuantity === 0);
+    productsToRemove.forEach((product) => {
+      removeFromCart(product.productID || 0);
+    });
+  }, [cartProducts]);
+
   const filteredProducts = (productsQuery.data || []).filter((product) =>
     product.productName.toLowerCase().includes(searchProductQuery.trim().toLowerCase())
   );
@@ -23,6 +30,9 @@ export const Sales = () => {
     product.productQuantity = 1;
     setCartProducts((prevProducts) => [...prevProducts, product]);
   };
+
+  const removeFromCart = (productID: number) =>
+    setCartProducts((prevProducts) => prevProducts.filter((p) => p.productID !== productID));
 
   if (productsQuery.isLoading || categoriesQuery.isLoading) return <LoadingSpinner />;
 
@@ -88,7 +98,7 @@ export const Sales = () => {
           <div className="sales-calculator card bg-light">
             <div className="row">
               <div className="col-6">
-                <SalesForm products={cartProducts} />
+                <SalesForm products={cartProducts} removeFromCart={removeFromCart} />
               </div>
             </div>
           </div>

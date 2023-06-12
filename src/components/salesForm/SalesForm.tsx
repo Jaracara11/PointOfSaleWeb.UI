@@ -2,18 +2,19 @@ import './salesForm.css';
 import { Button, Table } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
 import { Product } from '../../interfaces/inventory/product';
+import { SalesFormProps } from '../../interfaces/SalesFormProps';
 
-export const SalesForm = ({ products }: { products: Product[] }) => {
+export const SalesForm = ({ products, removeFromCart }: SalesFormProps) => {
   const [productSales, setProductSales] = useState<Product[]>([]);
 
   useEffect(() => {
     setProductSales(products);
   }, [products]);
 
-  const handleIncreaseQuantity = (productId: number) => {
+  const handleIncreaseQuantity = (productID: number) => {
     setProductSales((prevProductSales) =>
       prevProductSales.map((product) =>
-        product.productID === productId
+        product.productID === productID
           ? { ...product, productQuantity: (product.productQuantity ?? 0) + 1 }
           : product
       )
@@ -22,21 +23,26 @@ export const SalesForm = ({ products }: { products: Product[] }) => {
 
   const handleDecreaseQuantity = (productId: number) => {
     setProductSales((prevProductSales) =>
-      prevProductSales
-        .map((product) =>
-          product.productID === productId
-            ? {
-                ...product,
-                productQuantity:
-                  product.productQuantity && product.productQuantity > 1
-                    ? product.productQuantity - 1
-                    : 0
-              }
-            : product
-        )
-        .filter((product) => product.productQuantity && product.productQuantity > 0)
+      prevProductSales.map((product) =>
+        product.productID === productId
+          ? {
+              ...product,
+              productQuantity:
+                product.productQuantity && product.productQuantity > 0
+                  ? product.productQuantity - 1
+                  : 0
+            }
+          : product
+      )
     );
   };
+
+  useEffect(() => {
+    const productsToRemove = productSales.filter((product) => product.productQuantity === 0);
+    productsToRemove.forEach((product) => {
+      removeFromCart(product.productID || 0);
+    });
+  }, [productSales, removeFromCart]);
 
   console.log(productSales);
 
