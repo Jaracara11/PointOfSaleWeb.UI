@@ -1,5 +1,5 @@
 import './salesForm.css';
-import { Form, Table } from 'react-bootstrap';
+import { Button, Form, Table } from 'react-bootstrap';
 import { Product } from '../../interfaces/inventory/product';
 import { useForm } from 'react-hook-form';
 import { useEffect, useState } from 'react';
@@ -8,19 +8,6 @@ import { ProductSale } from '../../interfaces/sales/ProductSale';
 export const SalesForm = ({ products }: { products: ProductSale[] }) => {
   const { register, handleSubmit, setValue } = useForm();
   const [productSales, setProductSales] = useState<ProductSale[]>([]);
-
-  const addProductSale = (product: Product) => {
-    const productSale: ProductSale = {
-      productID: product.productID || 0,
-      productName: product.productName,
-      productDescription: product.productDescription,
-      productPrice: product.productPrice,
-      productCategoryID: product.productCategoryID,
-      productQuantity: 1
-    };
-
-    setProductSales((prevProductSales) => [...prevProductSales, productSale]);
-  };
 
   useEffect(() => {
     const newProductSales = products.map((product) => ({
@@ -35,7 +22,30 @@ export const SalesForm = ({ products }: { products: ProductSale[] }) => {
     setProductSales(newProductSales);
   }, [products]);
 
+  const handleIncreaseQuantity = (productId: number) => {
+    console.log('click handleIncreaseQuantity');
+    setProductSales((prevProductSales) =>
+      prevProductSales.map((product) =>
+        product.productID === productId
+          ? { ...product, productQuantity: product.productQuantity + 1 }
+          : product
+      )
+    );
+  };
+
+  const handleDecreaseQuantity = (productId: number) => {
+    console.log('handleDecreaseQuantity handleIncreaseQuantity');
+    setProductSales((prevProductSales) =>
+      prevProductSales.map((product) =>
+        product.productID === productId && product.productQuantity > 1
+          ? { ...product, productQuantity: product.productQuantity - 1 }
+          : product
+      )
+    );
+  };
+
   console.log(productSales);
+
   return (
     <div className="sales-form">
       <Form>
@@ -46,6 +56,7 @@ export const SalesForm = ({ products }: { products: ProductSale[] }) => {
               <th>Name</th>
               <th>Price</th>
               <th>Qty</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -59,6 +70,24 @@ export const SalesForm = ({ products }: { products: ProductSale[] }) => {
                 </td>
                 <td>{product.productPrice}</td>
                 <td>{product.productQuantity}</td>
+                <td>
+                  <div className="quantity-control">
+                    <Button
+                      variant="dark"
+                      size="sm"
+                      onClick={() => handleIncreaseQuantity(product.productID)}
+                    >
+                      <i className="bi bi-plus"></i>
+                    </Button>
+                    <Button
+                      variant="dark"
+                      size="sm"
+                      onClick={() => handleDecreaseQuantity(product.productID)}
+                    >
+                      <i className="bi bi-dash"></i>
+                    </Button>
+                  </div>
+                </td>
               </tr>
             ))}
           </tbody>
