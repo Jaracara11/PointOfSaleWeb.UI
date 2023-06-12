@@ -99,7 +99,6 @@ export const Sales = () => {
               <div className="col-6">
                 <SalesForm products={cartProducts} />
               </div>
-              <div className="col-6"></div>
             </div>
           </div>
         </div>

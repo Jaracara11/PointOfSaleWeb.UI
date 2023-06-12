@@ -20,7 +20,6 @@ export const SalesForm = ({ products }: { products: ProductSale[] }) => {
   }, [products]);
 
   const handleIncreaseQuantity = (productId: number) => {
-    console.log('click handleIncreaseQuantity');
     setProductSales((prevProductSales) =>
       prevProductSales.map((product) =>
         product.productID === productId
@@ -31,7 +30,6 @@ export const SalesForm = ({ products }: { products: ProductSale[] }) => {
   };
 
   const handleDecreaseQuantity = (productId: number) => {
-    console.log('handleDecreaseQuantity handleIncreaseQuantity');
     setProductSales((prevProductSales) =>
       prevProductSales.map((product) =>
         product.productID === productId && product.productQuantity > 1
