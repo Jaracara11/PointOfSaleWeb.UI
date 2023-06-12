@@ -3,11 +3,10 @@ import { Button, Table } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
 import { Product } from '../../interfaces/inventory/product';
 import { SalesFormProps } from '../../interfaces/SalesFormProps';
+import { swalMessageAlert } from '../../services/swal.service';
 
 export const SalesForm = ({ products, removeFromCart }: SalesFormProps) => {
   const [productSales, setProductSales] = useState<Product[]>([]);
-
-  console.log(products);
 
   useEffect(() => {
     setProductSales(products);
@@ -24,10 +23,22 @@ export const SalesForm = ({ products, removeFromCart }: SalesFormProps) => {
     setProductSales((prevProductSales) =>
       prevProductSales.map((product) =>
         product.productID === productID
-          ? { ...product, productQuantity: (product.productQuantity ?? 0) + 1 }
+          ? {
+              ...product,
+              productQuantity:
+                (product.productQuantity ?? 0) < product.productStock
+                  ? (product.productQuantity ?? 0) + 1
+                  : product.productQuantity
+            }
           : product
       )
     );
+
+    const product = productSales.find((product) => product.productID === productID);
+
+    product &&
+      product.productQuantity === product.productStock &&
+      swalMessageAlert(`Maximum quantity reached for ${product.productName}`, 'warning');
   };
 
   const handleDecreaseQuantity = (productId: number) => {
