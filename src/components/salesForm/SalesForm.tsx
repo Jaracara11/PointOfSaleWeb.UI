@@ -102,6 +102,14 @@ export const SalesForm = ({ products, removeFromCart }: SalesFormProps) => {
           ))}
         </tbody>
       </Table>
+      <div className="order-info">
+        <div className="row">
+          <div className="col-6">
+            <span>Sub-total:</span>
+          </div>
+          <div className="col-6"></div>
+        </div>
+      </div>
     </div>
   );
 };
