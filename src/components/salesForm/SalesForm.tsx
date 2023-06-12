@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { useEffect, useState } from 'react';
 import { ProductSale } from '../../interfaces/sales/ProductSale';
 
-export const SalesForm = ({ products }: { products: Product[] }) => {
+export const SalesForm = ({ products }: { products: ProductSale[] }) => {
   const { register, handleSubmit, setValue } = useForm();
   const [productSales, setProductSales] = useState<ProductSale[]>([]);
 

@@ -8,19 +8,29 @@ import { SearchInput } from '../../components/searchInput/SearchInput';
 import { useGetCategories } from '../../hooks/categories.hooks';
 import { getProductCategoryName } from '../../utils/inventory.helper';
 import { SalesForm } from '../../components/salesForm/SalesForm';
+import { ProductSale } from '../../interfaces/sales/ProductSale';
 
 export const Sales = () => {
   const productsQuery = useGetProducts();
   const categoriesQuery = useGetCategories();
   const [searchProductQuery, setSearchProductQuery] = useState<string>('');
-  const [cartProducts, setCartProducts] = useState<Product[]>([]);
+  const [cartProducts, setCartProducts] = useState<ProductSale[]>([]);
 
   const filteredProducts = (productsQuery.data || []).filter((product) =>
     product.productName.toLowerCase().includes(searchProductQuery.trim().toLowerCase())
   );
 
   const addToCart = (product: Product) => {
-    setCartProducts((prevProducts) => [...prevProducts, product]);
+    const productSale: ProductSale = {
+      productID: product.productID || 0,
+      productName: product.productName,
+      productDescription: product.productDescription,
+      productPrice: product.productPrice,
+      productCategoryID: product.productCategoryID,
+      productQuantity: 1
+    };
+
+    setCartProducts((prevProducts) => [...prevProducts, productSale]);
   };
 
   if (productsQuery.isLoading || categoriesQuery.isLoading) return <LoadingSpinner />;
@@ -46,26 +56,39 @@ export const Sales = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {filteredProducts.map((product: Product) => (
-                    <tr key={product.productID}>
-                      <td>
-                        <i className="bi bi-dot"></i>
-                        {product.productName}
-                      </td>
-                      <td>{product.productStock}</td>
-                      <td>{product.productPrice}</td>
-                      <td>
-                        {categoriesQuery.data &&
-                          getProductCategoryName(product.productCategoryID, categoriesQuery.data)}
-                      </td>
-                      <td>
-                        <Button variant="dark" onClick={() => addToCart(product)}>
-                          <i className="bi bi-plus"></i>
-                          <span>&nbsp;Add to cart</span>
-                        </Button>
-                      </td>
-                    </tr>
-                  ))}
+                  {filteredProducts.map((product: Product) => {
+                    const existingProduct = cartProducts.find(
+                      (p) => p.productID === product.productID
+                    );
+                    const isProductAdded = existingProduct !== undefined;
+
+                    return (
+                      <tr key={product.productID}>
+                        <td>
+                          <i className="bi bi-dot"></i>
+                          {product.productName}
+                        </td>
+                        <td>{product.productStock}</td>
+                        <td>{product.productPrice}</td>
+                        <td>
+                          {categoriesQuery.data &&
+                            getProductCategoryName(product.productCategoryID, categoriesQuery.data)}
+                        </td>
+                        <td>
+                          <Button
+                            variant="dark"
+                            disabled={isProductAdded}
+                            onClick={() => addToCart(product)}
+                          >
+                            <i className="bi bi-plus"></i>
+                            <span>
+                              &nbsp;{isProductAdded ? 'Already added' : 'Add to cart'}
+                            </span>
+                          </Button>
+                        </td>
+                      </tr>
+                    );
+                  })}
                 </tbody>
               </Table>
             )}
