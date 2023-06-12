@@ -1,12 +1,9 @@
 import './salesForm.css';
-import { Button, Form, Table } from 'react-bootstrap';
-import { Product } from '../../interfaces/inventory/product';
-import { useForm } from 'react-hook-form';
+import { Button, Table } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
 import { ProductSale } from '../../interfaces/sales/ProductSale';
 
 export const SalesForm = ({ products }: { products: ProductSale[] }) => {
-  const { register, handleSubmit, setValue } = useForm();
   const [productSales, setProductSales] = useState<ProductSale[]>([]);
 
   useEffect(() => {
@@ -48,29 +45,29 @@ export const SalesForm = ({ products }: { products: ProductSale[] }) => {
 
   return (
     <div className="sales-form">
-      <Form>
-        <h4>Item List</h4>
-        <Table>
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Price</th>
-              <th>Qty</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {productSales.map((product: ProductSale) => (
-              <tr key={product.productID}>
-                <td>
-                  {product.productName}
-                  <div>
-                    <small className="text-muted">{product.productDescription}</small>
-                  </div>
-                </td>
-                <td>{product.productPrice}</td>
-                <td>{product.productQuantity}</td>
-                <td>
+      <h4>Item List</h4>
+      <Table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Qty</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {productSales.map((product: ProductSale) => (
+            <tr key={product.productID}>
+              <td>
+                {product.productName}
+                <div>
+                  <small className="text-muted">{product.productDescription}</small>
+                </div>
+              </td>
+              <td>{product.productPrice}</td>
+              <td>{product.productQuantity}</td>
+              <td>
+                {product.productID && (
                   <div className="quantity-control">
                     <Button
                       variant="dark"
@@ -87,12 +84,12 @@ export const SalesForm = ({ products }: { products: ProductSale[] }) => {
                       <i className="bi bi-dash"></i>
                     </Button>
                   </div>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </Table>
-      </Form>
+                )}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </Table>
     </div>
   );
 };
