@@ -60,6 +60,7 @@ export const Sales = () => {
                     const existingProduct = cartProducts.find(
                       (p) => p.productID === product.productID
                     );
+                    
                     const isProductAdded = existingProduct !== undefined;
 
                     return (
