@@ -77,14 +77,18 @@ export const Sales = () => {
                             getProductCategoryName(product.productCategoryID, categoriesQuery.data)}
                         </td>
                         <td>
-                          <Button
-                            variant="dark"
-                            disabled={isProductAdded}
-                            onClick={() => addToCart(product)}
-                          >
-                            <i className="bi bi-plus"></i>
-                            <span>&nbsp;{isProductAdded ? 'Already added' : 'Add to cart'}</span>
-                          </Button>
+                          {product.productStock > 0 ? (
+                            <Button
+                              variant="dark"
+                              disabled={isProductAdded || product.productStock < 1}
+                              onClick={() => addToCart(product)}
+                            >
+                              <i className="bi bi-plus"></i>
+                              <span>&nbsp;{isProductAdded ? 'Already added' : 'Add to cart'}</span>
+                            </Button>
+                          ) : (
+                            <span className="text-muted"> Product Unavailable</span>
+                          )}
                         </td>
                       </tr>
                     );

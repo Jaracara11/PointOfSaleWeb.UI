@@ -7,6 +7,8 @@ import { SalesFormProps } from '../../interfaces/SalesFormProps';
 export const SalesForm = ({ products, removeFromCart }: SalesFormProps) => {
   const [productSales, setProductSales] = useState<Product[]>([]);
 
+  console.log(products);
+
   useEffect(() => {
     setProductSales(products);
   }, [products]);
