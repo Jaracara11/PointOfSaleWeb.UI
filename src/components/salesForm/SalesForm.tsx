@@ -11,6 +11,13 @@ export const SalesForm = ({ products, removeFromCart }: SalesFormProps) => {
     setProductSales(products);
   }, [products]);
 
+  useEffect(() => {
+    const productsToRemove = productSales.filter((product) => product.productQuantity === 0);
+    productsToRemove.forEach((product) => {
+      removeFromCart(product.productID || 0);
+    });
+  }, [productSales, removeFromCart]);
+
   const handleIncreaseQuantity = (productID: number) => {
     setProductSales((prevProductSales) =>
       prevProductSales.map((product) =>
@@ -36,15 +43,6 @@ export const SalesForm = ({ products, removeFromCart }: SalesFormProps) => {
       )
     );
   };
-
-  useEffect(() => {
-    const productsToRemove = productSales.filter((product) => product.productQuantity === 0);
-    productsToRemove.forEach((product) => {
-      removeFromCart(product.productID || 0);
-    });
-  }, [productSales, removeFromCart]);
-
-  console.log(productSales);
 
   return (
     <div className="sales-form">
