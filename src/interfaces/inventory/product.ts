@@ -6,4 +6,5 @@ export interface Product {
   productCost: number;
   productPrice: number;
   productCategoryID: number;
+  productQuantity?: number;
 }

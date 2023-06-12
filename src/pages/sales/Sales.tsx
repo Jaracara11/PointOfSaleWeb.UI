@@ -8,29 +8,20 @@ import { SearchInput } from '../../components/searchInput/SearchInput';
 import { useGetCategories } from '../../hooks/categories.hooks';
 import { getProductCategoryName } from '../../utils/inventory.helper';
 import { SalesForm } from '../../components/salesForm/SalesForm';
-import { ProductSale } from '../../interfaces/sales/ProductSale';
 
 export const Sales = () => {
   const productsQuery = useGetProducts();
   const categoriesQuery = useGetCategories();
   const [searchProductQuery, setSearchProductQuery] = useState<string>('');
-  const [cartProducts, setCartProducts] = useState<ProductSale[]>([]);
+  const [cartProducts, setCartProducts] = useState<Product[]>([]);
 
   const filteredProducts = (productsQuery.data || []).filter((product) =>
     product.productName.toLowerCase().includes(searchProductQuery.trim().toLowerCase())
   );
 
   const addToCart = (product: Product) => {
-    const productSale: ProductSale = {
-      productID: product.productID || 0,
-      productName: product.productName,
-      productDescription: product.productDescription,
-      productPrice: product.productPrice,
-      productCategoryID: product.productCategoryID,
-      productQuantity: 1
-    };
-
-    setCartProducts((prevProducts) => [...prevProducts, productSale]);
+    product.productQuantity = 1;
+    setCartProducts((prevProducts) => [...prevProducts, product]);
   };
 
   if (productsQuery.isLoading || categoriesQuery.isLoading) return <LoadingSpinner />;

@@ -1,29 +1,20 @@
 import './salesForm.css';
 import { Button, Table } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
-import { ProductSale } from '../../interfaces/sales/ProductSale';
+import { Product } from '../../interfaces/inventory/product';
 
-export const SalesForm = ({ products }: { products: ProductSale[] }) => {
-  const [productSales, setProductSales] = useState<ProductSale[]>([]);
+export const SalesForm = ({ products }: { products: Product[] }) => {
+  const [productSales, setProductSales] = useState<Product[]>([]);
 
   useEffect(() => {
-    const newProductSales = products.map((product) => ({
-      productID: product.productID || 0,
-      productName: product.productName,
-      productDescription: product.productDescription,
-      productPrice: product.productPrice,
-      productCategoryID: product.productCategoryID,
-      productQuantity: 1
-    }));
-
-    setProductSales(newProductSales);
+    setProductSales(products);
   }, [products]);
 
   const handleIncreaseQuantity = (productId: number) => {
     setProductSales((prevProductSales) =>
       prevProductSales.map((product) =>
         product.productID === productId
-          ? { ...product, productQuantity: product.productQuantity + 1 }
+          ? { ...product, productQuantity: (product.productQuantity ?? 0) + 1 }
           : product
       )
     );
@@ -31,11 +22,19 @@ export const SalesForm = ({ products }: { products: ProductSale[] }) => {
 
   const handleDecreaseQuantity = (productId: number) => {
     setProductSales((prevProductSales) =>
-      prevProductSales.map((product) =>
-        product.productID === productId && product.productQuantity > 1
-          ? { ...product, productQuantity: product.productQuantity - 1 }
-          : product
-      )
+      prevProductSales
+        .map((product) =>
+          product.productID === productId
+            ? {
+                ...product,
+                productQuantity:
+                  product.productQuantity && product.productQuantity > 1
+                    ? product.productQuantity - 1
+                    : 0
+              }
+            : product
+        )
+        .filter((product) => product.productQuantity && product.productQuantity > 0)
     );
   };
 
@@ -54,7 +53,7 @@ export const SalesForm = ({ products }: { products: ProductSale[] }) => {
           </tr>
         </thead>
         <tbody>
-          {productSales.map((product: ProductSale) => (
+          {productSales.map((product: Product) => (
             <tr key={product.productID}>
               <td>
                 {product.productName}
@@ -65,24 +64,22 @@ export const SalesForm = ({ products }: { products: ProductSale[] }) => {
               <td>{product.productPrice}</td>
               <td>{product.productQuantity}</td>
               <td>
-                {product.productID && (
-                  <div className="quantity-control">
-                    <Button
-                      variant="dark"
-                      size="sm"
-                      onClick={() => handleIncreaseQuantity(product.productID)}
-                    >
-                      <i className="bi bi-plus"></i>
-                    </Button>
-                    <Button
-                      variant="dark"
-                      size="sm"
-                      onClick={() => handleDecreaseQuantity(product.productID)}
-                    >
-                      <i className="bi bi-dash"></i>
-                    </Button>
-                  </div>
-                )}
+                <div className="quantity-control">
+                  <Button
+                    variant="dark"
+                    size="sm"
+                    onClick={() => handleIncreaseQuantity(product.productID || 0)}
+                  >
+                    <i className="bi bi-plus"></i>
+                  </Button>
+                  <Button
+                    variant="dark"
+                    size="sm"
+                    onClick={() => handleDecreaseQuantity(product.productID || 0)}
+                  >
+                    <i className="bi bi-dash"></i>
+                  </Button>
+                </div>
               </td>
             </tr>
           ))}
