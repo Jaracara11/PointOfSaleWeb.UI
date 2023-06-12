@@ -60,7 +60,7 @@ export const Sales = () => {
                     const existingProduct = cartProducts.find(
                       (p) => p.productID === product.productID
                     );
-                    
+
                     const isProductAdded = existingProduct !== undefined;
 
                     return (
@@ -82,9 +82,7 @@ export const Sales = () => {
                             onClick={() => addToCart(product)}
                           >
                             <i className="bi bi-plus"></i>
-                            <span>
-                              &nbsp;{isProductAdded ? 'Already added' : 'Add to cart'}
-                            </span>
+                            <span>&nbsp;{isProductAdded ? 'Already added' : 'Add to cart'}</span>
                           </Button>
                         </td>
                       </tr>
