@@ -32,10 +32,6 @@
   margin-right: 61rem;
 }
 
-.sales-container span:nth-child(1) {
-  font-weight: bold;
-}
-
 @media (max-width: 1280px) {
   .sales-container .search-input {
     width: 45%;

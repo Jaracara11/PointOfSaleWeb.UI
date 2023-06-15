@@ -5,3 +5,7 @@
 .sales-form .quantity-control button:nth-child(1) {
   margin-bottom: 0.3rem;
 }
+
+.sales-form .order-info select {
+
+}

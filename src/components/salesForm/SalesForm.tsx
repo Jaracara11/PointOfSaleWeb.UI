@@ -4,10 +4,14 @@ import { useEffect, useState } from 'react';
 import { Product } from '../../interfaces/inventory/product';
 import { SalesFormProps } from '../../interfaces/SalesFormProps';
 import { swalMessageAlert } from '../../services/swal.service';
+import { UserAuth } from '../../context/UserContext';
 
 export const SalesForm = ({ products, removeFromCart }: SalesFormProps) => {
+  const { user } = UserAuth() || {};
   const [productSales, setProductSales] = useState<Product[]>([]);
   const [subtotal, setSubtotal] = useState<number>(0);
+  const [total, setTotal] = useState<number>(0);
+  const [discount, setDiscount] = useState<number>(0);
 
   useEffect(() => {
     setProductSales(products);
@@ -20,6 +24,10 @@ export const SalesForm = ({ products, removeFromCart }: SalesFormProps) => {
       removeFromCart(product.productID || 0);
     });
   }, [productSales, removeFromCart]);
+
+  useEffect(() => {
+    setTotal(calculateTotal());
+  }, [subtotal, discount]);
 
   const handleIncreaseQuantity = (productID: number) => {
     setProductSales((prevProductSales) =>
@@ -43,12 +51,6 @@ export const SalesForm = ({ products, removeFromCart }: SalesFormProps) => {
       swalMessageAlert(`Maximum quantity reached for ${product.productName}`, 'warning');
   };
 
-  const calculateSubTotal = () => {
-    return productSales.reduce((total, product) => {
-      return total + product.productPrice * (product.productQuantity || 0);
-    }, 0);
-  };
-
   const handleDecreaseQuantity = (productId: number) => {
     setProductSales((prevProductSales) =>
       prevProductSales.map((product) =>
@@ -64,6 +66,17 @@ export const SalesForm = ({ products, removeFromCart }: SalesFormProps) => {
       )
     );
   };
+
+  const calculateSubTotal = () => {
+    return productSales.reduce((total, product) => {
+      return total + product.productPrice * (product.productQuantity || 0);
+    }, 0);
+  };
+
+  const calculateTotal = () => calculateSubTotal() * (1 - discount);
+
+  const handleDiscountChange = (event: React.ChangeEvent<HTMLSelectElement>) =>
+    setDiscount(parseFloat(event.target.value));
 
   return (
     <div className="sales-form">
@@ -112,10 +125,28 @@ export const SalesForm = ({ products, removeFromCart }: SalesFormProps) => {
       </Table>
       <div className="order-info">
         <div className="row">
-          <div className="col-6">
-            <span>Sub-total: {subtotal.toFixed(2)}</span>
+          <span>
+            <strong>Sub-total:</strong> {calculateSubTotal().toFixed(2)}
+          </span>
+        </div>
+        <div className="row">
+          <div>
+            <span>
+              <strong>Discount:</strong>
+              <select name="order-discount" onChange={handleDiscountChange}>
+                <option value={0}>0%</option>
+                <option value={0.05}>5%</option>
+                <option value={0.1}>10%</option>
+                <option value={0.15}>15%</option>
+                <option value={0.2}>20%</option>
+              </select>
+            </span>
           </div>
-          <div className="col-6"></div>
+        </div>
+        <div className="row">
+          <span>
+            <strong>Total:</strong> {total.toFixed(2)}
+          </span>
         </div>
       </div>
     </div>
