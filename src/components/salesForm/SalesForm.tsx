@@ -28,8 +28,8 @@ export const SalesForm = ({ products, removeFromCart }: SalesFormProps) => {
           ? {
               ...product,
               productQuantity:
-                (product.productQuantity ?? 0) < product.productStock
-                  ? (product.productQuantity ?? 0) + 1
+                (product.productQuantity || 0) < product.productStock
+                  ? (product.productQuantity || 0) + 1
                   : product.productQuantity
             }
           : product
