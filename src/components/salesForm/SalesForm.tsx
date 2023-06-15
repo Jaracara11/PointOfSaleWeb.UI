@@ -5,6 +5,7 @@ import { Product } from '../../interfaces/inventory/product';
 import { SalesFormProps } from '../../interfaces/SalesFormProps';
 import { swalMessageAlert } from '../../services/swal.service';
 import { UserAuth } from '../../context/UserContext';
+import { validateUserRolePermission } from '../../services/user.Service';
 
 export const SalesForm = ({ products, removeFromCart }: SalesFormProps) => {
   const { user } = UserAuth() || {};
@@ -129,20 +130,22 @@ export const SalesForm = ({ products, removeFromCart }: SalesFormProps) => {
             <strong>Sub-total:</strong> {calculateSubTotal().toFixed(2)}
           </span>
         </div>
-        <div className="row">
-          <div>
-            <span>
-              <strong>Discount:</strong>
-              <select name="order-discount" onChange={handleDiscountChange}>
-                <option value={0}>0%</option>
-                <option value={0.05}>5%</option>
-                <option value={0.1}>10%</option>
-                <option value={0.15}>15%</option>
-                <option value={0.2}>20%</option>
-              </select>
-            </span>
+        {user && validateUserRolePermission(['Admin', 'Manager']) && (
+          <div className="row">
+            <div>
+              <span>
+                <strong>Discount:</strong>
+                <select name="order-discount" onChange={handleDiscountChange}>
+                  <option value={0}>0%</option>
+                  <option value={0.05}>5%</option>
+                  <option value={0.1}>10%</option>
+                  <option value={0.15}>15%</option>
+                  <option value={0.2}>20%</option>
+                </select>
+              </span>
+            </div>
           </div>
-        </div>
+        )}
         <div className="row">
           <span>
             <strong>Total:</strong> {total.toFixed(2)}
