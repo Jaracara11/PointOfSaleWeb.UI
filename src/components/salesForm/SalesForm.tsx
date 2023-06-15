@@ -113,7 +113,7 @@ export const SalesForm = ({ products, removeFromCart }: SalesFormProps) => {
       <div className="order-info">
         <div className="row">
           <div className="col-6">
-            <span>Sub-total: {subtotal}</span>
+            <span>Sub-total: {subtotal.toFixed(2)}</span>
           </div>
           <div className="col-6"></div>
         </div>

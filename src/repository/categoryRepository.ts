@@ -28,7 +28,7 @@ export const addCategory = async (newCategory: Category): Promise<Category> => {
 
 export const updateCategory = async (category: Category): Promise<Category> => {
   try {
-    const response = await axios.put(`${API_URL}/${category.categoryID}/edit`, category, {
+    const response = await axios.put(`${API_URL}/edit`, category, {
       headers: userAuthorizationHeaders()
     });
     return response.data as Category;
