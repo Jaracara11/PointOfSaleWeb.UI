@@ -7,12 +7,14 @@ import { swalMessageAlert } from '../../services/swal.service';
 
 export const SalesForm = ({ products, removeFromCart }: SalesFormProps) => {
   const [productSales, setProductSales] = useState<Product[]>([]);
+  const [subtotal, setSubtotal] = useState<number>(0);
 
   useEffect(() => {
     setProductSales(products);
   }, [products]);
 
   useEffect(() => {
+    setSubtotal(calculateSubTotal());
     const productsToRemove = productSales.filter((product) => product.productQuantity === 0);
     productsToRemove.forEach((product) => {
       removeFromCart(product.productID || 0);
@@ -39,6 +41,12 @@ export const SalesForm = ({ products, removeFromCart }: SalesFormProps) => {
     product &&
       product.productQuantity === product.productStock &&
       swalMessageAlert(`Maximum quantity reached for ${product.productName}`, 'warning');
+  };
+
+  const calculateSubTotal = () => {
+    return productSales.reduce((total, product) => {
+      return total + product.productPrice * (product.productQuantity || 0);
+    }, 0);
   };
 
   const handleDecreaseQuantity = (productId: number) => {
@@ -105,7 +113,7 @@ export const SalesForm = ({ products, removeFromCart }: SalesFormProps) => {
       <div className="order-info">
         <div className="row">
           <div className="col-6">
-            <span>Sub-total:</span>
+            <span>Sub-total: {subtotal}</span>
           </div>
           <div className="col-6"></div>
         </div>
