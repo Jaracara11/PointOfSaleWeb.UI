@@ -1,11 +1,26 @@
 .sales-form table {
   margin-top: 1rem;
+  margin-left: 1rem;
+}
+
+.sales-form h4 {
+  margin-left: 1rem;
+  margin-top: 1rem;
+}
+
+.sales-form .order-info {
+  margin-left: 1rem;
+  margin-bottom: 1rem;
+}
+
+.sales-form .order-info .row {
+  margin-bottom: 0.5rem;
+}
+
+.sales-form .order-info select {
+  margin-left: 0.3rem;
 }
 
 .sales-form .quantity-control button:nth-child(1) {
   margin-bottom: 0.3rem;
-}
-
-.sales-form .order-info select {
-
 }

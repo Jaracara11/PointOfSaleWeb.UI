@@ -101,7 +101,7 @@ export const SalesForm = ({ products, removeFromCart }: SalesFormProps) => {
   return (
     <div className="sales-form">
       <h4>Current Order</h4>
-      <Table>
+      <Table hover>
         <thead>
           <tr>
             <th>Name</th>
@@ -143,6 +143,7 @@ export const SalesForm = ({ products, removeFromCart }: SalesFormProps) => {
           ))}
         </tbody>
       </Table>
+
       <div className="order-info">
         <div className="row">
           <span>

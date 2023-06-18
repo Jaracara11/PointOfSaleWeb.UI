@@ -1,6 +1,6 @@
 .sales-container {
   height: 50%;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
 .sales-container h1 {
@@ -27,7 +27,7 @@
 
 .sales-calculator {
   position: fixed;
-  width: 43%;
+  width: 38%;
   min-height: 75%;
   margin-right: 61rem;
 }
