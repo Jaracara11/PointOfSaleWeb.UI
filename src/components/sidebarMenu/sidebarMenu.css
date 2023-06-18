@@ -68,3 +68,21 @@
   margin-bottom: 1rem;
   margin-right: 0.2rem;
 }
+
+@media (max-width: 1280px) {
+  .sidebar-menu span {
+    display: none;
+  }
+
+  .sidebar-menu p {
+    display: none;
+  }
+
+  .sidebar-menu hr {
+    display: none;
+  }
+
+  .links {
+    width: 5rem;
+  }
+}
