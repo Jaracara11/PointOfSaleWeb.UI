@@ -5,7 +5,9 @@ import { SidebarMenu } from '../components/sidebarMenu/SidebarMenu';
 export const RootLayout = () => {
   return (
     <div className="root-layout">
-      <SidebarMenu />
+      <aside>
+        <SidebarMenu />
+      </aside>
       <main>
         <Outlet />
       </main>
