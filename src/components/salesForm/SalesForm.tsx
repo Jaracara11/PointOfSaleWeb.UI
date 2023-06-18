@@ -5,7 +5,6 @@ import { Product } from '../../interfaces/inventory/product';
 import { SalesFormProps } from '../../interfaces/SalesFormProps';
 import { swalMessageAlert } from '../../services/swal.service';
 import { UserAuth } from '../../context/UserContext';
-import { validateUserRolePermission } from '../../services/user.Service';
 import { useGetDiscountsByUser } from '../../hooks/sales.hooks';
 import { LoadingSpinner } from '../loadingSpinner/LoadingSpinner';
 
@@ -70,7 +69,6 @@ export const SalesForm = ({ products, removeFromCart }: SalesFormProps) => {
               productQuantity: product.productQuantity - 1
             };
           } else {
-            setDiscount(0);
             return {
               ...product,
               productQuantity: 0
@@ -98,7 +96,7 @@ export const SalesForm = ({ products, removeFromCart }: SalesFormProps) => {
 
   return (
     <div className="sales-form">
-      <h4>Item List</h4>
+      <h4>Current Order</h4>
       <Table>
         <thead>
           <tr>
