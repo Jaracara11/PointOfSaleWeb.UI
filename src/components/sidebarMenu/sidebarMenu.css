@@ -19,10 +19,6 @@
   font-size: 1.5rem;
 }
 
-.links {
-  width: 13rem;
-}
-
 .nav-link {
   padding: 0.8rem;
   margin: 0 1rem;
@@ -80,9 +76,5 @@
 
   .sidebar-menu hr {
     display: none;
-  }
-
-  .links {
-    width: 5rem;
   }
 }
