@@ -145,37 +145,29 @@ export const SalesForm = ({ products, removeFromCart }: SalesFormProps) => {
       </Table>
 
       <div className="order-info">
-        <div className="row">
-          <span>
-            <strong>Sub-total:</strong> {calculateSubTotal().toFixed(2)}
-          </span>
-        </div>
-        <div className="row">
-          <div>
-            <span>
-              <strong>Discount:</strong>
-              <select
-                name="order-discount"
-                value={discount}
-                disabled={productSales.length === 0}
-                onChange={handleDiscountChange}
-              >
-                <option value={0}>0%</option>
-                {discountsQuery.data &&
-                  discountsQuery.data.map((discount) => (
-                    <option key={discount} value={discount}>
-                      {discount * 100}%
-                    </option>
-                  ))}
-              </select>
-            </span>
-          </div>
-        </div>
-        <div className="row">
-          <span>
-            <strong>Total:</strong> {total.toFixed(2)}
-          </span>
-        </div>
+        <span>
+          <strong>Sub-total:</strong> {calculateSubTotal().toFixed(2)}
+        </span>
+        <span>
+          <strong>Discount:</strong>
+          <select
+            name="order-discount"
+            value={discount}
+            disabled={productSales.length === 0}
+            onChange={handleDiscountChange}
+          >
+            <option value={0}>0%</option>
+            {discountsQuery.data &&
+              discountsQuery.data.map((discount) => (
+                <option key={discount} value={discount}>
+                  {discount * 100}%
+                </option>
+              ))}
+          </select>
+        </span>
+        <span>
+          <strong>Total:</strong> {total.toFixed(2)}
+        </span>
       </div>
     </div>
   );

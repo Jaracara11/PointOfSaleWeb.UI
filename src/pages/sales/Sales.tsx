@@ -39,74 +39,59 @@ export const Sales = () => {
   return (
     <div className="sales-container">
       <h1 className="title">Sales</h1>
-      <div className="row">
-        <div className="col-6">
-          <div className="row">
-            <SearchInput searchQuery={searchProductQuery} setSearchQuery={setSearchProductQuery} />
-          </div>
-          <div className="row table-wrapper">
-            {productsQuery.data && (
-              <Table bordered hover>
-                <thead>
-                  <tr>
-                    <th>Name</th>
-                    <th>Stock</th>
-                    <th>Price</th>
-                    <th>Category</th>
-                    <td></td>
-                  </tr>
-                </thead>
-                <tbody>
-                  {filteredProducts.map((product: Product) => {
-                    const existingProduct = cartProducts.find(
-                      (p) => p.productID === product.productID
-                    );
+      <SearchInput searchQuery={searchProductQuery} setSearchQuery={setSearchProductQuery} />
+      {productsQuery.data && (
+        <Table bordered hover>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Stock</th>
+              <th>Price</th>
+              <th>Category</th>
+              <td></td>
+            </tr>
+          </thead>
+          <tbody>
+            {filteredProducts.map((product: Product) => {
+              const existingProduct = cartProducts.find((p) => p.productID === product.productID);
 
-                    const isProductAdded = existingProduct !== undefined;
+              const isProductAdded = existingProduct !== undefined;
 
-                    return (
-                      <tr key={product.productID}>
-                        <td>
-                          <i className="bi bi-dot"></i>
-                          {product.productName}
-                        </td>
-                        <td>{product.productStock}</td>
-                        <td>{product.productPrice}</td>
-                        <td>
-                          {categoriesQuery.data &&
-                            getProductCategoryName(product.productCategoryID, categoriesQuery.data)}
-                        </td>
-                        <td>
-                          {product.productStock > 0 ? (
-                            <Button
-                              variant="dark"
-                              disabled={isProductAdded || product.productStock < 1}
-                              onClick={() => addToCart(product)}
-                            >
-                              <i className="bi bi-plus"></i>
-                              <span>&nbsp;{isProductAdded ? 'Already added' : 'Add to cart'}</span>
-                            </Button>
-                          ) : (
-                            <span className="text-muted"> Product Unavailable</span>
-                          )}
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </Table>
-            )}
-          </div>
-        </div>
-        <div className="col-6">
-          <div className="sales-calculator card bg-light">
-            <div className="row">
-              <div className="col-6">
-                <SalesForm products={cartProducts} removeFromCart={removeFromCart} />
-              </div>
-            </div>
-          </div>
-        </div>
+              return (
+                <tr key={product.productID}>
+                  <td>
+                    <i className="bi bi-dot"></i>
+                    {product.productName}
+                  </td>
+                  <td>{product.productStock}</td>
+                  <td>{product.productPrice}</td>
+                  <td>
+                    {categoriesQuery.data &&
+                      getProductCategoryName(product.productCategoryID, categoriesQuery.data)}
+                  </td>
+                  <td>
+                    {product.productStock > 0 ? (
+                      <Button
+                        variant="dark"
+                        disabled={isProductAdded || product.productStock < 1}
+                        onClick={() => addToCart(product)}
+                      >
+                        <i className="bi bi-plus"></i>
+                        <span>&nbsp;{isProductAdded ? 'Already added' : 'Add to cart'}</span>
+                      </Button>
+                    ) : (
+                      <span className="text-muted"> Product Unavailable</span>
+                    )}
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </Table>
+      )}
+
+      <div className="sales-calculator card bg-light">
+        <SalesForm products={cartProducts} removeFromCart={removeFromCart} />
       </div>
     </div>
   );

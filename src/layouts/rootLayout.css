@@ -1,5 +1,10 @@
-main {
-  overflow-y: auto;
-  margin-left: 238px;
-  margin-right: 15px;
+.root-layout {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+}
+
+@media (max-width: 1280px) {
+  .root-layout {
+    grid-template-columns: 100px 1fr;
+  }
 }
