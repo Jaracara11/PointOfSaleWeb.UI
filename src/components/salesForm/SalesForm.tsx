@@ -32,6 +32,10 @@ export const SalesForm = ({ products, removeFromCart }: SalesFormProps) => {
     setTotal(calculateTotal());
   }, [subtotal, discount]);
 
+  useEffect(() => {
+    productSales.length === 0 && setDiscount(0);
+  }, [productSales]);
+
   const handleIncreaseQuantity = (productID: number) => {
     setProductSales((prevProductSales) => {
       const updatedProductSales = prevProductSales.map((product) => {
@@ -51,9 +55,9 @@ export const SalesForm = ({ products, removeFromCart }: SalesFormProps) => {
 
       const product = updatedProductSales.find((product) => product.productID === productID);
 
-      if (product && product.productQuantity === product.productStock) {
+      product &&
+        product.productQuantity === product.productStock &&
         swalMessageAlert(`Maximum quantity reached for ${product.productName}`, 'warning');
-      }
 
       return updatedProductSales;
     });
@@ -149,7 +153,12 @@ export const SalesForm = ({ products, removeFromCart }: SalesFormProps) => {
           <div>
             <span>
               <strong>Discount:</strong>
-              <select name="order-discount" value={discount} onChange={handleDiscountChange}>
+              <select
+                name="order-discount"
+                value={discount}
+                disabled={productSales.length === 0}
+                onChange={handleDiscountChange}
+              >
                 <option value={0}>0%</option>
                 {discountsQuery.data &&
                   discountsQuery.data.map((discount) => (
