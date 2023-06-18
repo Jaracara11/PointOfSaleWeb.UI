@@ -34,40 +34,52 @@ export const SalesForm = ({ products, removeFromCart }: SalesFormProps) => {
   }, [subtotal, discount]);
 
   const handleIncreaseQuantity = (productID: number) => {
-    setProductSales((prevProductSales) =>
-      prevProductSales.map((product) =>
-        product.productID === productID
-          ? {
+    setProductSales((prevProductSales) => {
+      const updatedProductSales = prevProductSales.map((product) => {
+        if (product.productID === productID) {
+          if ((product.productQuantity || 0) < product.productStock) {
+            return {
               ...product,
-              productQuantity:
-                (product.productQuantity || 0) < product.productStock
-                  ? (product.productQuantity || 0) + 1
-                  : product.productQuantity
-            }
-          : product
-      )
-    );
+              productQuantity: (product.productQuantity || 0) + 1
+            };
+          } else {
+            return product;
+          }
+        } else {
+          return product;
+        }
+      });
 
-    const product = productSales.find((product) => product.productID === productID);
+      const product = updatedProductSales.find((product) => product.productID === productID);
 
-    product &&
-      product.productQuantity === product.productStock &&
-      swalMessageAlert(`Maximum quantity reached for ${product.productName}`, 'warning');
+      if (product && product.productQuantity === product.productStock) {
+        swalMessageAlert(`Maximum quantity reached for ${product.productName}`, 'warning');
+      }
+
+      return updatedProductSales;
+    });
   };
 
   const handleDecreaseQuantity = (productId: number) => {
     setProductSales((prevProductSales) =>
-      prevProductSales.map((product) =>
-        product.productID === productId
-          ? {
+      prevProductSales.map((product) => {
+        if (product.productID === productId) {
+          if (product.productQuantity && product.productQuantity > 0) {
+            return {
               ...product,
-              productQuantity:
-                product.productQuantity && product.productQuantity > 0
-                  ? product.productQuantity - 1
-                  : 0
-            }
-          : product
-      )
+              productQuantity: product.productQuantity - 1
+            };
+          } else {
+            setDiscount(0);
+            return {
+              ...product,
+              productQuantity: 0
+            };
+          }
+        } else {
+          return product;
+        }
+      })
     );
   };
 
@@ -139,8 +151,8 @@ export const SalesForm = ({ products, removeFromCart }: SalesFormProps) => {
           <div>
             <span>
               <strong>Discount:</strong>
-              <select name="order-discount" onChange={handleDiscountChange}>
-                <option defaultValue={0}>0%</option>
+              <select name="order-discount" value={discount} onChange={handleDiscountChange}>
+                <option value={0}>0%</option>
                 {discountsQuery.data &&
                   discountsQuery.data.map((discount) => (
                     <option key={discount} value={discount}>
