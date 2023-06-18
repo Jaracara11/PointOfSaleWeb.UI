@@ -6,9 +6,12 @@ import { SalesFormProps } from '../../interfaces/SalesFormProps';
 import { swalMessageAlert } from '../../services/swal.service';
 import { UserAuth } from '../../context/UserContext';
 import { validateUserRolePermission } from '../../services/user.Service';
+import { useGetDiscountsByUser } from '../../hooks/sales.hooks';
+import { LoadingSpinner } from '../loadingSpinner/LoadingSpinner';
 
 export const SalesForm = ({ products, removeFromCart }: SalesFormProps) => {
   const { user } = UserAuth() || {};
+  const discountsQuery = useGetDiscountsByUser(user?.username || '');
   const [productSales, setProductSales] = useState<Product[]>([]);
   const [subtotal, setSubtotal] = useState<number>(0);
   const [total, setTotal] = useState<number>(0);
@@ -79,6 +82,8 @@ export const SalesForm = ({ products, removeFromCart }: SalesFormProps) => {
   const handleDiscountChange = (event: React.ChangeEvent<HTMLSelectElement>) =>
     setDiscount(parseFloat(event.target.value));
 
+  if (discountsQuery.isLoading) return <LoadingSpinner />;
+
   return (
     <div className="sales-form">
       <h4>Item List</h4>
@@ -130,22 +135,22 @@ export const SalesForm = ({ products, removeFromCart }: SalesFormProps) => {
             <strong>Sub-total:</strong> {calculateSubTotal().toFixed(2)}
           </span>
         </div>
-        {user && validateUserRolePermission(['Admin', 'Manager']) && (
-          <div className="row">
-            <div>
-              <span>
-                <strong>Discount:</strong>
-                <select name="order-discount" onChange={handleDiscountChange}>
-                  <option value={0}>0%</option>
-                  <option value={0.05}>5%</option>
-                  <option value={0.1}>10%</option>
-                  <option value={0.15}>15%</option>
-                  <option value={0.2}>20%</option>
-                </select>
-              </span>
-            </div>
+        <div className="row">
+          <div>
+            <span>
+              <strong>Discount:</strong>
+              <select name="order-discount" onChange={handleDiscountChange}>
+                <option defaultValue={0}>0%</option>
+                {discountsQuery.data &&
+                  discountsQuery.data.map((discount) => (
+                    <option key={discount} value={discount}>
+                      {discount * 100}%
+                    </option>
+                  ))}
+              </select>
+            </span>
           </div>
-        )}
+        </div>
         <div className="row">
           <span>
             <strong>Total:</strong> {total.toFixed(2)}
