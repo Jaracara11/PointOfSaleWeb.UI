@@ -1,13 +1,14 @@
 .category-modal input {
   min-width: 100%;
+  margin-bottom: 2rem;
 }
 
 .category-modal .btn-outline-dark {
   float: left;
+  margin-bottom: 1rem;
 }
 
-.category-modal button:nth-child(2) {
-  margin-bottom: 1rem;
+.category-modal .btn-danger {
   margin-right: 1rem;
 }
 

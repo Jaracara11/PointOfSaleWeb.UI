@@ -94,21 +94,19 @@ export const CategoryModal = ({ toggle, category }: CategoryModalProps) => {
           <Form.Control type="text" placeholder="New Category Name" {...register('categoryName')} />
           <ErrorInputView error={errors.categoryName} />
 
-          <div className="btn-panel">
-            <Button variant="dark" disabled={!isDirty} onClick={handleSubmit(upsertCategory)}>
-              <i className="bi bi-database"></i>&nbsp;{category ? ' Update' : ' Save'}
-            </Button>
+          <Button variant="dark" disabled={!isDirty} onClick={handleSubmit(upsertCategory)}>
+            <i className="bi bi-database"></i>&nbsp;{category ? ' Update' : ' Save'}
+          </Button>
 
-            {category && (
-              <Button variant="danger" onClick={() => deleteCategory(category)}>
-                <i className="bi bi-exclamation-circle"></i>&nbsp; Delete
-              </Button>
-            )}
-
-            <Button variant="outline-dark" onClick={toggle}>
-              <i className="bi bi-x-lg"></i>&nbsp;Cancel
+          {category && (
+            <Button variant="danger" onClick={() => deleteCategory(category)}>
+              <i className="bi bi-exclamation-circle"></i>&nbsp; Delete
             </Button>
-          </div>
+          )}
+
+          <Button variant="outline-dark" onClick={toggle}>
+            <i className="bi bi-x-lg"></i>&nbsp;Cancel
+          </Button>
         </Modal.Body>
       </Form>
     </Modal>
