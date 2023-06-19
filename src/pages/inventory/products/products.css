@@ -1,1 +1,12 @@
+.products-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto auto 1fr;
+}
 
+.products-container .row:nth-child(1) {
+  margin: 1rem;
+}
+
+@media (max-width: 1280px) {
+}

@@ -12,7 +12,7 @@ body {
   background-color: whitesmoke;
 }
 
-.form-check-input:checked {
-  background-color: #343a40 !important;
-  border-color: #343a40 !important;
+.title {
+  text-align: center;
+  font-weight: bold;
 }

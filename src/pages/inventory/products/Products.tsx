@@ -30,9 +30,11 @@ export const Products = () => {
 
   return (
     <div className="products-container">
-      <h1 className="title">Products</h1>
+      <div className="row">
+        <h1 className="title">Products</h1>
+      </div>
 
-      <div className="btn-panel">
+      <div className="row">
         {user && validateUserRolePermission(['Admin', 'Manager']) && (
           <Button
             variant="dark"
@@ -53,8 +55,8 @@ export const Products = () => {
         <SearchInput searchQuery={searchProductQuery} setSearchQuery={setSearchProductQuery} />
       </div>
 
-      {productsQuery.data && (
-        <>
+      <div className="row">
+        {productsQuery.data && (
           <Table bordered hover>
             <thead>
               <tr>
@@ -99,8 +101,8 @@ export const Products = () => {
               ))}
             </tbody>
           </Table>
-        </>
-      )}
+        )}
+      </div>
 
       {showModal && (
         <UpsertProductModal
