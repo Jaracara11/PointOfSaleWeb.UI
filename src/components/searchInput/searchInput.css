@@ -3,5 +3,11 @@
   margin-top: 0.5rem;
   margin-right: 0.5rem;
   position: absolute;
-  margin-left: 185px;
+  margin-left: 775px;
+}
+
+@media (max-width: 1280px) {
+  .search-input i {
+    margin-left: 525px;
+  }
 }
