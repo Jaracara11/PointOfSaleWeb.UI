@@ -1,0 +1,16 @@
+.category-modal input {
+  min-width: 100%;
+}
+
+.category-modal .btn-outline-dark {
+  float: left;
+}
+
+.category-modal button:nth-child(2) {
+  margin-bottom: 1rem;
+  margin-right: 1rem;
+}
+
+.category-modal h3 {
+  margin: 0.5rem;
+}

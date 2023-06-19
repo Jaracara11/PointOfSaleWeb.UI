@@ -27,58 +27,66 @@ export const Categories = () => {
 
   return (
     <div className="categories-container">
-      <h1 className="title">Categories</h1>
-      <div className="btn-panel">
-        {user && validateUserRolePermission(['Admin', 'Manager']) && (
-          <Button
-            variant="dark"
-            onClick={() => {
-              setSelectedCategory(null);
-              toggleModal();
-            }}
-          >
-            <i className="bi bi-plus-lg"></i>
-            &nbsp;Add New Category
-          </Button>
-        )}
-        <SearchInput searchQuery={searchCategoryQuery} setSearchQuery={setSearchCategoryQuery} />
+      <div className="row">
+        <h1 className="title">Categories</h1>
       </div>
 
-      {categoriesQuery.data && (
-        <>
-          <Table hover>
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              {filteredCategories.map((category: Category) => (
-                <tr key={category.categoryID}>
-                  <td>
-                    <i className="bi bi-dot"></i>
-                    {category.categoryName}
-                  </td>
-                  <td>
-                    {validateUserRolePermission(['Admin', 'Manager']) && (
-                      <Button
-                        variant="outline-dark"
-                        onClick={() => {
-                          setSelectedCategory(category);
-                          toggleModal();
-                        }}
-                      >
-                        <i className="bi bi-pencil"></i>&nbsp;Edit
-                      </Button>
-                    )}
-                  </td>
+      <div className="row">
+        <div>
+          {user && validateUserRolePermission(['Admin', 'Manager']) && (
+            <Button
+              variant="dark"
+              onClick={() => {
+                setSelectedCategory(null);
+                toggleModal();
+              }}
+            >
+              <i className="bi bi-plus-lg"></i>
+              &nbsp;Add New Category
+            </Button>
+          )}
+
+          <SearchInput searchQuery={searchCategoryQuery} setSearchQuery={setSearchCategoryQuery} />
+        </div>
+      </div>
+
+      <div className="row">
+        {categoriesQuery.data && (
+          <>
+            <Table hover>
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th></th>
                 </tr>
-              ))}
-            </tbody>
-          </Table>
-        </>
-      )}
+              </thead>
+              <tbody>
+                {filteredCategories.map((category: Category) => (
+                  <tr key={category.categoryID}>
+                    <td>
+                      <i className="bi bi-dot"></i>
+                      {category.categoryName}
+                    </td>
+                    <td>
+                      {validateUserRolePermission(['Admin', 'Manager']) && (
+                        <Button
+                          variant="outline-dark"
+                          onClick={() => {
+                            setSelectedCategory(category);
+                            toggleModal();
+                          }}
+                        >
+                          <i className="bi bi-pencil"></i>&nbsp;Edit
+                        </Button>
+                      )}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
+          </>
+        )}
+      </div>
 
       {showModal && <CategoryModal toggle={toggleModal} category={selectedCategory} />}
     </div>

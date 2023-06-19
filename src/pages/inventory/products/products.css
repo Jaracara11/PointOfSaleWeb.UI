@@ -8,26 +8,28 @@
   margin: 1rem;
 }
 
-.products-container .row:nth-child(2) {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-}
-
 .products-container .row:nth-child(2) button,
-.products-container .row:nth-child(2) a,
-.products-container .row:nth-child(2) input {
+.products-container .row:nth-child(2) a {
   margin-right: 1rem;
   max-width: 200px;
   float: left;
 }
 
 .products-container .row:nth-child(2) input {
+  max-width: 200px;
   float: right;
-  margin-right: 0;
+}
+
+.products-container .search-input i {
+  margin-left: 1600px;
 }
 
 @media (max-width: 1280px) {
   .products-container .row:nth-child(1) {
     margin: 0.5rem;
+  }
+
+  .products-container .search-input i {
+    margin-left: 1100px;
   }
 }

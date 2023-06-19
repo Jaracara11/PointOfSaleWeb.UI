@@ -1,0 +1,30 @@
+.categories-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto auto 1fr;
+}
+
+.categories-container .row:nth-child(1) {
+  margin: 1rem;
+}
+
+.categories-container .row:nth-child(2) button {
+  margin-right: 1rem;
+  max-width: 200px;
+  float: left;
+}
+
+.categories-container .row:nth-child(2) input {
+  max-width: 200px;
+  float: right;
+}
+
+.categories-container .search-input i {
+  margin-left: 1405px;
+}
+
+@media (max-width: 1280px) {
+  .categories-container .search-input i {
+    margin-left: 905px;
+  }
+}
