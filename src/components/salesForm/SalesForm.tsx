@@ -96,26 +96,37 @@ export const SalesForm = ({ products, removeFromCart }: SalesFormProps) => {
   const handleDiscountChange = (event: React.ChangeEvent<HTMLSelectElement>) =>
     setDiscount(parseFloat(event.target.value));
 
+  const emptyCart = async () => {
+    productSales.forEach((product) => removeFromCart(product.productID || 0));
+
+    setProductSales([]);
+
+    setProductSales((prevProductSales) =>
+      prevProductSales.map((product) => ({
+        ...product,
+        productQuantity: 0
+      }))
+    );
+
+    setSubtotal(0);
+    setTotal(0);
+    setDiscount(0);
+  };
+
   const clearCart = async () => {
     let confirmTitle = 'Are you sure you want to clear the cart?';
-
     const isConfirmed = await swalConfirmAlert(confirmTitle, 'Clear', 'warning');
+    isConfirmed && emptyCart();
+  };
+
+  const checkoutOrder = async () => {
+    let confirmTitle = 'Please confirm order:';
+
+    const isConfirmed = await swalConfirmAlert(confirmTitle, 'Confirm', 'info');
 
     if (isConfirmed) {
-      productSales.forEach((product) => removeFromCart(product.productID || 0));
-
-      setProductSales([]);
-
-      setProductSales((prevProductSales) =>
-        prevProductSales.map((product) => ({
-          ...product,
-          productQuantity: 0
-        }))
-      );
-
-      setSubtotal(0);
-      setTotal(0);
-      setDiscount(0);
+      swalMessageAlert('Transaction Completed', 'success');
+      emptyCart();
     }
   };
 
@@ -195,7 +206,11 @@ export const SalesForm = ({ products, removeFromCart }: SalesFormProps) => {
         </div>
 
         <div>
-          <Button variant="dark" disabled={productSales.length === 0}>
+          <Button
+            variant="dark"
+            onClick={() => checkoutOrder()}
+            disabled={productSales.length === 0}
+          >
             <i className="bi bi-coin"></i>&nbsp; Check Out
           </Button>
           <Button
