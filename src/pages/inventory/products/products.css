@@ -8,6 +8,10 @@
   margin: 1rem;
 }
 
+.products-container .row:nth-child(2) {
+  margin-bottom: 1rem;
+}
+
 .products-container .row:nth-child(2) button,
 .products-container .row:nth-child(2) a {
   margin-right: 1rem;

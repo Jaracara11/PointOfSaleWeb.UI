@@ -22,8 +22,20 @@ body {
   padding: 1rem;
 }
 
+.form-modal input {
+  min-width: 100%;
+}
+
+.form-modal textarea {
+  min-width: 100%;
+}
+
 .form-modal label {
   font-weight: bold;
+}
+
+.form-modal label:nth-child(1) {
+  margin-top: 1rem;
 }
 
 .form-modal .btn-outline-dark {
@@ -40,7 +52,7 @@ select {
 }
 
 .form-modal .btn-panel {
-  margin-top: 3rem;
+  margin-top: 2rem;
 }
 
 .form-modal .btn-panel button:nth-child(1) {
