@@ -16,3 +16,33 @@ body {
   text-align: center;
   font-weight: bold;
 }
+
+/*FORM MODAL*/
+.form-modal form {
+  padding: 1rem;
+}
+
+.form-modal label {
+  font-weight: bold;
+}
+
+.form-modal .btn-outline-dark {
+  float: left;
+}
+
+.form-modal textarea,
+select {
+  margin-bottom: 1rem;
+}
+
+.form-modal select {
+  margin-bottom: 1rem;
+}
+
+.form-modal .btn-panel {
+  margin-top: 3rem;
+}
+
+.form-modal .btn-panel button:nth-child(1) {
+  margin-left: 1rem;
+}
