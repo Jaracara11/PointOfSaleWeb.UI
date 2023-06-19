@@ -11,34 +11,34 @@ import { LoadingSpinner } from '../loadingSpinner/LoadingSpinner';
 export const SalesForm = ({ products, removeFromCart }: SalesFormProps) => {
   const { user } = UserAuth() || {};
   const discountsQuery = useGetDiscountsByUser(user?.username || '');
-  const [productSales, setProductSales] = useState<Product[]>([]);
+  const [order, setOrder] = useState<Product[]>([]);
   const [subtotal, setSubtotal] = useState<number>(0);
   const [total, setTotal] = useState<number>(0);
   const [discount, setDiscount] = useState<number>(0);
 
   useEffect(() => {
-    setProductSales(products);
+    setOrder(products);
   }, [products]);
 
   useEffect(() => {
     setSubtotal(calculateSubTotal());
-    const productsToRemove = productSales.filter((product) => product.productQuantity === 0);
+    const productsToRemove = order.filter((product) => product.productQuantity === 0);
     productsToRemove.forEach((product) => {
       removeFromCart(product.productID || 0);
     });
-  }, [productSales, removeFromCart]);
+  }, [order, removeFromCart]);
 
   useEffect(() => {
     setTotal(calculateTotal());
   }, [subtotal, discount]);
 
   useEffect(() => {
-    productSales.length === 0 && setDiscount(0);
-  }, [productSales]);
+    order.length === 0 && setDiscount(0);
+  }, [order]);
 
   const handleIncreaseQuantity = (productID: number) => {
-    setProductSales((prevProductSales) => {
-      const updatedProductSales = prevProductSales.map((product) => {
+    setOrder((prevOrder) => {
+      const updatedOrder = prevOrder.map((product) => {
         if (product.productID === productID) {
           if ((product.productQuantity || 0) < product.productStock) {
             return {
@@ -53,19 +53,19 @@ export const SalesForm = ({ products, removeFromCart }: SalesFormProps) => {
         }
       });
 
-      const product = updatedProductSales.find((product) => product.productID === productID);
+      const product = updatedOrder.find((product) => product.productID === productID);
 
       product &&
         product.productQuantity === product.productStock &&
         swalMessageAlert(`Maximum quantity reached for ${product.productName}`, 'warning');
 
-      return updatedProductSales;
+      return updatedOrder;
     });
   };
 
   const handleDecreaseQuantity = (productId: number) => {
-    setProductSales((prevProductSales) =>
-      prevProductSales.map((product) => {
+    setOrder((prevOrder) =>
+      prevOrder.map((product) => {
         if (product.productID === productId) {
           if (product.productQuantity && product.productQuantity > 0) {
             return {
@@ -86,7 +86,7 @@ export const SalesForm = ({ products, removeFromCart }: SalesFormProps) => {
   };
 
   const calculateSubTotal = () => {
-    return productSales.reduce((total, product) => {
+    return order.reduce((total, product) => {
       return total + product.productPrice * (product.productQuantity || 0);
     }, 0);
   };
@@ -97,12 +97,12 @@ export const SalesForm = ({ products, removeFromCart }: SalesFormProps) => {
     setDiscount(parseFloat(event.target.value));
 
   const emptyCart = async () => {
-    productSales.forEach((product) => removeFromCart(product.productID || 0));
+    order.forEach((product) => removeFromCart(product.productID || 0));
 
-    setProductSales([]);
+    setOrder([]);
 
-    setProductSales((prevProductSales) =>
-      prevProductSales.map((product) => ({
+    setOrder((prevOrder) =>
+      prevOrder.map((product) => ({
         ...product,
         productQuantity: 0
       }))
@@ -126,6 +126,7 @@ export const SalesForm = ({ products, removeFromCart }: SalesFormProps) => {
 
     if (isConfirmed) {
       swalMessageAlert('Transaction Completed', 'success');
+      console.log(order);
       emptyCart();
     }
   };
@@ -145,7 +146,7 @@ export const SalesForm = ({ products, removeFromCart }: SalesFormProps) => {
           </tr>
         </thead>
         <tbody>
-          {productSales.map((product: Product) => (
+          {order.map((product: Product) => (
             <tr key={product.productID}>
               <td>
                 {product.productName}
@@ -186,7 +187,7 @@ export const SalesForm = ({ products, removeFromCart }: SalesFormProps) => {
             <select
               name="order-discount"
               value={discount}
-              disabled={productSales.length === 0}
+              disabled={order.length === 0}
               onChange={handleDiscountChange}
             >
               <option value={0}>0%</option>
@@ -204,18 +205,10 @@ export const SalesForm = ({ products, removeFromCart }: SalesFormProps) => {
         </ul>
 
         <div>
-          <Button
-            variant="dark"
-            onClick={() => checkoutOrder()}
-            disabled={productSales.length === 0}
-          >
+          <Button variant="dark" onClick={() => checkoutOrder()} disabled={order.length === 0}>
             <i className="bi bi-coin"></i>&nbsp; Check Out
           </Button>
-          <Button
-            variant="outline-dark"
-            onClick={() => clearCart()}
-            disabled={productSales.length === 0}
-          >
+          <Button variant="outline-dark" onClick={() => clearCart()} disabled={order.length === 0}>
             <i className="bi bi-eraser"></i>&nbsp; Clear Cart
           </Button>
         </div>
