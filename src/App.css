@@ -15,6 +15,7 @@ body {
 .title {
   text-align: center;
   font-weight: bold;
+  margin-top: 1rem;
 }
 
 /*FORM MODAL*/
