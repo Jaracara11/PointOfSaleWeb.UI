@@ -120,9 +120,9 @@ export const SalesForm = ({ products, removeFromCart }: SalesFormProps) => {
   };
 
   const checkoutOrder = async () => {
-    let confirmTitle = 'Please confirm order:';
+    let confirmTitle = 'Please confirm order';
 
-    const isConfirmed = await swalConfirmAlert(confirmTitle, 'Confirm', 'info');
+    const isConfirmed = await swalConfirmAlert(confirmTitle, 'Confirm', 'warning');
 
     if (isConfirmed) {
       swalMessageAlert('Transaction Completed', 'success');
