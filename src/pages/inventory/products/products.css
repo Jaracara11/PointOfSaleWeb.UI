@@ -21,7 +21,7 @@
 }
 
 .products-container .search-input i {
-  margin-left: 1600px;
+  margin-left: 1210px;
 }
 
 @media (max-width: 1280px) {
@@ -30,6 +30,6 @@
   }
 
   .products-container .search-input i {
-    margin-left: 1100px;
+    margin-left: 710px;
   }
 }

@@ -35,24 +35,26 @@ export const Products = () => {
       </div>
 
       <div className="row">
-        {user && validateUserRolePermission(['Admin', 'Manager']) && (
-          <Button
-            variant="dark"
-            onClick={() => {
-              setSelectedProduct(null);
-              toggleModal();
-            }}
-          >
-            <i className="bi bi-plus-lg"></i>
-            &nbsp;Add New Product
-          </Button>
-        )}
-        <Link className="btn btn-outline-dark" to="/categories">
-          <i className="bi bi-globe"></i>
-          &nbsp;Show All Categories
-        </Link>
+        <div>
+          {user && validateUserRolePermission(['Admin', 'Manager']) && (
+            <Button
+              variant="dark"
+              onClick={() => {
+                setSelectedProduct(null);
+                toggleModal();
+              }}
+            >
+              <i className="bi bi-plus-lg"></i>
+              &nbsp;Add New Product
+            </Button>
+          )}
+          <Link className="btn btn-outline-dark" to="/categories">
+            <i className="bi bi-globe"></i>
+            &nbsp;Show All Categories
+          </Link>
 
-        <SearchInput searchQuery={searchProductQuery} setSearchQuery={setSearchProductQuery} />
+          <SearchInput searchQuery={searchProductQuery} setSearchQuery={setSearchProductQuery} />
+        </div>
       </div>
 
       <div className="row">
