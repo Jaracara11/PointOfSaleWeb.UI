@@ -37,62 +37,67 @@ export const Sales = () => {
   if (productsQuery.isLoading || categoriesQuery.isLoading) return <LoadingSpinner />;
 
   return (
-    <div className="sales-container">
+    <>
       <h1 className="title">Sales</h1>
-      <SearchInput searchQuery={searchProductQuery} setSearchQuery={setSearchProductQuery} />
-      {productsQuery.data && (
-        <Table bordered hover>
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Stock</th>
-              <th>Price</th>
-              <th>Category</th>
-              <td></td>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredProducts.map((product: Product) => {
-              const existingProduct = cartProducts.find((p) => p.productID === product.productID);
+      <div className="sales-container">
+        <div>
+          <SearchInput searchQuery={searchProductQuery} setSearchQuery={setSearchProductQuery} />
 
-              const isProductAdded = existingProduct !== undefined;
-
-              return (
-                <tr key={product.productID}>
-                  <td>
-                    <i className="bi bi-dot"></i>
-                    {product.productName}
-                  </td>
-                  <td>{product.productStock}</td>
-                  <td>{product.productPrice}</td>
-                  <td>
-                    {categoriesQuery.data &&
-                      getProductCategoryName(product.productCategoryID, categoriesQuery.data)}
-                  </td>
-                  <td>
-                    {product.productStock > 0 ? (
-                      <Button
-                        variant="dark"
-                        disabled={isProductAdded || product.productStock < 1}
-                        onClick={() => addToCart(product)}
-                      >
-                        <i className="bi bi-plus"></i>
-                        <span>&nbsp;{isProductAdded ? 'Already added' : 'Add to cart'}</span>
-                      </Button>
-                    ) : (
-                      <span className="text-muted"> Product Unavailable</span>
-                    )}
-                  </td>
+          {productsQuery.data && (
+            <Table bordered hover>
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Stock</th>
+                  <th>Price</th>
+                  <th>Category</th>
+                  <td></td>
                 </tr>
-              );
-            })}
-          </tbody>
-        </Table>
-      )}
+              </thead>
+              <tbody>
+                {filteredProducts.map((product: Product) => {
+                  const existingProduct = cartProducts.find(
+                    (p) => p.productID === product.productID
+                  );
 
-      <div className="sales-calculator card bg-light">
+                  const isProductAdded = existingProduct !== undefined;
+
+                  return (
+                    <tr key={product.productID}>
+                      <td>
+                        <i className="bi bi-dot"></i>
+                        {product.productName}
+                      </td>
+                      <td>{product.productStock}</td>
+                      <td>{product.productPrice}</td>
+                      <td>
+                        {categoriesQuery.data &&
+                          getProductCategoryName(product.productCategoryID, categoriesQuery.data)}
+                      </td>
+                      <td>
+                        {product.productStock > 0 ? (
+                          <Button
+                            variant="dark"
+                            disabled={isProductAdded || product.productStock < 1}
+                            onClick={() => addToCart(product)}
+                          >
+                            <i className="bi bi-plus"></i>
+                            <span>&nbsp;{isProductAdded ? 'Already added' : 'Add to cart'}</span>
+                          </Button>
+                        ) : (
+                          <span className="text-muted"> Product Unavailable</span>
+                        )}
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </Table>
+          )}
+        </div>
+
         <SalesForm products={cartProducts} removeFromCart={removeFromCart} />
       </div>
-    </div>
+    </>
   );
 };

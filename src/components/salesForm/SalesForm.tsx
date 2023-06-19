@@ -99,7 +99,7 @@ export const SalesForm = ({ products, removeFromCart }: SalesFormProps) => {
   if (discountsQuery.isLoading) return <LoadingSpinner />;
 
   return (
-    <div className="sales-form">
+    <div className="sales-form card bg-light">
       <h4>Current Order</h4>
       <Table hover>
         <thead>
