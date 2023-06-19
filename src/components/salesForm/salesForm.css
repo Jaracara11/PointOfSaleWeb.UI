@@ -11,6 +11,19 @@
   margin-bottom: 1rem;
 }
 
+.sales-form ul {
+  max-width: 50%;
+}
+
 .sales-form li {
   margin-bottom: 0.3rem;
+}
+
+.sales-form .order-info {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.sales-form .order-info div {
+  margin-top: 0.5rem;
 }
