@@ -1,3 +1,4 @@
+import './changePasswordModal.css';
 import { Button, Form, Modal } from 'react-bootstrap';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { changePasswordValidationSchema } from '../../../services/yupValidation.service';
@@ -93,7 +94,7 @@ export const ChangePasswordModal = ({
   return loadingData ? (
     <LoadingSpinner />
   ) : (
-    <Modal className="common-modal" show={showModal} onHide={closeModal} centered>
+    <Modal className="password-modal" show={showModal} onHide={closeModal} centered>
       <Form onSubmit={handleSubmit(resetPasswordRequest ? resetPassword : changePassword)}>
         <h3 className="title">{resetPasswordRequest ? `Reset ${username}` : 'Change'} Password</h3>
         <Modal.Body>
@@ -116,7 +117,7 @@ export const ChangePasswordModal = ({
             {...register('repeatNewPassword')}
           />
           <ErrorInputView error={errors.repeatNewPassword} />
-          <div className="btn-panel">
+          <div>
             <Button
               variant="dark"
               disabled={!isDirty}

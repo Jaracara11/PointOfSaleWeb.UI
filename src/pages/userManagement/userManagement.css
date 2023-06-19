@@ -1,0 +1,54 @@
+.user-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto auto 1fr;
+}
+
+.user-container table .btn-dark {
+  margin-right: 0.5rem;
+}
+
+.user-container .row:nth-child(1) {
+  margin: 1rem;
+}
+
+.user-container .row:nth-child(2) button {
+  margin-right: 1rem;
+  max-width: 200px;
+  float: left;
+}
+
+.user-container .row:nth-child(2) input {
+  max-width: 200px;
+  float: right;
+}
+
+.user-container .search-input i {
+  margin-left: 1435px;
+}
+
+@media (max-width: 1280px) {
+  .user-container .row:nth-child(1) {
+    margin: 0.5rem;
+  }
+
+  .user-container .search-input i {
+    margin-left: 935px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .user-container tbody td:nth-child(2) {
+    max-width: 150px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .user-container table button:nth-child(2) {
+    max-width: 120px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+}

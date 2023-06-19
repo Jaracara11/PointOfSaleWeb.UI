@@ -27,4 +27,8 @@
   .categories-container .search-input i {
     margin-left: 905px;
   }
+
+  .categories-container .row:nth-child(1) {
+    margin: 0.5rem;
+  }
 }

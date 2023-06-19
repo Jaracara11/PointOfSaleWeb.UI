@@ -42,66 +42,72 @@ export const UserManagement = () => {
 
   return (
     <div className="user-container">
-      <h1 className="title">Users</h1>
-
-      <div className="btn-panel">
-        <Button
-          variant="dark"
-          onClick={() => {
-            setSelectedUser(undefined);
-            toggleUpsertModal();
-          }}
-        >
-          <i className="bi bi-plus-lg"></i>
-          &nbsp;Add New User
-        </Button>
-
-        <SearchInput searchQuery={searchUserQuery} setSearchQuery={setSearchUserQuery} />
+      <div className="row">
+        <h1 className="title">Users</h1>
       </div>
 
-      {usersQuery.data && (
-        <Table hover>
-          <thead>
-            <tr>
-              <th>Username</th>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Role</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredUsers.map((user: UserData) => (
-              <tr key={user.username}>
-                <td>{user.username}</td>
-                <td>{`${user.firstName} ${user.lastName}`}</td>
-                <td>{user.email}</td>
-                <td>{getUserRoleName(user.userRoleID || 0, rolesQuery.data || [])}</td>
-                <td>
-                  <Button
-                    variant="outline-dark"
-                    onClick={() => {
-                      setSelectedUser(user);
-                      toggleUpsertModal();
-                    }}
-                  >
-                    <i className="bi bi-pencil"></i>&nbsp;Edit
-                  </Button>
-                  <Button
-                    variant="dark"
-                    onClick={() => {
-                      setSelectedUser(user);
-                      toggleResetPasswordModal();
-                    }}
-                  >
-                    <i className="bi bi-shield-exclamation"></i>&nbsp;Reset Password
-                  </Button>
-                </td>
+      <div className="row">
+        <div>
+          <Button
+            variant="dark"
+            onClick={() => {
+              setSelectedUser(undefined);
+              toggleUpsertModal();
+            }}
+          >
+            <i className="bi bi-plus-lg"></i>
+            &nbsp;Add New User
+          </Button>
+
+          <SearchInput searchQuery={searchUserQuery} setSearchQuery={setSearchUserQuery} />
+        </div>
+      </div>
+
+      <div className="row">
+        {usersQuery.data && (
+          <Table hover>
+            <thead>
+              <tr>
+                <th>Username</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th></th>
               </tr>
-            ))}
-          </tbody>
-        </Table>
-      )}
+            </thead>
+            <tbody>
+              {filteredUsers.map((user: UserData) => (
+                <tr key={user.username}>
+                  <td>{user.username}</td>
+                  <td>{`${user.firstName} ${user.lastName}`}</td>
+                  <td>{user.email}</td>
+                  <td>{getUserRoleName(user.userRoleID || 0, rolesQuery.data || [])}</td>
+                  <td>
+                    <Button
+                      variant="outline-dark"
+                      onClick={() => {
+                        setSelectedUser(user);
+                        toggleUpsertModal();
+                      }}
+                    >
+                      <i className="bi bi-pencil"></i>&nbsp;Edit
+                    </Button>
+                    <Button
+                      variant="dark"
+                      onClick={() => {
+                        setSelectedUser(user);
+                        toggleResetPasswordModal();
+                      }}
+                    >
+                      <i className="bi bi-shield-exclamation"></i>&nbsp;Reset Password
+                    </Button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        )}
+      </div>
 
       {showUpsertModal && (
         <UpsertUserModal
@@ -110,6 +116,7 @@ export const UserManagement = () => {
           roles={rolesQuery.data || []}
         />
       )}
+
       {showResetPasswordModal && selectedUser && (
         <ChangePasswordModal
           toggle={toggleResetPasswordModal}
