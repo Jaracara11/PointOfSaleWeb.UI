@@ -25,3 +25,9 @@
   float: right;
   margin-right: 0;
 }
+
+@media (max-width: 1280px) {
+  .products-container .row:nth-child(1) {
+    margin: 0.5rem;
+  }
+}
