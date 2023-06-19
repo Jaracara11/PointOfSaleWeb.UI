@@ -1,14 +1,14 @@
-import './salesForm.css';
+import './orderForm.css';
 import { Button, Table } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
 import { Product } from '../../interfaces/inventory/product';
-import { SalesFormProps } from '../../interfaces/SalesFormProps';
+import { OrderFormProps } from '../../interfaces/OrderFormProps';
 import { swalConfirmAlert, swalMessageAlert } from '../../services/swal.service';
 import { UserAuth } from '../../context/UserContext';
 import { useGetDiscountsByUser } from '../../hooks/sales.hooks';
 import { LoadingSpinner } from '../loadingSpinner/LoadingSpinner';
 
-export const SalesForm = ({ products, removeFromCart }: SalesFormProps) => {
+export const OrderForm = ({ products, removeFromCart }: OrderFormProps) => {
   const { user } = UserAuth() || {};
   const discountsQuery = useGetDiscountsByUser(user?.username || '');
   const [order, setOrder] = useState<Product[]>([]);

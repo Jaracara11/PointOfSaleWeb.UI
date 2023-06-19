@@ -7,7 +7,7 @@ import { Product } from '../../interfaces/inventory/product';
 import { SearchInput } from '../../components/searchInput/SearchInput';
 import { useGetCategories } from '../../hooks/categories.hooks';
 import { getProductCategoryName } from '../../utils/inventory.helper';
-import { SalesForm } from '../../components/salesForm/SalesForm';
+import { OrderForm } from '../../components/orderForm/OrderForm';
 
 export const Sales = () => {
   const productsQuery = useGetProducts();
@@ -96,7 +96,7 @@ export const Sales = () => {
           )}
         </div>
 
-        <SalesForm products={cartProducts} removeFromCart={removeFromCart} />
+        <OrderForm products={cartProducts} removeFromCart={removeFromCart} />
       </div>
     </>
   );
