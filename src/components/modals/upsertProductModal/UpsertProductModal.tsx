@@ -140,22 +140,20 @@ export const UpsertProductModal = ({ toggle, product, categories }: ProductModal
           <ErrorInputView error={errors.productPrice} />
         </Form.Group>
 
-        <div className="btn-panel">
-          <Button variant="btn btn-dark" disabled={!isDirty} onClick={handleSubmit(upsertProduct)}>
-            <i className="bi bi-database"></i>&nbsp;
-            {product ? ' Update' : ' Save'}
-          </Button>
+        <Button variant="btn btn-dark" disabled={!isDirty} onClick={handleSubmit(upsertProduct)}>
+          <i className="bi bi-database"></i>&nbsp;
+          {product ? ' Update' : ' Save'}
+        </Button>
 
-          {product && (
-            <Button variant="btn btn-danger" onClick={() => deleteProduct(product)}>
-              <i className="bi bi-exclamation-circle"></i>&nbsp; Delete
-            </Button>
-          )}
-
-          <Button variant="outline-dark" onClick={toggle}>
-            <i className="bi bi-x-lg"></i>&nbsp;Cancel
+        {product && (
+          <Button variant="btn btn-danger" onClick={() => deleteProduct(product)}>
+            <i className="bi bi-exclamation-circle"></i>&nbsp; Delete
           </Button>
-        </div>
+        )}
+
+        <Button variant="outline-dark" onClick={toggle}>
+          <i className="bi bi-x-lg"></i>&nbsp;Cancel
+        </Button>
       </Form>
     </Modal>
   );

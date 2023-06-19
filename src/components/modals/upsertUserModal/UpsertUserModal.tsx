@@ -145,22 +145,20 @@ export const UpsertUserModal = ({ toggle, user, roles }: UpsertUserModalProps) =
           )}
         </Form.Group>
 
-        <div className="btn-panel">
-          <Button variant="btn btn-dark" disabled={!isDirty} onClick={handleSubmit(upsertUser)}>
-            <i className="bi bi-database"></i>&nbsp;
-            {user ? ' Update' : ' Save'}
-          </Button>
+        <Button variant="btn btn-dark" disabled={!isDirty} onClick={handleSubmit(upsertUser)}>
+          <i className="bi bi-database"></i>&nbsp;
+          {user ? ' Update' : ' Save'}
+        </Button>
 
-          {user && (
-            <Button variant="btn btn-danger" onClick={() => deleteUser(user.username)}>
-              <i className="bi bi-exclamation-circle"></i>&nbsp; Delete
-            </Button>
-          )}
-
-          <Button variant="outline-dark" onClick={toggle}>
-            <i className="bi bi-x-lg"></i>&nbsp;Cancel
+        {user && (
+          <Button variant="btn btn-danger" onClick={() => deleteUser(user.username)}>
+            <i className="bi bi-exclamation-circle"></i>&nbsp; Delete
           </Button>
-        </div>
+        )}
+
+        <Button variant="outline-dark" onClick={toggle}>
+          <i className="bi bi-x-lg"></i>&nbsp;Cancel
+        </Button>
       </Form>
     </Modal>
   );

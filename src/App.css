@@ -51,11 +51,11 @@ select {
   margin-bottom: 1rem;
 }
 
-.form-modal .btn-panel {
-  margin-top: 2rem;
+.form-modal button {
+  margin-top: 1rem;
 }
 
-.form-modal .btn-panel button:nth-child(1) {
-  margin-left: 1rem;
+.form-modal .btn-danger {
+  margin-right: 1rem;
 }
 /*FORM MODAL*/
