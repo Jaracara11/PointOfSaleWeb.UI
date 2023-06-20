@@ -2,7 +2,7 @@ import './orderForm.css';
 import { Button, Table } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
 import { Product } from '../../interfaces/inventory/product';
-import { OrderFormProps } from '../../interfaces/OrderFormProps';
+import { OrderFormProps } from '../../interfaces/order/OrderFormProps';
 import { swalConfirmAlert, swalMessageAlert } from '../../services/swal.service';
 import { UserAuth } from '../../context/UserContext';
 import { useGetDiscountsByUser } from '../../hooks/sales.hooks';
