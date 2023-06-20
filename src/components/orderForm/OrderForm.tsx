@@ -7,6 +7,8 @@ import { swalConfirmAlert, swalMessageAlert } from '../../services/swal.service'
 import { UserAuth } from '../../context/UserContext';
 import { useGetDiscountsByUser } from '../../hooks/sales.hooks';
 import { LoadingSpinner } from '../loadingSpinner/LoadingSpinner';
+import { Order } from '../../interfaces/order/Order';
+import { getUserAuth } from '../../services/user.Service';
 import { useNavigate } from 'react-router-dom';
 
 export const OrderForm = ({ products, removeFromCart }: OrderFormProps) => {
@@ -127,9 +129,18 @@ export const OrderForm = ({ products, removeFromCart }: OrderFormProps) => {
     const isConfirmed = await swalConfirmAlert(confirmTitle, 'Confirm', 'warning');
 
     if (isConfirmed) {
+      const orderObj: Order = {
+        user: getUserAuth()?.username || '',
+        products: order,
+        discount: discount || null,
+        orderTotal: total,
+        orderDate: new Date()
+      };
+
+      orderObj.orderID = 'FACT-123';
+
       swalMessageAlert('Transaction Completed', 'success');
-      console.log(order);
-      navigate('/invoice');
+      navigate('/invoice', { state: { data: orderObj } });
     }
   };
 

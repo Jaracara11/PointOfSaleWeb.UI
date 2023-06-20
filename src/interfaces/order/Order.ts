@@ -4,7 +4,7 @@ export interface Order {
   orderID?: string;
   user: string;
   products: Product[];
-  discount?: number;
+  discount: number | null;
   orderTotal: number;
   orderDate: Date;
 }
