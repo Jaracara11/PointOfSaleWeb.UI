@@ -7,6 +7,7 @@ import { swalConfirmAlert, swalMessageAlert } from '../../services/swal.service'
 import { UserAuth } from '../../context/UserContext';
 import { useGetDiscountsByUser } from '../../hooks/sales.hooks';
 import { LoadingSpinner } from '../loadingSpinner/LoadingSpinner';
+import { useNavigate } from 'react-router-dom';
 
 export const OrderForm = ({ products, removeFromCart }: OrderFormProps) => {
   const { user } = UserAuth() || {};
@@ -15,6 +16,8 @@ export const OrderForm = ({ products, removeFromCart }: OrderFormProps) => {
   const [subtotal, setSubtotal] = useState<number>(0);
   const [total, setTotal] = useState<number>(0);
   const [discount, setDiscount] = useState<number>(0);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     setOrder(products);
@@ -96,38 +99,37 @@ export const OrderForm = ({ products, removeFromCart }: OrderFormProps) => {
   const handleDiscountChange = (event: React.ChangeEvent<HTMLSelectElement>) =>
     setDiscount(parseFloat(event.target.value));
 
-  const emptyCart = async () => {
-    order.forEach((product) => removeFromCart(product.productID || 0));
-
-    setOrder([]);
-
-    setOrder((prevOrder) =>
-      prevOrder.map((product) => ({
-        ...product,
-        productQuantity: 0
-      }))
-    );
-
-    setSubtotal(0);
-    setTotal(0);
-    setDiscount(0);
-  };
-
   const clearCart = async () => {
     let confirmTitle = 'Are you sure you want to clear the cart?';
     const isConfirmed = await swalConfirmAlert(confirmTitle, 'Clear', 'warning');
-    isConfirmed && emptyCart();
+
+    if (isConfirmed) {
+      order.forEach((product) => removeFromCart(product.productID || 0));
+
+      setOrder([]);
+
+      setOrder((prevOrder) =>
+        prevOrder.map((product) => ({
+          ...product,
+          productQuantity: 0
+        }))
+      );
+
+      setSubtotal(0);
+      setTotal(0);
+      setDiscount(0);
+    }
   };
 
   const checkoutOrder = async () => {
-    let confirmTitle = 'Please confirm order';
+    let confirmTitle = `Please confirm order for <strong>${total.toFixed(2)}$</strong>`;
 
     const isConfirmed = await swalConfirmAlert(confirmTitle, 'Confirm', 'warning');
 
     if (isConfirmed) {
       swalMessageAlert('Transaction Completed', 'success');
       console.log(order);
-      emptyCart();
+      navigate('/invoice');
     }
   };
 
