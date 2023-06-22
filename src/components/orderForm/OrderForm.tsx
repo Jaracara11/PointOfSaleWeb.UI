@@ -45,24 +45,21 @@ export const OrderForm = ({ products, removeFromCart }: OrderFormProps) => {
     setOrder((prevOrder) => {
       const updatedOrder = prevOrder.map((product) => {
         if (product.productID === productID) {
-          if ((product.productQuantity || 0) < product.productStock) {
+          if (product.productQuantity || 0 < product.productStock) {
             return {
               ...product,
               productQuantity: (product.productQuantity || 0) + 1
             };
-          } else {
-            return product;
           }
-        } else {
-          return product;
         }
+        return product;
       });
 
       const product = updatedOrder.find((product) => product.productID === productID);
 
-      product &&
-        product.productQuantity === product.productStock &&
+      if (product && product.productQuantity === product.productStock) {
         swalMessageAlert(`Maximum quantity reached for ${product.productName}`, 'warning');
+      }
 
       return updatedOrder;
     });
