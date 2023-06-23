@@ -67,7 +67,7 @@ export const CategoryModal = ({ toggle, category }: CategoryModalProps) => {
   };
 
   const deleteCategory = async (categoryData: Category) => {
-    let confirmTitle = `Are you sure you want to <strong>DELETE</strong> the ${categoryData.categoryName} category?`;
+    const confirmTitle = `Are you sure you want to <strong>DELETE</strong> the ${categoryData.categoryName} category?`;
 
     const isConfirmed = await swalConfirmAlert(confirmTitle, 'Delete', 'warning');
 

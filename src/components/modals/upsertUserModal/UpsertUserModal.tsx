@@ -81,7 +81,7 @@ export const UpsertUserModal = ({ toggle, user, roles }: UpsertUserModalProps) =
   };
 
   const deleteUser = async (username: string) => {
-    let confirmTitle = `Are you sure you want to <strong>DELETE</strong> the user ${username}?`;
+    const confirmTitle = `Are you sure you want to <strong>DELETE</strong> the user ${username}?`;
 
     const isConfirmed = await swalConfirmAlert(confirmTitle, 'Delete', 'warning');
 

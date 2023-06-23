@@ -101,7 +101,7 @@ export const OrderForm = ({ products, updateCartProduct, removeFromCart }: Order
     setDiscount(parseFloat(event.target.value));
 
   const clearCart = async () => {
-    let confirmTitle = 'Are you sure you want to clear the cart?';
+    const confirmTitle = 'Are you sure you want to clear the cart?';
     const isConfirmed = await swalConfirmAlert(confirmTitle, 'Clear', 'warning');
 
     if (isConfirmed) {
@@ -123,7 +123,7 @@ export const OrderForm = ({ products, updateCartProduct, removeFromCart }: Order
   };
 
   const checkoutOrder = async () => {
-    let confirmTitle = `Please confirm order for <strong>${total.toFixed(2)}$</strong>`;
+    const confirmTitle = `Please confirm order for <strong>${total.toFixed(2)}$</strong>`;
 
     const isConfirmed = await swalConfirmAlert(confirmTitle, 'Confirm', 'warning');
 
