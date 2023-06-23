@@ -42,29 +42,27 @@ export const OrderForm = ({ products, updateCartProduct, removeFromCart }: Order
   }, [order]);
 
   const handleIncreaseQuantity = (productID: number) => {
-    setOrder((prevOrder) => {
-      const updatedOrder = prevOrder.map((product) => {
-        if (product.productID === productID) {
-          if (product.productQuantity || 0 < product.productStock) {
-            return {
-              ...product,
-              productQuantity: (product.productQuantity || 0) + 1
-            };
-          }
-        }
+    const updatedOrder = order.map((product) => {
+      if (
+        product.productID === productID &&
+        (product.productQuantity || 0) < product.productStock
+      ) {
+        return {
+          ...product,
+          productQuantity: (product.productQuantity || 0) + 1
+        };
+      } else {
         return product;
-      });
-
-      const product = updatedOrder.find((product) => product.productID === productID);
-
-      if (product && product.productQuantity === product.productStock) {
-        swalMessageAlert(`Maximum quantity reached for ${product.productName}`, 'warning');
       }
-
-      updateCartProduct(updatedOrder);
-
-      return updatedOrder;
     });
+
+    const product = updatedOrder.find((product) => product.productID === productID);
+
+    if (product && product.productQuantity === product.productStock) {
+      swalMessageAlert(`Maximum quantity reached for ${product.productName}`, 'warning');
+    }
+
+    updateCartProduct(updatedOrder);
   };
 
   const handleDecreaseQuantity = (productId: number) => {
