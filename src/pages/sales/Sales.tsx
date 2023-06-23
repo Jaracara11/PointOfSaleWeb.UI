@@ -10,9 +10,8 @@ export const Sales = () => {
   const removeFromCart = (productID: number) =>
     setCartProducts((prevProducts) => prevProducts.filter((p) => p.productID !== productID));
 
-  const updateCartProduct = (updatedCartProducts: Product[]) => {
+  const updateCartProduct = (updatedCartProducts: Product[]) =>
     setCartProducts(updatedCartProducts);
-  };
 
   return (
     <>
