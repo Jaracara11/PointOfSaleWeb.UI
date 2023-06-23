@@ -11,7 +11,7 @@ import { Order } from '../../interfaces/order/Order';
 import { getUserAuth } from '../../services/user.Service';
 import { useNavigate } from 'react-router-dom';
 
-export const OrderForm = ({ products, removeFromCart }: OrderFormProps) => {
+export const OrderForm = ({ products, updateCartProduct, removeFromCart }: OrderFormProps) => {
   const { user } = UserAuth() || {};
   const discountsQuery = useGetDiscountsByUser(user?.username || '');
   const [order, setOrder] = useState<Product[]>([]);
@@ -60,6 +60,8 @@ export const OrderForm = ({ products, removeFromCart }: OrderFormProps) => {
       if (product && product.productQuantity === product.productStock) {
         swalMessageAlert(`Maximum quantity reached for ${product.productName}`, 'warning');
       }
+
+      updateCartProduct(updatedOrder);
 
       return updatedOrder;
     });
