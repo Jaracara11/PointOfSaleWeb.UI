@@ -19,3 +19,21 @@
   margin-top: 1rem;
   min-width: 150px;
 }
+
+@media print {
+  aside {
+    display: none;
+  }
+
+  .sidebar-menu {
+    display: none;
+  }
+
+  @page {
+    margin-top: 0;
+  }
+
+  .invoice-container .order-summary button {
+    display: none;
+  }
+}
