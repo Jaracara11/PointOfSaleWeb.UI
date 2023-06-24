@@ -2,8 +2,9 @@ import './invoice.css';
 import { useLocation } from 'react-router-dom';
 import { NotFound } from '../notFound/NotFound';
 import { Order } from '../../interfaces/order/Order';
-import { Table } from 'react-bootstrap';
+import { Button, Table } from 'react-bootstrap';
 import { Product } from '../../interfaces/inventory/product';
+import { getUserAuth } from '../../services/user.Service';
 
 export const Invoice = () => {
   const location = useLocation();
@@ -18,7 +19,7 @@ export const Invoice = () => {
       .reduce((total, item) => total + (item.productPrice || 0) * (item.productQuantity || 1), 0)
       .toFixed(2);
 
-  console.log(orderInfo);
+  const printInvoice = () => window.print();
 
   return (
     <div className="invoice-container">
@@ -58,18 +59,38 @@ export const Invoice = () => {
             </Table>
             <div className="order-summary">
               <div>
-                <span className="title">Sub-Total: </span>
-                <span>{(orderInfo.orderTotal + (orderInfo.discount || 0) * 100).toFixed(2)}$</span>
-              </div>
-              {orderInfo.discount && (
                 <div>
-                  <span className="title">Discount: </span>
-                  <span>-{orderInfo.discount * 100}$</span>
+                  <span className="title">Billed by: </span>
+                  <span>{getUserAuth()?.name}</span>
                 </div>
-              )}
+                <div>
+                  <span className="title">Purchase Date: </span>
+                  <span>{orderInfo.orderDate.toDateString()}</span>
+                </div>
+              </div>
               <div>
-                <span className="title">Total: </span>
-                <span>{orderInfo.orderTotal.toFixed(2)}$</span>
+                <div>
+                  <div>
+                    <span className="title">Sub-Total: </span>
+                    <span>
+                      {(orderInfo.orderTotal + (orderInfo.discount || 0) * 100).toFixed(2)}$
+                    </span>
+                  </div>
+                  {orderInfo.discount && (
+                    <div>
+                      <span className="title">Discount: </span>
+                      <span>-{orderInfo.discount * 100}$</span>
+                    </div>
+                  )}
+                  <div>
+                    <span className="title">Total: </span>
+                    <span>{orderInfo.orderTotal.toFixed(2)}$</span>
+                  </div>
+
+                  <Button variant="dark" onClick={printInvoice}>
+                    Print
+                  </Button>
+                </div>
               </div>
             </div>
           </div>

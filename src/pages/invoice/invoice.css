@@ -7,9 +7,15 @@
 }
 
 .invoice-container .order-summary {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.invoice-container .order-summary > div:nth-child(2) > div {
   float: right;
 }
 
-.invoice-container .order-summary div {
-  margin-top: 0.5rem;
+.invoice-container .order-summary button {
+  margin-top: 1rem;
+  min-width: 150px;
 }
