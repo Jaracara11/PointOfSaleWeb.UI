@@ -13,6 +13,8 @@ export const Invoice = () => {
 
   const orderInfo = location.state.data as Order;
 
+  console.log(orderInfo);
+
   const calculateOrderTotal = (index: number) =>
     orderInfo.products
       .slice(0, index + 1)

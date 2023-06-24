@@ -5,7 +5,7 @@ import { Product } from '../../interfaces/inventory/product';
 import { OrderFormProps } from '../../interfaces/order/OrderFormProps';
 import { swalConfirmAlert, swalMessageAlert } from '../../services/swal.service';
 import { UserAuth } from '../../context/UserContext';
-import { useGetDiscountsByUser } from '../../hooks/sales.hooks';
+import { useGetDiscountsByUser, useNewOrder } from '../../hooks/sales.hooks';
 import { LoadingSpinner } from '../loadingSpinner/LoadingSpinner';
 import { Order } from '../../interfaces/order/Order';
 import { getUserAuth } from '../../services/user.Service';
@@ -20,6 +20,8 @@ export const OrderForm = ({ products, updateCartProduct, removeFromCart }: Order
   const [discount, setDiscount] = useState<number>(0);
 
   const navigate = useNavigate();
+
+  const newOrderMutation = useNewOrder();
 
   useEffect(() => {
     setOrder(products);
@@ -134,8 +136,9 @@ export const OrderForm = ({ products, updateCartProduct, removeFromCart }: Order
         orderDate: new Date()
       };
 
-      swalMessageAlert('Transaction Completed', 'success');
-      navigate('/invoice', { state: { data: orderObj } });
+      newOrderMutation.mutateAsync(orderObj).then((response) => {
+        navigate('/invoice', { state: { data: response } });
+      });
     }
   };
 

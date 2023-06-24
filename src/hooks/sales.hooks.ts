@@ -1,6 +1,7 @@
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { handleErrorResponse } from '../services/error.Service';
-import { GetAvailableDiscounts } from '../repository/saleRepository';
+import { GetAvailableDiscounts, checkoutOrder } from '../repository/saleRepository';
+import { swalMessageAlert } from '../services/swal.service';
 
 export const useGetDiscountsByUser = (username: string) => {
   return useQuery({
@@ -9,5 +10,18 @@ export const useGetDiscountsByUser = (username: string) => {
     onError: (error) => handleErrorResponse(error, ''),
     cacheTime: 43200000,
     staleTime: 43200000
+  });
+};
+
+export const useNewOrder = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: checkoutOrder,
+    onSuccess: () => {
+      queryClient.invalidateQueries(['orders', 'products']);
+      swalMessageAlert('Transaction Completed', 'success');
+    },
+    onError: (error) => handleErrorResponse(error, 'SalesError')
   });
 };
