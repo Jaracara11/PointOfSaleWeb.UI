@@ -134,8 +134,6 @@ export const OrderForm = ({ products, updateCartProduct, removeFromCart }: Order
         orderDate: new Date()
       };
 
-      orderObj.orderID = 'FACT-123';
-
       swalMessageAlert('Transaction Completed', 'success');
       navigate('/invoice', { state: { data: orderObj } });
     }

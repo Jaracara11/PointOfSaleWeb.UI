@@ -12,6 +12,12 @@ export const Invoice = () => {
 
   const orderInfo = location.state.data as Order;
 
+  const calculateOrderTotal = (index: number) =>
+    orderInfo.products
+      .slice(0, index + 1)
+      .reduce((total, item) => total + (item.productPrice || 0) * (item.productQuantity || 1), 0)
+      .toFixed(2);
+
   console.log(orderInfo);
 
   return (
@@ -38,26 +44,34 @@ export const Invoice = () => {
               </thead>
               <tbody>
                 {orderInfo.products.map((orderItem: Product, index: number) => {
-                  const cumulativeTotal = orderInfo.products
-                    .slice(0, index + 1)
-                    .reduce(
-                      (total, item) =>
-                        total + (item.productPrice || 0) * (item.productQuantity || 1),
-                      0
-                    );
-
                   return (
                     <tr key={index}>
                       <td>{index + 1}</td>
                       <td>{orderItem.productName}</td>
-                      <td>{orderItem.productPrice}</td>
+                      <td>{orderItem.productPrice}$</td>
                       <td>{orderItem.productQuantity}</td>
-                      <td>{cumulativeTotal}</td>
+                      <td>{calculateOrderTotal(index)}$</td>
                     </tr>
                   );
                 })}
               </tbody>
             </Table>
+            <div className="order-summary">
+              <div>
+                <span className="title">Sub-Total: </span>
+                <span>{(orderInfo.orderTotal + (orderInfo.discount || 0) * 100).toFixed(2)}$</span>
+              </div>
+              {orderInfo.discount && (
+                <div>
+                  <span className="title">Discount: </span>
+                  <span>-{orderInfo.discount * 100}$</span>
+                </div>
+              )}
+              <div>
+                <span className="title">Total: </span>
+                <span>{orderInfo.orderTotal.toFixed(2)}$</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>

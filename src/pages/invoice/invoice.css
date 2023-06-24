@@ -1,0 +1,15 @@
+.invoice-container {
+  margin-top: 1rem;
+}
+
+.invoice-container .row:nth-child(1) {
+  margin-bottom: 2rem;
+}
+
+.invoice-container .order-summary {
+  float: right;
+}
+
+.invoice-container .order-summary div {
+  margin-top: 0.5rem;
+}
