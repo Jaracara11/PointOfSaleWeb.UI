@@ -1,7 +1,7 @@
 import './invoice.css';
 import { useLocation } from 'react-router-dom';
 import { NotFound } from '../notFound/NotFound';
-import { Order } from '../../interfaces/order/Order';
+import { Order } from '../../interfaces/order/OrderRequest';
 import { Button, Table } from 'react-bootstrap';
 import { Product } from '../../interfaces/inventory/product';
 import { getUserAuth } from '../../services/user.Service';

@@ -7,9 +7,9 @@ import { swalConfirmAlert, swalMessageAlert } from '../../services/swal.service'
 import { UserAuth } from '../../context/UserContext';
 import { useGetDiscountsByUser, useNewOrder } from '../../hooks/sales.hooks';
 import { LoadingSpinner } from '../loadingSpinner/LoadingSpinner';
-import { Order } from '../../interfaces/order/Order';
 import { getUserAuth } from '../../services/user.Service';
 import { useNavigate } from 'react-router-dom';
+import { OrderRequest } from '../../interfaces/order/OrderRequest';
 
 export const OrderForm = ({ products, updateCartProduct, removeFromCart }: OrderFormProps) => {
   const { user } = UserAuth() || {};
@@ -128,12 +128,13 @@ export const OrderForm = ({ products, updateCartProduct, removeFromCart }: Order
     const isConfirmed = await swalConfirmAlert(confirmTitle, 'Confirm', 'warning');
 
     if (isConfirmed) {
-      const orderObj: Order = {
+      const orderObj: OrderRequest = {
         user: getUserAuth()?.username || '',
-        products: order,
-        orderSubtotal: calculateSubTotal(),
-        discount: discount || null,
-        orderTotal: total
+        products: order.map((product) => ({
+          productID: product.productID || 0,
+          productQuantity: product.productQuantity || 0
+        })),
+        discount: discount || null
       };
 
       newOrderMutation.mutateAsync(orderObj).then((response) => {

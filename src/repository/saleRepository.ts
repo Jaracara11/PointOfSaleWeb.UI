@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { userAuthorizationHeaders } from '../services/user.Service';
-import { Order } from '../interfaces/order/Order';
+import { Order } from '../interfaces/order/OrderRequest';
 
 const API_URL = import.meta.env.VITE_API_URL + '/sale';
 
