@@ -131,9 +131,9 @@ export const OrderForm = ({ products, updateCartProduct, removeFromCart }: Order
       const orderObj: Order = {
         user: getUserAuth()?.username || '',
         products: order,
+        orderSubtotal: calculateSubTotal(),
         discount: discount || null,
-        orderTotal: total,
-        orderDate: new Date()
+        orderTotal: total
       };
 
       newOrderMutation.mutateAsync(orderObj).then((response) => {
