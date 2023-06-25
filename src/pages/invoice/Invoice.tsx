@@ -1,7 +1,7 @@
 import './invoice.css';
 import { useLocation } from 'react-router-dom';
 import { NotFound } from '../notFound/NotFound';
-import { Order } from '../../interfaces/order/OrderRequest';
+import { OrderInfo } from '../../interfaces/order/OrderInfo';
 import { Button, Table } from 'react-bootstrap';
 import { Product } from '../../interfaces/inventory/product';
 import { getUserAuth } from '../../services/user.Service';
@@ -11,7 +11,7 @@ export const Invoice = () => {
 
   if (!location.state) return <NotFound />;
 
-  const orderInfo = location.state.data as Order;
+  const orderInfo = location.state.data as OrderInfo;
 
   console.log(orderInfo);
 
@@ -67,21 +67,19 @@ export const Invoice = () => {
                 </div>
                 <div>
                   <span className="title">Purchase Date: </span>
-                  <span>{orderInfo.orderDate.toDateString()}</span>
+                  <span>{orderInfo.orderDate.toString()}</span>
                 </div>
               </div>
               <div>
                 <div>
                   <div>
                     <span className="title">Sub-Total: </span>
-                    <span>
-                      {(orderInfo.orderTotal + (orderInfo.discount || 0) * 100).toFixed(2)}$
-                    </span>
+                    <span>{orderInfo.orderSubTotal.toFixed(2)}$</span>
                   </div>
                   {orderInfo.discount && (
                     <div>
                       <span className="title">Discount: </span>
-                      <span>-{orderInfo.discount * 100}$</span>
+                      <span>-{(orderInfo.discount * orderInfo.orderSubTotal).toFixed(2)}$</span>
                     </div>
                   )}
                   <div>
