@@ -15,8 +15,8 @@ export const useGetUsers = () => {
     queryKey: ['users'],
     queryFn: getAllUsers,
     onError: (error) => handleErrorResponse(error, ''),
-    cacheTime: 3600000,
-    staleTime: 3600000
+    cacheTime: 43200000,
+    staleTime: 43200000
   });
 };
 
@@ -25,8 +25,8 @@ export const useGetSingleUser = (username: string) => {
     queryKey: ['user', username],
     queryFn: () => getUserByUsername(username),
     onError: (error) => handleErrorResponse(error, ''),
-    cacheTime: 3600000,
-    staleTime: 3600000
+    cacheTime: 43200000,
+    staleTime: 43200000
   });
 };
 
