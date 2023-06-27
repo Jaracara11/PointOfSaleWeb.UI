@@ -1,5 +1,5 @@
 # Dockerfile
-FROM node:18
+FROM node:18-alpine
 
 WORKDIR /app
 
@@ -13,4 +13,4 @@ RUN npm run build
 
 EXPOSE 3000
 
-CMD [ "npx", "http-server", "dist", "--cors", "-p", "3000" ]
+CMD [ "npx", "serve", "-s", "dist", "-l", "3000" ]
