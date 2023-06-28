@@ -42,7 +42,8 @@ export const Categories = () => {
               &nbsp;Add New Category
             </Button>
           )}
-
+        </div>
+        <div>
           <SearchInput searchQuery={searchCategoryQuery} setSearchQuery={setSearchCategoryQuery} />
         </div>
       </div>
