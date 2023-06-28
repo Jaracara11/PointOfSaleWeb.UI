@@ -35,7 +35,7 @@ export const userValidationSchema = Yup.object({
   userRoleID: Yup.number()
     .typeError('User role ID must be a number')
     .integer('Please select a valid user role.')
-    .min(1, 'Please select a valid user role.')
+    .min(0, 'Please select a valid user role.')
 });
 
 export const changePasswordValidationSchema = Yup.object().shape({

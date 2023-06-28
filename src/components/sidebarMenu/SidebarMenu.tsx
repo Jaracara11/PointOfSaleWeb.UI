@@ -42,10 +42,12 @@ export const SidebarMenu = () => {
           <span>Home</span>
         </NavLink>
 
-        <NavLink className="nav-link" to="sales">
-          <i className="bi bi-cash-coin"></i>
-          <span>Sales</span>
-        </NavLink>
+        {user && user.role !== 'Unassigned' && (
+          <NavLink className="nav-link" to="sales">
+            <i className="bi bi-cash-coin"></i>
+            <span>Sales</span>
+          </NavLink>
+        )}
 
         <NavLink className="nav-link" to="products">
           <i className="bi bi-clipboard-check"></i>
