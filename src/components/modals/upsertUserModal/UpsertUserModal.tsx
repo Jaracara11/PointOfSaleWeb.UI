@@ -115,7 +115,7 @@ export const UpsertUserModal = ({ toggle, user, roles }: UpsertUserModalProps) =
             <>
               <Form.Label>User Role</Form.Label>
               <Form.Select {...register('userRoleID')} defaultValue={watch('userRoleID') || 0}>
-                <option value={0}>Select a role...</option>
+                <option>Select a role...</option>
                 {roles.map((role: UserRole) => (
                   <option key={role.roleID} value={role.roleID}>
                     {role.roleName}
