@@ -13,15 +13,11 @@ export const Invoice = () => {
 
   const orderInfo = location.state.data as OrderInfo;
 
-  console.log(orderInfo);
-
   const calculateOrderTotal = (index: number) =>
     orderInfo.products
       .slice(0, index + 1)
       .reduce((total, item) => total + (item.productPrice || 0) * (item.productQuantity || 1), 0)
       .toFixed(2);
-
-  const printInvoice = () => window.print();
 
   return (
     <div className="invoice-container">
@@ -87,7 +83,7 @@ export const Invoice = () => {
                     <span>{orderInfo.orderTotal.toFixed(2)}$</span>
                   </div>
 
-                  <Button variant="dark" onClick={printInvoice}>
+                  <Button variant="dark" onClick={() => window.print()}>
                     Print
                   </Button>
                 </div>
