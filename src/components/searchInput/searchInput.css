@@ -1,13 +1,12 @@
 .search-input i {
   cursor: pointer;
-  margin-top: 0.5rem;
-  margin-right: 0.5rem;
   position: absolute;
-  margin-left: 775px;
+  margin-top: 5px;
+  margin-left: 785px !important;
 }
 
 @media (max-width: 1280px) {
   .search-input i {
-    margin-left: 525px;
+    margin-left: 530px !important;
   }
 }

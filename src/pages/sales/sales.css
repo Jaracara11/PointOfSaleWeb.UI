@@ -9,8 +9,8 @@
 }
 
 .sales-container .search-input i {
-  margin-left: 170px;
-  margin-top: -45px;
+  margin-left: 170px !important;
+  margin-top: -48px;
 }
 
 .sales-container div:nth-child(2) {

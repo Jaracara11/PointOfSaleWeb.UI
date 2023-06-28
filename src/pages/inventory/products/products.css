@@ -10,11 +10,14 @@
 
 .products-container .row:nth-child(2) {
   margin-bottom: 1rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }
 
 .products-container .row:nth-child(2) button,
 .products-container .row:nth-child(2) a {
-  margin-right: 1rem;
+  margin-right: 1.5rem;
+  margin-left: -0.7rem;
   max-width: 200px;
   float: left;
 }
@@ -22,6 +25,7 @@
 .products-container .row:nth-child(2) input {
   max-width: 200px;
   float: right;
+  margin-right: -0.7rem;
 }
 
 .products-container .search-input i {

@@ -49,7 +49,8 @@ export const Products = () => {
             <i className="bi bi-globe"></i>
             &nbsp;Show All Categories
           </Link>
-
+        </div>
+        <div>
           <SearchInput searchQuery={searchProductQuery} setSearchQuery={setSearchProductQuery} />
         </div>
       </div>
