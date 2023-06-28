@@ -4,7 +4,6 @@ import { Category } from '../../../interfaces/inventory/Category';
 import { useState } from 'react';
 import { CategoryModal } from '../../../components/modals/categoryModal/CategoryModal';
 import { UserAuth } from '../../../context/UserContext';
-import { LoadingSpinner } from '../../../components/loadingSpinner/LoadingSpinner';
 import { useGetCategories } from '../../../hooks/categories.hooks';
 import { SearchInput } from '../../../components/searchInput/SearchInput';
 import { validateUserRolePermission } from '../../../services/user.Service';
@@ -22,8 +21,6 @@ export const Categories = () => {
   const filteredCategories = (categoriesQuery.data || []).filter((category) =>
     category.categoryName.toLowerCase().includes(searchCategoryQuery.trim().toLowerCase())
   );
-
-  if (categoriesQuery.isLoading) return <LoadingSpinner />;
 
   return (
     <div className="categories-container">
@@ -52,39 +49,37 @@ export const Categories = () => {
 
       <div className="row">
         {categoriesQuery.data && (
-          <>
-            <Table hover>
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th></th>
+          <Table hover>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredCategories.map((category: Category) => (
+                <tr key={category.categoryID}>
+                  <td>
+                    <i className="bi bi-dot"></i>
+                    {category.categoryName}
+                  </td>
+                  <td>
+                    {validateUserRolePermission(['Admin', 'Manager']) && (
+                      <Button
+                        variant="outline-dark"
+                        onClick={() => {
+                          setSelectedCategory(category);
+                          toggleModal();
+                        }}
+                      >
+                        <i className="bi bi-pencil"></i>&nbsp;Edit
+                      </Button>
+                    )}
+                  </td>
                 </tr>
-              </thead>
-              <tbody>
-                {filteredCategories.map((category: Category) => (
-                  <tr key={category.categoryID}>
-                    <td>
-                      <i className="bi bi-dot"></i>
-                      {category.categoryName}
-                    </td>
-                    <td>
-                      {validateUserRolePermission(['Admin', 'Manager']) && (
-                        <Button
-                          variant="outline-dark"
-                          onClick={() => {
-                            setSelectedCategory(category);
-                            toggleModal();
-                          }}
-                        >
-                          <i className="bi bi-pencil"></i>&nbsp;Edit
-                        </Button>
-                      )}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </Table>
-          </>
+              ))}
+            </tbody>
+          </Table>
         )}
       </div>
 

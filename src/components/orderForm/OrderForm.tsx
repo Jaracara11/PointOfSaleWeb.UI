@@ -6,7 +6,6 @@ import { OrderFormProps } from '../../interfaces/order/OrderFormProps';
 import { swalConfirmAlert, swalMessageAlert } from '../../services/swal.service';
 import { UserAuth } from '../../context/UserContext';
 import { useGetDiscountsByUser, useNewOrder } from '../../hooks/sales.hooks';
-import { LoadingSpinner } from '../loadingSpinner/LoadingSpinner';
 import { getUserAuth } from '../../services/user.Service';
 import { useNavigate } from 'react-router-dom';
 import { OrderRequest } from '../../interfaces/order/OrderRequest';
@@ -145,8 +144,6 @@ export const OrderForm = ({ products, updateCartProduct, removeFromCart }: Order
       });
     }
   };
-
-  if (discountsQuery.isLoading) return <LoadingSpinner />;
 
   return (
     <div className="sales-form card bg-light">

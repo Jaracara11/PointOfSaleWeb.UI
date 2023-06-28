@@ -9,7 +9,6 @@ import { swalConfirmAlert, swalMessageAlert } from '../../../services/swal.servi
 import { changeUserPassword, resetUserPassword } from '../../../repository/userRepository';
 import { UserPasswordChangeRequest } from '../../../interfaces/user/UserPasswordChangeRequest';
 import { handleErrorResponse } from '../../../services/error.Service';
-import { LoadingSpinner } from '../../loadingSpinner/LoadingSpinner';
 import { deleteUserAuth } from '../../../services/user.Service';
 import { useNavigate } from 'react-router-dom';
 import { ChangePasswordModalProps } from '../../../interfaces/modals/ChangePasswordModalProps';
@@ -91,9 +90,7 @@ export const ChangePasswordModal = ({
     }
   };
 
-  return loadingData ? (
-    <LoadingSpinner />
-  ) : (
+  return (
     <Modal className="password-modal" show={showModal} onHide={closeModal} centered>
       <Form onSubmit={handleSubmit(resetPasswordRequest ? resetPassword : changePassword)}>
         <h3 className="title">{resetPasswordRequest ? `Reset ${username}` : 'Change'} Password</h3>

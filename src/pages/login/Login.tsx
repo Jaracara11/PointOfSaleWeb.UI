@@ -6,7 +6,6 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { loginValidationSchema } from '../../services/yupValidation.service';
 import { UserLogin } from '../../interfaces/user/UserLogin';
 import { ErrorInputView } from '../../components/errorInputView/ErrorInputView';
-import { LoadingSpinner } from '../../components/loadingSpinner/LoadingSpinner';
 import { UserAuth } from '../../context/UserContext';
 import { handleErrorResponse } from '../../services/error.Service';
 
@@ -42,12 +41,10 @@ export const Login = () => {
     }
   };
 
-  return loadingData ? (
-    <LoadingSpinner />
-  ) : (
+  return (
     <div className="container">
       <div className="card">
-        <h2 className='title'>Login</h2>
+        <h2 className="title">Login</h2>
         <form className="card-body" onSubmit={handleSubmit(submitLogin)}>
           <div>
             <input

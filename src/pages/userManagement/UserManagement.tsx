@@ -1,6 +1,5 @@
 import './userManagement.css';
 import { Button, Table } from 'react-bootstrap';
-import { LoadingSpinner } from '../../components/loadingSpinner/LoadingSpinner';
 import { UserAuth } from '../../context/UserContext';
 import { useGetRoles, useGetUsers } from '../../hooks/users.hooks';
 import { swalMessageAlert } from '../../services/swal.service';
@@ -37,8 +36,6 @@ export const UserManagement = () => {
       navigate('/home')
     );
   }
-
-  if (usersQuery.isLoading || rolesQuery.isLoading) return <LoadingSpinner />;
 
   return (
     <div className="user-container">

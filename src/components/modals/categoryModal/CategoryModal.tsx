@@ -6,7 +6,6 @@ import { categoryValidationSchema } from '../../../services/yupValidation.servic
 import { ErrorInputView } from '../../errorInputView/ErrorInputView';
 import { Category } from '../../../interfaces/inventory/Category';
 import { useEffect, useState } from 'react';
-import { LoadingSpinner } from '../../loadingSpinner/LoadingSpinner';
 import { firstCharToUpper } from '../../../utils/string.helper';
 import { swalConfirmAlert, swalMessageAlert } from '../../../services/swal.service';
 import { CategoryModalProps } from '../../../interfaces/modals/CategoryModalProps';
@@ -81,10 +80,6 @@ export const CategoryModal = ({ toggle, category }: CategoryModalProps) => {
       toggle();
     }
   };
-
-  if (newCategoryMutation.isLoading || updateCategoryMutation.isLoading) {
-    return <LoadingSpinner />;
-  }
 
   return (
     <Modal className="category-modal" show={showModal} onHide={closeModal} centered>

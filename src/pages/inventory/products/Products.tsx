@@ -1,6 +1,5 @@
 import './products.css';
 import { useGetProducts } from '../../../hooks/products.hooks';
-import { LoadingSpinner } from '../../../components/loadingSpinner/LoadingSpinner';
 import { Button, Table } from 'react-bootstrap';
 import { Product } from '../../../interfaces/inventory/product';
 import { useGetCategories } from '../../../hooks/categories.hooks';
@@ -25,8 +24,6 @@ export const Products = () => {
   const filteredProducts = (productsQuery.data || []).filter((product) =>
     product.productName.toLowerCase().includes(searchProductQuery.trim().toLowerCase())
   );
-
-  if (productsQuery.isLoading || categoriesQuery.isLoading) return <LoadingSpinner />;
 
   return (
     <div className="products-container">

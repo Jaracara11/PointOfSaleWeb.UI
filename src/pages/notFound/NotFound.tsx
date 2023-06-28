@@ -10,5 +10,5 @@ export const NotFound = () => {
     }, 1000);
   });
 
-  return <>Page not found</>;
+  return <p>Page not found</p>;
 };
