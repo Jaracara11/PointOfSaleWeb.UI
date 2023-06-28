@@ -8,6 +8,7 @@ import { UserLogin } from '../../interfaces/user/UserLogin';
 import { ErrorInputView } from '../../components/errorInputView/ErrorInputView';
 import { UserAuth } from '../../context/UserContext';
 import { handleErrorResponse } from '../../services/error.Service';
+import { LoadingSpinner } from '../../components/loadingSpinner/LoadingSpinner';
 
 export const Login = () => {
   const [loadingData, setLoadingData] = useState<boolean>(false);
@@ -41,7 +42,9 @@ export const Login = () => {
     }
   };
 
-  return (
+  return loadingData ? (
+    <LoadingSpinner />
+  ) : (
     <div className="container">
       <div className="card">
         <h2 className="title">Login</h2>
