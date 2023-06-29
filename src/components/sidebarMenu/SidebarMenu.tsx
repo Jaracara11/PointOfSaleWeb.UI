@@ -51,11 +51,11 @@ export const SidebarMenu = () => {
         {user && user.role !== 'Unassigned' && (
           <OverlayTrigger
             placement="right"
-            overlay={<Tooltip className="sidebar-tooltip">Sales</Tooltip>}
+            overlay={<Tooltip className="sidebar-tooltip">Orders</Tooltip>}
           >
-            <NavLink className="nav-link" to="sales">
+            <NavLink className="nav-link" to="orders">
               <i className="bi bi-cash-coin"></i>
-              <span>Sales</span>
+              <span>Orders</span>
             </NavLink>
           </OverlayTrigger>
         )}

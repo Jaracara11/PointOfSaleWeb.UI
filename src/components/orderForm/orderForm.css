@@ -1,29 +1,29 @@
-.sales-form h4 {
+.orders-form h4 {
   margin-top: 0.5rem;
 }
 
-.sales-form td:nth-child(4) button {
+.orders-form td:nth-child(4) button {
   margin: 0.2rem;
 }
 
-.sales-form div:nth-child(3) button {
+.orders-form div:nth-child(3) button {
   margin-right: 0.5rem;
   margin-bottom: 1rem;
 }
 
-.sales-form ul {
+.orders-form ul {
   max-width: 50%;
 }
 
-.sales-form li {
+.orders-form li {
   margin-bottom: 0.3rem;
 }
 
-.sales-form .order-info {
+.orders-form .order-info {
   display: grid;
   grid-template-columns: 1fr 1fr;
 }
 
-.sales-form .order-info div {
+.orders-form .order-info div {
   margin-top: 0.5rem;
 }

@@ -1,13 +1,13 @@
-import './sales.css';
+import './orders.css';
 import { OrderForm } from '../../components/orderForm/OrderForm';
-import { SalesTable } from '../../components/salesTable/SalesTable';
+import { OrdersTable } from '../../components/ordersTable/OrdersTable';
 import { useState } from 'react';
 import { Product } from '../../interfaces/inventory/product';
 import { useNavigate } from 'react-router-dom';
 import { UserAuth } from '../../context/UserContext';
 import { swalMessageAlert } from '../../services/swal.service';
 
-export const Sales = () => {
+export const Orders = () => {
   const navigate = useNavigate();
   const { user } = UserAuth() || {};
   const [cartProducts, setCartProducts] = useState<Product[]>([]);
@@ -26,9 +26,9 @@ export const Sales = () => {
 
   return (
     <>
-      <h1 className="title">Sales</h1>
-      <div className="sales-container">
-        <SalesTable
+      <h1 className="title">Orders</h1>
+      <div className="orders-container">
+        <OrdersTable
           cartProducts={cartProducts}
           removeFromCart={removeFromCart}
           updateCartProduct={updateCartProduct}

@@ -1,19 +1,19 @@
-.sales-container {
+.orders-container {
   margin-top: 2rem;
   display: grid;
   grid-template-columns: 1fr 1fr;
 }
 
-.sales-container input {
+.orders-container input {
   max-width: 200px;
 }
 
-.sales-container .search-input i {
+.orders-container .search-input i {
   margin-left: 170px !important;
   margin-top: -48px;
 }
 
-.sales-container div:nth-child(2) {
+.orders-container div:nth-child(2) {
   margin-top: 3.3rem;
   margin-left: 1rem;
 }

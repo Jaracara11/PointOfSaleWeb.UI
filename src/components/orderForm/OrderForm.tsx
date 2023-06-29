@@ -5,7 +5,7 @@ import { Product } from '../../interfaces/inventory/product';
 import { OrderFormProps } from '../../interfaces/order/OrderFormProps';
 import { swalConfirmAlert, swalMessageAlert } from '../../services/swal.service';
 import { UserAuth } from '../../context/UserContext';
-import { useGetDiscountsByUser, useNewOrder } from '../../hooks/sales.hooks';
+import { useGetDiscountsByUser, useNewOrder } from '../../hooks/orders.hooks';
 import { getUserAuth } from '../../services/user.Service';
 import { useNavigate } from 'react-router-dom';
 import { OrderRequest } from '../../interfaces/order/OrderRequest';
@@ -146,7 +146,7 @@ export const OrderForm = ({ products, updateCartProduct, removeFromCart }: Order
   };
 
   return (
-    <div className="sales-form card bg-light">
+    <div className="orders-form card bg-light">
       <h4 className="title">Current Order</h4>
       <Table hover>
         <thead>

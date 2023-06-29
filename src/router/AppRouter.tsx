@@ -11,7 +11,7 @@ import { PrivateRoutes } from './PrivateRoutes';
 import { RootLayout } from '../layouts/RootLayout';
 import { Categories } from '../pages/inventory/categories/Categories';
 import { Products } from '../pages/inventory/products/Products';
-import { Sales } from '../pages/sales/Sales';
+import { Orders } from '../pages/orders/Orders';
 import { UserManagement } from '../pages/userManagement/UserManagement';
 import { Invoice } from '../pages/invoice/Invoice';
 
@@ -23,7 +23,7 @@ export const AppRouter = () => {
         <Route path="*" element={<NotFound />} />
         <Route element={<RootLayout />}>
           <Route element={<PrivateRoutes />}>
-            <Route path="/sales" element={<Sales />} />
+            <Route path="/orders" element={<Orders />} />
             <Route path="/invoice" element={<Invoice />} />
             <Route path="/home" element={<Home />} />
             <Route path="/products" element={<Products />} />

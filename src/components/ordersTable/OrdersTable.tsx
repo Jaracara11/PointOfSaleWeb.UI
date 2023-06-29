@@ -5,13 +5,13 @@ import { SearchInput } from '../searchInput/SearchInput';
 import { Product } from '../../interfaces/inventory/product';
 import { Button, Table } from 'react-bootstrap';
 import { getProductCategoryName } from '../../utils/inventory.helper';
-import { SalesTableProps } from '../../interfaces/SalesTableProps';
+import { OrdersTableProps } from '../../interfaces/OrdersTableProps';
 
-export const SalesTable = ({
+export const OrdersTable = ({
   cartProducts,
   removeFromCart,
   updateCartProduct
-}: SalesTableProps) => {
+}: OrdersTableProps) => {
   const productsQuery = useGetProducts();
   const categoriesQuery = useGetCategories();
   const [searchProductQuery, setSearchProductQuery] = useState<string>('');
