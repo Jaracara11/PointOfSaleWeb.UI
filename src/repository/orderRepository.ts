@@ -19,7 +19,7 @@ export const GetAvailableDiscounts = async (username: string): Promise<number[]>
 
 export const getRecentOrders = async (): Promise<RecentOrder[]> => {
   try {
-    const response = await axios.get(`${API_URL}/discounts/recent-orders`, {
+    const response = await axios.get(`${API_URL}/recent-orders`, {
       headers: userAuthorizationHeaders()
     });
     return response.data as RecentOrder[];

@@ -42,17 +42,15 @@ export const Invoice = () => {
                 </tr>
               </thead>
               <tbody>
-                {orderInfo.products.map((orderItem: Product, index: number) => {
-                  return (
-                    <tr key={index}>
-                      <td>{index + 1}</td>
-                      <td>{orderItem.productName}</td>
-                      <td>{orderItem.productPrice}$</td>
-                      <td>{orderItem.productQuantity}</td>
-                      <td>{calculateOrderTotal(index)}$</td>
-                    </tr>
-                  );
-                })}
+                {orderInfo.products.map((orderItem: Product, index: number) => (
+                  <tr key={index}>
+                    <td>{index + 1}</td>
+                    <td>{orderItem.productName}</td>
+                    <td>{orderItem.productPrice}$</td>
+                    <td>{orderItem.productQuantity}</td>
+                    <td>{calculateOrderTotal(index)}$</td>
+                  </tr>
+                ))}
               </tbody>
             </Table>
             <div className="order-summary">

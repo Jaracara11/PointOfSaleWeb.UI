@@ -33,7 +33,8 @@ export const useNewOrder = () => {
   return useMutation({
     mutationFn: checkoutOrder,
     onSuccess: () => {
-      queryClient.invalidateQueries(['products', 'orders']);
+      queryClient.invalidateQueries(['products']);
+      queryClient.invalidateQueries(['orders']);
       swalMessageAlert('Transaction Completed', 'success');
     },
     onError: (error) => handleErrorResponse(error, 'OrdersError')
