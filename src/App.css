@@ -18,6 +18,10 @@ body {
   margin-top: 1rem;
 }
 
+.sidebar-tooltip {
+  display: none !important;
+}
+
 /*FORM MODAL*/
 .form-modal form {
   padding: 1rem;
@@ -60,3 +64,9 @@ select {
   margin-right: 1rem;
 }
 /*FORM MODAL*/
+
+@media (max-width: 1280px) {
+  .sidebar-tooltip {
+    display: block !important;
+  }
+}

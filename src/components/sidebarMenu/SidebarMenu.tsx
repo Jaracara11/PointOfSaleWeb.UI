@@ -7,6 +7,7 @@ import { deleteUserAuth } from '../../services/user.Service';
 import Button from 'react-bootstrap/esm/Button';
 import { ChangePasswordModal } from '../modals/changePasswordModal/ChangePasswordModal';
 import { useState } from 'react';
+import { Tooltip } from 'react-bootstrap';
 
 export const SidebarMenu = () => {
   const { user } = UserAuth() || {};
@@ -37,28 +38,48 @@ export const SidebarMenu = () => {
       <hr className="text-secondary" />
 
       <div className="links">
-        <NavLink className="nav-link" to="/home">
-          <i className="bi bi-house"></i>
-          <span>Home</span>
-        </NavLink>
+        <OverlayTrigger
+          placement="right"
+          overlay={<Tooltip className="sidebar-tooltip">Home</Tooltip>}
+        >
+          <NavLink className="nav-link" to="/home">
+            <i className="bi bi-house"></i>
+            <span>Home</span>
+          </NavLink>
+        </OverlayTrigger>
 
         {user && user.role !== 'Unassigned' && (
-          <NavLink className="nav-link" to="sales">
-            <i className="bi bi-cash-coin"></i>
-            <span>Sales</span>
-          </NavLink>
+          <OverlayTrigger
+            placement="right"
+            overlay={<Tooltip className="sidebar-tooltip">Sales</Tooltip>}
+          >
+            <NavLink className="nav-link" to="sales">
+              <i className="bi bi-cash-coin"></i>
+              <span>Sales</span>
+            </NavLink>
+          </OverlayTrigger>
         )}
 
-        <NavLink className="nav-link" to="products">
-          <i className="bi bi-clipboard-check"></i>
-          <span>Inventory</span>
-        </NavLink>
+        <OverlayTrigger
+          placement="right"
+          overlay={<Tooltip className="sidebar-tooltip">Inventory</Tooltip>}
+        >
+          <NavLink className="nav-link" to="products">
+            <i className="bi bi-clipboard-check"></i>
+            <span>Inventory</span>
+          </NavLink>
+        </OverlayTrigger>
 
         {user && user.role === 'Admin' && (
-          <NavLink className="nav-link" to="user-management">
-            <i className="bi bi-person-gear"></i>
-            <span>Users</span>
-          </NavLink>
+          <OverlayTrigger
+            placement="right"
+            overlay={<Tooltip className="sidebar-tooltip">Users</Tooltip>}
+          >
+            <NavLink className="nav-link" to="user-management">
+              <i className="bi bi-person-gear"></i>
+              <span>Users</span>
+            </NavLink>
+          </OverlayTrigger>
         )}
 
         {user && (
