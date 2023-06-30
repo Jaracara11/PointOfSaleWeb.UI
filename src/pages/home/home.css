@@ -4,20 +4,18 @@
   gap: 1rem;
 }
 
-.home-container .right-side div:nth-child(3) {
+.home-container .right-side > div:nth-child(1) {
+  text-align: center;
+}
+
+.home-container .right-side > div:nth-child(2) {
   display: grid;
   grid-template-columns: 1fr;
   place-items: center;
-}
-
-.home-container .right-side div:nth-child(3) .card {
   margin-top: 1rem;
 }
 
-.home-container .right-side div:nth-child(3) .card div {
+.home-container .right-side > div:nth-child(2) .card {
   padding: 0.5rem;
-}
-
-.home-container .right-side div:nth-child(3) .card div h3 {
   text-align: center;
 }
