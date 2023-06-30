@@ -1,24 +1,25 @@
 import './home.css';
-import { useContext } from 'react';
-import { UserContext } from '../../context/UserContext';
-import { useGetRecentOrders } from '../../hooks/orders.hooks';
+import { useGetRecentOrders, useGetSalesOfTheDay } from '../../hooks/orders.hooks';
 import { RecentOrder } from '../../interfaces/order/RecentOrder';
 import { Table } from 'react-bootstrap';
 
 export const Home = () => {
-  const { user } = useContext(UserContext) || {};
-
   const recentOrdersQuery = useGetRecentOrders();
-
-  console.log(recentOrdersQuery.data);
+  const salesOfTheDayQuery = useGetSalesOfTheDay();
 
   return (
     <div className="home-container">
-      <div></div>
       <div>
+        <h4 className="title">Total sales of the day</h4>
+        <div className="bg-success">
+          <h3>{salesOfTheDayQuery.data && salesOfTheDayQuery.data.toString()}</h3>
+        </div>
+      </div>
+      <div>
+        <h4 className="title">Recent Orders</h4>
         <div className="card">
           {recentOrdersQuery.data && (
-            <Table>
+            <Table striped>
               <thead>
                 <tr>
                   <th>User</th>

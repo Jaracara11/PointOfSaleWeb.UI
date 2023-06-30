@@ -3,7 +3,8 @@ import { handleErrorResponse } from '../services/error.Service';
 import {
   GetAvailableDiscounts,
   checkoutOrder,
-  getRecentOrders
+  getRecentOrders,
+  getTotalSalesOfTheDay
 } from '../repository/orderRepository';
 import { swalMessageAlert } from '../services/swal.service';
 
@@ -21,7 +22,17 @@ export const useGetRecentOrders = () => {
   return useQuery({
     queryKey: ['orders'],
     queryFn: getRecentOrders,
-    onError: (error) => handleErrorResponse(error, 'OrdersError'),
+    onError: (error) => handleErrorResponse(error, ''),
+    cacheTime: 43200000,
+    staleTime: 43200000
+  });
+};
+
+export const useGetSalesOfTheDay = () => {
+  return useQuery({
+    queryKey: ['salesToday'],
+    queryFn: getTotalSalesOfTheDay,
+    onError: (error) => handleErrorResponse(error, ''),
     cacheTime: 43200000,
     staleTime: 43200000
   });
@@ -35,6 +46,7 @@ export const useNewOrder = () => {
     onSuccess: () => {
       queryClient.invalidateQueries(['products']);
       queryClient.invalidateQueries(['orders']);
+      queryClient.invalidateQueries(['salesToday']);
       swalMessageAlert('Transaction Completed', 'success');
     },
     onError: (error) => handleErrorResponse(error, 'OrdersError')
