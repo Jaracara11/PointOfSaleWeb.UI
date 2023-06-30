@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { NotFound } from '../notFound/NotFound';
 import { OrderInfo } from '../../interfaces/order/OrderInfo';
 import { Button, Table } from 'react-bootstrap';
-import { Product } from '../../interfaces/inventory/product';
+import { Product } from '../../interfaces/inventory/products/Product';
 import { getUserAuth } from '../../services/user.Service';
 
 export const Invoice = () => {
@@ -46,9 +46,9 @@ export const Invoice = () => {
                   <tr key={index}>
                     <td>{index + 1}</td>
                     <td>{orderItem.productName}</td>
-                    <td>{orderItem.productPrice}$</td>
-                    <td>{orderItem.productQuantity}</td>
-                    <td>{calculateOrderTotal(index)}$</td>
+                    <td>${orderItem.productPrice}</td>
+                    <td>{orderItem.productQuantity} unit(s)</td>
+                    <td>${calculateOrderTotal(index)}</td>
                   </tr>
                 ))}
               </tbody>
@@ -68,17 +68,17 @@ export const Invoice = () => {
                 <div>
                   <div>
                     <span className="title">Sub-Total: </span>
-                    <span>{orderInfo.orderSubTotal.toFixed(2)}$</span>
+                    <span>${orderInfo.orderSubTotal.toFixed(2)}</span>
                   </div>
                   {orderInfo.discount && (
                     <div>
                       <span className="title">Discount: </span>
-                      <span>-{(orderInfo.discount * orderInfo.orderSubTotal).toFixed(2)}$</span>
+                      <span>-${(orderInfo.discount * orderInfo.orderSubTotal).toFixed(2)}</span>
                     </div>
                   )}
                   <div>
                     <span className="title">Total: </span>
-                    <span>{orderInfo.orderTotal.toFixed(2)}$</span>
+                    <span>${orderInfo.orderTotal.toFixed(2)}</span>
                   </div>
 
                   <Button variant="dark" onClick={() => window.print()}>

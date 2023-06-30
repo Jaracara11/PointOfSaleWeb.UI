@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useGetCategories } from '../../hooks/categories.hooks';
 import { useGetProducts } from '../../hooks/products.hooks';
 import { SearchInput } from '../searchInput/SearchInput';
-import { Product } from '../../interfaces/inventory/product';
+import { Product } from '../../interfaces/inventory/products/Product';
 import { Button, Table } from 'react-bootstrap';
 import { getProductCategoryName } from '../../utils/inventory.helper';
 import { OrdersTableProps } from '../../interfaces/OrdersTableProps';
@@ -60,7 +60,7 @@ export const OrdersTable = ({
                     {product.productName}
                   </td>
                   <td>{product.productStock}</td>
-                  <td>{product.productPrice}</td>
+                  <td>${product.productPrice}</td>
                   <td>
                     {categoriesQuery.data &&
                       getProductCategoryName(product.productCategoryID, categoriesQuery.data)}

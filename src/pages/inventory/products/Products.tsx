@@ -1,7 +1,7 @@
 import './products.css';
 import { useGetProducts } from '../../../hooks/products.hooks';
 import { Button, Table } from 'react-bootstrap';
-import { Product } from '../../../interfaces/inventory/product';
+import { Product } from '../../../interfaces/inventory/products/Product';
 import { useGetCategories } from '../../../hooks/categories.hooks';
 import { getProductCategoryName } from '../../../utils/inventory.helper';
 import { UserAuth } from '../../../context/UserContext';

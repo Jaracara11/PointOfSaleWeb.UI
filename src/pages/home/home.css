@@ -1,6 +1,7 @@
 .home-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  gap: 1rem;
 }
 
 .home-container .right-side div:nth-child(3) {

@@ -3,6 +3,7 @@ import { handleErrorResponse } from '../services/error.Service';
 import {
   GetAvailableDiscounts,
   checkoutOrder,
+  getBestSellerProducts,
   getRecentOrders,
   getTotalSalesOfTheDay
 } from '../repository/orderRepository';
@@ -22,6 +23,16 @@ export const useGetRecentOrders = () => {
   return useQuery({
     queryKey: ['orders'],
     queryFn: getRecentOrders,
+    onError: (error) => handleErrorResponse(error, ''),
+    cacheTime: 43200000,
+    staleTime: 43200000
+  });
+};
+
+export const useGetBestSellerProducts = () => {
+  return useQuery({
+    queryKey: ['bestSellers'],
+    queryFn: getBestSellerProducts,
     onError: (error) => handleErrorResponse(error, ''),
     cacheTime: 43200000,
     staleTime: 43200000

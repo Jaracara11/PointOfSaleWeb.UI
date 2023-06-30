@@ -1,7 +1,7 @@
 import './orderForm.css';
 import { Button, Table } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
-import { Product } from '../../interfaces/inventory/product';
+import { Product } from '../../interfaces/inventory/products/Product';
 import { OrderFormProps } from '../../interfaces/order/OrderFormProps';
 import { swalConfirmAlert, swalMessageAlert } from '../../services/swal.service';
 import { UserAuth } from '../../context/UserContext';
@@ -124,7 +124,7 @@ export const OrderForm = ({ products, updateCartProduct, removeFromCart }: Order
   };
 
   const checkoutOrder = async () => {
-    const confirmTitle = `Please confirm order for <strong>${total.toFixed(2)}$</strong>`;
+    const confirmTitle = `Please confirm order for <strong>$${total.toFixed(2)}</strong>`;
 
     const isConfirmed = await swalConfirmAlert(confirmTitle, 'Confirm', 'warning');
 
@@ -166,7 +166,7 @@ export const OrderForm = ({ products, updateCartProduct, removeFromCart }: Order
                   <small className="text-muted">{product.productDescription}</small>
                 </div>
               </td>
-              <td>{product.productPrice}</td>
+              <td>${product.productPrice}</td>
               <td>{product.productQuantity}</td>
               <td>
                 <Button
@@ -192,7 +192,7 @@ export const OrderForm = ({ products, updateCartProduct, removeFromCart }: Order
       <div className="order-info">
         <ul>
           <li>
-            <strong>Sub-total:</strong> {calculateSubTotal().toFixed(2)}
+            <strong>Sub-total:</strong> ${calculateSubTotal().toFixed(2)}
           </li>
           <li>
             <strong>Discount:&nbsp; </strong>
@@ -212,7 +212,7 @@ export const OrderForm = ({ products, updateCartProduct, removeFromCart }: Order
             </select>
           </li>
           <li>
-            <strong>Total:</strong> {total.toFixed(2)}
+            <strong>Total:</strong> ${total.toFixed(2)}
           </li>
         </ul>
 

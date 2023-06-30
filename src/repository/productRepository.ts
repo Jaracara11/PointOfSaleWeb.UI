@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Product } from '../interfaces/inventory/product';
+import { Product } from '../interfaces/inventory/products/Product';
 import { userAuthorizationHeaders } from '../services/user.Service';
 
 const API_URL = import.meta.env.VITE_API_URL + '/product';

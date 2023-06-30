@@ -1,4 +1,4 @@
-import { Product } from '../inventory/product';
+import { Product } from '../inventory/products/Product';
 import { Category } from '../inventory/Category';
 
 export interface ProductModalProps {

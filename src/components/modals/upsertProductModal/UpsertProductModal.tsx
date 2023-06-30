@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Product } from '../../../interfaces/inventory/product';
+import { Product } from '../../../interfaces/inventory/products/Product';
 import { Category } from '../../../interfaces/inventory/Category';
 import { Form, Button, Modal } from 'react-bootstrap';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
