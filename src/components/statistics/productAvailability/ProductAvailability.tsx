@@ -26,8 +26,13 @@ export const ProductAvailability = () => {
               </tr>
             </thead>
             <tbody>
-              {getLimitedProducts(productsQuery.data).map((product: Product) => (
-                <tr key={product.productID}>
+              {getLimitedProducts(productsQuery.data).map((product: Product, index: number) => (
+                <tr
+                  key={product.productID}
+                  className={
+                    index === 0 ? 'table-danger' : index === 1 ? 'table-warning' : 'table-info'
+                  }
+                >
                   <td>{product.productName}</td>
                   <td>{product.productStock} unit(s)</td>
                 </tr>
