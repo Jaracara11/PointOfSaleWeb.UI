@@ -9,14 +9,10 @@ export const Home = () => {
 
   return (
     <div className="home-container">
-      <div>
-        <h4 className="title">Total sales of the day</h4>
-        <div className="bg-success">
-          <h3>{salesOfTheDayQuery.data && salesOfTheDayQuery.data.toString()}</h3>
-        </div>
-      </div>
-      <div>
+      <div className="left-side"></div>
+      <div className="right-side">
         <h4 className="title">Recent Orders</h4>
+
         <div className="card">
           {recentOrdersQuery.data && (
             <Table striped>
@@ -38,6 +34,17 @@ export const Home = () => {
               </tbody>
             </Table>
           )}
+        </div>
+
+        <div>
+          <div className="card">
+            <div>
+              <h4 className="title">Total sales of the day</h4>
+              <h3 className="text-muted">
+                <strong>{salesOfTheDayQuery.data && salesOfTheDayQuery.data.toString()}</strong>
+              </h3>
+            </div>
+          </div>
         </div>
       </div>
     </div>
