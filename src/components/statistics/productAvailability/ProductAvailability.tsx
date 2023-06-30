@@ -28,7 +28,7 @@ export const ProductAvailability = () => {
             <tbody>
               {getLimitedProducts(productsQuery.data).map((product: Product, index: number) => (
                 <tr
-                  key={product.productID}
+                  key={index}
                   className={
                     index === 0 ? 'table-danger' : index === 1 ? 'table-warning' : 'table-info'
                   }
