@@ -3,7 +3,7 @@ import { UserAuth } from '../../context/UserContext';
 import { Link, NavLink } from 'react-router-dom';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Popover from 'react-bootstrap/Popover';
-import { deleteUserAuth } from '../../services/user.Service';
+import { deleteUserAuth, validateUserRolePermission } from '../../services/user.Service';
 import Button from 'react-bootstrap/esm/Button';
 import { ChangePasswordModal } from '../modals/changePasswordModal/ChangePasswordModal';
 import { useState } from 'react';
@@ -54,7 +54,7 @@ export const SidebarMenu = () => {
             overlay={<Tooltip className="sidebar-tooltip">Orders</Tooltip>}
           >
             <NavLink className="nav-link" to="orders">
-              <i className="bi bi-cash-coin"></i>
+              <i className="bi bi-cart"></i>
               <span>Orders</span>
             </NavLink>
           </OverlayTrigger>
@@ -62,13 +62,25 @@ export const SidebarMenu = () => {
 
         <OverlayTrigger
           placement="right"
-          overlay={<Tooltip className="sidebar-tooltip">Inventory</Tooltip>}
+          overlay={<Tooltip className="sidebar-tooltip">Orders</Tooltip>}
         >
-          <NavLink className="nav-link" to="products">
-            <i className="bi bi-clipboard-check"></i>
-            <span>Inventory</span>
+          <NavLink className="nav-link" to="sales">
+            <i className="bi bi-cash-coin"></i>
+            <span>Sales</span>
           </NavLink>
         </OverlayTrigger>
+
+        {validateUserRolePermission(['Admin', 'Manager']) && (
+          <OverlayTrigger
+            placement="right"
+            overlay={<Tooltip className="sidebar-tooltip">Inventory</Tooltip>}
+          >
+            <NavLink className="nav-link" to="products">
+              <i className="bi bi-clipboard-check"></i>
+              <span>Inventory</span>
+            </NavLink>
+          </OverlayTrigger>
+        )}
 
         {user && user.role === 'Admin' && (
           <OverlayTrigger
