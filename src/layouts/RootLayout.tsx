@@ -7,12 +7,16 @@ import { LoadingSpinner } from '../components/loadingSpinner/LoadingSpinner';
 export const RootLayout = () => {
   const isFetching = useIsFetching();
 
-  return (
+  return isFetching ? (
+    <LoadingSpinner />
+  ) : (
     <div className="root-layout">
       <aside>
         <SidebarMenu />
       </aside>
-      <main>{isFetching ? <LoadingSpinner /> : <Outlet />}</main>
+      <main>
+        <Outlet />
+      </main>
     </div>
   );
 };

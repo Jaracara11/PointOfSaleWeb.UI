@@ -78,8 +78,8 @@ export const Products = () => {
                   </td>
                   <td>{product.productDescription}</td>
                   <td>{product.productStock}</td>
-                  <td>{product.productCost}</td>
-                  <td>{product.productPrice}</td>
+                  <td>${product.productCost}</td>
+                  <td>${product.productPrice}</td>
                   <td>
                     {categoriesQuery.data &&
                       getProductCategoryName(product.productCategoryID, categoriesQuery.data)}
