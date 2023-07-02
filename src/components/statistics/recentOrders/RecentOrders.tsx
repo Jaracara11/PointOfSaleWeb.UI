@@ -2,6 +2,7 @@ import { Table } from 'react-bootstrap';
 import { useGetRecentOrders } from '../../../hooks/orders.hooks';
 import { RecentOrder } from '../../../interfaces/order/RecentOrder';
 import { useState } from 'react';
+import { OrderDetailModal } from '../../modals/orderDetailModal/OrderDetailModal';
 
 export const RecentOrders = () => {
   const recentOrdersQuery = useGetRecentOrders();
@@ -49,11 +50,7 @@ export const RecentOrders = () => {
       </div>
 
       {showOrderDetailModal && (
-        <UpsertUserModal
-          toggle={toggleUpsertModal}
-          user={selectedUser || null}
-          roles={rolesQuery.data || []}
-        />
+        <OrderDetailModal toggle={toggleOrderDetailsModal} orderID={orderID || ''} />
       )}
     </div>
   );

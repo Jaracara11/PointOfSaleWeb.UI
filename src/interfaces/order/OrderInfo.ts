@@ -1,4 +1,5 @@
 import { Product } from '../inventory/products/Product';
+import { OrderProduct } from './OrderProduct';
 
 export interface OrderInfo {
   orderID: string;

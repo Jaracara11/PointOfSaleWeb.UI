@@ -4,6 +4,7 @@ import {
   GetAvailableDiscounts,
   checkoutOrder,
   getBestSellerProducts,
+  getOrderByID,
   getRecentOrders,
   getTotalSalesOfTheDay
 } from '../repository/orderRepository';
@@ -33,6 +34,16 @@ export const useGetBestSellerProducts = () => {
   return useQuery({
     queryKey: ['bestSellers'],
     queryFn: getBestSellerProducts,
+    onError: (error) => handleErrorResponse(error, ''),
+    cacheTime: 43200000,
+    staleTime: 43200000
+  });
+};
+
+export const useGetOrderByID = (orderID: string) => {
+  return useQuery({
+    queryKey: ['order', orderID],
+    queryFn: () => getOrderByID(orderID),
     onError: (error) => handleErrorResponse(error, ''),
     cacheTime: 43200000,
     staleTime: 43200000
