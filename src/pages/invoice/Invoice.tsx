@@ -5,7 +5,6 @@ import { OrderInfo } from '../../interfaces/order/OrderInfo';
 import { Button, Table } from 'react-bootstrap';
 import { getUserAuth } from '../../services/user.Service';
 import { OrderProduct } from '../../interfaces/order/OrderProduct';
-import { parseProductsJSON } from '../../utils/inventory.helper';
 
 export const Invoice = () => {
   const location = useLocation();
@@ -69,7 +68,7 @@ export const Invoice = () => {
                 <div>
                   <div>
                     <span className="title">Sub-Total: </span>
-                    <span>${orderInfo.orderSubTotal.toFixed(2)}</span>
+                    <span>${orderInfo.orderSubTotal}</span>
                   </div>
                   {orderInfo.discount && (
                     <div>
@@ -79,7 +78,7 @@ export const Invoice = () => {
                   )}
                   <div>
                     <span className="title">Total: </span>
-                    <span>${orderInfo.orderTotal.toFixed(2)}</span>
+                    <span>${orderInfo.orderTotal}</span>
                   </div>
 
                   <Button variant="dark" onClick={() => window.print()}>
