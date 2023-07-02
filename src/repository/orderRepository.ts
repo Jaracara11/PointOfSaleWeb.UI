@@ -4,8 +4,7 @@ import { OrderInfo } from '../interfaces/order/OrderInfo';
 import { OrderRequest } from '../interfaces/order/OrderRequest';
 import { RecentOrder } from '../interfaces/order/RecentOrder';
 import { BestSellerProduct } from '../interfaces/inventory/products/BestSellerProduct';
-import { parseProductsFromString } from '../utils/inventory.helper';
-import { OrderProduct } from '../interfaces/order/OrderProduct';
+import { parseProductsJSON } from '../utils/inventory.helper';
 
 const API_URL = import.meta.env.VITE_API_URL + '/order';
 
@@ -48,27 +47,9 @@ export const getOrderByID = async (orderID: string): Promise<OrderInfo> => {
       headers: userAuthorizationHeaders()
     });
 
-    const products: OrderProduct[] = JSON.parse(response.data.products).map((product: any) => {
-      return {
-        productName: product.ProductName,
-        productDescription: product.ProductDescription,
-        productQuantity: product.ProductQuantity,
-        productPrice: product.ProductPrice,
-        productCategory: product.ProductCategoryName
-      };
-    });
+    response.data.products = parseProductsJSON(response.data.products);
 
-    const orderInfo: OrderInfo = {
-      orderID: response.data.orderID,
-      user: response.data.user,
-      products: products,
-      orderSubTotal: response.data.orderSubTotal,
-      discount: response.data.discount,
-      orderTotal: response.data.orderTotal,
-      orderDate: new Date(response.data.orderDate)
-    };
-
-    return orderInfo;
+    return response.data as OrderInfo;
   } catch (error: any) {
     return Promise.reject(error);
   }
@@ -90,6 +71,9 @@ export const checkoutOrder = async (order: OrderRequest): Promise<OrderInfo> => 
     const response = await axios.post(`${API_URL}/checkout-order`, order, {
       headers: userAuthorizationHeaders()
     });
+
+    response.data.products = parseProductsJSON(response.data.products);
+
     return response.data as OrderInfo;
   } catch (error: any) {
     return Promise.reject(error);

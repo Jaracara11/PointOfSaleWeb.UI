@@ -10,7 +10,6 @@ import { getUserAuth } from '../../services/user.Service';
 import { useNavigate } from 'react-router-dom';
 import { OrderRequest } from '../../interfaces/order/OrderRequest';
 import { OrderInfo } from '../../interfaces/order/OrderInfo';
-import { parseProductsFromString } from '../../utils/inventory.helper';
 
 export const OrderForm = ({ products, updateCartProduct, removeFromCart }: OrderFormProps) => {
   const { user } = UserAuth() || {};
@@ -139,7 +138,6 @@ export const OrderForm = ({ products, updateCartProduct, removeFromCart }: Order
       };
 
       newOrderMutation.mutateAsync(orderObj).then((response: OrderInfo) => {
-        response.products = parseProductsFromString(JSON.stringify(order));
         navigate('/invoice', { state: { data: response } });
       });
     }

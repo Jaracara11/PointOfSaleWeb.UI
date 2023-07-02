@@ -3,8 +3,9 @@ import { useLocation } from 'react-router-dom';
 import { NotFound } from '../notFound/NotFound';
 import { OrderInfo } from '../../interfaces/order/OrderInfo';
 import { Button, Table } from 'react-bootstrap';
-import { Product } from '../../interfaces/inventory/products/Product';
 import { getUserAuth } from '../../services/user.Service';
+import { OrderProduct } from '../../interfaces/order/OrderProduct';
+import { parseProductsJSON } from '../../utils/inventory.helper';
 
 export const Invoice = () => {
   const location = useLocation();
@@ -42,7 +43,7 @@ export const Invoice = () => {
                 </tr>
               </thead>
               <tbody>
-                {orderInfo.products.map((orderItem: Product, index: number) => (
+                {orderInfo.products.map((orderItem: OrderProduct, index: number) => (
                   <tr key={index}>
                     <td>{index + 1}</td>
                     <td>{orderItem.productName}</td>
@@ -73,7 +74,7 @@ export const Invoice = () => {
                   {orderInfo.discount && (
                     <div>
                       <span className="title">Discount: </span>
-                      <span>-${(orderInfo.discount * orderInfo.orderSubTotal).toFixed(2)}</span>
+                      <span>-${orderInfo.discount}</span>
                     </div>
                   )}
                   <div>

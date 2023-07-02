@@ -1,7 +1,10 @@
-import { OrderProduct } from './OrderProduct';
-
 export interface OrderRequest {
   user: string;
-  products: OrderProduct[];
+  products: OrderRequestProducts[];
   discount: number | null;
+}
+
+interface OrderRequestProducts {
+  productID: number;
+  productQuantity: number;
 }

@@ -3,6 +3,7 @@ import { OrderDetailModalProps } from '../../../interfaces/modals/OrderDetailMod
 import { useEffect, useState } from 'react';
 import { useGetOrderByID } from '../../../hooks/orders.hooks';
 import { OrderInfo } from '../../../interfaces/order/OrderInfo';
+import { OrderProduct } from '../../../interfaces/order/OrderProduct';
 
 export const OrderDetailModal = ({ toggle, orderID }: OrderDetailModalProps) => {
   const [showModal, setShowModal] = useState<boolean>(true);
