@@ -5,6 +5,7 @@ import { OrderRequest } from '../interfaces/order/OrderRequest';
 import { RecentOrder } from '../interfaces/order/RecentOrder';
 import { BestSellerProduct } from '../interfaces/inventory/products/BestSellerProduct';
 import { parseProductsFromString } from '../utils/inventory.helper';
+import { OrderProduct } from '../interfaces/order/OrderProduct';
 
 const API_URL = import.meta.env.VITE_API_URL + '/order';
 
@@ -46,7 +47,28 @@ export const getOrderByID = async (orderID: string): Promise<OrderInfo> => {
     const response = await axios.get(`${API_URL}/${orderID}`, {
       headers: userAuthorizationHeaders()
     });
-    return response.data as OrderInfo;
+
+    const products: OrderProduct[] = JSON.parse(response.data.products).map((product: any) => {
+      return {
+        productName: product.ProductName,
+        productDescription: product.ProductDescription,
+        productQuantity: product.ProductQuantity,
+        productPrice: product.ProductPrice,
+        productCategory: product.ProductCategoryName
+      };
+    });
+
+    const orderInfo: OrderInfo = {
+      orderID: response.data.orderID,
+      user: response.data.user,
+      products: products,
+      orderSubTotal: response.data.orderSubTotal,
+      discount: response.data.discount,
+      orderTotal: response.data.orderTotal,
+      orderDate: new Date(response.data.orderDate)
+    };
+
+    return orderInfo;
   } catch (error: any) {
     return Promise.reject(error);
   }

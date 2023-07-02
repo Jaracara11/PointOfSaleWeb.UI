@@ -1,27 +1,34 @@
-import { Modal, Table } from 'react-bootstrap';
+import { Modal, Table, Button } from 'react-bootstrap';
 import { OrderDetailModalProps } from '../../../interfaces/modals/OrderDetailModalProps';
 import { useEffect, useState } from 'react';
 import { useGetOrderByID } from '../../../hooks/orders.hooks';
+import { OrderInfo } from '../../../interfaces/order/OrderInfo';
 
 export const OrderDetailModal = ({ toggle, orderID }: OrderDetailModalProps) => {
   const [showModal, setShowModal] = useState<boolean>(true);
+  const [orderInfo, setOrderInfo] = useState<OrderInfo | null>(null);
 
   const order = useGetOrderByID(orderID);
-  console.log(order.data);
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    if (order.data) {
+      setOrderInfo(order.data);
+    }
+  }, [order.data]);
 
   const closeModal = () => {
     setShowModal(false);
     toggle();
   };
 
+  console.log(orderInfo);
+
   return (
-    order.data && (
+    orderInfo && (
       <Modal className="form-modal" show={showModal} onHide={closeModal} centered>
         <div className="card">
           <div className="card-body">
-            <h4>Invoice # {order.data.orderID}</h4>
+            <h4>Invoice # {orderInfo.orderID}</h4>
             <hr />
             <div>
               <h5>Order Summary</h5>
@@ -36,13 +43,13 @@ export const OrderDetailModal = ({ toggle, orderID }: OrderDetailModalProps) => 
                   </tr>
                 </thead>
                 <tbody>
-                  {order.products.map((orderItem: Product, index: number) => (
+                  {orderInfo.products.map((orderItem: OrderProduct, index: number) => (
                     <tr key={index}>
                       <td>{index + 1}</td>
                       <td>{orderItem.productName}</td>
                       <td>${orderItem.productPrice}</td>
                       <td>{orderItem.productQuantity} unit(s)</td>
-                      <td>${calculateOrderTotal(index)}</td>
+                      {/* <td>${calculateOrderTotal(index)}</td> */}
                     </tr>
                   ))}
                 </tbody>
@@ -51,7 +58,7 @@ export const OrderDetailModal = ({ toggle, orderID }: OrderDetailModalProps) => 
                 <div>
                   <div>
                     <span className="title">Billed by: </span>
-                    <span>{getUserAuth()?.name}</span>
+                    <span>{/* Define getUserAuth()?.name here */}</span>
                   </div>
                   <div>
                     <span className="title">Purchase Date: </span>

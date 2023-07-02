@@ -1,9 +1,9 @@
-import { Product } from '../inventory/products/Product';
+import { OrderProduct } from './OrderProduct';
 
 export interface OrderInfo {
   orderID: string;
   user: string;
-  products: Product[];
+  products: OrderProduct[];
   orderSubTotal: number;
   discount?: number;
   orderTotal: number;

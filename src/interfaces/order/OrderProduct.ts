@@ -1,4 +1,7 @@
 export interface OrderProduct {
-  productID: number;
+  productName: string;
+  productDescription: string;
   productQuantity: number;
+  productPrice: number;
+  productCategory: string;
 }
