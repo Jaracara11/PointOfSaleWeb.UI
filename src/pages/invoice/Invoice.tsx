@@ -73,7 +73,7 @@ export const Invoice = () => {
                   {orderInfo.discount && (
                     <div>
                       <span className="title">Discount: </span>
-                      <span>-${orderInfo.discount}</span>
+                      <span>-${orderInfo.discount.toFixed(2)}</span>
                     </div>
                   )}
                   <div>
