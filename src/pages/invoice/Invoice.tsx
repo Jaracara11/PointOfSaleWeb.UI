@@ -3,7 +3,6 @@ import { useLocation } from 'react-router-dom';
 import { NotFound } from '../notFound/NotFound';
 import { OrderInfo } from '../../interfaces/order/OrderInfo';
 import { Button, Table } from 'react-bootstrap';
-import { getUserAuth } from '../../services/user.Service';
 import { OrderProduct } from '../../interfaces/order/OrderProduct';
 
 export const Invoice = () => {
@@ -57,7 +56,7 @@ export const Invoice = () => {
               <div>
                 <div>
                   <span className="title">Billed by: </span>
-                  <span>{getUserAuth()?.name}</span>
+                  <span>{orderInfo.user}</span>
                 </div>
                 <div>
                   <span className="title">Purchase Date: </span>

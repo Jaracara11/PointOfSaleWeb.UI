@@ -1,15 +1,20 @@
 import { Table } from 'react-bootstrap';
 import { useGetRecentOrders } from '../../../hooks/orders.hooks';
 import { RecentOrder } from '../../../interfaces/order/RecentOrder';
-import { useState } from 'react';
-import { OrderDetailModal } from '../../modals/orderDetailModal/OrderDetailModal';
+import { getOrderByID } from '../../../repository/orderRepository';
+import { OrderInfo } from '../../../interfaces/order/OrderInfo';
+import { useNavigate } from 'react-router-dom';
 
 export const RecentOrders = () => {
   const recentOrdersQuery = useGetRecentOrders();
-  const [orderID, setOrderID] = useState<string>();
-  const [showOrderDetailModal, setShowOrderDetailModal] = useState<boolean>(false);
 
-  const toggleOrderDetailsModal = () => setShowOrderDetailModal((prev) => !prev);
+  const navigate = useNavigate();
+
+  const viewOrderDetails = (orderID: string) => {
+    getOrderByID(orderID).then((response: OrderInfo) => {
+      navigate('/invoice', { state: { data: response } });
+    });
+  };
 
   return (
     <div>
@@ -23,6 +28,7 @@ export const RecentOrders = () => {
                 <th>User</th>
                 <th>Date</th>
                 <th>Order Total</th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
@@ -32,14 +38,8 @@ export const RecentOrders = () => {
                   <td>{order.orderDate.toString()}</td>
                   <td>${order.orderTotal}</td>
                   <td>
-                    <a
-                      href="#"
-                      onClick={() => {
-                        setOrderID(order.orderID);
-                        toggleOrderDetailsModal();
-                      }}
-                    >
-                      Details
+                    <a href="#" onClick={() => viewOrderDetails(order.orderID)}>
+                      Invoice
                     </a>
                   </td>
                 </tr>
@@ -48,10 +48,6 @@ export const RecentOrders = () => {
           </Table>
         )}
       </div>
-
-      {showOrderDetailModal && (
-        <OrderDetailModal toggle={toggleOrderDetailsModal} orderID={orderID || ''} />
-      )}
     </div>
   );
 };
