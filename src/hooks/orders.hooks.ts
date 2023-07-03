@@ -40,16 +40,6 @@ export const useGetBestSellerProducts = () => {
   });
 };
 
-export const useGetOrderByID = (orderID: string) => {
-  return useQuery({
-    queryKey: ['order', orderID],
-    queryFn: () => getOrderByID(orderID),
-    onError: (error) => handleErrorResponse(error, ''),
-    cacheTime: 43200000,
-    staleTime: 43200000
-  });
-};
-
 export const useGetSalesOfTheDay = () => {
   return useQuery({
     queryKey: ['salesToday'],
