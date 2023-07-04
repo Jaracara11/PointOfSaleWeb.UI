@@ -12,8 +12,4 @@ main {
   .root-layout {
     grid-template-columns: minmax(100px, auto) 1fr;
   }
-
-  .title {
-    margin-top: 0;
-  }
 }
