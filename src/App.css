@@ -110,6 +110,6 @@ select {
 
 @media (max-width: 1280px) {
   .sidebar-tooltip {
-    display: block;
+    display: block !important;
   }
 }

@@ -62,7 +62,7 @@ export const SidebarMenu = () => {
 
         <OverlayTrigger
           placement="right"
-          overlay={<Tooltip className="sidebar-tooltip">Orders</Tooltip>}
+          overlay={<Tooltip className="sidebar-tooltip">Sales</Tooltip>}
         >
           <NavLink className="nav-link" to="sales">
             <i className="bi bi-cash-coin"></i>
