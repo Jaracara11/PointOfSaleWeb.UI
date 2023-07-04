@@ -14,6 +14,7 @@ import { Products } from '../pages/inventory/products/Products';
 import { Orders } from '../pages/orders/Orders';
 import { UserManagement } from '../pages/userManagement/UserManagement';
 import { Invoice } from '../pages/invoice/Invoice';
+import { Sales } from '../pages/sales/Sales';
 
 export const AppRouter = () => {
   const router = createBrowserRouter(
@@ -29,6 +30,7 @@ export const AppRouter = () => {
             <Route path="/products" element={<Products />} />
             <Route path="/categories" element={<Categories />} />
             <Route path="/user-management" element={<UserManagement />} />
+            <Route path="/sales" element={<Sales />} />
           </Route>
         </Route>
       </Route>
