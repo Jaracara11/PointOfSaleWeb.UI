@@ -1,0 +1,38 @@
+.sales {
+  display: grid;
+  grid-template-rows: auto auto 1fr;
+}
+
+.sales .row:nth-child(1) {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.sales .date-pickers {
+  display: grid;
+  grid-template-columns: auto 1fr;
+}
+
+.sales .date-pickers span {
+  font-weight: bold;
+}
+
+.sales .date-pickers .btn-dark {
+  float: left;
+}
+
+.sales .react-datepicker-wrapper {
+  max-width: 200px;
+  margin-right: 1.5rem;
+}
+
+.sales .react-datepicker-wrapper:nth-child(1) {
+  margin-left: -0.7rem;
+}
+
+.sales .react-datepicker__tab-loop {
+  background-color: pink;
+}
+
+@media (max-width: 1280px) {
+}
