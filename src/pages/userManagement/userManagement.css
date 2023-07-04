@@ -8,23 +8,27 @@
   margin-right: 0.5rem;
 }
 
-.user-container .row:nth-child(1) {
-  margin: 1rem;
+.user-container .row:nth-child(2) {
+  display: grid;
+  margin-top: 1rem;
+  grid-template-columns: 1fr 1fr;
 }
 
 .user-container .row:nth-child(2) button {
   margin-right: 1rem;
+  margin-left: -0.7rem;
   max-width: 200px;
   float: left;
 }
 
 .user-container .row:nth-child(2) input {
   max-width: 200px;
+  margin-right: -0.8rem;
   float: right;
 }
 
 .user-container .search-input i {
-  margin-left: 1435px;
+  margin-left: 785px !important;
 }
 
 @media (max-width: 1280px) {
@@ -33,22 +37,6 @@
   }
 
   .user-container .search-input i {
-    margin-left: 935px;
-  }
-}
-
-@media (max-width: 1024px) {
-  .user-container tbody td:nth-child(2) {
-    max-width: 150px;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
-  }
-
-  .user-container table button:nth-child(2) {
-    max-width: 120px;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
+    margin-left: 535px !important;
   }
 }

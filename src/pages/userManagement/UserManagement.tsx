@@ -55,7 +55,8 @@ export const UserManagement = () => {
             <i className="bi bi-plus-lg"></i>
             &nbsp;Add New User
           </Button>
-
+        </div>
+        <div>
           <SearchInput searchQuery={searchUserQuery} setSearchQuery={setSearchUserQuery} />
         </div>
       </div>
