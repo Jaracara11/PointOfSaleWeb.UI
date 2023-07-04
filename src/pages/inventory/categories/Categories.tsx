@@ -1,4 +1,3 @@
-import './categories.css';
 import Table from 'react-bootstrap/Table';
 import { Category } from '../../../interfaces/inventory/Category';
 import { useState } from 'react';
@@ -23,7 +22,7 @@ export const Categories = () => {
   );
 
   return (
-    <div className="categories-container">
+    <div className="categories common-container">
       <div className="row">
         <h1 className="title">Categories</h1>
       </div>

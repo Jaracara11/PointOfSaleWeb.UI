@@ -1,4 +1,3 @@
-import './products.css';
 import { useGetProducts } from '../../../hooks/products.hooks';
 import { Button, Table } from 'react-bootstrap';
 import { Product } from '../../../interfaces/inventory/products/Product';
@@ -26,7 +25,7 @@ export const Products = () => {
   );
 
   return (
-    <div className="products-container">
+    <div className="products common-container">
       <div className="row">
         <h1 className="title">Products</h1>
       </div>

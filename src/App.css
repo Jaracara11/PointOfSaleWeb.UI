@@ -65,8 +65,51 @@ select {
 }
 /*FORM MODAL*/
 
+/*COMMON CONTAINER*/
+.common-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto auto 1fr;
+}
+
+.common-container .row:nth-child(1) {
+  margin: 1rem;
+}
+
+.common-container .row:nth-child(2) {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.common-container .row:nth-child(2) button {
+  margin-left: -0.7rem;
+  margin-right: 1rem;
+  max-width: 200px;
+  float: left;
+}
+
+.common-container .row:nth-child(2) a {
+  max-width: 200px;
+  float: left;
+}
+
+.common-container .row:nth-child(2) input {
+  max-width: 200px;
+  float: right;
+  margin-right: -0.8rem;
+}
+
+.common-container .search-input i {
+  margin-left: 785px;
+}
+
+.common-container tbody td .btn-dark {
+  margin-right: 0.5rem;
+}
+/*COMMON CONTAINER*/
+
 @media (max-width: 1280px) {
   .sidebar-tooltip {
-    display: block !important;
+    display: block;
   }
 }

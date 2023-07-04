@@ -1,4 +1,3 @@
-import './userManagement.css';
 import { Button, Table } from 'react-bootstrap';
 import { UserAuth } from '../../context/UserContext';
 import { useGetRoles, useGetUsers } from '../../hooks/users.hooks';
@@ -38,7 +37,7 @@ export const UserManagement = () => {
   }
 
   return (
-    <div className="user-container">
+    <div className="users common-container">
       <div className="row">
         <h1 className="title">Users</h1>
       </div>
