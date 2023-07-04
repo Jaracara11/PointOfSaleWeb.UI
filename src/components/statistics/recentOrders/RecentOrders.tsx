@@ -1,22 +1,16 @@
 import { Table } from 'react-bootstrap';
-import { useGetRecentOrders } from '../../../hooks/orders.hooks';
 import { RecentOrder } from '../../../interfaces/order/RecentOrder';
-import { getOrderByID } from '../../../repository/orderRepository';
-import { OrderInfo } from '../../../interfaces/order/OrderInfo';
-import { useNavigate } from 'react-router-dom';
+import { useGetRecentOrders } from '../../../hooks/orders.hooks';
+import { useGetOrderInvoiceByID } from '../../../hooks/invoice.hooks';
+import { LoadingSpinner } from '../../loadingSpinner/LoadingSpinner';
 
 export const RecentOrders = () => {
   const recentOrdersQuery = useGetRecentOrders();
+  const { getOrderInvoiceByID, isLoading } = useGetOrderInvoiceByID();
 
-  const navigate = useNavigate();
-
-  const viewOrderDetails = (orderID: string) => {
-    getOrderByID(orderID).then((response: OrderInfo) => {
-      navigate('/invoice', { state: { data: response } });
-    });
-  };
-
-  return (
+  return isLoading ? (
+    <LoadingSpinner />
+  ) : (
     <div>
       <h4 className="title">Recent Orders</h4>
 
@@ -38,7 +32,7 @@ export const RecentOrders = () => {
                   <td>{order.orderDate.toString()}</td>
                   <td>${order.orderTotal}</td>
                   <td>
-                    <a href="#" onClick={() => viewOrderDetails(order.orderID)}>
+                    <a href="#" onClick={() => getOrderInvoiceByID(order.orderID)}>
                       Invoice
                     </a>
                   </td>

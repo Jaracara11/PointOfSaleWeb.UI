@@ -4,10 +4,24 @@ import { Button, Table } from 'react-bootstrap';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import 'react-datepicker/dist/react-datepicker-cssmodules.css';
+import { RecentOrder } from '../../interfaces/order/RecentOrder';
+import { useGetOrderInvoiceByID } from '../../hooks/invoice.hooks';
 
 export const Sales = () => {
-  const [initialDate, setInitialDate] = useState<Date | null>(null);
-  const [finalDate, setFinalDate] = useState<Date | null>(null);
+  const [initialDate, setInitialDate] = useState<Date>(new Date());
+  const [finalDate, setFinalDate] = useState<Date>(new Date());
+  const [recentOrders, setRecentOrders] = useState<RecentOrder[]>();
+
+  const getOrderInvoice = useGetOrderInvoiceByID();
+
+  const viewOrderInvoice = (orderID: string) => getOrderInvoice(orderID);
+
+  const minDate = new Date();
+  minDate.setDate(minDate.getDate() - 30);
+
+  const searchInvoice = (initialDate: Date, finalDate: Date) => {
+    //getOrdersByDate(initialDate, finalDate).then((response: RecentOrder[]) => {});
+  };
 
   return (
     <div className="sales">
@@ -22,6 +36,8 @@ export const Sales = () => {
             <DatePicker
               enableTabLoop={false}
               selected={initialDate}
+              minDate={minDate}
+              maxDate={new Date()}
               onChange={(date) => setInitialDate(date as Date)}
               className="form-control"
             />
@@ -29,23 +45,45 @@ export const Sales = () => {
             <DatePicker
               enableTabLoop={false}
               selected={finalDate}
+              minDate={minDate}
+              maxDate={new Date()}
               onChange={(date) => setFinalDate(date as Date)}
               className="form-control"
             />
           </div>
 
           <div>
-            <Button variant="dark">Search</Button>
+            <Button variant="dark" onClick={() => searchInvoice(initialDate, finalDate)}>
+              Search Invoice
+            </Button>
           </div>
         </div>
       </div>
       <div className="row">
-        <Table hover>
+        <Table>
           <thead>
             <tr>
-              <th>Invoice ID</th>
+              <th>Order ID</th>
+              <th>User</th>
+              <th>Order Total</th>
+              <th></th>
             </tr>
           </thead>
+          <tbody>
+            {recentOrders &&
+              recentOrders.map((order: RecentOrder) => (
+                <tr key={order.orderID}>
+                  <td>{order.user}</td>
+                  <td>{order.orderDate.toString()}</td>
+                  <td>${order.orderTotal}</td>
+                  <td>
+                    <a href="#" onClick={() => viewOrderInvoice(order.orderID)}>
+                      Invoice
+                    </a>
+                  </td>
+                </tr>
+              ))}
+          </tbody>
         </Table>
       </div>
     </div>
