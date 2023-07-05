@@ -2,7 +2,6 @@ import { ErrorInfo } from '../interfaces/ErrorInfo';
 import { swalMessageAlertWithTitle } from './swal.service';
 
 export const handleErrorResponse = (error: any, errorKey: string) => {
-  debugger;
   if (error.code === 'ERR_NETWORK') {
     return swalMessageAlertWithTitle(
       error.code,
