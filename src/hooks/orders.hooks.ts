@@ -42,6 +42,7 @@ export const useGetBestSellerProducts = () => {
 
 export const useGetOrderByID = (orderID: string) => {
   return useQuery({
+    enabled: false,
     queryKey: ['order', orderID],
     queryFn: () => getOrderByID(orderID),
     onError: (error) => handleErrorResponse(error, ''),

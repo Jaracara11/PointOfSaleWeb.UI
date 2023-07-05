@@ -1,16 +1,12 @@
 import { Table } from 'react-bootstrap';
 import { RecentOrder } from '../../../interfaces/order/RecentOrder';
 import { useGetRecentOrders } from '../../../hooks/orders.hooks';
-import { useGetOrderInvoiceByID } from '../../../hooks/invoice.hooks';
-import { LoadingSpinner } from '../../loadingSpinner/LoadingSpinner';
+import { OrderInvoiceBtn } from '../../orderInvoiceBtn/OrderInvoiceBtn';
 
 export const RecentOrders = () => {
   const recentOrdersQuery = useGetRecentOrders();
-  const { getOrderInvoiceByID, isLoading } = useGetOrderInvoiceByID();
 
-  return isLoading ? (
-    <LoadingSpinner />
-  ) : (
+  return (
     <div>
       <h4 className="title">Recent Orders</h4>
 
@@ -32,9 +28,7 @@ export const RecentOrders = () => {
                   <td>{order.orderDate.toString()}</td>
                   <td>${order.orderTotal}</td>
                   <td>
-                    <a href="#" onClick={() => getOrderInvoiceByID(order.orderID)}>
-                      Invoice
-                    </a>
+                    <OrderInvoiceBtn orderID={order.orderID} />
                   </td>
                 </tr>
               ))}

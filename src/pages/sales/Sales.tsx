@@ -5,16 +5,12 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import 'react-datepicker/dist/react-datepicker-cssmodules.css';
 import { RecentOrder } from '../../interfaces/order/RecentOrder';
-import { useGetOrderInvoiceByID } from '../../hooks/invoice.hooks';
+import { OrderInvoiceBtn } from '../../components/orderInvoiceBtn/OrderInvoiceBtn';
 
 export const Sales = () => {
   const [initialDate, setInitialDate] = useState<Date>(new Date());
   const [finalDate, setFinalDate] = useState<Date>(new Date());
   const [recentOrders, setRecentOrders] = useState<RecentOrder[]>();
-
-  const getOrderInvoice = useGetOrderInvoiceByID();
-
-  const viewOrderInvoice = (orderID: string) => getOrderInvoice(orderID);
 
   const minDate = new Date();
   minDate.setDate(minDate.getDate() - 30);
@@ -77,9 +73,7 @@ export const Sales = () => {
                   <td>{order.orderDate.toString()}</td>
                   <td>${order.orderTotal}</td>
                   <td>
-                    <a href="#" onClick={() => viewOrderInvoice(order.orderID)}>
-                      Invoice
-                    </a>
+                    <OrderInvoiceBtn orderID={order.orderID} />
                   </td>
                 </tr>
               ))}
