@@ -1,11 +1,12 @@
 import './sales.css';
-import { useState } from 'react';
-import { Button, Table } from 'react-bootstrap';
-import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import 'react-datepicker/dist/react-datepicker-cssmodules.css';
+import { useState } from 'react';
+import { Table } from 'react-bootstrap';
+import DatePicker from 'react-datepicker';
 import { RecentOrder } from '../../interfaces/order/RecentOrder';
-import { OrderInvoiceBtn } from '../../components/orderInvoiceBtn/OrderInvoiceBtn';
+import { InvoiceByIdBtn } from '../../components/buttons/invoiceByIdBtn/InvoiceByIdBtn';
+import { InvoiceByDateBtn } from '../../components/buttons/invoiceByDateBtn/InvoiceByDateBtn';
 
 export const Sales = () => {
   const [initialDate, setInitialDate] = useState<Date>(new Date());
@@ -49,9 +50,7 @@ export const Sales = () => {
           </div>
 
           <div>
-            <Button variant="dark" onClick={() => searchInvoice(initialDate, finalDate)}>
-              Search Invoice
-            </Button>
+            <InvoiceByDateBtn initialDate={initialDate} finalDate={finalDate} />
           </div>
         </div>
       </div>
@@ -73,7 +72,7 @@ export const Sales = () => {
                   <td>{order.orderDate.toString()}</td>
                   <td>${order.orderTotal}</td>
                   <td>
-                    <OrderInvoiceBtn orderID={order.orderID} />
+                    <InvoiceByIdBtn orderID={order.orderID} />
                   </td>
                 </tr>
               ))}

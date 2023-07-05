@@ -1,5 +1,5 @@
 import { Table } from 'react-bootstrap';
-import { useGetBestSellerProducts } from '../../../hooks/orders.hooks';
+import { useGetBestSellerProducts } from '../../../hooks/products.hooks';
 import { BestSellerProduct } from '../../../interfaces/inventory/products/BestSellerProduct';
 
 export const BestSellerProducts = () => {

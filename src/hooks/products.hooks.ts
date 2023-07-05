@@ -3,6 +3,7 @@ import {
   addProduct,
   deleteProduct,
   getAllProducts,
+  getBestSellerProducts,
   updateProduct
 } from '../repository/productRepository';
 import { handleErrorResponse } from '../services/error.Service';
@@ -12,6 +13,16 @@ export const useGetProducts = () => {
   return useQuery({
     queryKey: ['products'],
     queryFn: getAllProducts,
+    onError: (error) => handleErrorResponse(error, ''),
+    cacheTime: 43200000,
+    staleTime: 43200000
+  });
+};
+
+export const useGetBestSellerProducts = () => {
+  return useQuery({
+    queryKey: ['bestSellers'],
+    queryFn: getBestSellerProducts,
     onError: (error) => handleErrorResponse(error, ''),
     cacheTime: 43200000,
     staleTime: 43200000

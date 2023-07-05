@@ -3,8 +3,8 @@ import { userAuthorizationHeaders } from '../services/user.Service';
 import { OrderInfo } from '../interfaces/order/OrderInfo';
 import { OrderRequest } from '../interfaces/order/OrderRequest';
 import { RecentOrder } from '../interfaces/order/RecentOrder';
-import { BestSellerProduct } from '../interfaces/inventory/products/BestSellerProduct';
 import { parseProductsJSON } from '../utils/inventory.helper';
+import { OrderByDate } from '../interfaces/order/OrderByDate';
 
 const API_URL = import.meta.env.VITE_API_URL + '/order';
 
@@ -30,12 +30,19 @@ export const getRecentOrders = async (): Promise<RecentOrder[]> => {
   }
 };
 
-export const getBestSellerProducts = async (): Promise<BestSellerProduct[]> => {
+export const getOrdersByDate = async (
+  initialDate: Date,
+  finalDate: Date
+): Promise<OrderByDate[]> => {
   try {
-    const response = await axios.get(`${API_URL}/best-sellers`, {
+    const response = await axios.get(`${API_URL}/by-date`, {
+      params: {
+        initialDate,
+        finalDate
+      },
       headers: userAuthorizationHeaders()
     });
-    return response.data as BestSellerProduct[];
+    return response.data as OrderByDate[];
   } catch (error: any) {
     return Promise.reject(error);
   }

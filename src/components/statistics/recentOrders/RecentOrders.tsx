@@ -1,7 +1,7 @@
 import { Table } from 'react-bootstrap';
 import { RecentOrder } from '../../../interfaces/order/RecentOrder';
 import { useGetRecentOrders } from '../../../hooks/orders.hooks';
-import { OrderInvoiceBtn } from '../../orderInvoiceBtn/OrderInvoiceBtn';
+import { InvoiceByIdBtn } from '../../buttons/invoiceByIdBtn/InvoiceByIdBtn';
 
 export const RecentOrders = () => {
   const recentOrdersQuery = useGetRecentOrders();
@@ -28,7 +28,7 @@ export const RecentOrders = () => {
                   <td>{order.orderDate.toString()}</td>
                   <td>${order.orderTotal}</td>
                   <td>
-                    <OrderInvoiceBtn orderID={order.orderID} />
+                    <InvoiceByIdBtn orderID={order.orderID} />
                   </td>
                 </tr>
               ))}

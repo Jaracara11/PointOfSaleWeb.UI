@@ -3,8 +3,8 @@ import { handleErrorResponse } from '../services/error.Service';
 import {
   GetAvailableDiscounts,
   checkoutOrder,
-  getBestSellerProducts,
   getOrderByID,
+  getOrdersByDate,
   getRecentOrders,
   getTotalSalesOfTheDay
 } from '../repository/orderRepository';
@@ -30,10 +30,11 @@ export const useGetRecentOrders = () => {
   });
 };
 
-export const useGetBestSellerProducts = () => {
+export const useGetOrdersByDate = (initialDate: Date, finalDate: Date) => {
   return useQuery({
-    queryKey: ['bestSellers'],
-    queryFn: getBestSellerProducts,
+    enabled: false,
+    queryKey: ['orderByDate'],
+    queryFn: () => getOrdersByDate(initialDate, finalDate),
     onError: (error) => handleErrorResponse(error, ''),
     cacheTime: 43200000,
     staleTime: 43200000
@@ -70,6 +71,7 @@ export const useNewOrder = () => {
       queryClient.invalidateQueries(['products']);
       queryClient.invalidateQueries(['orders']);
       queryClient.invalidateQueries(['salesToday']);
+      queryClient.invalidateQueries(['orderByDate']);
       swalMessageAlert('Transaction Completed', 'success');
     },
     onError: (error) => handleErrorResponse(error, 'OrdersError')
