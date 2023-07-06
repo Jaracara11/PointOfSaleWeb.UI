@@ -6,13 +6,13 @@ import { Table } from 'react-bootstrap';
 import DatePicker from 'react-datepicker';
 import { InvoiceByIdBtn } from '../../components/buttons/invoiceByIdBtn/InvoiceByIdBtn';
 import { InvoicesByDateBtn } from '../../components/buttons/invoicesByDateBtn/InvoicesByDateBtn';
-import { OrderByDate } from '../../interfaces/order/OrderByDate';
 import { SearchInput } from '../../components/searchInput/SearchInput';
+import { RecentOrder } from '../../interfaces/order/RecentOrder';
 
 export const Sales = () => {
   const [initialDate, setInitialDate] = useState<Date>(new Date());
   const [finalDate, setFinalDate] = useState<Date>(new Date());
-  const [orders, setOrders] = useState<OrderByDate[]>([]);
+  const [orders, setOrders] = useState<RecentOrder[]>([]);
   const [searchOrderQuery, setSearchOrderQuery] = useState<string>('');
 
   initialDate.setUTCHours(0, 0, 0, 0);
@@ -21,12 +21,13 @@ export const Sales = () => {
   const minDate = new Date();
   minDate.setDate(minDate.getDate() - 30);
 
-  const handleInvoicesFetched = (invoicesByDate: OrderByDate[]) => {
+  const handleInvoicesFetched = (invoicesByDate: RecentOrder[]) => {
+    console.log(invoicesByDate);
     invoicesByDate && setOrders(invoicesByDate || []);
   };
 
   const filteredOrders = (orders || []).filter((order) => {
-    order.orderID.toLowerCase().includes(order.orderID.trim().toLowerCase());
+    order.orderID.toLowerCase().includes(searchOrderQuery.trim().toLowerCase());
   });
 
   return (
@@ -77,17 +78,18 @@ export const Sales = () => {
               <th>Order ID</th>
               <th>User</th>
               <th>Order Total</th>
-              <th></th>
+              <th>Order Date</th>
               <th></th>
             </tr>
           </thead>
           <tbody>
             {orders &&
-              filteredOrders.map((order: OrderByDate) => (
+              filteredOrders.map((order: RecentOrder) => (
                 <tr key={order.orderID}>
                   <td>{order.orderID}</td>
                   <td>{order.user}</td>
                   <td>${order.orderTotal}</td>
+                  <td>{order.orderDate.toString()}</td>
                   <td>
                     <InvoiceByIdBtn orderID={order.orderID} />
                   </td>

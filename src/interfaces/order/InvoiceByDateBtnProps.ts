@@ -1,7 +1,7 @@
-import { OrderByDate } from './OrderByDate';
+import { RecentOrder } from './RecentOrder';
 
 export interface InvoiceByDateBtnProps {
   initialDate: Date;
   finalDate: Date;
-  onInvoicesFetched: (invoices: OrderByDate[]) => void;
+  onInvoicesFetched: (invoices: RecentOrder[]) => void;
 }
