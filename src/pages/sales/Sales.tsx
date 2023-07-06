@@ -26,9 +26,9 @@ export const Sales = () => {
     invoicesByDate && setOrders(invoicesByDate || []);
   };
 
-  const filteredOrders = (orders || []).filter((order) => {
-    order.orderID.toLowerCase().includes(searchOrderQuery.trim().toLowerCase());
-  });
+  const filteredOrders = (orders || []).filter((order) =>
+    order.orderID.toLowerCase().includes(searchOrderQuery.trim().toLowerCase())
+  );
 
   return (
     <div className="sales">
