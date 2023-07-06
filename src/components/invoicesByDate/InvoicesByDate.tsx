@@ -22,7 +22,7 @@ export const InvoicesByDate = ({ initialDate, finalDate }: InvoiceByDateBtnProps
   }, [initialDate, finalDate]);
 
   const filteredOrders = (orders || []).filter((order) =>
-    order.orderID.toLowerCase().includes(order.orderID.trim().toLowerCase())
+    order.orderID.toLowerCase().includes(searchOrderQuery.trim().toLowerCase())
   );
 
   return (
