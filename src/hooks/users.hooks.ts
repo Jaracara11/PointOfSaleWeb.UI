@@ -26,7 +26,8 @@ export const useGetSingleUser = (username: string) => {
     queryFn: () => getUserByUsername(username),
     onError: (error) => handleErrorResponse(error, ''),
     cacheTime: 43200000,
-    staleTime: 43200000
+    staleTime: 43200000,
+    retry: false
   });
 };
 

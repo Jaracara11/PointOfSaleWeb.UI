@@ -16,7 +16,8 @@ export const useGetDiscountsByUser = (username: string) => {
     queryFn: () => GetAvailableDiscounts(username),
     onError: (error) => handleErrorResponse(error, ''),
     cacheTime: 43200000,
-    staleTime: 43200000
+    staleTime: 43200000,
+    retry: false
   });
 };
 
@@ -37,7 +38,8 @@ export const useGetOrdersByDate = (initialDate: Date, finalDate: Date) => {
     queryFn: () => getOrdersByDate(initialDate, finalDate),
     onError: (error) => handleErrorResponse(error, ''),
     cacheTime: 43200000,
-    staleTime: 43200000
+    staleTime: 43200000,
+    retry: false
   });
 };
 
@@ -48,7 +50,8 @@ export const useGetOrderByID = (orderID: string) => {
     queryFn: () => getOrderByID(orderID),
     onError: (error) => handleErrorResponse(error, ''),
     cacheTime: 43200000,
-    staleTime: 43200000
+    staleTime: 43200000,
+    retry: false
   });
 };
 
