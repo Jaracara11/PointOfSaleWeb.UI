@@ -32,7 +32,7 @@ export const handleErrorResponse = (error: any, errorKey: string) => {
 
     case 404:
       const notFoundMessage = 'The requested data or resource was not found.';
-      handleErrorMessage(status, statusText, notFoundMessage);
+      swalMessageAlertWithTitle(`<strong>Code ${status}:</strong>`, notFoundMessage, 'warning');
       break;
 
     default:

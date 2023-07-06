@@ -33,12 +33,12 @@ export const useGetRecentOrders = () => {
 
 export const useGetOrdersByDate = (initialDate: Date, finalDate: Date) => {
   return useQuery({
-    enabled: false,
     queryKey: ['orderByDate'],
     queryFn: () => getOrdersByDate(initialDate, finalDate),
     onError: (error) => handleErrorResponse(error, ''),
     cacheTime: 43200000,
     staleTime: 43200000,
+    enabled: false,
     retry: false
   });
 };

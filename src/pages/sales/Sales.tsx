@@ -4,21 +4,30 @@ import 'react-datepicker/dist/react-datepicker-cssmodules.css';
 import { useState } from 'react';
 import { Table } from 'react-bootstrap';
 import DatePicker from 'react-datepicker';
-import { RecentOrder } from '../../interfaces/order/RecentOrder';
 import { InvoiceByIdBtn } from '../../components/buttons/invoiceByIdBtn/InvoiceByIdBtn';
-import { InvoiceByDateBtn } from '../../components/buttons/invoiceByDateBtn/InvoiceByDateBtn';
+import { InvoicesByDateBtn } from '../../components/buttons/invoicesByDateBtn/InvoicesByDateBtn';
+import { OrderByDate } from '../../interfaces/order/OrderByDate';
+import { SearchInput } from '../../components/searchInput/SearchInput';
 
 export const Sales = () => {
   const [initialDate, setInitialDate] = useState<Date>(new Date());
   const [finalDate, setFinalDate] = useState<Date>(new Date());
-  const [recentOrders, setRecentOrders] = useState<RecentOrder[]>();
+  const [orders, setOrders] = useState<OrderByDate[]>([]);
+  const [searchOrderQuery, setSearchOrderQuery] = useState<string>('');
+
+  initialDate.setUTCHours(0, 0, 0, 0);
+  finalDate.setUTCHours(23, 59, 0, 0);
 
   const minDate = new Date();
   minDate.setDate(minDate.getDate() - 30);
 
-  const searchInvoice = (initialDate: Date, finalDate: Date) => {
-    //getOrdersByDate(initialDate, finalDate).then((response: RecentOrder[]) => {});
+  const handleInvoicesFetched = (invoicesByDate: OrderByDate[]) => {
+    invoicesByDate && setOrders(invoicesByDate || []);
   };
+
+  const filteredOrders = (orders || []).filter((order) => {
+    order.orderID.toLowerCase().includes(order.orderID.trim().toLowerCase());
+  });
 
   return (
     <div className="sales">
@@ -32,7 +41,7 @@ export const Sales = () => {
 
             <DatePicker
               enableTabLoop={false}
-              selected={initialDate}
+              selected={new Date(initialDate.getTime() + initialDate.getTimezoneOffset() * 60000)}
               minDate={minDate}
               maxDate={new Date()}
               onChange={(date) => setInitialDate(date as Date)}
@@ -41,7 +50,7 @@ export const Sales = () => {
 
             <DatePicker
               enableTabLoop={false}
-              selected={finalDate}
+              selected={new Date(finalDate.getTime() + finalDate.getTimezoneOffset() * 60000)}
               minDate={minDate}
               maxDate={new Date()}
               onChange={(date) => setFinalDate(date as Date)}
@@ -50,30 +59,39 @@ export const Sales = () => {
           </div>
 
           <div>
-            <InvoiceByDateBtn initialDate={initialDate} finalDate={finalDate} />
+            <InvoicesByDateBtn
+              initialDate={initialDate}
+              finalDate={finalDate}
+              onInvoicesFetched={handleInvoicesFetched}
+            />
+          </div>
+          <div>
+            <SearchInput searchQuery={searchOrderQuery} setSearchQuery={setSearchOrderQuery} />
           </div>
         </div>
       </div>
       <div className="row">
-        <Table>
+        <Table hover>
           <thead>
             <tr>
               <th>Order ID</th>
               <th>User</th>
               <th>Order Total</th>
               <th></th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
-            {recentOrders &&
-              recentOrders.map((order: RecentOrder) => (
+            {orders &&
+              filteredOrders.map((order: OrderByDate) => (
                 <tr key={order.orderID}>
+                  <td>{order.orderID}</td>
                   <td>{order.user}</td>
-                  <td>{order.orderDate.toString()}</td>
                   <td>${order.orderTotal}</td>
                   <td>
                     <InvoiceByIdBtn orderID={order.orderID} />
                   </td>
+                  <td></td>
                 </tr>
               ))}
           </tbody>

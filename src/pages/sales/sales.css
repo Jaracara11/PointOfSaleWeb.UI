@@ -10,7 +10,17 @@
 
 .sales .date-pickers {
   display: grid;
-  grid-template-columns: auto 1fr;
+  grid-template-columns: auto 1fr auto;
+  margin-left: -0.3rem;
+}
+
+.sales .date-pickers .search-input {
+  margin-right: -1.3rem;
+}
+
+.sales .date-pickers .search-input i {
+  margin-right: 1000px !important;
+  position: absolute;
 }
 
 .sales .date-pickers span {
