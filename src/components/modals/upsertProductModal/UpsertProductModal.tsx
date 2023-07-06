@@ -14,6 +14,7 @@ import {
   useUpdateProduct
 } from '../../../hooks/products.hooks';
 import { ProductModalProps } from '../../../interfaces/modals/ProductModalProps';
+import { LoadingSpinner } from '../../loadingSpinner/LoadingSpinner';
 
 export const UpsertProductModal = ({ toggle, product, categories }: ProductModalProps) => {
   const {
@@ -92,7 +93,11 @@ export const UpsertProductModal = ({ toggle, product, categories }: ProductModal
     }
   };
 
-  return (
+  return newProductMutation.isLoading ||
+    updateProductMutation.isLoading ||
+    deleteProductMutation.isLoading ? (
+    <LoadingSpinner />
+  ) : (
     <Modal className="form-modal" show={showModal} onHide={closeModal} centered>
       <Form onSubmit={handleSubmit(upsertProduct)}>
         <h3 className="title">{product ? 'Edit' : 'Add New'} Product</h3>

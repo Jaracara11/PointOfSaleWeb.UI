@@ -1,6 +1,7 @@
 import { Table } from 'react-bootstrap';
 import { useGetProducts } from '../../../hooks/products.hooks';
 import { Product } from '../../../interfaces/inventory/products/Product';
+import { LoadingSpinner } from '../../loadingSpinner/LoadingSpinner';
 
 export const ProductAvailability = () => {
   const productsQuery = useGetProducts();
@@ -12,7 +13,9 @@ export const ProductAvailability = () => {
     return sortedProducts.slice(0, 3);
   };
 
-  return (
+  return productsQuery.isLoading ? (
+    <LoadingSpinner />
+  ) : (
     <div>
       <h4 className="title">Products Lowest Availability</h4>
 

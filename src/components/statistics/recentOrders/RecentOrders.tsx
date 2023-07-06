@@ -2,11 +2,14 @@ import { Table } from 'react-bootstrap';
 import { RecentOrder } from '../../../interfaces/order/RecentOrder';
 import { useGetRecentOrders } from '../../../hooks/orders.hooks';
 import { InvoiceByIdBtn } from '../../buttons/invoiceByIdBtn/InvoiceByIdBtn';
+import { LoadingSpinner } from '../../loadingSpinner/LoadingSpinner';
 
 export const RecentOrders = () => {
   const recentOrdersQuery = useGetRecentOrders();
 
-  return (
+  return recentOrdersQuery.isLoading ? (
+    <LoadingSpinner />
+  ) : (
     <div>
       <h4 className="title">Recent Orders</h4>
 

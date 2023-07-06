@@ -6,6 +6,7 @@ import { Product } from '../../interfaces/inventory/products/Product';
 import { Button, Table } from 'react-bootstrap';
 import { getProductCategoryName } from '../../utils/inventory.helper';
 import { OrdersTableProps } from '../../interfaces/OrdersTableProps';
+import { LoadingSpinner } from '../loadingSpinner/LoadingSpinner';
 
 export const OrdersTable = ({
   cartProducts,
@@ -32,7 +33,9 @@ export const OrdersTable = ({
     updateCartProduct([...cartProducts, product]);
   };
 
-  return (
+  return productsQuery.isLoading || categoriesQuery.isLoading ? (
+    <LoadingSpinner />
+  ) : (
     <div>
       <SearchInput searchQuery={searchProductQuery} setSearchQuery={setSearchProductQuery} />
 

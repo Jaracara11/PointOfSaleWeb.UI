@@ -1,15 +1,18 @@
 import { Table } from 'react-bootstrap';
 import { useGetBestSellerProducts } from '../../../hooks/products.hooks';
 import { BestSellerProduct } from '../../../interfaces/inventory/products/BestSellerProduct';
+import { LoadingSpinner } from '../../loadingSpinner/LoadingSpinner';
 
 export const BestSellerProducts = () => {
-  const bestSellerProducts = useGetBestSellerProducts();
+  const bestSellerProductsQuery = useGetBestSellerProducts();
 
-  return (
+  return bestSellerProductsQuery.isLoading ? (
+    <LoadingSpinner />
+  ) : (
     <div>
       <h4 className="title">Most Popular Products</h4>
       <div className="card">
-        {bestSellerProducts.data && (
+        {bestSellerProductsQuery.data && (
           <Table>
             <thead>
               <tr>
@@ -18,7 +21,7 @@ export const BestSellerProducts = () => {
               </tr>
             </thead>
             <tbody>
-              {bestSellerProducts.data.map((product: BestSellerProduct, index: number) => (
+              {bestSellerProductsQuery.data.map((product: BestSellerProduct, index: number) => (
                 <tr key={index}>
                   <td>
                     {product.productName}

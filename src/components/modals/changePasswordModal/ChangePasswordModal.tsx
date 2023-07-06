@@ -12,6 +12,7 @@ import { handleErrorResponse } from '../../../services/error.Service';
 import { deleteUserAuth } from '../../../services/user.Service';
 import { useNavigate } from 'react-router-dom';
 import { ChangePasswordModalProps } from '../../../interfaces/modals/ChangePasswordModalProps';
+import { LoadingSpinner } from '../../loadingSpinner/LoadingSpinner';
 
 export const ChangePasswordModal = ({
   toggle,
@@ -90,7 +91,9 @@ export const ChangePasswordModal = ({
     }
   };
 
-  return (
+  return loadingData ? (
+    <LoadingSpinner />
+  ) : (
     <Modal className="password-modal" show={showModal} onHide={closeModal} centered>
       <Form onSubmit={handleSubmit(resetPasswordRequest ? resetPassword : changePassword)}>
         <h3 className="title">{resetPasswordRequest ? `Reset ${username}` : 'Change'} Password</h3>

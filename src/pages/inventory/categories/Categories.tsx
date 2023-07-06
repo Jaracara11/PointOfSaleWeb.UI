@@ -7,6 +7,7 @@ import { useGetCategories } from '../../../hooks/categories.hooks';
 import { SearchInput } from '../../../components/searchInput/SearchInput';
 import { validateUserRolePermission } from '../../../services/user.Service';
 import Button from 'react-bootstrap/esm/Button';
+import { LoadingSpinner } from '../../../components/loadingSpinner/LoadingSpinner';
 
 export const Categories = () => {
   const { user } = UserAuth() || {};
@@ -21,7 +22,9 @@ export const Categories = () => {
     category.categoryName.toLowerCase().includes(searchCategoryQuery.trim().toLowerCase())
   );
 
-  return (
+  return categoriesQuery.isLoading ? (
+    <LoadingSpinner />
+  ) : (
     <div className="categories common-container">
       <div className="row">
         <h1 className="title">Categories</h1>

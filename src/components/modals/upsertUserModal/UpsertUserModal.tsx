@@ -10,6 +10,7 @@ import { UpsertUserModalProps } from '../../../interfaces/modals/UpsertUserModal
 import { UserData } from '../../../interfaces/user/UserData';
 import { useDeleteUser, useSaveNewUser, useUpdateUser } from '../../../hooks/users.hooks';
 import { firstCharToUpper } from '../../../utils/string.helper';
+import { LoadingSpinner } from '../../loadingSpinner/LoadingSpinner';
 
 export const UpsertUserModal = ({ toggle, user, roles }: UpsertUserModalProps) => {
   const {
@@ -89,7 +90,9 @@ export const UpsertUserModal = ({ toggle, user, roles }: UpsertUserModalProps) =
     toggle();
   };
 
-  return (
+  return newUserMutation.isLoading || updateUserMutation.isLoading || deleteUserMutation ? (
+    <LoadingSpinner />
+  ) : (
     <Modal className="form-modal" show={showModal} onHide={closeModal} centered>
       <Form onSubmit={handleSubmit(upsertUser)}>
         <h3 className="title">{user ? 'Edit' : 'Add New'} User</h3>

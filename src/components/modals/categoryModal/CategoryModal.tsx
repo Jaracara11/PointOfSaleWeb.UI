@@ -14,6 +14,7 @@ import {
   useSaveNewCategory,
   useUpdateCategory
 } from '../../../hooks/categories.hooks';
+import { LoadingSpinner } from '../../loadingSpinner/LoadingSpinner';
 
 export const CategoryModal = ({ toggle, category }: CategoryModalProps) => {
   const {
@@ -38,8 +39,8 @@ export const CategoryModal = ({ toggle, category }: CategoryModalProps) => {
 
   useEffect(() => {
     if (category) {
-      setValue('categoryName', category.categoryName);
       setValue('categoryID', category.categoryID);
+      setValue('categoryName', category.categoryName);
     }
   }, [category]);
 
@@ -81,7 +82,11 @@ export const CategoryModal = ({ toggle, category }: CategoryModalProps) => {
     }
   };
 
-  return (
+  return newCategoryMutation.isLoading ||
+    updateCategoryMutation.isLoading ||
+    deleteCategoryMutation.isLoading ? (
+    <LoadingSpinner />
+  ) : (
     <Modal className="category-modal" show={showModal} onHide={closeModal} centered>
       <Form onSubmit={handleSubmit(upsertCategory)}>
         <h3 className="title">{category ? 'Edit' : 'Add New'} Category</h3>

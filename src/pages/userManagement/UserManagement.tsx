@@ -9,6 +9,7 @@ import { UpsertUserModal } from '../../components/modals/upsertUserModal/UpsertU
 import { ChangePasswordModal } from '../../components/modals/changePasswordModal/ChangePasswordModal';
 import { UserData } from '../../interfaces/user/UserData';
 import { getUserRoleName } from '../../utils/string.helper';
+import { LoadingSpinner } from '../../components/loadingSpinner/LoadingSpinner';
 
 export const UserManagement = () => {
   const navigate = useNavigate();
@@ -36,7 +37,9 @@ export const UserManagement = () => {
     );
   }
 
-  return (
+  return usersQuery.isLoading || rolesQuery.isLoading ? (
+    <LoadingSpinner />
+  ) : (
     <div className="users common-container">
       <div className="row">
         <h1 className="title">Users</h1>

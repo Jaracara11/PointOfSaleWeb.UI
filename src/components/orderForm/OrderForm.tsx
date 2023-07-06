@@ -10,6 +10,7 @@ import { getUserAuth } from '../../services/user.Service';
 import { useNavigate } from 'react-router-dom';
 import { OrderRequest } from '../../interfaces/order/OrderRequest';
 import { OrderInfo } from '../../interfaces/order/OrderInfo';
+import { LoadingSpinner } from '../loadingSpinner/LoadingSpinner';
 
 export const OrderForm = ({ products, updateCartProduct, removeFromCart }: OrderFormProps) => {
   const { user } = UserAuth() || {};
@@ -143,7 +144,9 @@ export const OrderForm = ({ products, updateCartProduct, removeFromCart }: Order
     }
   };
 
-  return (
+  return discountsQuery.isLoading || newOrderMutation.isLoading ? (
+    <LoadingSpinner />
+  ) : (
     <div className="orders-form card bg-light">
       <h4 className="title">Current Order</h4>
       <Table hover>

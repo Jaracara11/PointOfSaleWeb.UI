@@ -9,6 +9,7 @@ import { useState } from 'react';
 import { validateUserRolePermission } from '../../../services/user.Service';
 import { Link } from 'react-router-dom';
 import { UpsertProductModal } from '../../../components/modals/upsertProductModal/UpsertProductModal';
+import { LoadingSpinner } from '../../../components/loadingSpinner/LoadingSpinner';
 
 export const Products = () => {
   const { user } = UserAuth() || {};
@@ -24,7 +25,9 @@ export const Products = () => {
     product.productName.toLowerCase().includes(searchProductQuery.trim().toLowerCase())
   );
 
-  return (
+  return productsQuery.isLoading || categoriesQuery.isLoading ? (
+    <LoadingSpinner />
+  ) : (
     <div className="products common-container">
       <div className="row">
         <h1 className="title">Products</h1>
