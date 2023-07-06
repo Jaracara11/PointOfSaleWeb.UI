@@ -78,6 +78,7 @@ export const Sales = () => {
               <th>Order Total</th>
               <th>Order Date</th>
               <th></th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
