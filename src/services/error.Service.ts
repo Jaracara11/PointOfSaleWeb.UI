@@ -30,6 +30,11 @@ export const handleErrorResponse = (error: any, errorKey: string) => {
       handleErrorMessage(status, statusText, forbiddenMessage);
       break;
 
+    case 404:
+      const notFoundMessage = 'The requested data or resource was not found.';
+      handleErrorMessage(status, statusText, notFoundMessage);
+      break;
+
     default:
       const defaultErrorMessage = 'An error occurred. Please try again later.';
       handleErrorMessage(status, statusText, defaultErrorMessage);
