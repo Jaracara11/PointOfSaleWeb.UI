@@ -1,10 +1,9 @@
 import './sales.css';
 import 'react-datepicker/dist/react-datepicker.css';
 import 'react-datepicker/dist/react-datepicker-cssmodules.css';
-import { Button } from 'react-bootstrap';
 import { useState } from 'react';
 import DatePicker from 'react-datepicker';
-import { InvoicesByDateBtn } from '../../components/buttons/invoicesByDateBtn/InvoicesByDateBtn';
+import { InvoicesByDate } from '../../components/invoicesByDate/InvoicesByDate';
 
 export const Sales = () => {
   const [initialDate, setInitialDate] = useState<Date>(new Date());
@@ -15,8 +14,6 @@ export const Sales = () => {
 
   const minDate = new Date();
   minDate.setDate(minDate.getDate() - 30);
-
-  const handleOrdersByDateRequest = () => {};
 
   return (
     <div className="sales common-container">
@@ -45,16 +42,10 @@ export const Sales = () => {
             className="form-control"
           />
         </div>
-
-        <div>
-          <Button variant="dark" onClick={() => handleOrdersByDateRequest()}>
-            Search Invoice
-          </Button>
-        </div>
       </div>
 
       <div className="row">
-        <InvoicesByDateBtn initialDate={initialDate} finalDate={finalDate} />
+        <InvoicesByDate initialDate={initialDate} finalDate={finalDate} />
       </div>
     </div>
   );
