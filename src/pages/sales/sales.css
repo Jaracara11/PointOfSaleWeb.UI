@@ -19,12 +19,13 @@
 }
 
 .sales .date-pickers .search-input i {
-  margin-right: 1000px !important;
-  position: absolute;
+  margin-left: 11.3rem !important;
+  margin-top: -48px;
 }
 
 .sales .date-pickers span {
   font-weight: bold;
+  margin-right: 1rem;
 }
 
 .sales .date-pickers .btn-dark {
@@ -33,11 +34,7 @@
 
 .sales .react-datepicker-wrapper {
   max-width: 120px;
-  margin-right: 1.5rem;
-}
-
-.sales .react-datepicker-wrapper:nth-child(1) {
-  margin-left: -0.7rem;
+  margin-right: 1rem;
 }
 
 @media (max-width: 1280px) {

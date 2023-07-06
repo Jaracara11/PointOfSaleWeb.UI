@@ -29,14 +29,14 @@ export const Sales = () => {
   );
 
   return (
-    <div className="sales">
+    <div className="sales ">
       <div className="row">
         <h1 className="title">Sales</h1>
       </div>
       <div className="row">
         <div className="date-pickers">
           <div>
-            <span className="text-muted">Order Date Between: </span>
+            <span className="text-muted">Order Date Between:</span>
 
             <DatePicker
               enableTabLoop={false}
