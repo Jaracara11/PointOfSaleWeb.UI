@@ -21,10 +21,8 @@ export const Sales = () => {
   const minDate = new Date();
   minDate.setDate(minDate.getDate() - 30);
 
-  const handleInvoicesFetched = (invoicesByDate: RecentOrder[]) => {
-    console.log(invoicesByDate);
+  const handleInvoicesFetched = (invoicesByDate: RecentOrder[]) =>
     invoicesByDate && setOrders(invoicesByDate || []);
-  };
 
   const filteredOrders = (orders || []).filter((order) =>
     order.orderID.toLowerCase().includes(searchOrderQuery.trim().toLowerCase())
