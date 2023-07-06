@@ -1,43 +1,22 @@
-.sales {
+.sales .row:nth-child(2) {
   display: grid;
-  grid-template-rows: auto auto 1fr;
+  grid-template-columns: auto 1fr;
 }
 
-.sales .row:nth-child(1) {
-  margin-top: 1rem;
-  margin-bottom: 1rem;
+.sales .row:nth-child(2) input {
+  margin-right: 1rem;
+  width: 120px;
+}
+
+.sales .row:nth-child(2) span {
+  font-weight: bold;
+  margin-right: 0.5rem;
+  margin-top: 0.4rem;
 }
 
 .sales .date-pickers {
   display: grid;
-  grid-template-columns: auto 1fr auto;
-  margin-left: -0.3rem;
-}
-
-.sales .date-pickers .search-input {
-  margin-right: -1.3rem;
-}
-
-.sales .date-pickers .search-input i {
-  margin-right: 1000px !important;
-  position: absolute;
-}
-
-.sales .date-pickers span {
-  font-weight: bold;
-}
-
-.sales .date-pickers .btn-dark {
-  float: left;
-}
-
-.sales .react-datepicker-wrapper {
-  max-width: 120px;
-  margin-right: 1.5rem;
-}
-
-.sales .react-datepicker-wrapper:nth-child(1) {
-  margin-left: -0.7rem;
+  grid-template-columns: auto auto auto;
 }
 
 @media (max-width: 1280px) {

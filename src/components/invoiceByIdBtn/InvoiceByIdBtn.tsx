@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { useGetOrderByID } from '../../../hooks/orders.hooks';
+import { useGetOrderByID } from '../../hooks/orders.hooks';
 import { Button } from 'react-bootstrap';
 
 export const InvoiceByIdBtn = ({ orderID }: { orderID: string }) => {

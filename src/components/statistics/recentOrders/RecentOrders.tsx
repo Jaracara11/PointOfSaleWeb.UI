@@ -1,7 +1,7 @@
 import { Table } from 'react-bootstrap';
 import { RecentOrder } from '../../../interfaces/order/RecentOrder';
 import { useGetRecentOrders } from '../../../hooks/orders.hooks';
-import { InvoiceByIdBtn } from '../../buttons/invoiceByIdBtn/InvoiceByIdBtn';
+import { InvoiceByIdBtn } from '../../invoiceByIdBtn/InvoiceByIdBtn';
 import { LoadingSpinner } from '../../loadingSpinner/LoadingSpinner';
 
 export const RecentOrders = () => {
