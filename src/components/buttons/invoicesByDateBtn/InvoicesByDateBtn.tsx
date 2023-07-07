@@ -1,12 +1,12 @@
 import { Table } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
-import { InvoiceByDateBtnProps } from '../../interfaces/order/InvoiceByDateBtnProps';
-import { useGetOrdersByDate } from '../../hooks/orders.hooks';
-import { SearchInput } from '../searchInput/SearchInput';
+import { InvoiceByDateBtnProps } from '../../../interfaces/order/InvoiceByDateBtnProps';
+import { useGetOrdersByDate } from '../../../hooks/orders.hooks';
+import { SearchInput } from '../../searchInput/SearchInput';
 import { InvoiceByIdBtn } from '../invoiceByIdBtn/InvoiceByIdBtn';
-import { RecentOrder } from '../../interfaces/order/RecentOrder';
+import { RecentOrder } from '../../../interfaces/order/RecentOrder';
 
-export const InvoicesByDate = ({ initialDate, finalDate }: InvoiceByDateBtnProps) => {
+export const InvoicesByDateBtn = ({ initialDate, finalDate }: InvoiceByDateBtnProps) => {
   const [orders, setOrders] = useState<RecentOrder[]>();
   const [searchOrderQuery, setSearchOrderQuery] = useState<string>('');
   const getOrdersByDate = useGetOrdersByDate(initialDate, finalDate);

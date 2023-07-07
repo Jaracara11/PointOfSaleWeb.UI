@@ -7,6 +7,7 @@ import { InvoiceByIdBtn } from '../../components/buttons/invoiceByIdBtn/InvoiceB
 import { InvoicesByDateBtn } from '../../components/buttons/invoicesByDateBtn/InvoicesByDateBtn';
 import { SearchInput } from '../../components/searchInput/SearchInput';
 import { RecentOrder } from '../../interfaces/order/RecentOrder';
+import { Table } from 'react-bootstrap';
 
 export const Sales = () => {
   const [initialDate, setInitialDate] = useState<Date>(new Date());
