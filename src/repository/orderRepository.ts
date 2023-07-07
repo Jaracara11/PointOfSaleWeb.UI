@@ -72,6 +72,21 @@ export const getTotalSalesOfTheDay = async (): Promise<number> => {
   }
 };
 
+export const getSalesByDate = async (initialDate: Date, finalDate: Date): Promise<number> => {
+  try {
+    const response = await axios.get(`${API_URL}/sales-by-date`, {
+      params: {
+        initialDate,
+        finalDate
+      },
+      headers: userAuthorizationHeaders()
+    });
+    return response.data;
+  } catch (error: any) {
+    return Promise.reject(error);
+  }
+};
+
 export const checkoutOrder = async (order: OrderRequest): Promise<OrderInfo> => {
   try {
     const response = await axios.post(`${API_URL}/checkout-order`, order, {

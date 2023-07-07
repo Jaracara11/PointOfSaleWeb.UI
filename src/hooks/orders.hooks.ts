@@ -6,6 +6,7 @@ import {
   getOrderByID,
   getOrdersByDate,
   getRecentOrders,
+  getSalesByDate,
   getTotalSalesOfTheDay
 } from '../repository/orderRepository';
 import { swalMessageAlert } from '../services/swal.service';
@@ -65,6 +66,17 @@ export const useGetSalesOfTheDay = () => {
   });
 };
 
+export const useGetSalesByDate = (initialDate: Date, finalDate: Date) => {
+  return useQuery({
+    queryKey: ['salesByDate'],
+    queryFn: () => getSalesByDate(initialDate, finalDate),
+    onError: (error) => handleErrorResponse(error, ''),
+    cacheTime: 43200000,
+    staleTime: 43200000,
+    enabled: false,
+    retry: false
+  });
+};
 export const useNewOrder = () => {
   const queryClient = useQueryClient();
 
@@ -75,6 +87,7 @@ export const useNewOrder = () => {
       queryClient.invalidateQueries(['orders']);
       queryClient.invalidateQueries(['salesToday']);
       queryClient.invalidateQueries(['orderByDate']);
+      queryClient.invalidateQueries(['salesByDate']);
       swalMessageAlert('Transaction Completed', 'success');
     },
     onError: (error) => handleErrorResponse(error, 'OrdersError')
