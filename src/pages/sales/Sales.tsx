@@ -8,6 +8,7 @@ import { InvoiceByIdBtn } from '../../components/buttons/invoiceByIdBtn/InvoiceB
 import { InvoicesByDateBtn } from '../../components/buttons/invoicesByDateBtn/InvoicesByDateBtn';
 import { SearchInput } from '../../components/searchInput/SearchInput';
 import { RecentOrder } from '../../interfaces/order/RecentOrder';
+import { SalesByDateBtn } from '../../components/buttons/salesByDateBtn/SalesByDateBtn';
 
 export const Sales = () => {
   const [initialDate, setInitialDate] = useState<Date>(new Date());
@@ -62,7 +63,35 @@ export const Sales = () => {
           />
           <SearchInput searchQuery={searchOrderQuery} setSearchQuery={setSearchOrderQuery} />
         </div>
+        <div className="date-pickers">
+          <span className="text-muted">Sales Date Between:</span>
+          <DatePicker
+            enableTabLoop={false}
+            selected={new Date(initialDate.getTime() + initialDate.getTimezoneOffset() * 60000)}
+            minDate={minDate}
+            maxDate={new Date()}
+            onChange={(date) => setInitialDate(date as Date)}
+            className="form-control"
+          />
+          <DatePicker
+            enableTabLoop={false}
+            selected={new Date(finalDate.getTime() + finalDate.getTimezoneOffset() * 60000)}
+            minDate={minDate}
+            maxDate={new Date()}
+            onChange={(date) => setFinalDate(date as Date)}
+            className="form-control"
+          />
+        </div>
+
+        <div>
+          <SalesByDateBtn
+            initialDate={initialDate}
+            finalDate={finalDate}
+            onInvoicesFetched={handleInvoicesFetched}
+          />
+        </div>
       </div>
+
       <div className="row">
         <Table hover>
           <thead>

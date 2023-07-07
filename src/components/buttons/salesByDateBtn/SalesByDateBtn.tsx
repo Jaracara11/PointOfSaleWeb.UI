@@ -2,7 +2,7 @@ import { Button } from 'react-bootstrap';
 import { InvoiceByDateBtnProps } from '../../../interfaces/order/InvoiceByDateBtnProps';
 import { useGetOrdersByDate } from '../../../hooks/orders.hooks';
 
-export const InvoicesByDateBtn = ({
+export const SalesByDateBtn = ({
   initialDate,
   finalDate,
   onInvoicesFetched
@@ -16,8 +16,8 @@ export const InvoicesByDateBtn = ({
   };
 
   return (
-    <Button variant="dark" onClick={() => handleOrdersByDateRequest()}>
-      <i className="bi bi-file-text"></i>&nbsp; Search Invoices
+    <Button variant="outline-dark" onClick={() => handleOrdersByDateRequest()}>
+      <i className="bi bi-coin"></i>&nbsp; Get Total Sales
     </Button>
   );
 };
