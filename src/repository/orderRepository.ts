@@ -4,7 +4,6 @@ import { OrderInfo } from '../interfaces/order/OrderInfo';
 import { OrderRequest } from '../interfaces/order/OrderRequest';
 import { RecentOrder } from '../interfaces/order/RecentOrder';
 import { parseProductsJSON } from '../utils/inventory.helper';
-import { OrderByDate } from '../interfaces/order/OrderByDate';
 
 const API_URL = import.meta.env.VITE_API_URL + '/order';
 
@@ -33,7 +32,7 @@ export const getRecentOrders = async (): Promise<RecentOrder[]> => {
 export const getOrdersByDate = async (
   initialDate: Date,
   finalDate: Date
-): Promise<OrderByDate[]> => {
+): Promise<RecentOrder[]> => {
   try {
     const response = await axios.get(`${API_URL}/by-date`, {
       params: {
@@ -42,7 +41,7 @@ export const getOrdersByDate = async (
       },
       headers: userAuthorizationHeaders()
     });
-    return response.data as OrderByDate[];
+    return response.data as RecentOrder[];
   } catch (error: any) {
     return Promise.reject(error);
   }

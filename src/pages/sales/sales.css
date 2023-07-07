@@ -3,21 +3,33 @@
   grid-template-columns: auto 1fr;
 }
 
-.sales .row:nth-child(2) input {
-  margin-right: 1rem;
-  width: 120px;
-}
-
-.sales .row:nth-child(2) span {
-  font-weight: bold;
-  margin-right: 0.5rem;
-  margin-top: 0.4rem;
+.sales .row:nth-child(2) button {
+  margin-left: -1rem;
 }
 
 .sales .date-pickers {
+  margin-right: 0.5rem;
   display: grid;
   grid-template-columns: auto auto auto;
 }
 
+.sales .date-pickers input {
+  width: 120px;
+  margin-right: 0.5rem !important;
+}
+
+.sales .row:nth-child(2) span {
+  margin-top: 0.3rem;
+  margin-right: 0.5rem;
+  font-weight: bold;
+}
+
+.sales .search-input i {
+  margin-left: 1030px !important;
+}
+
 @media (max-width: 1280px) {
+  .sales .search-input i {
+    margin-left: 535px !important;
+  }
 }
