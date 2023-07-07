@@ -2,12 +2,12 @@ import './sales.css';
 import 'react-datepicker/dist/react-datepicker.css';
 import 'react-datepicker/dist/react-datepicker-cssmodules.css';
 import { useState } from 'react';
+import { Table } from 'react-bootstrap';
 import DatePicker from 'react-datepicker';
 import { InvoiceByIdBtn } from '../../components/buttons/invoiceByIdBtn/InvoiceByIdBtn';
 import { InvoicesByDateBtn } from '../../components/buttons/invoicesByDateBtn/InvoicesByDateBtn';
 import { SearchInput } from '../../components/searchInput/SearchInput';
 import { RecentOrder } from '../../interfaces/order/RecentOrder';
-import { Table } from 'react-bootstrap';
 
 export const Sales = () => {
   const [initialDate, setInitialDate] = useState<Date>(new Date());
