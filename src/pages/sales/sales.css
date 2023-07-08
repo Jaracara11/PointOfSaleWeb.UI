@@ -9,6 +9,10 @@
   min-width: 158px;
 }
 
+.sales .row:nth-child(2) div:nth-child(5) {
+  background-color: pink;
+}
+
 .sales .date-pickers {
   margin-right: 0.5rem;
   display: grid;

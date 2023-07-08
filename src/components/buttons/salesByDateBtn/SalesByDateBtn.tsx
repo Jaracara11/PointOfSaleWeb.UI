@@ -11,7 +11,6 @@ export const SalesByDateBtn = ({
 
   const handleOrdersByDateRequest = () => {
     getSalesByDate.refetch().then((response) => {
-      console.log(response);
       response.data && onTotalSalesFetched(response.data);
     });
   };

@@ -14,6 +14,7 @@ export const Sales = () => {
   const [initialDate, setInitialDate] = useState<Date>(new Date());
   const [finalDate, setFinalDate] = useState<Date>(new Date());
   const [orders, setOrders] = useState<RecentOrder[]>([]);
+  const [totalSales, setTotalSales] = useState<number>(0);
   const [searchOrderQuery, setSearchOrderQuery] = useState<string>('');
 
   const minDate = new Date();
@@ -24,6 +25,7 @@ export const Sales = () => {
 
   const handleSalesFetched = (salesByDate: number) => {
     console.log(salesByDate);
+    setTotalSales(salesByDate);
   };
 
   const filteredOrders = (orders || []).filter((order) =>
@@ -64,6 +66,7 @@ export const Sales = () => {
           />
           <SearchInput searchQuery={searchOrderQuery} setSearchQuery={setSearchOrderQuery} />
         </div>
+
         <div className="date-pickers">
           <span className="text-muted">Sales Date Between:</span>
           <DatePicker
@@ -90,6 +93,12 @@ export const Sales = () => {
             finalDate={finalDate}
             onTotalSalesFetched={handleSalesFetched}
           />
+
+          <div className="card">
+            <h3 className="text-muted">
+              <strong>${totalSales.toString()}</strong>
+            </h3>
+          </div>
         </div>
       </div>
 
