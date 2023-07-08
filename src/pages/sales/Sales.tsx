@@ -16,9 +16,6 @@ export const Sales = () => {
   const [orders, setOrders] = useState<RecentOrder[]>([]);
   const [searchOrderQuery, setSearchOrderQuery] = useState<string>('');
 
-  initialDate.setUTCHours(0, 0, 0, 0);
-  finalDate.setUTCHours(23, 59, 0, 0);
-
   const minDate = new Date();
   minDate.setDate(minDate.getDate() - 30);
 
@@ -43,7 +40,7 @@ export const Sales = () => {
           <span className="text-muted">Order Date Between:</span>
           <DatePicker
             enableTabLoop={false}
-            selected={new Date(initialDate.getTime() + initialDate.getTimezoneOffset() * 60000)}
+            selected={new Date(initialDate.getTime())}
             minDate={minDate}
             maxDate={new Date()}
             onChange={(date) => setInitialDate(date as Date)}
@@ -51,7 +48,7 @@ export const Sales = () => {
           />
           <DatePicker
             enableTabLoop={false}
-            selected={new Date(finalDate.getTime() + finalDate.getTimezoneOffset() * 60000)}
+            selected={new Date(finalDate.getTime())}
             minDate={minDate}
             maxDate={new Date()}
             onChange={(date) => setFinalDate(date as Date)}
@@ -71,7 +68,7 @@ export const Sales = () => {
           <span className="text-muted">Sales Date Between:</span>
           <DatePicker
             enableTabLoop={false}
-            selected={new Date(initialDate.getTime() + initialDate.getTimezoneOffset() * 60000)}
+            selected={new Date(initialDate.getTime())}
             minDate={minDate}
             maxDate={new Date()}
             onChange={(date) => setInitialDate(date as Date)}
@@ -79,7 +76,7 @@ export const Sales = () => {
           />
           <DatePicker
             enableTabLoop={false}
-            selected={new Date(finalDate.getTime() + finalDate.getTimezoneOffset() * 60000)}
+            selected={new Date(finalDate.getTime())}
             minDate={minDate}
             maxDate={new Date()}
             onChange={(date) => setFinalDate(date as Date)}
