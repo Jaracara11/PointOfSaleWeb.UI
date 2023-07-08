@@ -25,6 +25,10 @@ export const Sales = () => {
   const handleInvoicesFetched = (invoicesByDate: RecentOrder[]) =>
     invoicesByDate && setOrders(invoicesByDate || []);
 
+  const handleSalesFetched = (salesByDate: number) => {
+    console.log(salesByDate);
+  };
+
   const filteredOrders = (orders || []).filter((order) =>
     order.orderID.toLowerCase().includes(searchOrderQuery.trim().toLowerCase())
   );
@@ -87,7 +91,7 @@ export const Sales = () => {
           <SalesByDateBtn
             initialDate={initialDate}
             finalDate={finalDate}
-            onInvoicesFetched={handleInvoicesFetched}
+            onTotalSalesFetched={handleSalesFetched}
           />
         </div>
       </div>
