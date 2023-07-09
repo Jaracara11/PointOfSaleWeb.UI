@@ -9,10 +9,6 @@
   min-width: 158px;
 }
 
-.sales .row:nth-child(2) div:nth-child(5) {
-  background-color: pink;
-}
-
 .sales .date-pickers {
   margin-right: 0.5rem;
   display: grid;
@@ -27,6 +23,24 @@
 .sales .row:nth-child(2) span {
   margin-top: 0.3rem;
   margin-right: 0.5rem;
+  font-weight: bold;
+}
+
+.sales .total-sales {
+  margin-right: 0.5rem;
+  display: grid;
+  grid-template-columns: auto 1fr;
+}
+
+.sales .total-sales button {
+  height: 38px;
+  width: 158px;
+}
+
+.sales .total-sales input {
+  margin-left: 0.5rem;
+  height: 38px;
+  width: 158px;
   font-weight: bold;
 }
 

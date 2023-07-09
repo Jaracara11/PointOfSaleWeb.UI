@@ -23,10 +23,7 @@ export const Sales = () => {
   const handleInvoicesFetched = (invoicesByDate: RecentOrder[]) =>
     invoicesByDate && setOrders(invoicesByDate || []);
 
-  const handleSalesFetched = (salesByDate: number) => {
-    console.log(salesByDate);
-    setTotalSales(salesByDate);
-  };
+  const handleSalesFetched = (salesByDate: number) => setTotalSales(salesByDate);
 
   const filteredOrders = (orders || []).filter((order) =>
     order.orderID.toLowerCase().includes(searchOrderQuery.trim().toLowerCase())
@@ -87,18 +84,14 @@ export const Sales = () => {
           />
         </div>
 
-        <div>
+        <div className="total-sales">
           <SalesByDateBtn
             initialDate={initialDate}
             finalDate={finalDate}
             onTotalSalesFetched={handleSalesFetched}
           />
 
-          <div className="card">
-            <h3 className="text-muted">
-              <strong>${totalSales.toString()}</strong>
-            </h3>
-          </div>
+          <input className="form-control text-muted" disabled type="text" value={totalSales} />
         </div>
       </div>
 
