@@ -32,11 +32,11 @@ export const Sales = () => {
   return (
     <div className="sales common-container">
       <div className="row">
-        <h1 className="title">Sales</h1>
+        <h1 className="title">Sales History</h1>
       </div>
       <div className="row">
         <div className="date-pickers">
-          <span className="text-muted">Order Date Between:</span>
+          <span className="text-muted">Date Between:</span>
           <DatePicker
             enableTabLoop={false}
             selected={new Date(initialDate.getTime())}
@@ -55,36 +55,13 @@ export const Sales = () => {
           />
         </div>
 
-        <div>
+        <div className="history-panel">
           <InvoicesByDateBtn
             initialDate={initialDate}
             finalDate={finalDate}
             onInvoicesFetched={handleInvoicesFetched}
           />
-          <SearchInput searchQuery={searchOrderQuery} setSearchQuery={setSearchOrderQuery} />
-        </div>
 
-        <div className="date-pickers">
-          <span className="text-muted">Sales Date Between:</span>
-          <DatePicker
-            enableTabLoop={false}
-            selected={new Date(initialDate.getTime())}
-            minDate={minDate}
-            maxDate={new Date()}
-            onChange={(date) => setInitialDate(date as Date)}
-            className="form-control"
-          />
-          <DatePicker
-            enableTabLoop={false}
-            selected={new Date(finalDate.getTime())}
-            minDate={minDate}
-            maxDate={new Date()}
-            onChange={(date) => setFinalDate(date as Date)}
-            className="form-control"
-          />
-        </div>
-
-        <div className="total-sales">
           <SalesByDateBtn
             initialDate={initialDate}
             finalDate={finalDate}
@@ -92,6 +69,9 @@ export const Sales = () => {
           />
 
           <input className="form-control text-muted" disabled type="text" value={totalSales} />
+        </div>
+        <div>
+          <SearchInput searchQuery={searchOrderQuery} setSearchQuery={setSearchOrderQuery} />
         </div>
       </div>
 
