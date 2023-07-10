@@ -90,7 +90,9 @@ export const UpsertUserModal = ({ toggle, user, roles }: UpsertUserModalProps) =
     toggle();
   };
 
-  return newUserMutation.isLoading || updateUserMutation.isLoading || deleteUserMutation ? (
+  return newUserMutation.isLoading ||
+    updateUserMutation.isLoading ||
+    deleteUserMutation.isLoading ? (
     <LoadingSpinner />
   ) : (
     <Modal className="form-modal" show={showModal} onHide={closeModal} centered>
