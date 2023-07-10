@@ -1,10 +1,7 @@
 .sales .row:nth-child(2) {
   display: grid;
-  grid-template-columns: auto 1fr;
-}
-
-.sales .row:nth-child(2) button {
-  margin-left: -1rem;
+  grid-template-columns: auto 1fr 1fr;
+  grid-template-rows: auto auto;
 }
 
 .sales .date-pickers {
@@ -18,6 +15,17 @@
   margin-right: 0.5rem !important;
 }
 
+.sales .history-panel input {
+  float: left !important;
+  margin-left: 0.5rem;
+  font-weight: bold;
+  width: 150px;
+}
+
+.sales .history-panel button:nth-child(1) {
+  margin-right: 2rem;
+}
+
 .sales .row:nth-child(2) span {
   margin-top: 0.3rem;
   margin-right: 0.5rem;
@@ -25,11 +33,16 @@
 }
 
 .sales .search-input i {
-  margin-left: 1030px !important;
+  margin-left: 585px !important;
 }
 
 @media (max-width: 1280px) {
+  .sales .history-panel input {
+    position: absolute;
+    margin-left: 350px;
+  }
+
   .sales .search-input i {
-    margin-left: 535px !important;
+    margin-left: 335px !important;
   }
 }

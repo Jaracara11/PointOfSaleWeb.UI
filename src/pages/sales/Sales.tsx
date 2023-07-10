@@ -8,21 +8,22 @@ import { InvoiceByIdBtn } from '../../components/buttons/invoiceByIdBtn/InvoiceB
 import { InvoicesByDateBtn } from '../../components/buttons/invoicesByDateBtn/InvoicesByDateBtn';
 import { SearchInput } from '../../components/searchInput/SearchInput';
 import { RecentOrder } from '../../interfaces/order/RecentOrder';
+import { SalesByDateBtn } from '../../components/buttons/salesByDateBtn/SalesByDateBtn';
 
 export const Sales = () => {
   const [initialDate, setInitialDate] = useState<Date>(new Date());
   const [finalDate, setFinalDate] = useState<Date>(new Date());
   const [orders, setOrders] = useState<RecentOrder[]>([]);
+  const [totalSales, setTotalSales] = useState<number>(0);
   const [searchOrderQuery, setSearchOrderQuery] = useState<string>('');
-
-  initialDate.setUTCHours(0, 0, 0, 0);
-  finalDate.setUTCHours(23, 59, 0, 0);
 
   const minDate = new Date();
   minDate.setDate(minDate.getDate() - 30);
 
   const handleInvoicesFetched = (invoicesByDate: RecentOrder[]) =>
     invoicesByDate && setOrders(invoicesByDate || []);
+
+  const handleSalesFetched = (salesByDate: number) => setTotalSales(salesByDate);
 
   const filteredOrders = (orders || []).filter((order) =>
     order.orderID.toLowerCase().includes(searchOrderQuery.trim().toLowerCase())
@@ -31,14 +32,14 @@ export const Sales = () => {
   return (
     <div className="sales common-container">
       <div className="row">
-        <h1 className="title">Sales</h1>
+        <h1 className="title">Sales History</h1>
       </div>
       <div className="row">
         <div className="date-pickers">
-          <span className="text-muted">Order Date Between:</span>
+          <span className="text-muted">Date Between:</span>
           <DatePicker
             enableTabLoop={false}
-            selected={new Date(initialDate.getTime() + initialDate.getTimezoneOffset() * 60000)}
+            selected={new Date(initialDate.getTime())}
             minDate={minDate}
             maxDate={new Date()}
             onChange={(date) => setInitialDate(date as Date)}
@@ -46,7 +47,7 @@ export const Sales = () => {
           />
           <DatePicker
             enableTabLoop={false}
-            selected={new Date(finalDate.getTime() + finalDate.getTimezoneOffset() * 60000)}
+            selected={new Date(finalDate.getTime())}
             minDate={minDate}
             maxDate={new Date()}
             onChange={(date) => setFinalDate(date as Date)}
@@ -54,15 +55,26 @@ export const Sales = () => {
           />
         </div>
 
-        <div>
+        <div className="history-panel">
           <InvoicesByDateBtn
             initialDate={initialDate}
             finalDate={finalDate}
             onInvoicesFetched={handleInvoicesFetched}
           />
+
+          <SalesByDateBtn
+            initialDate={initialDate}
+            finalDate={finalDate}
+            onTotalSalesFetched={handleSalesFetched}
+          />
+
+          <input className="form-control text-muted" disabled type="text" value={totalSales} />
+        </div>
+        <div>
           <SearchInput searchQuery={searchOrderQuery} setSearchQuery={setSearchOrderQuery} />
         </div>
       </div>
+
       <div className="row">
         <Table hover>
           <thead>

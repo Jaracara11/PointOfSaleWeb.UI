@@ -34,7 +34,7 @@ export const getOrdersByDate = async (
   finalDate: Date
 ): Promise<RecentOrder[]> => {
   try {
-    const response = await axios.get(`${API_URL}/by-date`, {
+    const response = await axios.get(`${API_URL}/orders-by-date`, {
       params: {
         initialDate,
         finalDate
@@ -64,6 +64,21 @@ export const getOrderByID = async (orderID: string): Promise<OrderInfo> => {
 export const getTotalSalesOfTheDay = async (): Promise<number> => {
   try {
     const response = await axios.get(`${API_URL}/sales-today`, {
+      headers: userAuthorizationHeaders()
+    });
+    return response.data;
+  } catch (error: any) {
+    return Promise.reject(error);
+  }
+};
+
+export const getSalesByDate = async (initialDate: Date, finalDate: Date): Promise<number> => {
+  try {
+    const response = await axios.get(`${API_URL}/sales-by-date`, {
+      params: {
+        initialDate,
+        finalDate
+      },
       headers: userAuthorizationHeaders()
     });
     return response.data;
