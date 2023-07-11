@@ -15,8 +15,6 @@ export const InvoicesByDateBtn = ({
     });
   };
 
-  console.log(getOrdersByDate);
-
   return (
     <Button
       variant="dark"
