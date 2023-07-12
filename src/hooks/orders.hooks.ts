@@ -2,6 +2,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { handleErrorResponse } from '../services/error.Service';
 import {
   GetAvailableDiscounts,
+  cancelOrder,
   checkoutOrder,
   getOrderByID,
   getOrdersByDate,
@@ -91,5 +92,22 @@ export const useNewOrder = () => {
       swalMessageAlert('Transaction Completed', 'success');
     },
     onError: (error) => handleErrorResponse(error, 'OrdersError')
+  });
+};
+
+export const useCancelOrder = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: cancelOrder,
+    onSuccess: () => {
+      queryClient.invalidateQueries(['products']);
+      queryClient.invalidateQueries(['orders']);
+      queryClient.invalidateQueries(['salesToday']);
+      queryClient.invalidateQueries(['orderByDate']);
+      queryClient.invalidateQueries(['salesByDate']);
+      swalMessageAlert(`Order cancelled successfully`, 'info');
+    },
+    onError: (error) => handleErrorResponse(error, 'OrderError')
   });
 };

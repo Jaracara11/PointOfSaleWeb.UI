@@ -20,6 +20,10 @@
   min-width: 150px;
 }
 
+.invoice-container .order-summary .btn-danger {
+  float: left;
+}
+
 @media print {
   aside {
     display: none;
