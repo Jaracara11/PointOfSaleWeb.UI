@@ -1,8 +1,10 @@
 import { Button } from 'react-bootstrap';
 import { swalConfirmAlert } from '../../../services/swal.service';
 import { useCancelOrder } from '../../../hooks/orders.hooks';
+import { useNavigate } from 'react-router-dom';
 
 export const CancelOrderBtn = ({ orderID }: { orderID: string }) => {
+  const navigate = useNavigate();
   const cancelOrderMutation = useCancelOrder();
 
   const handleOrderCancellationRequest = async () => {
@@ -10,7 +12,10 @@ export const CancelOrderBtn = ({ orderID }: { orderID: string }) => {
 
     const isConfirmed = await swalConfirmAlert(confirmTitle, 'Confirm', 'warning');
 
-    isConfirmed && cancelOrderMutation.mutateAsync(orderID);
+    isConfirmed &&
+      cancelOrderMutation.mutateAsync(orderID).then(() => {
+        navigate('/sales');
+      });
   };
 
   return (

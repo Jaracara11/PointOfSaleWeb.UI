@@ -103,9 +103,13 @@ export const checkoutOrder = async (order: OrderRequest): Promise<OrderInfo> => 
 
 export const cancelOrder = async (orderID: string): Promise<void> => {
   try {
-    await axios.post(`${API_URL}/${orderID}/cancel`, {
-      headers: userAuthorizationHeaders()
-    });
+    await axios.post(
+      `${API_URL}/${orderID}/cancel`,
+      {},
+      {
+        headers: userAuthorizationHeaders()
+      }
+    );
   } catch (error: any) {
     return Promise.reject(error);
   }

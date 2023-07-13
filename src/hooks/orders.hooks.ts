@@ -108,6 +108,6 @@ export const useCancelOrder = () => {
       queryClient.invalidateQueries(['salesByDate']);
       swalMessageAlert(`Order cancelled successfully`, 'info');
     },
-    onError: (error) => handleErrorResponse(error, 'OrderError')
+    onError: (error) => handleErrorResponse(error, 'OrdersError')
   });
 };
