@@ -64,7 +64,11 @@ export const Invoice = () => {
                   <span>{orderInfo.orderDate.toString()}</span>
                 </div>
                 <div>
-                  {!orderInfo.orderCancelled && <CancelOrderBtn orderID={orderInfo.orderID} />}
+                  {orderInfo.orderCancelled ? (
+                    <h4>ORDER CANCELLED</h4>
+                  ) : (
+                    <CancelOrderBtn orderID={orderInfo.orderID} />
+                  )}
                 </div>
               </div>
               <div>

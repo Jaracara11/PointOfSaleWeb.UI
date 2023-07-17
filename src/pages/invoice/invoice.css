@@ -24,6 +24,11 @@
   float: left;
 }
 
+.invoice-container .order-summary h4 {
+  font-weight: bold;
+  margin-top: 1rem;
+}
+
 @media print {
   aside {
     display: none;
