@@ -16,7 +16,11 @@ export const SalesByDateBtn = ({
   };
 
   return (
-    <Button variant="outline-dark" onClick={() => handleOrdersByDateRequest()}>
+    <Button
+      variant="outline-dark"
+      onClick={() => handleOrdersByDateRequest()}
+      disabled={getSalesByDate.isFetching}
+    >
       <i className="bi bi-coin"></i>&nbsp; Get Total Sales
     </Button>
   );

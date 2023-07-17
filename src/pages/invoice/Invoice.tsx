@@ -4,6 +4,7 @@ import { NotFound } from '../notFound/NotFound';
 import { OrderInfo } from '../../interfaces/order/OrderInfo';
 import { Button, Table } from 'react-bootstrap';
 import { OrderProduct } from '../../interfaces/order/OrderProduct';
+import { CancelOrderBtn } from '../../components/buttons/cancelOrderBtn/CancelOrderBtn';
 
 export const Invoice = () => {
   const location = useLocation();
@@ -61,6 +62,13 @@ export const Invoice = () => {
                 <div>
                   <span className="title">Purchase Date: </span>
                   <span>{orderInfo.orderDate.toString()}</span>
+                </div>
+                <div>
+                  {orderInfo.orderCancelled ? (
+                    <h4>ORDER CANCELLED</h4>
+                  ) : (
+                    <CancelOrderBtn orderID={orderInfo.orderID} />
+                  )}
                 </div>
               </div>
               <div>

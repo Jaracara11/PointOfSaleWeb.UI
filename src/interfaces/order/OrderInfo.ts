@@ -8,4 +8,5 @@ export interface OrderInfo {
   discount?: number;
   orderTotal: number;
   orderDate: Date;
+  orderCancelled: boolean;
 }

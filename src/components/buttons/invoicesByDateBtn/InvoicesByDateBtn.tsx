@@ -16,7 +16,11 @@ export const InvoicesByDateBtn = ({
   };
 
   return (
-    <Button variant="dark" onClick={() => handleOrdersByDateRequest()}>
+    <Button
+      variant="dark"
+      onClick={() => handleOrdersByDateRequest()}
+      disabled={getOrdersByDate.isFetching}
+    >
       <i className="bi bi-file-text"></i>&nbsp; Search Invoices
     </Button>
   );
