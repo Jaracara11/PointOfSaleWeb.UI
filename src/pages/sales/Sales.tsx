@@ -17,9 +17,6 @@ export const Sales = () => {
   const [totalSales, setTotalSales] = useState<number>(0);
   const [searchOrderQuery, setSearchOrderQuery] = useState<string>('');
 
-  const minDate = new Date();
-  minDate.setDate(minDate.getDate() - 30);
-
   const handleInvoicesFetched = (invoicesByDate: RecentOrder[]) =>
     invoicesByDate && setOrders(invoicesByDate || []);
 
@@ -40,7 +37,6 @@ export const Sales = () => {
           <DatePicker
             enableTabLoop={false}
             selected={new Date(initialDate.getTime())}
-            minDate={minDate}
             maxDate={new Date()}
             onChange={(date) => setInitialDate(date as Date)}
             className="form-control"
@@ -48,7 +44,6 @@ export const Sales = () => {
           <DatePicker
             enableTabLoop={false}
             selected={new Date(finalDate.getTime())}
-            minDate={minDate}
             maxDate={new Date()}
             onChange={(date) => setFinalDate(date as Date)}
             className="form-control"
