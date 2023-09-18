@@ -132,7 +132,7 @@ export const OrderForm = ({ products, updateCartProduct, removeFromCart }: Order
       const orderObj: OrderRequest = {
         user: getUserAuth()?.username || '',
         products: order.map((product) => ({
-          productID: product.productID || 0,
+          productID: product.productID || '',
           productQuantity: product.productQuantity || 0
         })),
         discount: discount || null
@@ -173,14 +173,14 @@ export const OrderForm = ({ products, updateCartProduct, removeFromCart }: Order
                 <Button
                   variant="dark"
                   size="sm"
-                  onClick={() => handleIncreaseQuantity(product.productID || 0)}
+                  onClick={() => handleIncreaseQuantity(product.productID || '')}
                 >
                   <i className="bi bi-plus"></i>
                 </Button>
                 <Button
                   variant="dark"
                   size="sm"
-                  onClick={() => handleDecreaseQuantity(product.productID || 0)}
+                  onClick={() => handleDecreaseQuantity(product.productID || '')}
                 >
                   <i className="bi bi-dash"></i>
                 </Button>

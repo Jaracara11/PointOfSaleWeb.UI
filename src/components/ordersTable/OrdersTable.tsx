@@ -20,7 +20,7 @@ export const OrdersTable = ({
   useEffect(() => {
     const productsToRemove = cartProducts.filter((product) => product.productQuantity === 0);
     productsToRemove.forEach((product) => {
-      removeFromCart(product.productID || 0);
+      removeFromCart(product.productID || '');
     });
   }, [cartProducts]);
 

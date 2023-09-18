@@ -64,7 +64,7 @@ export const categoryValidationSchema = Yup.object({
 });
 
 export const productValidationSchema = Yup.object({
-  productID: Yup.number().integer('Product ID must be an integer.'),
+  productID: Yup.string(),
   productName: Yup.string()
     .required('Product name is required.')
     .max(50, 'Product name cannot exceed 50 characters.')

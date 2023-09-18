@@ -12,7 +12,7 @@ export const Orders = () => {
   const { user } = UserAuth() || {};
   const [cartProducts, setCartProducts] = useState<Product[]>([]);
 
-  const removeFromCart = (productID: number) =>
+  const removeFromCart = (productID: string) =>
     setCartProducts((prevProducts) => prevProducts.filter((p) => p.productID !== productID));
 
   const updateCartProduct = (updatedCartProducts: Product[]) =>
