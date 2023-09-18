@@ -15,7 +15,8 @@ export const handleErrorResponse = (error: any, errorKey: string) => {
 
   switch (status) {
     case 400:
-      const error400Message = error.response?.data?.[errorKey]?.[0] || 'Bad Request';
+      const error400Message =
+        error.response?.data?.[errorKey]?.[0] || error.response.data['error'] || 'Bad Request';
       handleErrorMessage(status, statusText, error400Message);
       break;
 
