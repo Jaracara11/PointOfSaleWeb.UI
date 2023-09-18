@@ -32,7 +32,7 @@ export const OrderForm = ({ products, updateCartProduct, removeFromCart }: Order
     setSubtotal(calculateSubTotal());
     const productsToRemove = order.filter((product) => product.productQuantity === 0);
     productsToRemove.forEach((product) => {
-      removeFromCart(product.productID || 0);
+      removeFromCart(product.productID || '');
     });
   }, [order, removeFromCart]);
 
@@ -44,7 +44,7 @@ export const OrderForm = ({ products, updateCartProduct, removeFromCart }: Order
     order.length === 0 && setDiscount(0);
   }, [order]);
 
-  const handleIncreaseQuantity = (productID: number) => {
+  const handleIncreaseQuantity = (productID: string) => {
     const updatedOrder = order.map((product) => {
       if (
         product.productID === productID &&
@@ -68,7 +68,7 @@ export const OrderForm = ({ products, updateCartProduct, removeFromCart }: Order
     updateCartProduct(updatedOrder);
   };
 
-  const handleDecreaseQuantity = (productId: number) => {
+  const handleDecreaseQuantity = (productId: string) => {
     setOrder((prevOrder) =>
       prevOrder.map((product) => {
         if (product.productID === productId) {
@@ -106,7 +106,7 @@ export const OrderForm = ({ products, updateCartProduct, removeFromCart }: Order
     const isConfirmed = await swalConfirmAlert(confirmTitle, 'Clear', 'warning');
 
     if (isConfirmed) {
-      order.forEach((product) => removeFromCart(product.productID || 0));
+      order.forEach((product) => removeFromCart(product.productID || ''));
 
       setOrder([]);
 

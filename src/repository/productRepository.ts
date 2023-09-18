@@ -49,7 +49,7 @@ export const updateProduct = async (product: Product): Promise<Product> => {
   }
 };
 
-export const deleteProduct = async (productID: number): Promise<void> => {
+export const deleteProduct = async (productID: string): Promise<void> => {
   try {
     await axios.delete(`${API_URL}/${productID}/delete`, {
       headers: userAuthorizationHeaders()
