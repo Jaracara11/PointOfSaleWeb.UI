@@ -21,8 +21,10 @@ export const Products = () => {
 
   const toggleModal = () => setShowModal((prev) => !prev);
 
-  const filteredProducts = (productsQuery.data || []).filter((product) =>
-    product.productName.toLowerCase().includes(searchProductQuery.trim().toLowerCase())
+  const filteredProducts = (productsQuery.data || []).filter(
+    (product) =>
+      product.productID?.toLowerCase().includes(searchProductQuery.trim().toLowerCase()) ||
+      product.productName.toLowerCase().includes(searchProductQuery.trim().toLowerCase())
   );
 
   return productsQuery.isLoading || categoriesQuery.isLoading ? (

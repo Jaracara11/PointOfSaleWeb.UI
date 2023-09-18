@@ -102,6 +102,14 @@ export const UpsertProductModal = ({ toggle, product, categories }: ProductModal
       <Form onSubmit={handleSubmit(upsertProduct)}>
         <h3 className="title">{product ? 'Edit' : 'Add New'} Product</h3>
         <Form.Group>
+          <Form.Label>Product ID</Form.Label>
+          <Form.Control
+            disabled={!!product?.productID}
+            type="text"
+            placeholder="Enter product ID"
+            {...register('productID')}
+          />
+          <ErrorInputView error={errors.productID} />
           <Form.Label>Product Name</Form.Label>
           <Form.Control type="text" placeholder="Enter product name" {...register('productName')} />
           <ErrorInputView error={errors.productName} />

@@ -24,8 +24,10 @@ export const OrdersTable = ({
     });
   }, [cartProducts]);
 
-  const filteredProducts = (productsQuery.data || []).filter((product) =>
-    product.productName.toLowerCase().includes(searchProductQuery.trim().toLowerCase())
+  const filteredProducts = (productsQuery.data || []).filter(
+    (product) =>
+      product.productID?.toLowerCase().includes(searchProductQuery.trim().toLowerCase()) ||
+      product.productName.toLowerCase().includes(searchProductQuery.trim().toLowerCase())
   );
 
   const addToCart = (product: Product) => {
