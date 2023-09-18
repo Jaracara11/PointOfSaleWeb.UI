@@ -5,6 +5,6 @@ export interface OrderRequest {
 }
 
 interface OrderRequestProducts {
-  productID: number;
+  productID: string;
   productQuantity: number;
 }
