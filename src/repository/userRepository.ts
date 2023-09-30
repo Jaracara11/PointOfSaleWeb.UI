@@ -6,7 +6,7 @@ import { UserPasswordChangeRequest } from '../interfaces/user/UserPasswordChange
 import { UserData } from '../interfaces/user/UserData';
 import { UserRole } from '../interfaces/user/UserRole';
 
-const API_URL = import.meta.env.VITE_API_URL + '/user';
+const API_URL = import.meta.env.VITE_API_URL + '/users';
 
 export const loginUser = async (userData: UserLogin): Promise<UserInfo> => {
   try {

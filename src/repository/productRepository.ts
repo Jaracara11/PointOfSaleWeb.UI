@@ -3,7 +3,7 @@ import { Product } from '../interfaces/inventory/products/Product';
 import { userAuthorizationHeaders } from '../services/user.Service';
 import { BestSellerProduct } from '../interfaces/inventory/products/BestSellerProduct';
 
-const API_URL = import.meta.env.VITE_API_URL + '/product';
+const API_URL = import.meta.env.VITE_API_URL + '/products';
 
 export const getAllProducts = async (): Promise<Product[]> => {
   try {

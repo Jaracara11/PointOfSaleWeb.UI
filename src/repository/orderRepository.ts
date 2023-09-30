@@ -5,7 +5,7 @@ import { OrderRequest } from '../interfaces/order/OrderRequest';
 import { RecentOrder } from '../interfaces/order/RecentOrder';
 import { parseProductsJSON } from '../utils/inventory.helper';
 
-const API_URL = import.meta.env.VITE_API_URL + '/order';
+const API_URL = import.meta.env.VITE_API_URL + '/orders';
 
 export const GetAvailableDiscounts = async (username: string): Promise<number[]> => {
   try {
