@@ -29,7 +29,7 @@ export const RecentOrders = () => {
                 <tr key={order.orderID}>
                   <td>{order.user}</td>
                   <td>{order.orderDate.toString()}</td>
-                  <td>{order.orderTotal === 0 ? 'Cancelled' : `${order.orderTotal}`}</td>
+                  <td>{order.orderTotal === 0 ? 'Cancelled' : `$${order.orderTotal}`}</td>
                   <td>
                     <InvoiceByIdBtn orderID={order.orderID} />
                   </td>
