@@ -63,7 +63,12 @@ export const Sales = () => {
             onTotalSalesFetched={handleSalesFetched}
           />
 
-          <input className="form-control text-muted" disabled type="text" value={totalSales} />
+          <input
+            className="form-control text-muted"
+            disabled
+            type="text"
+            value={'$' + totalSales}
+          />
         </div>
         <div>
           <SearchInput searchQuery={searchOrderQuery} setSearchQuery={setSearchOrderQuery} />
