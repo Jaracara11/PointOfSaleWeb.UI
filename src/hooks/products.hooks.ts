@@ -13,8 +13,10 @@ export const useGetProducts = () => {
   return useQuery({
     queryKey: ['products'],
     queryFn: getAllProducts,
-    onError: (error) => handleErrorResponse(error, ''),
-    cacheTime: 43200000,
+    meta: {
+      errorMessage: ''
+    },
+    gcTime: 43200000,
     staleTime: 43200000
   });
 };
@@ -23,8 +25,10 @@ export const useGetBestSellerProducts = () => {
   return useQuery({
     queryKey: ['bestSellers'],
     queryFn: getBestSellerProducts,
-    onError: (error) => handleErrorResponse(error, ''),
-    cacheTime: 43200000,
+    meta: {
+      errorMessage: ''
+    },
+    gcTime: 43200000,
     staleTime: 43200000
   });
 };
@@ -35,7 +39,7 @@ export const useSaveNewProduct = () => {
   return useMutation({
     mutationFn: addProduct,
     onSuccess: (data) => {
-      queryClient.invalidateQueries(['products']);
+      queryClient.invalidateQueries({ queryKey: ['products'] });
       swalMessageAlert(`New product ${data.productName} added successfully!`, 'success');
     },
     onError: (error) => handleErrorResponse(error, 'ProductError')
@@ -48,7 +52,7 @@ export const useUpdateProduct = () => {
   return useMutation({
     mutationFn: updateProduct,
     onSuccess: () => {
-      queryClient.invalidateQueries(['products']);
+      queryClient.invalidateQueries({ queryKey: ['products'] });
       swalMessageAlert(`Product updated successfully`, 'info');
     },
     onError: (error) => handleErrorResponse(error, 'ProductError')
@@ -61,7 +65,7 @@ export const useDeleteProduct = () => {
   return useMutation({
     mutationFn: deleteProduct,
     onSuccess: () => {
-      queryClient.invalidateQueries(['products']);
+      queryClient.invalidateQueries({ queryKey: ['products'] });
       swalMessageAlert(`Product deleted successfully`, 'info');
     },
     onError: (error) => handleErrorResponse(error, 'ProductError')

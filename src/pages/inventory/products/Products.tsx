@@ -27,7 +27,7 @@ export const Products = () => {
       product.productName.toLowerCase().includes(searchProductQuery.trim().toLowerCase())
   );
 
-  return productsQuery.isLoading || categoriesQuery.isLoading ? (
+  return productsQuery.isPending || categoriesQuery.isPending ? (
     <LoadingSpinner />
   ) : (
     <div className="products common-container">

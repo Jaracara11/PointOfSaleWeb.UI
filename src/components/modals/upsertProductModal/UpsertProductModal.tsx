@@ -93,9 +93,9 @@ export const UpsertProductModal = ({ toggle, product, categories }: ProductModal
     }
   };
 
-  return newProductMutation.isLoading ||
-    updateProductMutation.isLoading ||
-    deleteProductMutation.isLoading ? (
+  return newProductMutation.isPending ||
+    updateProductMutation.isPending ||
+    deleteProductMutation.isPending ? (
     <LoadingSpinner />
   ) : (
     <Modal className="form-modal" show={showModal} onHide={closeModal} centered>

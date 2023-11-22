@@ -6,7 +6,7 @@ import { LoadingSpinner } from '../../loadingSpinner/LoadingSpinner';
 export const BestSellerProducts = () => {
   const bestSellerProductsQuery = useGetBestSellerProducts();
 
-  return bestSellerProductsQuery.isLoading ? (
+  return bestSellerProductsQuery.isPending ? (
     <LoadingSpinner />
   ) : (
     <div>

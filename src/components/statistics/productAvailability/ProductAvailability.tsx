@@ -13,7 +13,7 @@ export const ProductAvailability = () => {
     return sortedProducts.slice(0, 3);
   };
 
-  return productsQuery.isLoading ? (
+  return productsQuery.isPending ? (
     <LoadingSpinner />
   ) : (
     <div>

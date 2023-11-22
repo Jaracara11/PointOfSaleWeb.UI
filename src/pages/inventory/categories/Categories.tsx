@@ -22,7 +22,7 @@ export const Categories = () => {
     category.categoryName.toLowerCase().includes(searchCategoryQuery.trim().toLowerCase())
   );
 
-  return categoriesQuery.isLoading ? (
+  return categoriesQuery.isPending ? (
     <LoadingSpinner />
   ) : (
     <div className="categories common-container">

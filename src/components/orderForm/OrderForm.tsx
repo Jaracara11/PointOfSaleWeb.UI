@@ -144,7 +144,7 @@ export const OrderForm = ({ products, updateCartProduct, removeFromCart }: Order
     }
   };
 
-  return discountsQuery.isLoading || newOrderMutation.isLoading ? (
+  return discountsQuery.isPending || newOrderMutation.isPending ? (
     <LoadingSpinner />
   ) : (
     <div className="orders-form card bg-light">

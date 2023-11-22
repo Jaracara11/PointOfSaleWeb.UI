@@ -7,7 +7,7 @@ import { LoadingSpinner } from '../../loadingSpinner/LoadingSpinner';
 export const RecentOrders = () => {
   const recentOrdersQuery = useGetRecentOrders();
 
-  return recentOrdersQuery.isLoading ? (
+  return recentOrdersQuery.isPending ? (
     <LoadingSpinner />
   ) : (
     <div>

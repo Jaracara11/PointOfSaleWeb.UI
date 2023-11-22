@@ -35,7 +35,7 @@ export const OrdersTable = ({
     updateCartProduct([...cartProducts, product]);
   };
 
-  return productsQuery.isLoading || categoriesQuery.isLoading ? (
+  return productsQuery.isPending || categoriesQuery.isPending ? (
     <LoadingSpinner />
   ) : (
     <div>

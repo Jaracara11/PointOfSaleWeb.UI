@@ -37,7 +37,7 @@ export const UserManagement = () => {
     );
   }
 
-  return usersQuery.isLoading || rolesQuery.isLoading ? (
+  return usersQuery.isPending || rolesQuery.isPending ? (
     <LoadingSpinner />
   ) : (
     <div className="users common-container">

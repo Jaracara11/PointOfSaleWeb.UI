@@ -4,7 +4,7 @@ import { LoadingSpinner } from '../../loadingSpinner/LoadingSpinner';
 export const SalesOfTheDay = () => {
   const salesOfTheDayQuery = useGetSalesOfTheDay();
 
-  return salesOfTheDayQuery.isLoading ? (
+  return salesOfTheDayQuery.isPending ? (
     <LoadingSpinner />
   ) : (
     <div>

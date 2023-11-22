@@ -14,8 +14,10 @@ export const useGetUsers = () => {
   return useQuery({
     queryKey: ['users'],
     queryFn: getAllUsers,
-    onError: (error) => handleErrorResponse(error, ''),
-    cacheTime: 43200000,
+    meta: {
+      errorMessage: ''
+    },
+    gcTime: 43200000,
     staleTime: 43200000
   });
 };
@@ -24,8 +26,10 @@ export const useGetSingleUser = (username: string) => {
   return useQuery({
     queryKey: ['user', username],
     queryFn: () => getUserByUsername(username),
-    onError: (error) => handleErrorResponse(error, ''),
-    cacheTime: 43200000,
+    meta: {
+      errorMessage: ''
+    },
+    gcTime: 43200000,
     staleTime: 43200000,
     retry: false
   });
@@ -37,7 +41,7 @@ export const useSaveNewUser = () => {
   return useMutation({
     mutationFn: addUser,
     onSuccess: (data) => {
-      queryClient.invalidateQueries(['users']);
+      queryClient.invalidateQueries({ queryKey: ['users'] });
       swalMessageAlert(`New user ${data.username} added successfully!`, 'success');
     },
     onError: (error) => handleErrorResponse(error, 'UserError')
@@ -50,7 +54,7 @@ export const useUpdateUser = () => {
   return useMutation({
     mutationFn: updateUser,
     onSuccess: () => {
-      queryClient.invalidateQueries(['users']);
+      queryClient.invalidateQueries({ queryKey: ['users'] });
       swalMessageAlert(`User updated successfully`, 'info');
     },
     onError: (error) => handleErrorResponse(error, 'UserError')
@@ -61,8 +65,10 @@ export const useGetRoles = () => {
   return useQuery({
     queryKey: ['roles'],
     queryFn: getUserRoles,
-    onError: (error) => handleErrorResponse(error, ''),
-    cacheTime: 43200000,
+    meta: {
+      errorMessage: ''
+    },
+    gcTime: 43200000,
     staleTime: 43200000
   });
 };
@@ -73,7 +79,7 @@ export const useDeleteUser = () => {
   return useMutation({
     mutationFn: deleteUser,
     onSuccess: () => {
-      queryClient.invalidateQueries(['users']);
+      queryClient.invalidateQueries({ queryKey: ['users'] });
       swalMessageAlert(`User deleted successfully`, 'info');
     },
     onError: (error) => handleErrorResponse(error, 'UserError')

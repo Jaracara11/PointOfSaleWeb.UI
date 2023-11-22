@@ -82,9 +82,9 @@ export const CategoryModal = ({ toggle, category }: CategoryModalProps) => {
     }
   };
 
-  return newCategoryMutation.isLoading ||
-    updateCategoryMutation.isLoading ||
-    deleteCategoryMutation.isLoading ? (
+  return newCategoryMutation.isPending ||
+    updateCategoryMutation.isPending ||
+    deleteCategoryMutation.isPending ? (
     <LoadingSpinner />
   ) : (
     <Modal className="category-modal" show={showModal} onHide={closeModal} centered>

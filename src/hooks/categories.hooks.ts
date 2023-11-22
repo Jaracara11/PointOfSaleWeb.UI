@@ -12,8 +12,10 @@ export const useGetCategories = () => {
   return useQuery({
     queryKey: ['categories'],
     queryFn: getAllCategories,
-    onError: (error) => handleErrorResponse(error, ''),
-    cacheTime: 43200000,
+    meta: {
+      errorMessage: ''
+    },
+    gcTime: 43200000,
     staleTime: 43200000
   });
 };
@@ -24,7 +26,7 @@ export const useSaveNewCategory = () => {
   return useMutation({
     mutationFn: addCategory,
     onSuccess: (data) => {
-      queryClient.invalidateQueries(['categories']);
+      queryClient.invalidateQueries({ queryKey: ['categories'] });
       swalMessageAlert(`New category ${data.categoryName} added successfully!`, 'success');
     },
     onError: (error) => handleErrorResponse(error, 'CategoryError')
@@ -37,7 +39,7 @@ export const useUpdateCategory = () => {
   return useMutation({
     mutationFn: updateCategory,
     onSuccess: () => {
-      queryClient.invalidateQueries(['categories']);
+      queryClient.invalidateQueries({ queryKey: ['categories'] });
       swalMessageAlert(`Category updated successfully`, 'info');
     },
     onError: (error) => handleErrorResponse(error, 'CategoryError')
@@ -50,7 +52,7 @@ export const useDeleteCategory = () => {
   return useMutation({
     mutationFn: deleteCategory,
     onSuccess: () => {
-      queryClient.invalidateQueries(['categories']);
+      queryClient.invalidateQueries({ queryKey: ['categories'] });
       swalMessageAlert(`Category deleted successfully`, 'info');
     },
     onError: (error) => handleErrorResponse(error, 'CategoryError')
