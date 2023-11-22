@@ -6,7 +6,7 @@ export const SearchInput = ({ searchQuery, setSearchQuery }: SearchInputProps) =
   return (
     <div className="search-input">
       <Form.Control
-        type="text"
+        type="search"
         placeholder="Search..."
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
