@@ -1,5 +1,5 @@
 import './login.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -12,9 +12,9 @@ import { LoadingSpinner } from '../../components/loadingSpinner/LoadingSpinner';
 
 export const Login = () => {
   const [loadingData, setLoadingData] = useState<boolean>(false);
-  const { signIn } = UserAuth() || {};
-
+  const { user, signIn } = UserAuth() || {};
   const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -22,6 +22,10 @@ export const Login = () => {
   } = useForm({
     resolver: yupResolver(loginValidationSchema)
   });
+
+  useEffect(() => {
+    user && navigate('/home');
+  }, [user, navigate]);
 
   const submitLogin: SubmitHandler<FieldValues> = async (data) => {
     try {
