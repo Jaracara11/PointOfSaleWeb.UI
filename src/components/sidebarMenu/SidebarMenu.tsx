@@ -1,6 +1,6 @@
 import './sidebarMenu.css';
 import { UserAuth } from '../../context/UserContext';
-import { Link, NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Popover from 'react-bootstrap/Popover';
 import { deleteUserAuth, validateUserRolePermission } from '../../services/user.Service';
@@ -12,16 +12,23 @@ import { Tooltip } from 'react-bootstrap';
 export const SidebarMenu = () => {
   const { user } = UserAuth() || {};
   const [showModal, setShowModal] = useState<boolean>(false);
+  const navigate = useNavigate();
 
   const toggleModal = () => setShowModal((prev) => !prev);
+
+  const handleSignOutClick = () => {
+    deleteUserAuth();
+    navigate('/');
+    window.location.reload();
+  };
 
   const userPopover = (
     <Popover className="sidebar-popover">
       <Popover.Header as="h3">{user && user.name}</Popover.Header>
       <Popover.Body>
-        <Link className="btn btn-dark" to="/" onClick={() => deleteUserAuth()}>
+        <Button variant="dark" onClick={() => handleSignOutClick()}>
           Sign Out
-        </Link>
+        </Button>
         <Button variant="outline-dark" onClick={() => toggleModal()}>
           Change Password
         </Button>

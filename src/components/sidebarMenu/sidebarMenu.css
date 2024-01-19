@@ -59,7 +59,7 @@
   font-weight: bold;
 }
 
-.sidebar-popover a {
+.sidebar-popover button:nth-child(1) {
   float: left;
   margin-bottom: 1rem;
   margin-right: 0.2rem;
