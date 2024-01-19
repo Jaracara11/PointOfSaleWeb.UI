@@ -2,7 +2,7 @@ import './sales.css';
 import 'react-datepicker/dist/react-datepicker.css';
 import 'react-datepicker/dist/react-datepicker-cssmodules.css';
 import { useState } from 'react';
-import { Table } from 'react-bootstrap';
+import { Button, Table } from 'react-bootstrap';
 import DatePicker from 'react-datepicker';
 import { InvoiceByIdBtn } from '../../components/buttons/invoiceByIdBtn/InvoiceByIdBtn';
 import { InvoicesByDateBtn } from '../../components/buttons/invoicesByDateBtn/InvoicesByDateBtn';
@@ -16,6 +16,7 @@ export const Sales = () => {
   const [orders, setOrders] = useState<RecentOrder[]>([]);
   const [totalSales, setTotalSales] = useState<number>(0);
   const [searchOrderQuery, setSearchOrderQuery] = useState<string>('');
+  const [invoiceView, setInvoiceView] = useState<boolean>(true);
 
   const handleInvoicesFetched = (invoicesByDate: RecentOrder[]) =>
     invoicesByDate && setOrders(invoicesByDate || []);
@@ -26,10 +27,17 @@ export const Sales = () => {
     order.orderID.toLowerCase().includes(searchOrderQuery.trim().toLowerCase())
   );
 
+  const toggleView = () => setInvoiceView((prev) => !prev);
+
   return (
     <div className="sales common-container">
       <div className="row">
-        <h1 className="title">Sales History</h1>
+        <h1 className="title">Sales By {invoiceView ? 'Invoices' : 'Products'}</h1>
+        <div>
+          <Button variant="dark" onClick={() => toggleView()}>
+            Change View
+          </Button>
+        </div>
       </div>
       <div className="row">
         <div className="date-pickers">
