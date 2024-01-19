@@ -1,5 +1,6 @@
 import { ErrorInfo } from '../interfaces/ErrorInfo';
 import { swalMessageAlertWithTitle } from './swal.service';
+import { deleteUserAuth } from './user.Service';
 
 export const handleErrorResponse = (error: any, errorKey: string) => {
   if (error.code === 'ERR_NETWORK') {
@@ -23,6 +24,7 @@ export const handleErrorResponse = (error: any, errorKey: string) => {
     case 401:
       const unauthorizedMessage =
         'User unauthenticated or session expired, please sign in again <a href="/">here</a>.';
+      deleteUserAuth();
       handleErrorMessage(status, statusText, unauthorizedMessage);
       break;
 
