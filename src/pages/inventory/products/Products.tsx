@@ -6,7 +6,7 @@ import { getProductCategoryName } from '../../../utils/inventory.helper';
 import { UserAuth } from '../../../context/UserContext';
 import { SearchInput } from '../../../components/searchInput/SearchInput';
 import { useState } from 'react';
-import { validateUserRolePermission } from '../../../services/user.Service';
+import { validateUserRolePermission } from '../../../services/user.service';
 import { Link } from 'react-router-dom';
 import { UpsertProductModal } from '../../../components/modals/upsertProductModal/UpsertProductModal';
 import { LoadingSpinner } from '../../../components/loadingSpinner/LoadingSpinner';

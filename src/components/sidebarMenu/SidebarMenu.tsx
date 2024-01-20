@@ -3,7 +3,7 @@ import { UserAuth } from '../../context/UserContext';
 import { NavLink, useNavigate } from 'react-router-dom';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Popover from 'react-bootstrap/Popover';
-import { deleteUserAuth, validateUserRolePermission } from '../../services/user.Service';
+import { deleteUserAuth, validateUserRolePermission } from '../../services/user.service';
 import Button from 'react-bootstrap/esm/Button';
 import { ChangePasswordModal } from '../modals/changePasswordModal/ChangePasswordModal';
 import { useState } from 'react';

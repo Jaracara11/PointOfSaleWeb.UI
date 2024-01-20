@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { handleErrorResponse } from '../services/error.Service';
+import { handleErrorResponse } from '../services/error.service';
 import {
   GetAvailableDiscounts,
   cancelOrder,

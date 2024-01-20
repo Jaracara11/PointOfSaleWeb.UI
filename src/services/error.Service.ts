@@ -1,6 +1,6 @@
 import { ErrorInfo } from '../interfaces/ErrorInfo';
 import { swalMessageAlertWithTitle } from './swal.service';
-import { deleteUserAuth } from './user.Service';
+import { deleteUserAuth } from './user.service';
 
 export const handleErrorResponse = (error: any, errorKey: string) => {
   if (error.code === 'ERR_NETWORK') {

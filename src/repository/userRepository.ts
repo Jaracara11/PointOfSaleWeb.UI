@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { UserLogin } from '../interfaces/user/UserLogin';
 import { UserInfo } from '../interfaces/user/UserInfo';
-import { userAuthorizationHeaders } from '../services/user.Service';
+import { userAuthorizationHeaders } from '../services/user.service';
 import { UserPasswordChangeRequest } from '../interfaces/user/UserPasswordChangeRequest';
 import { UserData } from '../interfaces/user/UserData';
 import { UserRole } from '../interfaces/user/UserRole';

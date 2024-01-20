@@ -7,7 +7,7 @@ import { loginValidationSchema } from '../../services/yupValidation.service';
 import { UserLogin } from '../../interfaces/user/UserLogin';
 import { ErrorInputView } from '../../components/errorInputView/ErrorInputView';
 import { UserAuth } from '../../context/UserContext';
-import { handleErrorResponse } from '../../services/error.Service';
+import { handleErrorResponse } from '../../services/error.service';
 import { LoadingSpinner } from '../../components/loadingSpinner/LoadingSpinner';
 
 export const Login = () => {

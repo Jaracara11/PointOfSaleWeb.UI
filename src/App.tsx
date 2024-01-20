@@ -4,7 +4,7 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 import { AppRouter } from './router/AppRouter';
 import { UserContextProvider } from './context/UserContext';
 import { QueryClient, QueryCache, QueryClientProvider } from '@tanstack/react-query';
-import { handleErrorResponse } from './services/error.Service';
+import { handleErrorResponse } from './services/error.service';
 
 const queryClient = new QueryClient({
   queryCache: new QueryCache({

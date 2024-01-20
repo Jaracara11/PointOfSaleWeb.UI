@@ -5,7 +5,7 @@ import { CategoryModal } from '../../../components/modals/categoryModal/Category
 import { UserAuth } from '../../../context/UserContext';
 import { useGetCategories } from '../../../hooks/categories.hooks';
 import { SearchInput } from '../../../components/searchInput/SearchInput';
-import { validateUserRolePermission } from '../../../services/user.Service';
+import { validateUserRolePermission } from '../../../services/user.service';
 import Button from 'react-bootstrap/esm/Button';
 import { LoadingSpinner } from '../../../components/loadingSpinner/LoadingSpinner';
 

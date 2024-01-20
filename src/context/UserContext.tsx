@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react';
-import { getUserAuth, setUserAuth } from '../services/user.Service';
+import { getUserAuth, setUserAuth } from '../services/user.service';
 import { loginUser } from '../repository/userRepository';
 import { UserInfo } from '../interfaces/user/UserInfo';
 import { UserContextData } from '../interfaces/user/UserContextData';

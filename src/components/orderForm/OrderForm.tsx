@@ -6,7 +6,7 @@ import { OrderFormProps } from '../../interfaces/order/OrderFormProps';
 import { swalConfirmAlert, swalMessageAlert } from '../../services/swal.service';
 import { UserAuth } from '../../context/UserContext';
 import { useGetDiscountsByUser, useNewOrder } from '../../hooks/orders.hooks';
-import { getUserAuth } from '../../services/user.Service';
+import { getUserAuth } from '../../services/user.service';
 import { useNavigate } from 'react-router-dom';
 import { OrderRequest } from '../../interfaces/order/OrderRequest';
 import { OrderInfo } from '../../interfaces/order/OrderInfo';

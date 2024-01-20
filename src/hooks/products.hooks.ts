@@ -6,7 +6,7 @@ import {
   getBestSellerProducts,
   updateProduct
 } from '../repository/productRepository';
-import { handleErrorResponse } from '../services/error.Service';
+import { handleErrorResponse } from '../services/error.service';
 import { swalMessageAlert } from '../services/swal.service';
 
 export const useGetProducts = () => {

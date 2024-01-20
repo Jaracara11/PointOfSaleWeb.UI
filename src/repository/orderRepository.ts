@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { userAuthorizationHeaders } from '../services/user.Service';
+import { userAuthorizationHeaders } from '../services/user.service';
 import { OrderInfo } from '../interfaces/order/OrderInfo';
 import { OrderRequest } from '../interfaces/order/OrderRequest';
 import { RecentOrder } from '../interfaces/order/RecentOrder';
