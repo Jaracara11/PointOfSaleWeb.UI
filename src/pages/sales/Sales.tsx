@@ -9,11 +9,14 @@ import { SearchInput } from '../../components/searchInput/SearchInput';
 import { RecentOrder } from '../../interfaces/order/RecentOrder';
 import { SalesByDateBtn } from '../../components/buttons/salesByDateBtn/SalesByDateBtn';
 import { SalesByInvoiceTable } from '../../components/tables/salesByInvoiceTable/SalesByInvoiceTable';
+import { SalesByProductTable } from '../../components/tables/salesByProductTable/SalesByProductTable';
+import { ProductSold } from '../../interfaces/inventory/products/ProductSold';
 
 export const Sales = () => {
   const [initialDate, setInitialDate] = useState<Date>(new Date());
   const [finalDate, setFinalDate] = useState<Date>(new Date());
   const [orders, setOrders] = useState<RecentOrder[]>([]);
+  const [productsSold, setProductsSold] = useState<ProductSold[]>([]);
   const [totalSales, setTotalSales] = useState<number>(0);
   const [searchOrderQuery, setSearchOrderQuery] = useState<string>('');
   const [invoiceView, setInvoiceView] = useState<boolean>(true);
@@ -87,7 +90,13 @@ export const Sales = () => {
         </div>
       </div>
 
-      <div className="row">{invoiceView && <SalesByInvoiceTable orders={filteredOrders} />}</div>
+      <div className="row">
+        {invoiceView ? (
+          <SalesByInvoiceTable orders={filteredOrders} />
+        ) : (
+          <SalesByProductTable products={productsSold} />
+        )}
+      </div>
     </div>
   );
 };
