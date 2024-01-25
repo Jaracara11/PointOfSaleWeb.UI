@@ -7,8 +7,8 @@ import { loginValidationSchema } from '../../services/yupValidation.service';
 import { UserLogin } from '../../interfaces/user/UserLogin';
 import { ErrorInputView } from '../../components/errorInputView/ErrorInputView';
 import { UserAuth } from '../../context/UserContext';
-import { handleErrorResponse } from '../../services/error.service';
 import { LoadingSpinner } from '../../components/loadingSpinner/LoadingSpinner';
+import { handleErrorResponse } from '../../services/error.service';
 
 export const Login = () => {
   const [loadingData, setLoadingData] = useState<boolean>(false);
