@@ -11,8 +11,8 @@ export const SalesByProductTable = ({ products }: SalesByProductTableProps) => {
             <th>Product ID</th>
             <th>Product Name</th>
             <th>Product Description</th>
+            <th>Unit(s) Sold</th>
             <th>Total Sold</th>
-            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -21,8 +21,8 @@ export const SalesByProductTable = ({ products }: SalesByProductTableProps) => {
               <td>{product.productID}</td>
               <td>{product.productName}</td>
               <td>{product.productDescription}</td>
-              <td>${product.totalSold}</td>
               <td></td>
+              <td>${product.totalSold}</td>
             </tr>
           ))}
         </tbody>

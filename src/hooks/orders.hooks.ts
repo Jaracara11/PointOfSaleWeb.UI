@@ -39,7 +39,7 @@ export const useGetRecentOrders = () => {
 
 export const useGetOrdersByDate = (initialDate: Date, finalDate: Date) => {
   return useQuery({
-    queryKey: ['orderByDate'],
+    queryKey: ['ordersByDate'],
     queryFn: () => getOrdersByDate(initialDate, finalDate),
     meta: {
       errorMessage: ''
@@ -100,7 +100,7 @@ export const useNewOrder = () => {
       queryClient.invalidateQueries({ queryKey: ['products'] });
       queryClient.invalidateQueries({ queryKey: ['orders'] });
       queryClient.invalidateQueries({ queryKey: ['salesToday'] });
-      queryClient.invalidateQueries({ queryKey: ['orderByDate'] });
+      queryClient.invalidateQueries({ queryKey: ['ordersByDate'] });
       queryClient.invalidateQueries({ queryKey: ['salesByDate'] });
       swalMessageAlert('Transaction Completed', 'success');
     },
@@ -117,8 +117,9 @@ export const useCancelOrder = () => {
       queryClient.invalidateQueries({ queryKey: ['products'] });
       queryClient.invalidateQueries({ queryKey: ['orders'] });
       queryClient.invalidateQueries({ queryKey: ['salesToday'] });
-      queryClient.invalidateQueries({ queryKey: ['orderByDate'] });
+      queryClient.invalidateQueries({ queryKey: ['ordersByDate'] });
       queryClient.invalidateQueries({ queryKey: ['salesByDate'] });
+
       swalMessageAlert(`Order cancelled successfully`, 'info');
     },
     onError: (error) => handleErrorResponse(error, 'OrdersError')

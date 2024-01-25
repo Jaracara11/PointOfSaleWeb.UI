@@ -11,6 +11,7 @@ import { SalesByDateBtn } from '../../components/buttons/salesByDateBtn/SalesByD
 import { SalesByInvoiceTable } from '../../components/tables/salesByInvoiceTable/SalesByInvoiceTable';
 import { SalesByProductTable } from '../../components/tables/salesByProductTable/SalesByProductTable';
 import { ProductSold } from '../../interfaces/inventory/products/ProductSold';
+import { SalesByProductBtn } from '../../components/buttons/salesByProductBtn/SalesByProductBtn';
 
 export const Sales = () => {
   const [initialDate, setInitialDate] = useState<Date>(new Date());
@@ -21,10 +22,13 @@ export const Sales = () => {
   const [searchOrderQuery, setSearchOrderQuery] = useState<string>('');
   const [invoiceView, setInvoiceView] = useState<boolean>(true);
 
+  const handleSalesFetched = (salesByDate: number) => setTotalSales(salesByDate);
+
   const handleInvoicesFetched = (invoicesByDate: RecentOrder[]) =>
     invoicesByDate && setOrders(invoicesByDate || []);
 
-  const handleSalesFetched = (salesByDate: number) => setTotalSales(salesByDate);
+  const handleProductsSoldFetched = (productsSoldByDate: ProductSold[]) =>
+    productsSoldByDate && setProductsSold(productsSoldByDate || []);
 
   const filteredOrders: RecentOrder[] = (orders || []).filter((order) =>
     order.orderID.toLowerCase().includes(searchOrderQuery.trim().toLowerCase())
@@ -62,7 +66,7 @@ export const Sales = () => {
         </div>
 
         <div className="history-panel">
-          {invoiceView && (
+          {invoiceView ? (
             <>
               <InvoicesByDateBtn
                 initialDate={initialDate}
@@ -83,6 +87,12 @@ export const Sales = () => {
                 value={'$' + totalSales}
               />
             </>
+          ) : (
+            <SalesByProductBtn
+              initialDate={initialDate}
+              finalDate={finalDate}
+              onProductsFetched={handleProductsSoldFetched}
+            />
           )}
         </div>
         <div>

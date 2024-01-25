@@ -4,6 +4,7 @@ import {
   deleteProduct,
   getAllProducts,
   getBestSellerProducts,
+  getProductsSoldByDate,
   updateProduct
 } from '../repository/productRepository';
 import { handleErrorResponse } from '../services/error.service';
@@ -30,6 +31,20 @@ export const useGetBestSellerProducts = () => {
     },
     gcTime: 43200000,
     staleTime: 43200000
+  });
+};
+
+export const useGetProductsSoldByDate = (initialDate: Date, finalDate: Date) => {
+  return useQuery({
+    queryKey: ['productsByDate'],
+    queryFn: () => getProductsSoldByDate(initialDate, finalDate),
+    meta: {
+      errorMessage: ''
+    },
+    gcTime: 43200000,
+    staleTime: 43200000,
+    enabled: false,
+    retry: false
   });
 };
 

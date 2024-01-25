@@ -1,12 +1,12 @@
 import { Button } from 'react-bootstrap';
-import { InvoicesByDateBtnProps } from '../../../interfaces/InvoicesByDateBtnProps';
 import { useGetOrdersByDate } from '../../../hooks/orders.hooks';
+import { SalesInfoByDateBtnProps } from '../../../interfaces/SalesInfoByDateBtnProps';
 
 export const InvoicesByDateBtn = ({
   initialDate,
   finalDate,
-  onInvoicesFetched
-}: InvoicesByDateBtnProps) => {
+  onInvoicesFetched = () => {}
+}: SalesInfoByDateBtnProps) => {
   const getOrdersByDate = useGetOrdersByDate(initialDate, finalDate);
 
   const handleOrdersByDateRequest = () => {
