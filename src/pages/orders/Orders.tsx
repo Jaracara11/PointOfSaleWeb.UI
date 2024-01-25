@@ -1,6 +1,6 @@
 import './orders.css';
 import { OrderForm } from '../../components/orderForm/OrderForm';
-import { OrdersTable } from '../../components/ordersTable/OrdersTable';
+import { OrdersTable } from '../../components/tables/ordersTable/OrdersTable';
 import { useState } from 'react';
 import { Product } from '../../interfaces/inventory/products/Product';
 import { useNavigate } from 'react-router-dom';

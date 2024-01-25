@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
-import { useGetCategories } from '../../hooks/categories.hooks';
-import { useGetProducts } from '../../hooks/products.hooks';
-import { SearchInput } from '../searchInput/SearchInput';
-import { Product } from '../../interfaces/inventory/products/Product';
+import { useGetCategories } from '../../../hooks/categories.hooks';
+import { useGetProducts } from '../../../hooks/products.hooks';
+import { SearchInput } from '../../searchInput/SearchInput';
+import { Product } from '../../../interfaces/inventory/products/Product';
 import { Button, Table } from 'react-bootstrap';
-import { getProductCategoryName } from '../../utils/inventory.helper';
-import { OrdersTableProps } from '../../interfaces/OrdersTableProps';
-import { LoadingSpinner } from '../loadingSpinner/LoadingSpinner';
+import { getProductCategoryName } from '../../../utils/inventory.helper';
+import { OrdersTableProps } from '../../../interfaces/OrdersTableProps';
+import { LoadingSpinner } from '../../loadingSpinner/LoadingSpinner';
 
 export const OrdersTable = ({
   cartProducts,
