@@ -1,4 +1,4 @@
-import { Product } from './inventory/products/Product';
+import { Product } from '../inventory/products/Product';
 
 export interface OrdersTableProps {
   removeFromCart: (productID: string) => void;

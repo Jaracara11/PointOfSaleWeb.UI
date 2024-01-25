@@ -1,4 +1,4 @@
-import { RecentOrder } from './RecentOrder';
+import { RecentOrder } from '../order/RecentOrder';
 
 export interface SalesByInvoiceTableProps {
   orders: RecentOrder[];

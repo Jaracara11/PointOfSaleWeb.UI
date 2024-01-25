@@ -5,7 +5,7 @@ import { SearchInput } from '../../searchInput/SearchInput';
 import { Product } from '../../../interfaces/inventory/products/Product';
 import { Button, Table } from 'react-bootstrap';
 import { getProductCategoryName } from '../../../utils/inventory.helper';
-import { OrdersTableProps } from '../../../interfaces/OrdersTableProps';
+import { OrdersTableProps } from '../../../interfaces/order/OrdersTableProps';
 import { LoadingSpinner } from '../../loadingSpinner/LoadingSpinner';
 
 export const OrdersTable = ({

@@ -1,7 +1,7 @@
 import { Table } from 'react-bootstrap';
 import { RecentOrder } from '../../../interfaces/order/RecentOrder';
 import { InvoiceByIdBtn } from '../../buttons/invoiceByIdBtn/InvoiceByIdBtn';
-import { SalesByInvoiceTableProps } from '../../../interfaces/order/SalesByInvoiceTableProps';
+import { SalesByInvoiceTableProps } from '../../../interfaces/sales/SalesByInvoiceTableProps';
 
 export const SalesByInvoiceTable = ({ orders }: SalesByInvoiceTableProps) => {
   return (

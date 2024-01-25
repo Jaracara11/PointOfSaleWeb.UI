@@ -1,6 +1,6 @@
 import { Button } from 'react-bootstrap';
 import { useGetSalesByDate } from '../../../hooks/orders.hooks';
-import { SalesByDateBtnProps } from '../../../interfaces/order/SalesByDateBtnProps';
+import { SalesByDateBtnProps } from '../../../interfaces/sales/SalesByDateBtnProps';
 
 export const SalesByDateBtn = ({
   initialDate,

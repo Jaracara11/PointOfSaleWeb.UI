@@ -1,5 +1,5 @@
 import { Button } from 'react-bootstrap';
-import { InvoicesByDateBtnProps } from '../../../interfaces/order/InvoicesByDateBtnProps';
+import { InvoicesByDateBtnProps } from '../../../interfaces/InvoicesByDateBtnProps';
 import { useGetOrdersByDate } from '../../../hooks/orders.hooks';
 
 export const InvoicesByDateBtn = ({
