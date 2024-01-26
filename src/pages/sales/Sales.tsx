@@ -96,7 +96,9 @@ export const Sales = () => {
           )}
         </div>
         <div>
-          <SearchInput searchQuery={searchOrderQuery} setSearchQuery={setSearchOrderQuery} />
+          {invoiceView && (
+            <SearchInput searchQuery={searchOrderQuery} setSearchQuery={setSearchOrderQuery} />
+          )}
         </div>
       </div>
 
