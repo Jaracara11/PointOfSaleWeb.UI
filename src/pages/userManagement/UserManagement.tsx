@@ -7,9 +7,9 @@ import { useState } from 'react';
 import { UpsertUserModal } from '../../components/modals/upsertUserModal/UpsertUserModal';
 import { ChangePasswordModal } from '../../components/modals/changePasswordModal/ChangePasswordModal';
 import { UserData } from '../../interfaces/user/UserData';
-import { getUserRoleName } from '../../utils/string.helper';
 import { LoadingSpinner } from '../../components/loadingSpinner/LoadingSpinner';
 import { useUserStore } from '../../stores/user.store';
+import { getUserRoleName } from '../../services/user.service';
 
 export const UserManagement = () => {
   const navigate = useNavigate();
