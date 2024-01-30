@@ -1,5 +1,4 @@
 import './sidebarMenu.css';
-import { UserAuth } from '../../context/UserContext';
 import { NavLink, useNavigate } from 'react-router-dom';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Popover from 'react-bootstrap/Popover';
@@ -8,9 +7,10 @@ import Button from 'react-bootstrap/esm/Button';
 import { ChangePasswordModal } from '../modals/changePasswordModal/ChangePasswordModal';
 import { useState } from 'react';
 import { Tooltip } from 'react-bootstrap';
+import { useUserStore } from '../../stores/user.store';
 
 export const SidebarMenu = () => {
-  const { user } = UserAuth() || {};
+  const { user } = useUserStore();
   const [showModal, setShowModal] = useState<boolean>(false);
   const navigate = useNavigate();
 

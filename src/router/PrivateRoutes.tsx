@@ -1,9 +1,9 @@
 import { Outlet } from 'react-router-dom';
 import { Login } from '../pages/login/Login';
-import { UserAuth } from '../context/UserContext';
+import { useUserStore } from '../stores/user.store';
 
 export const PrivateRoutes = () => {
-  const { user } = UserAuth() || {};
+  const { user } = useUserStore();
 
   return user ? <Outlet /> : <Login />;
 };

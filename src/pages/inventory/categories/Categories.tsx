@@ -2,15 +2,15 @@ import Table from 'react-bootstrap/Table';
 import { Category } from '../../../interfaces/inventory/Category';
 import { useState } from 'react';
 import { CategoryModal } from '../../../components/modals/categoryModal/CategoryModal';
-import { UserAuth } from '../../../context/UserContext';
 import { useGetCategories } from '../../../hooks/categories.hooks';
 import { SearchInput } from '../../../components/searchInput/SearchInput';
 import { validateUserRolePermission } from '../../../services/user.service';
 import Button from 'react-bootstrap/esm/Button';
 import { LoadingSpinner } from '../../../components/loadingSpinner/LoadingSpinner';
+import { useUserStore } from '../../../stores/user.store';
 
 export const Categories = () => {
-  const { user } = UserAuth() || {};
+  const { user } = useUserStore();
   const categoriesQuery = useGetCategories();
   const [showModal, setShowModal] = useState<boolean>(false);
   const [searchCategoryQuery, setSearchCategoryQuery] = useState<string>('');

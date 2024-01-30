@@ -1,5 +1,4 @@
 import { Button, Table } from 'react-bootstrap';
-import { UserAuth } from '../../context/UserContext';
 import { useGetRoles, useGetUsers } from '../../hooks/users.hooks';
 import { swalMessageAlert } from '../../services/swal.service';
 import { useNavigate } from 'react-router-dom';
@@ -10,10 +9,11 @@ import { ChangePasswordModal } from '../../components/modals/changePasswordModal
 import { UserData } from '../../interfaces/user/UserData';
 import { getUserRoleName } from '../../utils/string.helper';
 import { LoadingSpinner } from '../../components/loadingSpinner/LoadingSpinner';
+import { useUserStore } from '../../stores/user.store';
 
 export const UserManagement = () => {
   const navigate = useNavigate();
-  const { user } = UserAuth() || {};
+  const { user } = useUserStore();
   const usersQuery = useGetUsers();
   const rolesQuery = useGetRoles();
   const [searchUserQuery, setSearchUserQuery] = useState<string>('');

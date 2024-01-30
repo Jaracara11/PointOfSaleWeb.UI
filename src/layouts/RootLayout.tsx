@@ -1,10 +1,10 @@
 import './rootLayout.css';
 import { Outlet } from 'react-router-dom';
 import { SidebarMenu } from '../components/sidebarMenu/SidebarMenu';
-import { UserAuth } from '../context/UserContext';
+import { useUserStore } from '../stores/user.store';
 
 export const RootLayout = () => {
-  const { user } = UserAuth() || {};
+  const { user } = useUserStore();
 
   return (
     <div className="root-layout">

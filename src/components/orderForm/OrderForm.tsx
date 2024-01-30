@@ -4,16 +4,16 @@ import { useEffect, useState } from 'react';
 import { Product } from '../../interfaces/inventory/products/Product';
 import { OrderFormProps } from '../../interfaces/order/OrderFormProps';
 import { swalConfirmAlert, swalMessageAlert } from '../../services/swal.service';
-import { UserAuth } from '../../context/UserContext';
 import { useGetDiscountsByUser, useNewOrder } from '../../hooks/orders.hooks';
 import { getUserAuth } from '../../services/user.service';
 import { useNavigate } from 'react-router-dom';
 import { OrderRequest } from '../../interfaces/order/OrderRequest';
 import { OrderInfo } from '../../interfaces/order/OrderInfo';
 import { LoadingSpinner } from '../loadingSpinner/LoadingSpinner';
+import { useUserStore } from '../../stores/user.store';
 
 export const OrderForm = ({ products, updateCartProduct, removeFromCart }: OrderFormProps) => {
-  const { user } = UserAuth() || {};
+  const { user } = useUserStore();
   const discountsQuery = useGetDiscountsByUser(user?.username || '');
   const [order, setOrder] = useState<Product[]>([]);
   const [subtotal, setSubtotal] = useState<number>(0);

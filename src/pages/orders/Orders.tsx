@@ -4,12 +4,12 @@ import { OrdersTable } from '../../components/tables/ordersTable/OrdersTable';
 import { useState } from 'react';
 import { Product } from '../../interfaces/inventory/products/Product';
 import { useNavigate } from 'react-router-dom';
-import { UserAuth } from '../../context/UserContext';
 import { swalMessageAlert } from '../../services/swal.service';
+import { useUserStore } from '../../stores/user.store';
 
 export const Orders = () => {
   const navigate = useNavigate();
-  const { user } = UserAuth() || {};
+  const { user } = useUserStore();
   const [cartProducts, setCartProducts] = useState<Product[]>([]);
 
   const removeFromCart = (productID: string) =>

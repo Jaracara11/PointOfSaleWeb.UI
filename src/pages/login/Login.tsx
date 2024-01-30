@@ -6,13 +6,13 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { loginValidationSchema } from '../../services/yupValidation.service';
 import { UserLogin } from '../../interfaces/user/UserLogin';
 import { ErrorInputView } from '../../components/errorInputView/ErrorInputView';
-import { UserAuth } from '../../context/UserContext';
 import { LoadingSpinner } from '../../components/loadingSpinner/LoadingSpinner';
 import { handleErrorResponse } from '../../services/error.service';
+import { useUserStore } from '../../stores/user.store';
 
 export const Login = () => {
   const [loadingData, setLoadingData] = useState<boolean>(false);
-  const { user, signIn } = UserAuth() || {};
+  const { user, signIn } = useUserStore();
   const navigate = useNavigate();
 
   const {

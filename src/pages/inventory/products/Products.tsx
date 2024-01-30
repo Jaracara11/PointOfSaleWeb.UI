@@ -3,16 +3,16 @@ import { Button, Table } from 'react-bootstrap';
 import { Product } from '../../../interfaces/inventory/products/Product';
 import { useGetCategories } from '../../../hooks/categories.hooks';
 import { getProductCategoryName } from '../../../utils/inventory.helper';
-import { UserAuth } from '../../../context/UserContext';
 import { SearchInput } from '../../../components/searchInput/SearchInput';
 import { useState } from 'react';
 import { validateUserRolePermission } from '../../../services/user.service';
 import { Link } from 'react-router-dom';
 import { UpsertProductModal } from '../../../components/modals/upsertProductModal/UpsertProductModal';
 import { LoadingSpinner } from '../../../components/loadingSpinner/LoadingSpinner';
+import { useUserStore } from '../../../stores/user.store';
 
 export const Products = () => {
-  const { user } = UserAuth() || {};
+  const { user } = useUserStore();
   const productsQuery = useGetProducts();
   const categoriesQuery = useGetCategories();
   const [searchProductQuery, setSearchProductQuery] = useState<string>('');
