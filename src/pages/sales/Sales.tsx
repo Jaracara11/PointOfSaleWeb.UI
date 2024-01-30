@@ -12,6 +12,8 @@ import { SalesByInvoiceTable } from '../../components/tables/salesByInvoiceTable
 import { SalesByProductTable } from '../../components/tables/salesByProductTable/SalesByProductTable';
 import { ProductSold } from '../../interfaces/inventory/products/ProductSold';
 import { SalesByProductBtn } from '../../components/buttons/salesByProductBtn/SalesByProductBtn';
+import { ExportDataToExcelBtn } from '../../components/buttons/exportDataToExcelBtn/ExportDataToExcelBtn';
+import { formatDate } from '../../utils/string.helper';
 
 export const Sales = () => {
   const [initialDate, setInitialDate] = useState<Date>(new Date());
@@ -35,6 +37,26 @@ export const Sales = () => {
   );
 
   const toggleView = () => setInvoiceView((prev) => !prev);
+
+  const excelFileHeaders = [
+    'Product ID',
+    'Product Name',
+    'Product Description',
+    'Unit(s) Sold',
+    'Total Sold'
+  ];
+
+  const excelFileName = `Sold Products Report From ${formatDate(
+    initialDate.toString()
+  )} to ${formatDate(finalDate.toString())}`;
+
+  const excelFileData = productsSold.map((product) => [
+    product.productID,
+    product.productName,
+    product.productDescription,
+    product.totalUnitsSold,
+    product.totalSold
+  ]);
 
   return (
     <div className="sales common-container">
@@ -88,11 +110,18 @@ export const Sales = () => {
               />
             </>
           ) : (
-            <SalesByProductBtn
-              initialDate={initialDate}
-              finalDate={finalDate}
-              onProductsFetched={handleProductsSoldFetched}
-            />
+            <>
+              <SalesByProductBtn
+                initialDate={initialDate}
+                finalDate={finalDate}
+                onProductsFetched={handleProductsSoldFetched}
+              />
+              <ExportDataToExcelBtn
+                headers={excelFileHeaders}
+                fileName={excelFileName}
+                data={excelFileData}
+              />
+            </>
           )}
         </div>
         <div>
