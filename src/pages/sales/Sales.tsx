@@ -13,7 +13,7 @@ import { SalesByProductTable } from '../../components/tables/salesByProductTable
 import { ProductSold } from '../../interfaces/inventory/products/ProductSold';
 import { SalesByProductBtn } from '../../components/buttons/salesByProductBtn/SalesByProductBtn';
 import { ExportDataToExcelBtn } from '../../components/buttons/exportDataToExcelBtn/ExportDataToExcelBtn';
-import { formatDate } from '../../utils/string.helper';
+import { formatDate } from '../../utils/string.utils';
 
 export const Sales = () => {
   const [initialDate, setInitialDate] = useState<Date>(new Date());

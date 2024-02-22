@@ -6,7 +6,7 @@ import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { productValidationSchema } from '../../../services/yupValidation.service';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { ErrorInputView } from '../../errorInputView/ErrorInputView';
-import { firstCharToUpper } from '../../../utils/string.helper';
+import { firstCharToUpper } from '../../../utils/string.utils';
 import { swalConfirmAlert, swalMessageAlert } from '../../../services/swal.service';
 import {
   useDeleteProduct,

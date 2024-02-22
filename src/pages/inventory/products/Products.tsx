@@ -2,7 +2,7 @@ import { useGetProducts } from '../../../hooks/products.hooks';
 import { Button, Table } from 'react-bootstrap';
 import { Product } from '../../../interfaces/inventory/products/Product';
 import { useGetCategories } from '../../../hooks/categories.hooks';
-import { getProductCategoryName } from '../../../utils/inventory.helper';
+import { getProductCategoryName } from '../../../utils/inventory.utils';
 import { SearchInput } from '../../../components/searchInput/SearchInput';
 import { useState } from 'react';
 import { validateUserRolePermission } from '../../../services/user.service';

@@ -9,7 +9,7 @@ import { swalConfirmAlert } from '../../../services/swal.service';
 import { UpsertUserModalProps } from '../../../interfaces/modals/UpsertUserModalProps';
 import { UserData } from '../../../interfaces/user/UserData';
 import { useDeleteUser, useSaveNewUser, useUpdateUser } from '../../../hooks/users.hooks';
-import { firstCharToUpper } from '../../../utils/string.helper';
+import { firstCharToUpper } from '../../../utils/string.utils';
 import { LoadingSpinner } from '../../loadingSpinner/LoadingSpinner';
 
 export const UpsertUserModal = ({ toggle, user, roles }: UpsertUserModalProps) => {

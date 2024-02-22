@@ -6,7 +6,7 @@ import { categoryValidationSchema } from '../../../services/yupValidation.servic
 import { ErrorInputView } from '../../errorInputView/ErrorInputView';
 import { Category } from '../../../interfaces/inventory/Category';
 import { useEffect, useState } from 'react';
-import { firstCharToUpper } from '../../../utils/string.helper';
+import { firstCharToUpper } from '../../../utils/string.utils';
 import { swalConfirmAlert, swalMessageAlert } from '../../../services/swal.service';
 import { CategoryModalProps } from '../../../interfaces/modals/CategoryModalProps';
 import {

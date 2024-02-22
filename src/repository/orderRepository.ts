@@ -3,7 +3,7 @@ import { userAuthorizationHeaders } from '../services/user.service';
 import { OrderInfo } from '../interfaces/order/OrderInfo';
 import { OrderRequest } from '../interfaces/order/OrderRequest';
 import { RecentOrder } from '../interfaces/order/RecentOrder';
-import { parseProductsJSON } from '../utils/inventory.helper';
+import { parseProductsJSON } from '../utils/inventory.utils';
 
 const API_URL = import.meta.env.VITE_API_URL + '/orders';
 

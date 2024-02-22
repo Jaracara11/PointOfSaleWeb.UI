@@ -13,7 +13,7 @@ import { getUserAuth } from '../../services/user.service';
 import { OrderInfo } from '../../interfaces/order/OrderInfo';
 import { LoadingSpinner } from '../../components/loadingSpinner/LoadingSpinner';
 import { SearchInput } from '../../components/searchInput/SearchInput';
-import { getProductCategoryName } from '../../utils/inventory.helper';
+import { getProductCategoryName } from '../../utils/inventory.utils';
 
 export const Orders = () => {
   const navigate = useNavigate();
