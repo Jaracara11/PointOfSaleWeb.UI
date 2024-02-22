@@ -208,6 +208,7 @@ export const Orders = () => {
                     <Button
                       variant="dark"
                       size="sm"
+                      disabled={product.productQuantity === product.productStock}
                       onClick={() => handleIncreaseQuantity(product.productID || '')}
                     >
                       <i className="bi bi-plus"></i>
