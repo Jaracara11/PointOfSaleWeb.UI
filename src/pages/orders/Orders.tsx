@@ -148,6 +148,7 @@ export const Orders = () => {
                     const isProductAdded = cartProducts.find(
                       (p) => p.productID === product.productID
                     );
+
                     return (
                       <tr key={product.productID}>
                         <td>
