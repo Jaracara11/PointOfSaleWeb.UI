@@ -104,22 +104,15 @@ export const Orders = () => {
 
   useEffect(() => {
     const productsToRemove = cartProducts.filter((product) => product.productQuantity === 0);
+
     productsToRemove.forEach((product) => {
       removeFromCart(product.productID || '');
     });
-  }, [cartProducts]);
 
-  useEffect(() => {
     cartProducts.length === 0 && setDiscount(0);
-  }, [cartProducts]);
 
-  useEffect(() => {
     setSubtotal(calculateSubTotal());
-  }, [cartProducts]);
-
-  useEffect(() => {
-    setSubtotal(calculateSubTotal());
-  }, [discount]);
+  }, [cartProducts, discount]);
 
   return productsQuery.isPending || categoriesQuery.isPending || discountsQuery.isPending ? (
     <LoadingSpinner />
