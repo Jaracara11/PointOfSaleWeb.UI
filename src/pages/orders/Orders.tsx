@@ -18,19 +18,14 @@ import { getProductCategoryName } from '../../utils/inventory.helper';
 export const Orders = () => {
   const navigate = useNavigate();
   const { user } = useUserStore();
-  const [cartProducts, setCartProducts] = useState<Product[]>([]);
-  const [searchProductQuery, setSearchProductQuery] = useState<string>('');
-  const discountsQuery = useGetDiscountsByUser(user?.username || '');
   const productsQuery = useGetProducts();
   const categoriesQuery = useGetCategories();
   const newOrderMutation = useNewOrder();
-
-  useEffect(() => {
-    const productsToRemove = cartProducts.filter((product) => product.productQuantity === 0);
-    productsToRemove.forEach((product) => {
-      removeFromCart(product.productID || '');
-    });
-  }, [cartProducts]);
+  const [cartProducts, setCartProducts] = useState<Product[]>([]);
+  const [searchProductQuery, setSearchProductQuery] = useState<string>('');
+  const discountsQuery = useGetDiscountsByUser(user?.username || '');
+  const [discount, setDiscount] = useState<number>(0);
+  const [subtotal, setSubtotal] = useState<number>(0);
 
   const removeFromCart = (productID: string) =>
     setCartProducts((prevProducts) => prevProducts.filter((p) => p.productID !== productID));
@@ -50,6 +45,7 @@ export const Orders = () => {
       }
       return product;
     });
+
     updateCartProduct(updatedCartProducts);
   };
 
@@ -58,24 +54,27 @@ export const Orders = () => {
       if (product.productID === productID && product.productQuantity! > 0) {
         return { ...product, productQuantity: (product.productQuantity || 0) - 1 };
       }
+
       return product;
     });
+
     updateCartProduct(updatedCartProducts);
   };
 
   const clearCart = async () => {
     const confirmTitle = 'Are you sure you want to clear the cart?';
     const isConfirmed = await swalConfirmAlert(confirmTitle, 'Clear', 'warning');
-    if (isConfirmed) {
-      setCartProducts([]);
-    }
+
+    isConfirmed && setCartProducts([]);
   };
 
   const checkoutOrder = async () => {
     const confirmTitle = `Please confirm order for <strong>$${calculateTotal().toFixed(
       2
     )}</strong>`;
+
     const isConfirmed = await swalConfirmAlert(confirmTitle, 'Confirm', 'warning');
+
     if (isConfirmed) {
       const orderObj: OrderRequest = {
         user: getUserAuth()?.username || '',
@@ -85,6 +84,7 @@ export const Orders = () => {
         })),
         discount: discount || null
       };
+
       newOrderMutation.mutateAsync(orderObj).then((response: OrderInfo) => {
         navigate('/invoice', { state: { data: response } });
       });
@@ -97,8 +97,21 @@ export const Orders = () => {
       0
     );
 
-  const [discount, setDiscount] = useState<number>(0);
-  const [subtotal, setSubtotal] = useState<number>(0);
+  const calculateTotal = () => subtotal * (1 - discount);
+
+  const handleDiscountChange = (event: React.ChangeEvent<HTMLSelectElement>) =>
+    setDiscount(parseFloat(event.target.value));
+
+  useEffect(() => {
+    const productsToRemove = cartProducts.filter((product) => product.productQuantity === 0);
+    productsToRemove.forEach((product) => {
+      removeFromCart(product.productID || '');
+    });
+  }, [cartProducts]);
+
+  useEffect(() => {
+    cartProducts.length === 0 && setDiscount(0);
+  }, [cartProducts]);
 
   useEffect(() => {
     setSubtotal(calculateSubTotal());
@@ -107,12 +120,6 @@ export const Orders = () => {
   useEffect(() => {
     setSubtotal(calculateSubTotal());
   }, [discount]);
-
-  const calculateTotal = () => subtotal * (1 - discount);
-
-  const handleDiscountChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setDiscount(parseFloat(event.target.value));
-  };
 
   return productsQuery.isPending || categoriesQuery.isPending || discountsQuery.isPending ? (
     <LoadingSpinner />
@@ -231,7 +238,12 @@ export const Orders = () => {
               </li>
               <li>
                 <strong>Discount:&nbsp; </strong>
-                <select name="order-discount" value={discount} onChange={handleDiscountChange}>
+                <select
+                  name="order-discount"
+                  value={discount}
+                  disabled={cartProducts.length === 0}
+                  onChange={handleDiscountChange}
+                >
                   <option value={0}>0%</option>
                   {discountsQuery.data &&
                     discountsQuery.data.map((discount) => (
