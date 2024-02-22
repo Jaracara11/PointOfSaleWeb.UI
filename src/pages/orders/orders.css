@@ -17,3 +17,35 @@
   margin-top: 3.3rem;
   margin-left: 1rem;
 }
+
+/******************ORDERS FORM*****************/
+
+.orders-form h4 {
+  margin-top: 0.5rem;
+}
+
+.orders-form td:nth-child(4) button {
+  margin: 0.2rem;
+}
+
+.orders-form div:nth-child(3) button {
+  margin-right: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.orders-form ul {
+  max-width: 50%;
+}
+
+.orders-form li {
+  margin-bottom: 0.3rem;
+}
+
+.orders-form .order-info {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.orders-form .order-info div {
+  margin-top: 0.5rem;
+}

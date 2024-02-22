@@ -181,7 +181,7 @@ export const Orders = () => {
           </Table>
         </div>
 
-        <div className="order-form card bg-light">
+        <div className="orders-form card bg-light">
           <h4 className="title">Current Order</h4>
           <Table hover>
             <thead>
