@@ -13,10 +13,7 @@ import { swalMessageAlert } from '../services/swal.service';
 export const useGetProducts = () => {
   return useQuery({
     queryKey: ['products'],
-    queryFn: getAllProducts,
-    meta: {
-      errorMessage: ''
-    }
+    queryFn: getAllProducts
   });
 };
 

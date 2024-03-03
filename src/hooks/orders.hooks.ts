@@ -16,9 +16,6 @@ export const useGetDiscountsByUser = (username: string) => {
   return useQuery({
     queryKey: ['discounts', username],
     queryFn: () => GetAvailableDiscounts(username),
-    meta: {
-      errorMessage: ''
-    },
     retry: false
   });
 };
@@ -26,10 +23,7 @@ export const useGetDiscountsByUser = (username: string) => {
 export const useGetRecentOrders = () => {
   return useQuery({
     queryKey: ['orders'],
-    queryFn: getRecentOrders,
-    meta: {
-      errorMessage: ''
-    }
+    queryFn: getRecentOrders
   });
 };
 
@@ -37,9 +31,6 @@ export const useGetOrdersByDate = (initialDate: Date, finalDate: Date) => {
   return useQuery({
     queryKey: ['ordersByDate'],
     queryFn: () => getOrdersByDate(initialDate, finalDate),
-    meta: {
-      errorMessage: ''
-    },
     enabled: false,
     retry: false
   });
@@ -50,9 +41,6 @@ export const useGetOrderByID = (orderID: string) => {
     enabled: false,
     queryKey: ['order', orderID],
     queryFn: () => getOrderByID(orderID),
-    meta: {
-      errorMessage: ''
-    },
     retry: false
   });
 };
