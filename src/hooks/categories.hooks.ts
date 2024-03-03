@@ -11,12 +11,7 @@ import { swalMessageAlert } from '../services/swal.service';
 export const useGetCategories = () => {
   return useQuery({
     queryKey: ['categories'],
-    queryFn: getAllCategories,
-    meta: {
-      errorMessage: ''
-    },
-    gcTime: 43200000,
-    staleTime: 43200000
+    queryFn: getAllCategories
   });
 };
 

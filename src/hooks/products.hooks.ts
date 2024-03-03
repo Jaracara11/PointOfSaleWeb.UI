@@ -16,21 +16,14 @@ export const useGetProducts = () => {
     queryFn: getAllProducts,
     meta: {
       errorMessage: ''
-    },
-    gcTime: 43200000,
-    staleTime: 43200000
+    }
   });
 };
 
 export const useGetBestSellerProducts = () => {
   return useQuery({
     queryKey: ['bestSellers'],
-    queryFn: getBestSellerProducts,
-    meta: {
-      errorMessage: ''
-    },
-    gcTime: 43200000,
-    staleTime: 43200000
+    queryFn: getBestSellerProducts
   });
 };
 
@@ -38,11 +31,6 @@ export const useGetProductsSoldByDate = (initialDate: Date, finalDate: Date) => 
   return useQuery({
     queryKey: ['productsByDate'],
     queryFn: () => getProductsSoldByDate(initialDate, finalDate),
-    meta: {
-      errorMessage: ''
-    },
-    gcTime: 43200000,
-    staleTime: 43200000,
     enabled: false,
     retry: false
   });

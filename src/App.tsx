@@ -6,6 +6,7 @@ import { QueryClient, QueryCache, QueryClientProvider } from '@tanstack/react-qu
 import { handleErrorResponse } from './services/error.service';
 
 const queryClient = new QueryClient({
+  defaultOptions: { queries: { gcTime: 43200000, staleTime: 21600000 } },
   queryCache: new QueryCache({
     onError: (error: Error, query: any) => {
       query.state.error && handleErrorResponse(error, query.state.error.message);

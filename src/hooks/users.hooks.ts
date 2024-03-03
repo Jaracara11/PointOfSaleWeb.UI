@@ -13,12 +13,7 @@ import { swalMessageAlert } from '../services/swal.service';
 export const useGetUsers = () => {
   return useQuery({
     queryKey: ['users'],
-    queryFn: getAllUsers,
-    meta: {
-      errorMessage: ''
-    },
-    gcTime: 43200000,
-    staleTime: 43200000
+    queryFn: getAllUsers
   });
 };
 
@@ -26,11 +21,6 @@ export const useGetSingleUser = (username: string) => {
   return useQuery({
     queryKey: ['user', username],
     queryFn: () => getUserByUsername(username),
-    meta: {
-      errorMessage: ''
-    },
-    gcTime: 43200000,
-    staleTime: 43200000,
     retry: false
   });
 };
@@ -64,12 +54,7 @@ export const useUpdateUser = () => {
 export const useGetRoles = () => {
   return useQuery({
     queryKey: ['roles'],
-    queryFn: getUserRoles,
-    meta: {
-      errorMessage: ''
-    },
-    gcTime: 43200000,
-    staleTime: 43200000
+    queryFn: getUserRoles
   });
 };
 

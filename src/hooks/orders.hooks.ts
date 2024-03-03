@@ -19,8 +19,6 @@ export const useGetDiscountsByUser = (username: string) => {
     meta: {
       errorMessage: ''
     },
-    gcTime: 43200000,
-    staleTime: 43200000,
     retry: false
   });
 };
@@ -31,9 +29,7 @@ export const useGetRecentOrders = () => {
     queryFn: getRecentOrders,
     meta: {
       errorMessage: ''
-    },
-    gcTime: 43200000,
-    staleTime: 43200000
+    }
   });
 };
 
@@ -44,8 +40,6 @@ export const useGetOrdersByDate = (initialDate: Date, finalDate: Date) => {
     meta: {
       errorMessage: ''
     },
-    gcTime: 43200000,
-    staleTime: 43200000,
     enabled: false,
     retry: false
   });
@@ -59,8 +53,6 @@ export const useGetOrderByID = (orderID: string) => {
     meta: {
       errorMessage: ''
     },
-    gcTime: 43200000,
-    staleTime: 43200000,
     retry: false
   });
 };
@@ -68,12 +60,7 @@ export const useGetOrderByID = (orderID: string) => {
 export const useGetSalesOfTheDay = () => {
   return useQuery({
     queryKey: ['salesToday'],
-    queryFn: getTotalSalesOfTheDay,
-    meta: {
-      errorMessage: ''
-    },
-    gcTime: 43200000,
-    staleTime: 43200000
+    queryFn: getTotalSalesOfTheDay
   });
 };
 
@@ -81,11 +68,6 @@ export const useGetSalesByDate = (initialDate: Date, finalDate: Date) => {
   return useQuery({
     queryKey: ['salesByDate'],
     queryFn: () => getSalesByDate(initialDate, finalDate),
-    meta: {
-      errorMessage: ''
-    },
-    gcTime: 43200000,
-    staleTime: 43200000,
     enabled: false,
     retry: false
   });
