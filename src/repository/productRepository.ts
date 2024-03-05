@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { Product } from '../interfaces/inventory/products/Product';
 import { userAuthorizationHeaders } from '../services/user.service';
 import { BestSellerProduct } from '../interfaces/inventory/products/BestSellerProduct';
@@ -8,10 +7,16 @@ const API_URL = import.meta.env.VITE_API_URL + '/products';
 
 export const getAllProducts = async (): Promise<Product[]> => {
   try {
-    const response = await axios.get(API_URL, {
+    const response = await fetch(API_URL, {
       headers: userAuthorizationHeaders()
     });
-    return response.data as Product[];
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || 'Failed to get all products');
+    }
+
+    return response.json();
   } catch (error: any) {
     return Promise.reject(error);
   }
@@ -19,10 +24,16 @@ export const getAllProducts = async (): Promise<Product[]> => {
 
 export const getBestSellerProducts = async (): Promise<BestSellerProduct[]> => {
   try {
-    const response = await axios.get(`${API_URL}/best-sellers`, {
+    const response = await fetch(`${API_URL}/best-sellers`, {
       headers: userAuthorizationHeaders()
     });
-    return response.data as BestSellerProduct[];
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || 'Failed to get best seller products');
+    }
+
+    return response.json();
   } catch (error: any) {
     return Promise.reject(error);
   }
@@ -33,14 +44,19 @@ export const getProductsSoldByDate = async (
   finalDate: Date
 ): Promise<ProductSold[]> => {
   try {
-    const response = await axios.get(`${API_URL}/sold-by-date`, {
-      params: {
-        initialDate,
-        finalDate
-      },
-      headers: userAuthorizationHeaders()
-    });
-    return response.data as ProductSold[];
+    const response = await fetch(
+      `${API_URL}/sold-by-date?initialDate=${initialDate}&finalDate=${finalDate}`,
+      {
+        headers: userAuthorizationHeaders()
+      }
+    );
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || 'Failed to get products sold by date');
+    }
+
+    return response.json();
   } catch (error: any) {
     return Promise.reject(error);
   }
@@ -48,10 +64,18 @@ export const getProductsSoldByDate = async (
 
 export const addProduct = async (newProduct: Product): Promise<Product> => {
   try {
-    const response = await axios.post(API_URL, newProduct, {
-      headers: userAuthorizationHeaders()
+    const response = await fetch(API_URL, {
+      method: 'POST',
+      headers: userAuthorizationHeaders(),
+      body: JSON.stringify(newProduct)
     });
-    return response.data as Product;
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || 'Failed to add product');
+    }
+
+    return response.json();
   } catch (error: any) {
     return Promise.reject(error);
   }
@@ -59,10 +83,18 @@ export const addProduct = async (newProduct: Product): Promise<Product> => {
 
 export const updateProduct = async (product: Product): Promise<Product> => {
   try {
-    const response = await axios.put(`${API_URL}/edit`, product, {
-      headers: userAuthorizationHeaders()
+    const response = await fetch(`${API_URL}/edit`, {
+      method: 'PUT',
+      headers: userAuthorizationHeaders(),
+      body: JSON.stringify(product)
     });
-    return response.data as Product;
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || 'Failed to update product');
+    }
+
+    return response.json();
   } catch (error: any) {
     return Promise.reject(error);
   }
@@ -70,9 +102,15 @@ export const updateProduct = async (product: Product): Promise<Product> => {
 
 export const deleteProduct = async (productID: string): Promise<void> => {
   try {
-    await axios.delete(`${API_URL}/${productID}/delete`, {
+    const response = await fetch(`${API_URL}/${productID}/delete`, {
+      method: 'DELETE',
       headers: userAuthorizationHeaders()
     });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || 'Failed to delete product');
+    }
   } catch (error: any) {
     return Promise.reject(error);
   }
