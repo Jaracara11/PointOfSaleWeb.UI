@@ -11,11 +11,6 @@ export const getAllProducts = async (): Promise<Product[]> => {
       headers: userAuthorizationHeaders()
     });
 
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.message || 'Failed to get all products');
-    }
-
     return response.json();
   } catch (error: any) {
     return Promise.reject(error);
@@ -27,11 +22,6 @@ export const getBestSellerProducts = async (): Promise<BestSellerProduct[]> => {
     const response = await fetch(`${API_URL}/best-sellers`, {
       headers: userAuthorizationHeaders()
     });
-
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.message || 'Failed to get best seller products');
-    }
 
     return response.json();
   } catch (error: any) {
@@ -51,11 +41,6 @@ export const getProductsSoldByDate = async (
       }
     );
 
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.message || 'Failed to get products sold by date');
-    }
-
     return response.json();
   } catch (error: any) {
     return Promise.reject(error);
@@ -69,11 +54,6 @@ export const addProduct = async (newProduct: Product): Promise<Product> => {
       headers: userAuthorizationHeaders(),
       body: JSON.stringify(newProduct)
     });
-
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.message || 'Failed to add product');
-    }
 
     return response.json();
   } catch (error: any) {
@@ -89,11 +69,6 @@ export const updateProduct = async (product: Product): Promise<Product> => {
       body: JSON.stringify(product)
     });
 
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.message || 'Failed to update product');
-    }
-
     return response.json();
   } catch (error: any) {
     return Promise.reject(error);
@@ -102,15 +77,10 @@ export const updateProduct = async (product: Product): Promise<Product> => {
 
 export const deleteProduct = async (productID: string): Promise<void> => {
   try {
-    const response = await fetch(`${API_URL}/${productID}/delete`, {
+    await fetch(`${API_URL}/${productID}/delete`, {
       method: 'DELETE',
       headers: userAuthorizationHeaders()
     });
-
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.message || 'Failed to delete product');
-    }
   } catch (error: any) {
     return Promise.reject(error);
   }

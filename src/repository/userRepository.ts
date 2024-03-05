@@ -17,11 +17,6 @@ export const loginUser = async (userData: UserLogin): Promise<UserInfo> => {
       body: JSON.stringify(userData)
     });
 
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.message || 'Failed to login user');
-    }
-
     return response.json();
   } catch (error: any) {
     return Promise.reject(error);
@@ -33,11 +28,6 @@ export const getAllUsers = async (): Promise<UserData[]> => {
     const response = await fetch(API_URL, {
       headers: userAuthorizationHeaders()
     });
-
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.message || 'Failed to get all users');
-    }
 
     return response.json();
   } catch (error: any) {
@@ -51,11 +41,6 @@ export const getUserByUsername = async (username: string): Promise<UserData> => 
       headers: userAuthorizationHeaders()
     });
 
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.message || 'Failed to get user by username');
-    }
-
     return response.json();
   } catch (error: any) {
     return Promise.reject(error);
@@ -68,10 +53,6 @@ export const getUserRoles = async (): Promise<UserRole[]> => {
       headers: userAuthorizationHeaders()
     });
 
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.message || 'Failed to get user roles');
-    }
     return response.json();
   } catch (error: any) {
     return Promise.reject(error);
@@ -80,16 +61,11 @@ export const getUserRoles = async (): Promise<UserRole[]> => {
 
 export const changeUserPassword = async (userData: UserPasswordChangeRequest): Promise<void> => {
   try {
-    const response = await fetch(`${API_URL}/change-password`, {
+    await fetch(`${API_URL}/change-password`, {
       method: 'PUT',
       headers: userAuthorizationHeaders(),
       body: JSON.stringify(userData)
     });
-
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.message || 'Failed to change user password');
-    }
   } catch (error: any) {
     return Promise.reject(error);
   }
@@ -97,16 +73,11 @@ export const changeUserPassword = async (userData: UserPasswordChangeRequest): P
 
 export const resetUserPassword = async (userData: UserPasswordChangeRequest): Promise<void> => {
   try {
-    const response = await fetch(`${API_URL}/new-password`, {
+    await fetch(`${API_URL}/new-password`, {
       method: 'PUT',
       headers: userAuthorizationHeaders(),
       body: JSON.stringify(userData)
     });
-
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.message || 'Failed to reset user password');
-    }
   } catch (error: any) {
     return Promise.reject(error);
   }
@@ -119,11 +90,6 @@ export const addUser = async (newUser: UserData): Promise<UserData> => {
       headers: userAuthorizationHeaders(),
       body: JSON.stringify(newUser)
     });
-
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.message || 'Failed to add user');
-    }
 
     return response.json();
   } catch (error: any) {
@@ -139,11 +105,6 @@ export const updateUser = async (user: UserData): Promise<UserData> => {
       body: JSON.stringify(user)
     });
 
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.message || 'Failed to update user');
-    }
-
     return response.json();
   } catch (error: any) {
     return Promise.reject(error);
@@ -152,15 +113,10 @@ export const updateUser = async (user: UserData): Promise<UserData> => {
 
 export const deleteUser = async (username: string): Promise<void> => {
   try {
-    const response = await fetch(`${API_URL}/${username}/delete`, {
+    await fetch(`${API_URL}/${username}/delete`, {
       method: 'DELETE',
       headers: userAuthorizationHeaders()
     });
-
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.message || 'Failed to delete user');
-    }
   } catch (error: any) {
     return Promise.reject(error);
   }
