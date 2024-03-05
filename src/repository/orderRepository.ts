@@ -46,7 +46,7 @@ export const getOrdersByDate = async (
 ): Promise<RecentOrder[]> => {
   try {
     const response = await fetch(
-      `${API_URL}/orders-by-date?initialDate=${initialDate}&finalDate=${finalDate}`,
+      `${API_URL}/orders-by-date?initialDate=${initialDate.toISOString()}&finalDate=${finalDate.toISOString()}`,
       {
         headers: userAuthorizationHeaders()
       }
@@ -103,7 +103,7 @@ export const getTotalSalesOfTheDay = async (): Promise<number> => {
 export const getSalesByDate = async (initialDate: Date, finalDate: Date): Promise<number> => {
   try {
     const response = await fetch(
-      `${API_URL}/sales-by-date?initialDate=${initialDate}&finalDate=${finalDate}`,
+      `${API_URL}/sales-by-date?initialDate=${initialDate.toISOString()}&finalDate=${finalDate.toISOString()}`,
       {
         headers: userAuthorizationHeaders()
       }

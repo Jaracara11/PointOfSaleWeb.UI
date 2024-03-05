@@ -45,7 +45,7 @@ export const getProductsSoldByDate = async (
 ): Promise<ProductSold[]> => {
   try {
     const response = await fetch(
-      `${API_URL}/sold-by-date?initialDate=${initialDate}&finalDate=${finalDate}`,
+      `${API_URL}/sold-by-date?initialDate=${initialDate.toISOString()}&finalDate=${finalDate.toISOString()}`,
       {
         headers: userAuthorizationHeaders()
       }
