@@ -1,5 +1,5 @@
-import { UserInfo } from './UserInfo';
-import { UserLogin } from './UserLogin';
+import { UserInfo } from '../user/UserInfo';
+import { UserLogin } from '../user/UserLogin';
 
 export interface UserStore {
   user: UserInfo | null;

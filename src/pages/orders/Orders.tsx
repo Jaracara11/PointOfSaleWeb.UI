@@ -14,43 +14,33 @@ import { OrderInfo } from '../../interfaces/order/OrderInfo';
 import { LoadingSpinner } from '../../components/loadingSpinner/LoadingSpinner';
 import { SearchInput } from '../../components/searchInput/SearchInput';
 import { getProductCategoryName } from '../../utils/inventory.utils';
+import { useCartStore } from '../../stores/cart.store';
 
 export const Orders = () => {
   const navigate = useNavigate();
   const { user } = useUserStore();
+  const { cart, updateCart, addToCart, removeFromCart, clearCart } = useCartStore();
   const productsQuery = useGetProducts();
   const categoriesQuery = useGetCategories();
   const newOrderMutation = useNewOrder();
-  const [cartProducts, setCartProducts] = useState<Product[]>([]);
-  const [searchProductQuery, setSearchProductQuery] = useState<string>('');
   const discountsQuery = useGetDiscountsByUser(user?.username || '');
   const [discount, setDiscount] = useState<number>(0);
   const [subtotal, setSubtotal] = useState<number>(0);
-
-  const removeFromCart = (productID: string) =>
-    setCartProducts((prevProducts) => prevProducts.filter((p) => p.productID !== productID));
-
-  const updateCartProduct = (updatedCartProducts: Product[]) =>
-    setCartProducts(updatedCartProducts);
-
-  const addToCart = (product: Product) => {
-    product.productQuantity = 1;
-    updateCartProduct([...cartProducts, product]);
-  };
+  const [searchProductQuery, setSearchProductQuery] = useState<string>('');
 
   const handleIncreaseQuantity = (productID: string) => {
-    const updatedCartProducts = cartProducts.map((product) => {
+    const updatedCartProducts = cart.map((product) => {
       if (product.productID === productID && product.productQuantity! < product.productStock!) {
         return { ...product, productQuantity: (product.productQuantity || 0) + 1 };
       }
       return product;
     });
 
-    updateCartProduct(updatedCartProducts);
+    updateCart(updatedCartProducts);
   };
 
   const handleDecreaseQuantity = (productID: string) => {
-    const updatedCartProducts = cartProducts.map((product) => {
+    const updatedCartProducts = cart.map((product) => {
       if (product.productID === productID && product.productQuantity! > 0) {
         return { ...product, productQuantity: (product.productQuantity || 0) - 1 };
       }
@@ -58,14 +48,13 @@ export const Orders = () => {
       return product;
     });
 
-    updateCartProduct(updatedCartProducts);
+    updateCart(updatedCartProducts);
   };
 
-  const clearCart = async () => {
+  const clearProductsCart = async () => {
     const confirmTitle = 'Are you sure you want to clear the cart?';
     const isConfirmed = await swalConfirmAlert(confirmTitle, 'Clear', 'warning');
-
-    isConfirmed && setCartProducts([]);
+    isConfirmed && clearCart();
   };
 
   const checkoutOrder = async () => {
@@ -78,7 +67,7 @@ export const Orders = () => {
     if (isConfirmed) {
       const orderObj: OrderRequest = {
         user: getUserAuth()?.username || '',
-        products: cartProducts.map((product) => ({
+        products: cart.map((product) => ({
           productID: product.productID || '',
           productQuantity: product.productQuantity || 0
         })),
@@ -86,13 +75,14 @@ export const Orders = () => {
       };
 
       newOrderMutation.mutateAsync(orderObj).then((response: OrderInfo) => {
+        clearCart();
         navigate('/invoice', { state: { data: response } });
       });
     }
   };
 
   const calculateSubTotal = () =>
-    cartProducts.reduce(
+    cart.reduce(
       (total, product) => total + (product.productPrice || 0) * (product.productQuantity || 0),
       0
     );
@@ -103,16 +93,16 @@ export const Orders = () => {
     setDiscount(parseFloat(event.target.value));
 
   useEffect(() => {
-    const productsToRemove = cartProducts.filter((product) => product.productQuantity === 0);
+    const productsToRemove = cart.filter((product) => product.productQuantity === 0);
 
     productsToRemove.forEach((product) => {
       removeFromCart(product.productID || '');
     });
 
-    cartProducts.length === 0 && setDiscount(0);
+    cart.length === 0 && setDiscount(0);
 
     setSubtotal(calculateSubTotal());
-  }, [cartProducts, discount]);
+  }, [cart, discount]);
 
   return productsQuery.isPending || categoriesQuery.isPending || discountsQuery.isPending ? (
     <LoadingSpinner />
@@ -145,10 +135,7 @@ export const Orders = () => {
                         .includes(searchProductQuery.trim().toLowerCase())
                   )
                   .map((product: Product) => {
-                    const isProductAdded = cartProducts.find(
-                      (p) => p.productID === product.productID
-                    );
-
+                    const isProductAdded = cart.find((p) => p.productID === product.productID);
                     return (
                       <tr key={product.productID}>
                         <td>
@@ -194,7 +181,7 @@ export const Orders = () => {
               </tr>
             </thead>
             <tbody>
-              {cartProducts.map((product: Product) => (
+              {cart.map((product: Product) => (
                 <tr key={product.productID}>
                   <td>
                     {product.productName}
@@ -236,7 +223,7 @@ export const Orders = () => {
                 <select
                   name="order-discount"
                   value={discount}
-                  disabled={cartProducts.length === 0}
+                  disabled={cart.length === 0}
                   onChange={handleDiscountChange}
                 >
                   <option value={0}>0%</option>
@@ -254,13 +241,13 @@ export const Orders = () => {
             </ul>
 
             <div>
-              <Button variant="dark" onClick={checkoutOrder} disabled={cartProducts.length === 0}>
+              <Button variant="dark" onClick={checkoutOrder} disabled={cart.length === 0}>
                 <i className="bi bi-coin"></i>&nbsp; Check Out
               </Button>
               <Button
                 variant="outline-dark"
-                onClick={clearCart}
-                disabled={cartProducts.length === 0}
+                onClick={clearProductsCart}
+                disabled={cart.length === 0}
               >
                 <i className="bi bi-eraser"></i>&nbsp; Clear Cart
               </Button>
