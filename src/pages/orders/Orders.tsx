@@ -12,45 +12,34 @@ import { OrderRequest } from '../../interfaces/order/OrderRequest';
 import { getUserAuth } from '../../services/user.service';
 import { OrderInfo } from '../../interfaces/order/OrderInfo';
 import { LoadingSpinner } from '../../components/loadingSpinner/LoadingSpinner';
-import { SearchInput } from '../../components/searchInput/SearchInput';
-import { getProductCategoryName } from '../../utils/inventory.utils';
+import { useCartStore } from '../../stores/cart.store';
+import { OrdersTable } from '../../components/tables/ordersTable/OrdersTable';
 
 export const Orders = () => {
   const navigate = useNavigate();
   const { user } = useUserStore();
+  const { cart, updateCart, removeFromCart, clearCart } = useCartStore();
   const productsQuery = useGetProducts();
   const categoriesQuery = useGetCategories();
   const newOrderMutation = useNewOrder();
-  const [cartProducts, setCartProducts] = useState<Product[]>([]);
-  const [searchProductQuery, setSearchProductQuery] = useState<string>('');
   const discountsQuery = useGetDiscountsByUser(user?.username || '');
   const [discount, setDiscount] = useState<number>(0);
   const [subtotal, setSubtotal] = useState<number>(0);
 
-  const removeFromCart = (productID: string) =>
-    setCartProducts((prevProducts) => prevProducts.filter((p) => p.productID !== productID));
-
-  const updateCartProduct = (updatedCartProducts: Product[]) =>
-    setCartProducts(updatedCartProducts);
-
-  const addToCart = (product: Product) => {
-    product.productQuantity = 1;
-    updateCartProduct([...cartProducts, product]);
-  };
-
   const handleIncreaseQuantity = (productID: string) => {
-    const updatedCartProducts = cartProducts.map((product) => {
+    const updatedCartProducts = cart.map((product) => {
       if (product.productID === productID && product.productQuantity! < product.productStock!) {
         return { ...product, productQuantity: (product.productQuantity || 0) + 1 };
       }
+
       return product;
     });
 
-    updateCartProduct(updatedCartProducts);
+    updateCart(updatedCartProducts);
   };
 
   const handleDecreaseQuantity = (productID: string) => {
-    const updatedCartProducts = cartProducts.map((product) => {
+    const updatedCartProducts = cart.map((product) => {
       if (product.productID === productID && product.productQuantity! > 0) {
         return { ...product, productQuantity: (product.productQuantity || 0) - 1 };
       }
@@ -58,14 +47,13 @@ export const Orders = () => {
       return product;
     });
 
-    updateCartProduct(updatedCartProducts);
+    updateCart(updatedCartProducts);
   };
 
-  const clearCart = async () => {
+  const clearProductsCart = async () => {
     const confirmTitle = 'Are you sure you want to clear the cart?';
     const isConfirmed = await swalConfirmAlert(confirmTitle, 'Clear', 'warning');
-
-    isConfirmed && setCartProducts([]);
+    isConfirmed && clearCart();
   };
 
   const checkoutOrder = async () => {
@@ -78,7 +66,7 @@ export const Orders = () => {
     if (isConfirmed) {
       const orderObj: OrderRequest = {
         user: getUserAuth()?.username || '',
-        products: cartProducts.map((product) => ({
+        products: cart.map((product) => ({
           productID: product.productID || '',
           productQuantity: product.productQuantity || 0
         })),
@@ -86,13 +74,14 @@ export const Orders = () => {
       };
 
       newOrderMutation.mutateAsync(orderObj).then((response: OrderInfo) => {
+        clearCart();
         navigate('/invoice', { state: { data: response } });
       });
     }
   };
 
   const calculateSubTotal = () =>
-    cartProducts.reduce(
+    cart.reduce(
       (total, product) => total + (product.productPrice || 0) * (product.productQuantity || 0),
       0
     );
@@ -103,16 +92,16 @@ export const Orders = () => {
     setDiscount(parseFloat(event.target.value));
 
   useEffect(() => {
-    const productsToRemove = cartProducts.filter((product) => product.productQuantity === 0);
+    const productsToRemove = cart.filter((product) => product.productQuantity === 0);
 
     productsToRemove.forEach((product) => {
       removeFromCart(product.productID || '');
     });
 
-    cartProducts.length === 0 && setDiscount(0);
+    cart.length === 0 && setDiscount(0);
 
     setSubtotal(calculateSubTotal());
-  }, [cartProducts, discount]);
+  }, [cart, discount]);
 
   return productsQuery.isPending || categoriesQuery.isPending || discountsQuery.isPending ? (
     <LoadingSpinner />
@@ -121,67 +110,8 @@ export const Orders = () => {
       <h1 className="title">Orders</h1>
       <div className="orders-container">
         <div className="orders-table">
-          <SearchInput searchQuery={searchProductQuery} setSearchQuery={setSearchProductQuery} />
-          <Table bordered hover>
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Stock</th>
-                <th>Price</th>
-                <th>Category</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              {productsQuery.data &&
-                productsQuery.data
-                  .filter(
-                    (product) =>
-                      product.productID
-                        ?.toLowerCase()
-                        .includes(searchProductQuery.trim().toLowerCase()) ||
-                      product.productName
-                        .toLowerCase()
-                        .includes(searchProductQuery.trim().toLowerCase())
-                  )
-                  .map((product: Product) => {
-                    const isProductAdded = cartProducts.find(
-                      (p) => p.productID === product.productID
-                    );
-
-                    return (
-                      <tr key={product.productID}>
-                        <td>
-                          <i className="bi bi-dot"></i>
-                          {product.productName}
-                        </td>
-                        <td>{product.productStock}</td>
-                        <td>${product.productPrice}</td>
-                        <td>
-                          {categoriesQuery.data &&
-                            getProductCategoryName(product.productCategoryID, categoriesQuery.data)}
-                        </td>
-                        <td>
-                          {product.productStock! > 0 ? (
-                            <Button
-                              variant="dark"
-                              disabled={!!isProductAdded || product.productStock! < 1}
-                              onClick={() => addToCart(product)}
-                            >
-                              <i className="bi bi-plus"></i>
-                              <span>&nbsp;{isProductAdded ? 'Already added' : 'Add to cart'}</span>
-                            </Button>
-                          ) : (
-                            <span className="text-muted"> Product Unavailable</span>
-                          )}
-                        </td>
-                      </tr>
-                    );
-                  })}
-            </tbody>
-          </Table>
+          <OrdersTable />
         </div>
-
         <div className="orders-form card bg-light">
           <h4 className="title">Current Order</h4>
           <Table hover>
@@ -194,7 +124,7 @@ export const Orders = () => {
               </tr>
             </thead>
             <tbody>
-              {cartProducts.map((product: Product) => (
+              {cart.map((product: Product) => (
                 <tr key={product.productID}>
                   <td>
                     {product.productName}
@@ -236,7 +166,7 @@ export const Orders = () => {
                 <select
                   name="order-discount"
                   value={discount}
-                  disabled={cartProducts.length === 0}
+                  disabled={cart.length === 0}
                   onChange={handleDiscountChange}
                 >
                   <option value={0}>0%</option>
@@ -254,13 +184,13 @@ export const Orders = () => {
             </ul>
 
             <div>
-              <Button variant="dark" onClick={checkoutOrder} disabled={cartProducts.length === 0}>
+              <Button variant="dark" onClick={checkoutOrder} disabled={cart.length === 0}>
                 <i className="bi bi-coin"></i>&nbsp; Check Out
               </Button>
               <Button
                 variant="outline-dark"
-                onClick={clearCart}
-                disabled={cartProducts.length === 0}
+                onClick={clearProductsCart}
+                disabled={cart.length === 0}
               >
                 <i className="bi bi-eraser"></i>&nbsp; Clear Cart
               </Button>

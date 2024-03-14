@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { getUserAuth, setUserAuth } from '../services/user.service';
 import { loginUser } from '../repository/userRepository';
-import { UserStore } from '../interfaces/user/UserStore';
+import { UserStore } from '../interfaces/stores/UserStore';
 
 export const useUserStore = create<UserStore>((set) => ({
   user: getUserAuth(),
