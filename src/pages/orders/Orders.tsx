@@ -12,27 +12,26 @@ import { OrderRequest } from '../../interfaces/order/OrderRequest';
 import { getUserAuth } from '../../services/user.service';
 import { OrderInfo } from '../../interfaces/order/OrderInfo';
 import { LoadingSpinner } from '../../components/loadingSpinner/LoadingSpinner';
-import { SearchInput } from '../../components/searchInput/SearchInput';
-import { getProductCategoryName } from '../../utils/inventory.utils';
 import { useCartStore } from '../../stores/cart.store';
+import { OrdersTable } from '../../components/tables/ordersTable/OrdersTable';
 
 export const Orders = () => {
   const navigate = useNavigate();
   const { user } = useUserStore();
-  const { cart, updateCart, addToCart, removeFromCart, clearCart } = useCartStore();
+  const { cart, updateCart, removeFromCart, clearCart } = useCartStore();
   const productsQuery = useGetProducts();
   const categoriesQuery = useGetCategories();
   const newOrderMutation = useNewOrder();
   const discountsQuery = useGetDiscountsByUser(user?.username || '');
   const [discount, setDiscount] = useState<number>(0);
   const [subtotal, setSubtotal] = useState<number>(0);
-  const [searchProductQuery, setSearchProductQuery] = useState<string>('');
 
   const handleIncreaseQuantity = (productID: string) => {
     const updatedCartProducts = cart.map((product) => {
       if (product.productID === productID && product.productQuantity! < product.productStock!) {
         return { ...product, productQuantity: (product.productQuantity || 0) + 1 };
       }
+
       return product;
     });
 
@@ -111,64 +110,8 @@ export const Orders = () => {
       <h1 className="title">Orders</h1>
       <div className="orders-container">
         <div className="orders-table">
-          <SearchInput searchQuery={searchProductQuery} setSearchQuery={setSearchProductQuery} />
-          <Table bordered hover>
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Stock</th>
-                <th>Price</th>
-                <th>Category</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              {productsQuery.data &&
-                productsQuery.data
-                  .filter(
-                    (product) =>
-                      product.productID
-                        ?.toLowerCase()
-                        .includes(searchProductQuery.trim().toLowerCase()) ||
-                      product.productName
-                        .toLowerCase()
-                        .includes(searchProductQuery.trim().toLowerCase())
-                  )
-                  .map((product: Product) => {
-                    const isProductAdded = cart.find((p) => p.productID === product.productID);
-                    return (
-                      <tr key={product.productID}>
-                        <td>
-                          <i className="bi bi-dot"></i>
-                          {product.productName}
-                        </td>
-                        <td>{product.productStock}</td>
-                        <td>${product.productPrice}</td>
-                        <td>
-                          {categoriesQuery.data &&
-                            getProductCategoryName(product.productCategoryID, categoriesQuery.data)}
-                        </td>
-                        <td>
-                          {product.productStock! > 0 ? (
-                            <Button
-                              variant="dark"
-                              disabled={!!isProductAdded || product.productStock! < 1}
-                              onClick={() => addToCart(product)}
-                            >
-                              <i className="bi bi-plus"></i>
-                              <span>&nbsp;{isProductAdded ? 'Already added' : 'Add to cart'}</span>
-                            </Button>
-                          ) : (
-                            <span className="text-muted"> Product Unavailable</span>
-                          )}
-                        </td>
-                      </tr>
-                    );
-                  })}
-            </tbody>
-          </Table>
+          <OrdersTable />
         </div>
-
         <div className="orders-form card bg-light">
           <h4 className="title">Current Order</h4>
           <Table hover>
