@@ -10,11 +10,7 @@ const API_URL = import.meta.env.VITE_API_URL + '/users';
 
 export const loginUser = async (userData: UserLogin): Promise<UserInfo> => {
   try {
-    const response = await axios.post(`${API_URL}/login`, userData, {
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    });
+    const response = await axios.post(`${API_URL}/login`, userData);
     return response.data as UserInfo;
   } catch (error: any) {
     return Promise.reject(error);
