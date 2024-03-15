@@ -16,6 +16,7 @@ export const useGetDiscountsByUser = (username: string) => {
   return useQuery({
     queryKey: ['discounts', username],
     queryFn: () => GetAvailableDiscounts(username),
+    refetchOnWindowFocus: false,
     retry: false
   });
 };

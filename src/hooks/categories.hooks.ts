@@ -11,7 +11,8 @@ import { swalMessageAlert } from '../services/swal.service';
 export const useGetCategories = () => {
   return useQuery({
     queryKey: ['categories'],
-    queryFn: getAllCategories
+    queryFn: getAllCategories,
+    refetchOnWindowFocus: false
   });
 };
 

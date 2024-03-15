@@ -13,7 +13,8 @@ import { swalMessageAlert } from '../services/swal.service';
 export const useGetUsers = () => {
   return useQuery({
     queryKey: ['users'],
-    queryFn: getAllUsers
+    queryFn: getAllUsers,
+    refetchOnWindowFocus: false
   });
 };
 
@@ -21,7 +22,16 @@ export const useGetSingleUser = (username: string) => {
   return useQuery({
     queryKey: ['user', username],
     queryFn: () => getUserByUsername(username),
+    refetchOnWindowFocus: false,
     retry: false
+  });
+};
+
+export const useGetRoles = () => {
+  return useQuery({
+    queryKey: ['roles'],
+    queryFn: getUserRoles,
+    refetchOnWindowFocus: false
   });
 };
 
@@ -48,13 +58,6 @@ export const useUpdateUser = () => {
       swalMessageAlert(`User updated successfully`, 'info');
     },
     onError: (error) => handleErrorResponse(error, 'UserError')
-  });
-};
-
-export const useGetRoles = () => {
-  return useQuery({
-    queryKey: ['roles'],
-    queryFn: getUserRoles
   });
 };
 
