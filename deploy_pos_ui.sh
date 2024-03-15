@@ -2,6 +2,7 @@
 
 cd PointOfSaleWeb.UI
 git checkout master
+git config pull.rebase false
 git pull
 docker stop pos-web.ui
 docker rm pos-web.ui
