@@ -48,4 +48,22 @@
 
 .orders-form .order-info div {
   margin-top: 0.5rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.orders-form .order-info div button {
+  height: 60px;
+  width: 125px;
+}
+
+@media (max-width: 1280px) {
+  .orders-form .order-info div i {
+    display: none;
+  }
+
+  .orders-form .order-info div button {
+    height: 60px;
+    width: 90px;
+  }
 }

@@ -184,8 +184,8 @@ export const Orders = () => {
             </ul>
 
             <div>
-              <Button variant="dark" onClick={checkoutOrder} disabled={cart.length === 0}>
-                <i className="bi bi-coin"></i>&nbsp; Check Out
+              <Button variant="success" disabled={cart.length === 0}>
+                <i className="bi bi-database"></i>&nbsp; Save for later
               </Button>
               <Button
                 variant="outline-dark"
@@ -193,6 +193,9 @@ export const Orders = () => {
                 disabled={cart.length === 0}
               >
                 <i className="bi bi-eraser"></i>&nbsp; Clear Cart
+              </Button>
+              <Button variant="dark" onClick={checkoutOrder} disabled={cart.length === 0}>
+                <i className="bi bi-coin"></i>&nbsp; Check Out
               </Button>
             </div>
           </div>
