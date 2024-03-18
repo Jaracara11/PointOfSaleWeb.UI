@@ -23,6 +23,7 @@ export const Orders = () => {
   const categoriesQuery = useGetCategories();
   const newOrderMutation = useNewOrder();
   const discountsQuery = useGetDiscountsByUser(user?.username || '');
+  const [savedOrderExist, setSavedOrderExist] = useState<boolean>(false);
   const [discount, setDiscount] = useState<number>(0);
   const [subtotal, setSubtotal] = useState<number>(0);
 
@@ -91,8 +92,33 @@ export const Orders = () => {
   const handleDiscountChange = (event: React.ChangeEvent<HTMLSelectElement>) =>
     setDiscount(parseFloat(event.target.value));
 
+  const saveOrderForLater = () => {
+    localStorage.setItem('savedOrder', JSON.stringify(cart));
+    setSavedOrderExist(true);
+    clearCart();
+  };
+
+  const retrieveSavedOrder = () => {
+    const savedOrderString = localStorage.getItem('savedOrder');
+
+    if (savedOrderString) {
+      const savedOrder: Product[] = JSON.parse(savedOrderString);
+      updateCart(savedOrder);
+      localStorage.removeItem('savedOrder');
+      setSavedOrderExist(false);
+    }
+  };
+
   useEffect(() => {
     const productsToRemove = cart.filter((product) => product.productQuantity === 0);
+    const savedOrderString = localStorage.getItem('savedOrder');
+    const savedOrder: Product[] | null = savedOrderString ? JSON.parse(savedOrderString) : null;
+
+    if (savedOrder && savedOrder.length > 0) {
+      setSavedOrderExist(true);
+    } else {
+      setSavedOrderExist(false);
+    }
 
     productsToRemove.forEach((product) => {
       removeFromCart(product.productID || '');
@@ -184,9 +210,15 @@ export const Orders = () => {
             </ul>
 
             <div>
-              <Button variant="success" disabled={cart.length === 0}>
-                <i className="bi bi-database"></i>&nbsp; Save for later
-              </Button>
+              {savedOrderExist ? (
+                <Button variant="primary" onClick={retrieveSavedOrder}>
+                  <i className="bi bi-download"></i>&nbsp; Retrieve saved order
+                </Button>
+              ) : (
+                <Button variant="success" onClick={saveOrderForLater} disabled={cart.length === 0}>
+                  <i className="bi bi-box-seam"></i>&nbsp; Save for later
+                </Button>
+              )}
               <Button
                 variant="outline-dark"
                 onClick={clearProductsCart}
