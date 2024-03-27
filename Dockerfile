@@ -5,13 +5,15 @@ WORKDIR /app
 
 COPY package*.json ./
 
-RUN npm install --production
+# Install sudo
+RUN apk --no-cache add sudo
 
-RUN npm i typescript
+# Install dependencies
+RUN npm install --production && \
+    npm i typescript && \
+    npm run build
 
 COPY . .
-
-RUN npm run build
 
 EXPOSE 3000
 
