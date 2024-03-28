@@ -9,7 +9,7 @@ COPY package*.json ./
 RUN apk --no-cache add sudo
 
 # Install dependencies
-RUN npm install --production
+RUN npm install --omit=dev
 
 RUN npm i typescript
 
