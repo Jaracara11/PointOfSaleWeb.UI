@@ -1,21 +1,22 @@
 # Dockerfile
-FROM node:20.11.0-alpine3.18 as builder
+FROM node:20.11.0-alpine3.18
 
 WORKDIR /app
 
 COPY package*.json ./
 
+# Install sudo
+RUN apk --no-cache add sudo
+
+# Install dependencies
 RUN npm install --omit=dev
+
+RUN npm i typescript
 
 COPY . .
 
 RUN npm run build
 
-FROM nginx:alpine
-
-COPY --from=builder /app/dist /usr/share/nginx/html
-
-# Expose port 80 for Nginx
 EXPOSE 3000
 
-CMD ["nginx", "-g", "daemon off;"]
+CMD [ "npx", "serve", "-s", "dist", "-l", "3000" ]
