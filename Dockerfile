@@ -9,11 +9,13 @@ COPY package*.json ./
 RUN apk --no-cache add sudo
 
 # Install dependencies
-RUN npm install --production && \
-    npm i typescript && \
-    npm run build
+RUN npm install --production
+
+RUN npm i typescript
 
 COPY . .
+
+RUN npm run build
 
 EXPOSE 3000
 
