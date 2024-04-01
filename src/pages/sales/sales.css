@@ -54,3 +54,26 @@
     margin-left: 335px !important;
   }
 }
+
+@media (max-width: 1024px) {
+  .sales .date-pickers {
+    grid-template-columns: auto auto auto;
+  }
+
+  .sales .history-panel {
+    display: grid;
+    grid-template-columns: auto auto;
+  }
+
+  .sales .history-panel button {
+    width: 160px;
+    height: 36px;
+  }
+
+  .sales .search-input {
+    position: absolute;
+    width: 150px;
+    margin-top: 3rem;
+    margin-left: -2rem;
+  }
+}
