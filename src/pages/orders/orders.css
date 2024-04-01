@@ -58,8 +58,12 @@
 }
 
 @media (max-width: 1280px) {
-  .orders-form .order-info div i {
-    display: none;
+  .orders-form .order-info {
+    grid-template-columns: 1fr;
+  }
+
+  .orders-form .order-info div button {
+    width: 120px !important;
   }
 
   .orders-form .order-info div button {
