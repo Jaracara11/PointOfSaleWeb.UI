@@ -1,13 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { handleErrorResponse } from '../services/error.service';
-import {
-  addUser,
-  deleteUser,
-  getAllUsers,
-  getUserByUsername,
-  getUserRoles,
-  updateUser
-} from '../repository/userRepository';
+import { addUser, deleteUser, getAllUsers, getUserByUsername, getUserRoles, updateUser } from '../repository/userRepository';
 import { swalMessageAlert } from '../services/swal.service';
 
 export const useGetUsers = () => {

@@ -7,9 +7,7 @@ export const ProductAvailability = () => {
   const productsQuery = useGetProducts();
 
   const getLimitedProducts = (products: Product[]): Product[] => {
-    const sortedProducts = products
-      ? [...products].sort((a: Product, b: Product) => a.productStock - b.productStock)
-      : [];
+    const sortedProducts = products ? [...products].sort((a: Product, b: Product) => a.productStock - b.productStock) : [];
     return sortedProducts.slice(0, 3);
   };
 
@@ -30,12 +28,7 @@ export const ProductAvailability = () => {
             </thead>
             <tbody>
               {getLimitedProducts(productsQuery.data).map((product: Product, index: number) => (
-                <tr
-                  key={index}
-                  className={
-                    index === 0 ? 'table-danger' : index === 1 ? 'table-warning' : 'table-info'
-                  }
-                >
+                <tr key={index} className={index === 0 ? 'table-danger' : index === 1 ? 'table-warning' : 'table-info'}>
                   <td>{product.productName}</td>
                   <td>{product.productStock} unit(s)</td>
                 </tr>

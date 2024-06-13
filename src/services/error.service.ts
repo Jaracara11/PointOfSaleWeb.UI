@@ -16,14 +16,12 @@ export const handleErrorResponse = (error: any, errorKey: string) => {
 
   switch (status) {
     case 400:
-      const error400Message =
-        error.response?.data?.[errorKey]?.[0] || error.response.data['error'] || 'Bad Request';
+      const error400Message = error.response?.data?.[errorKey]?.[0] || error.response.data['error'] || 'Bad Request';
       handleErrorMessage(status, statusText, error400Message);
       break;
 
     case 401:
-      const unauthorizedMessage =
-        'User unauthenticated or session expired, please sign in again <a href="/">here</a>.';
+      const unauthorizedMessage = 'User unauthenticated or session expired, please sign in again <a href="/">here</a>.';
       deleteUserAuth();
       handleErrorMessage(status, statusText, unauthorizedMessage);
       break;
@@ -52,9 +50,5 @@ const handleErrorMessage = (statusCode: number, statusText: string, message: str
     message
   };
 
-  swalMessageAlertWithTitle(
-    `Error ${errorResponse.statusCode}: ${errorResponse.statusText}`,
-    errorResponse.message,
-    'error'
-  );
+  swalMessageAlertWithTitle(`Error ${errorResponse.statusCode}: ${errorResponse.statusText}`, errorResponse.message, 'error');
 };

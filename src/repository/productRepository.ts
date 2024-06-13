@@ -28,10 +28,7 @@ export const getBestSellerProducts = async (): Promise<BestSellerProduct[]> => {
   }
 };
 
-export const getProductsSoldByDate = async (
-  initialDate: Date,
-  finalDate: Date
-): Promise<ProductSold[]> => {
+export const getProductsSoldByDate = async (initialDate: Date, finalDate: Date): Promise<ProductSold[]> => {
   try {
     const response = await axios.get(`${API_URL}/sold-by-date`, {
       params: {

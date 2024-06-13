@@ -29,10 +29,7 @@ export const getRecentOrders = async (): Promise<RecentOrder[]> => {
   }
 };
 
-export const getOrdersByDate = async (
-  initialDate: Date,
-  finalDate: Date
-): Promise<RecentOrder[]> => {
+export const getOrdersByDate = async (initialDate: Date, finalDate: Date): Promise<RecentOrder[]> => {
   try {
     const response = await axios.get(`${API_URL}/orders-by-date`, {
       params: {

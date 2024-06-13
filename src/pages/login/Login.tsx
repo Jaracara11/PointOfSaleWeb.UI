@@ -54,19 +54,9 @@ export const Login = () => {
         <h2 className="title">Login</h2>
         <form className="card-body" onSubmit={handleSubmit(submitLogin)}>
           <div>
-            <input
-              type="text"
-              className="form-control"
-              placeholder="Username..."
-              {...register('username')}
-            />
+            <input type="text" className="form-control" placeholder="Username..." {...register('username')} />
             <ErrorInputView error={errors.username} />
-            <input
-              type="password"
-              className="form-control"
-              placeholder="Password..."
-              {...register('password')}
-            />
+            <input type="password" className="form-control" placeholder="Password..." {...register('password')} />
             <ErrorInputView error={errors.password} />
           </div>
           <button className="btn btn-dark">Login</button>

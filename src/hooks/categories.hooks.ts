@@ -1,9 +1,4 @@
-import {
-  addCategory,
-  deleteCategory,
-  getAllCategories,
-  updateCategory
-} from '../repository/categoryRepository';
+import { addCategory, deleteCategory, getAllCategories, updateCategory } from '../repository/categoryRepository';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { handleErrorResponse } from '../services/error.service';
 import { swalMessageAlert } from '../services/swal.service';
