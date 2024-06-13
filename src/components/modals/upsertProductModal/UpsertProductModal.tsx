@@ -1,18 +1,14 @@
 import { useEffect, useState } from 'react';
 import { Product } from '../../../interfaces/inventory/products/Product';
 import { Category } from '../../../interfaces/inventory/Category';
-import { Form, Button, Modal } from 'react-bootstrap';
+import { Form, Modal } from 'react-bootstrap';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { productValidationSchema } from '../../../services/yupValidation.service';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { ErrorInputView } from '../../errorInputView/ErrorInputView';
 import { firstCharToUpper } from '../../../utils/string.utils';
 import { swalConfirmAlert, swalMessageAlert } from '../../../services/swal.service';
-import {
-  useDeleteProduct,
-  useSaveNewProduct,
-  useUpdateProduct
-} from '../../../hooks/products.hooks';
+import { useDeleteProduct, useSaveNewProduct, useUpdateProduct } from '../../../hooks/products.hooks';
 import { ProductModalProps } from '../../../interfaces/modals/ProductModalProps';
 import { LoadingSpinner } from '../../loadingSpinner/LoadingSpinner';
 
@@ -78,24 +74,18 @@ export const UpsertProductModal = ({ toggle, product, categories }: ProductModal
   };
 
   const deleteProduct = async (product: Product) => {
-    let confirmTitle = `Are you sure you want to <strong>DELETE</strong> the ${product.productName} product?`;
-
+    const confirmTitle = `Are you sure you want to <strong>DELETE</strong> the ${product.productName} product?`;
     const isConfirmed = await swalConfirmAlert(confirmTitle, 'Delete', 'warning');
 
     if (isConfirmed) {
       product.productID
         ? deleteProductMutation.mutateAsync(product.productID)
-        : swalMessageAlert(
-            'Error while trying to delete product, please refresh the page and try again.',
-            'error'
-          );
+        : swalMessageAlert('Error while trying to delete product, please refresh the page and try again.', 'error');
       toggle();
     }
   };
 
-  return newProductMutation.isPending ||
-    updateProductMutation.isPending ||
-    deleteProductMutation.isPending ? (
+  return newProductMutation.isPending || updateProductMutation.isPending || deleteProductMutation.isPending ? (
     <LoadingSpinner />
   ) : (
     <Modal className="form-modal" show={showModal} onHide={closeModal} centered>
@@ -103,28 +93,16 @@ export const UpsertProductModal = ({ toggle, product, categories }: ProductModal
         <h3 className="title">{product ? 'Edit' : 'Add New'} Product</h3>
         <Form.Group>
           <Form.Label>Product ID</Form.Label>
-          <Form.Control
-            disabled={!!product?.productID}
-            type="text"
-            placeholder="Enter product ID"
-            {...register('productID')}
-          />
+          <Form.Control disabled={!!product?.productID} type="text" placeholder="Enter product ID" {...register('productID')} />
           <ErrorInputView error={errors.productID} />
           <Form.Label>Product Name</Form.Label>
           <Form.Control type="text" placeholder="Enter product name" {...register('productName')} />
           <ErrorInputView error={errors.productName} />
           <Form.Label>Product Description</Form.Label>
-          <Form.Control
-            as="textarea"
-            placeholder="Enter product description"
-            {...register('productDescription')}
-          />
+          <Form.Control as="textarea" placeholder="Enter product description" {...register('productDescription')} />
           <ErrorInputView error={errors.productDescription} />
           <Form.Label>Product Category</Form.Label>
-          <Form.Select
-            {...register('productCategoryID')}
-            defaultValue={watch('productCategoryID') || 0}
-          >
+          <Form.Select {...register('productCategoryID')} defaultValue={watch('productCategoryID') || 0}>
             <option value={0}>Select a category...</option>
             {categories &&
               categories.map((category: Category) => (
@@ -135,38 +113,30 @@ export const UpsertProductModal = ({ toggle, product, categories }: ProductModal
           </Form.Select>
           <ErrorInputView error={errors.productCategoryID} />
           <Form.Label>Product Stock</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Enter product stock"
-            {...register('productStock')}
-          />
+          <Form.Control type="text" placeholder="Enter product stock" {...register('productStock')} />
           <ErrorInputView error={errors.productStock} />
           <Form.Label>Product Cost</Form.Label>
           <Form.Control type="text" placeholder="Enter product cost" {...register('productCost')} />
           <ErrorInputView error={errors.productCost} />
           <Form.Label>Product Price</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Enter product price"
-            {...register('productPrice')}
-          />
+          <Form.Control type="text" placeholder="Enter product price" {...register('productPrice')} />
           <ErrorInputView error={errors.productPrice} />
         </Form.Group>
 
-        <Button variant="btn btn-dark" disabled={!isDirty} onClick={handleSubmit(upsertProduct)}>
+        <button className="btn btn-dark" disabled={!isDirty} onClick={handleSubmit(upsertProduct)}>
           <i className="bi bi-database"></i>&nbsp;
           {product ? ' Update' : ' Save'}
-        </Button>
+        </button>
 
         {product && (
-          <Button variant="btn btn-danger" onClick={() => deleteProduct(product)}>
+          <button className="btn btn-danger" onClick={() => deleteProduct(product)}>
             <i className="bi bi-exclamation-circle"></i>&nbsp; Delete
-          </Button>
+          </button>
         )}
 
-        <Button variant="outline-dark" onClick={toggle}>
+        <button className="btn btn-outline-dark" onClick={toggle}>
           <i className="bi bi-x-lg"></i>&nbsp;Cancel
-        </Button>
+        </button>
       </Form>
     </Modal>
   );

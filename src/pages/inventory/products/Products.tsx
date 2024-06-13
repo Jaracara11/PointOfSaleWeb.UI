@@ -1,5 +1,5 @@
 import { useGetProducts } from '../../../hooks/products.hooks';
-import { Button, Table } from 'react-bootstrap';
+import { Table } from 'react-bootstrap';
 import { Product } from '../../../interfaces/inventory/products/Product';
 import { useGetCategories } from '../../../hooks/categories.hooks';
 import { getProductCategoryName } from '../../../utils/inventory.utils';
@@ -38,8 +38,8 @@ export const Products = () => {
       <div className="row">
         <div>
           {user && validateUserRolePermission(['Admin', 'Manager']) && (
-            <Button
-              variant="dark"
+            <button
+              className="btn btn-dark"
               onClick={() => {
                 setSelectedProduct(null);
                 toggleModal();
@@ -47,7 +47,7 @@ export const Products = () => {
             >
               <i className="bi bi-plus-lg"></i>
               &nbsp;Add New Product
-            </Button>
+            </button>
           )}
           <Link className="btn btn-outline-dark" to="/categories">
             <i className="bi bi-globe"></i>
@@ -84,21 +84,18 @@ export const Products = () => {
                   <td>{product.productStock}</td>
                   <td>${product.productCost}</td>
                   <td>${product.productPrice}</td>
-                  <td>
-                    {categoriesQuery.data &&
-                      getProductCategoryName(product.productCategoryID, categoriesQuery.data)}
-                  </td>
+                  <td>{categoriesQuery.data && getProductCategoryName(product.productCategoryID, categoriesQuery.data)}</td>
                   <td>
                     {validateUserRolePermission(['Admin', 'Manager']) && (
-                      <Button
-                        variant="outline-dark"
+                      <button
+                        className="btn btn-outline-dark"
                         onClick={() => {
                           setSelectedProduct(product);
                           toggleModal();
                         }}
                       >
                         <i className="bi bi-pencil"></i>&nbsp;Edit
-                      </Button>
+                      </button>
                     )}
                   </td>
                 </tr>
@@ -108,13 +105,7 @@ export const Products = () => {
         )}
       </div>
 
-      {showModal && (
-        <UpsertProductModal
-          toggle={toggleModal}
-          product={selectedProduct}
-          categories={categoriesQuery.data || []}
-        />
-      )}
+      {showModal && <UpsertProductModal toggle={toggleModal} product={selectedProduct} categories={categoriesQuery.data || []} />}
     </div>
   );
 };

@@ -2,7 +2,7 @@ import './invoice.css';
 import { useLocation } from 'react-router-dom';
 import { NotFound } from '../notFound/NotFound';
 import { OrderInfo } from '../../interfaces/order/OrderInfo';
-import { Button, Table } from 'react-bootstrap';
+import { Table } from 'react-bootstrap';
 import { OrderProduct } from '../../interfaces/order/OrderProduct';
 import { CancelOrderBtn } from '../../components/buttons/cancelOrderBtn/CancelOrderBtn';
 
@@ -63,13 +63,7 @@ export const Invoice = () => {
                   <span className="title">Purchase Date: </span>
                   <span>{orderInfo.orderDate.toString()}</span>
                 </div>
-                <div>
-                  {orderInfo.orderCancelled ? (
-                    <h4>ORDER CANCELLED</h4>
-                  ) : (
-                    <CancelOrderBtn orderID={orderInfo.orderID} />
-                  )}
-                </div>
+                <div>{orderInfo.orderCancelled ? <h4>ORDER CANCELLED</h4> : <CancelOrderBtn orderID={orderInfo.orderID} />}</div>
               </div>
               <div>
                 <div>
@@ -88,9 +82,9 @@ export const Invoice = () => {
                     <span>${orderInfo.orderTotal}</span>
                   </div>
 
-                  <Button variant="dark" onClick={() => window.print()}>
+                  <button className="btn btn-dark" onClick={() => window.print()}>
                     Print
-                  </Button>
+                  </button>
                 </div>
               </div>
             </div>

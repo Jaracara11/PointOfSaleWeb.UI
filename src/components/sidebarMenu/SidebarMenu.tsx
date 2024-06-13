@@ -3,7 +3,6 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Popover from 'react-bootstrap/Popover';
 import { deleteUserAuth, validateUserRolePermission } from '../../services/user.service';
-import Button from 'react-bootstrap/esm/Button';
 import { ChangePasswordModal } from '../modals/changePasswordModal/ChangePasswordModal';
 import { useState } from 'react';
 import { Tooltip } from 'react-bootstrap';
@@ -26,12 +25,12 @@ export const SidebarMenu = () => {
     <Popover className="sidebar-popover">
       <Popover.Header as="h3">{user && user.name}</Popover.Header>
       <Popover.Body>
-        <Button variant="dark" onClick={() => handleSignOutClick()}>
+        <button className="btn btn-dark" onClick={() => handleSignOutClick()}>
           Sign Out
-        </Button>
-        <Button variant="outline-dark" onClick={() => toggleModal()}>
+        </button>
+        <button className="btn btn-outline-dark" onClick={() => toggleModal()}>
           Change Password
-        </Button>
+        </button>
       </Popover.Body>
     </Popover>
   );
@@ -45,10 +44,7 @@ export const SidebarMenu = () => {
       <hr className="text-secondary" />
 
       <div className="links">
-        <OverlayTrigger
-          placement="right"
-          overlay={<Tooltip className="sidebar-tooltip">Home</Tooltip>}
-        >
+        <OverlayTrigger placement="right" overlay={<Tooltip className="sidebar-tooltip">Home</Tooltip>}>
           <NavLink className="nav-link" to="/home">
             <i className="bi bi-house"></i>
             <span>Home</span>
@@ -56,10 +52,7 @@ export const SidebarMenu = () => {
         </OverlayTrigger>
 
         {user && user.role !== 'Unassigned' && (
-          <OverlayTrigger
-            placement="right"
-            overlay={<Tooltip className="sidebar-tooltip">Orders</Tooltip>}
-          >
+          <OverlayTrigger placement="right" overlay={<Tooltip className="sidebar-tooltip">Orders</Tooltip>}>
             <NavLink className="nav-link" to="orders">
               <i className="bi bi-cart"></i>
               <span>Orders</span>
@@ -67,10 +60,7 @@ export const SidebarMenu = () => {
           </OverlayTrigger>
         )}
 
-        <OverlayTrigger
-          placement="right"
-          overlay={<Tooltip className="sidebar-tooltip">Sales</Tooltip>}
-        >
+        <OverlayTrigger placement="right" overlay={<Tooltip className="sidebar-tooltip">Sales</Tooltip>}>
           <NavLink className="nav-link" to="sales">
             <i className="bi bi-cash-coin"></i>
             <span>Sales</span>
@@ -78,10 +68,7 @@ export const SidebarMenu = () => {
         </OverlayTrigger>
 
         {validateUserRolePermission(['Admin', 'Manager']) && (
-          <OverlayTrigger
-            placement="right"
-            overlay={<Tooltip className="sidebar-tooltip">Inventory</Tooltip>}
-          >
+          <OverlayTrigger placement="right" overlay={<Tooltip className="sidebar-tooltip">Inventory</Tooltip>}>
             <NavLink className="nav-link" to="products">
               <i className="bi bi-clipboard-check"></i>
               <span>Inventory</span>
@@ -90,10 +77,7 @@ export const SidebarMenu = () => {
         )}
 
         {user && user.role === 'Admin' && (
-          <OverlayTrigger
-            placement="right"
-            overlay={<Tooltip className="sidebar-tooltip">Users</Tooltip>}
-          >
+          <OverlayTrigger placement="right" overlay={<Tooltip className="sidebar-tooltip">Users</Tooltip>}>
             <NavLink className="nav-link" to="user-management">
               <i className="bi bi-person-gear"></i>
               <span>Users</span>
@@ -114,13 +98,7 @@ export const SidebarMenu = () => {
         )}
       </div>
 
-      {showModal && user && (
-        <ChangePasswordModal
-          toggle={toggleModal}
-          username={user.username}
-          resetPasswordRequest={false}
-        />
-      )}
+      {showModal && user && <ChangePasswordModal toggle={toggleModal} username={user.username} resetPasswordRequest={false} />}
     </div>
   );
 };

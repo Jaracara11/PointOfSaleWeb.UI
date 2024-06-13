@@ -1,4 +1,4 @@
-import { Button, Table } from 'react-bootstrap';
+import { Table } from 'react-bootstrap';
 import { SearchInput } from '../../searchInput/SearchInput';
 import { Product } from '../../../interfaces/inventory/products/Product';
 import { useCartStore } from '../../../stores/cart.store';
@@ -31,12 +31,8 @@ export const OrdersTable = () => {
             productsQuery.data
               .filter(
                 (product) =>
-                  product.productID
-                    ?.toLowerCase()
-                    .includes(searchProductQuery.trim().toLowerCase()) ||
-                  product.productName
-                    .toLowerCase()
-                    .includes(searchProductQuery.trim().toLowerCase())
+                  product.productID?.toLowerCase().includes(searchProductQuery.trim().toLowerCase()) ||
+                  product.productName.toLowerCase().includes(searchProductQuery.trim().toLowerCase())
               )
               .map((product: Product) => {
                 const isProductAdded = cart.find((p) => p.productID === product.productID);
@@ -48,20 +44,17 @@ export const OrdersTable = () => {
                     </td>
                     <td>{product.productStock}</td>
                     <td>${product.productPrice}</td>
-                    <td>
-                      {categoriesQuery.data &&
-                        getProductCategoryName(product.productCategoryID, categoriesQuery.data)}
-                    </td>
+                    <td>{categoriesQuery.data && getProductCategoryName(product.productCategoryID, categoriesQuery.data)}</td>
                     <td>
                       {product.productStock! > 0 ? (
-                        <Button
-                          variant="dark"
+                        <button
+                          className="btn btn-dark"
                           disabled={!!isProductAdded || product.productStock! < 1}
                           onClick={() => addToCart(product)}
                         >
                           <i className="bi bi-plus"></i>
                           <span>&nbsp;{isProductAdded ? 'Already added' : 'Add to cart'}</span>
-                        </Button>
+                        </button>
                       ) : (
                         <span className="text-muted"> Product Unavailable</span>
                       )}

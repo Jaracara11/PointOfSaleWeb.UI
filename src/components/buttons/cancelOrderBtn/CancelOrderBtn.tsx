@@ -1,4 +1,3 @@
-import { Button } from 'react-bootstrap';
 import { swalConfirmAlert } from '../../../services/swal.service';
 import { useCancelOrder } from '../../../hooks/orders.hooks';
 import { useNavigate } from 'react-router-dom';
@@ -19,8 +18,8 @@ export const CancelOrderBtn = ({ orderID }: { orderID: string }) => {
   };
 
   return (
-    <Button variant="danger" onClick={() => handleOrderCancellationRequest()}>
+    <button className="btn btn-danger" onClick={() => handleOrderCancellationRequest()}>
       Cancel Order
-    </Button>
+    </button>
   );
 };

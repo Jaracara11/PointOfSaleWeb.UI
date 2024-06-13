@@ -1,6 +1,6 @@
 import './orders.css';
 import { useEffect, useState } from 'react';
-import { Button, Table } from 'react-bootstrap';
+import { Table } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { useUserStore } from '../../stores/user.store';
 import { Product } from '../../interfaces/inventory/products/Product';
@@ -58,9 +58,7 @@ export const Orders = () => {
   };
 
   const checkoutOrder = async () => {
-    const confirmTitle = `Please confirm order for <strong>$${calculateTotal().toFixed(
-      2
-    )}</strong>`;
+    const confirmTitle = `Please confirm order for <strong>$${calculateTotal().toFixed(2)}</strong>`;
 
     const isConfirmed = await swalConfirmAlert(confirmTitle, 'Confirm', 'warning');
 
@@ -81,16 +79,11 @@ export const Orders = () => {
     }
   };
 
-  const calculateSubTotal = () =>
-    cart.reduce(
-      (total, product) => total + (product.productPrice || 0) * (product.productQuantity || 0),
-      0
-    );
+  const calculateSubTotal = () => cart.reduce((total, product) => total + (product.productPrice || 0) * (product.productQuantity || 0), 0);
 
   const calculateTotal = () => subtotal * (1 - discount);
 
-  const handleDiscountChange = (event: React.ChangeEvent<HTMLSelectElement>) =>
-    setDiscount(parseFloat(event.target.value));
+  const handleDiscountChange = (event: React.ChangeEvent<HTMLSelectElement>) => setDiscount(parseFloat(event.target.value));
 
   const saveOrderForLater = () => {
     localStorage.setItem('savedOrder', JSON.stringify(cart));
@@ -161,21 +154,16 @@ export const Orders = () => {
                   <td>${product.productPrice}</td>
                   <td>{product.productQuantity}</td>
                   <td>
-                    <Button
-                      variant="dark"
-                      size="sm"
+                    <button
+                      className="btn btn-dark btn-sm"
                       disabled={product.productQuantity === product.productStock}
                       onClick={() => handleIncreaseQuantity(product.productID || '')}
                     >
                       <i className="bi bi-plus"></i>
-                    </Button>
-                    <Button
-                      variant="dark"
-                      size="sm"
-                      onClick={() => handleDecreaseQuantity(product.productID || '')}
-                    >
+                    </button>
+                    <button className="btn btn-dark btn-sm" onClick={() => handleDecreaseQuantity(product.productID || '')}>
                       <i className="bi bi-dash"></i>
-                    </Button>
+                    </button>
                   </td>
                 </tr>
               ))}
@@ -189,12 +177,7 @@ export const Orders = () => {
               </li>
               <li>
                 <strong>Discount:&nbsp; </strong>
-                <select
-                  name="order-discount"
-                  value={discount}
-                  disabled={cart.length === 0}
-                  onChange={handleDiscountChange}
-                >
+                <select name="order-discount" value={discount} disabled={cart.length === 0} onChange={handleDiscountChange}>
                   <option value={0}>0%</option>
                   {discountsQuery.data &&
                     discountsQuery.data.map((discount) => (
@@ -211,24 +194,20 @@ export const Orders = () => {
 
             <div>
               {savedOrderExist ? (
-                <Button variant="primary" onClick={retrieveSavedOrder}>
+                <button className="btn btn-primary" onClick={retrieveSavedOrder}>
                   <i className="bi bi-download"></i>&nbsp; Retrieve saved order
-                </Button>
+                </button>
               ) : (
-                <Button variant="success" onClick={saveOrderForLater} disabled={cart.length === 0}>
+                <button className="btn btn-success" onClick={saveOrderForLater} disabled={cart.length === 0}>
                   <i className="bi bi-box-seam"></i>&nbsp; Save for later
-                </Button>
+                </button>
               )}
-              <Button
-                variant="outline-dark"
-                onClick={clearProductsCart}
-                disabled={cart.length === 0}
-              >
+              <button className="btn btn-outline-dark" onClick={clearProductsCart} disabled={cart.length === 0}>
                 <i className="bi bi-eraser"></i>&nbsp; Clear Cart
-              </Button>
-              <Button variant="dark" onClick={checkoutOrder} disabled={cart.length === 0}>
+              </button>
+              <button className="btn btn-dark" onClick={checkoutOrder} disabled={cart.length === 0}>
                 <i className="bi bi-coin"></i>&nbsp; Check Out
-              </Button>
+              </button>
             </div>
           </div>
         </div>

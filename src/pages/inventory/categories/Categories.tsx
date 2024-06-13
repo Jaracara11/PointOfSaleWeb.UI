@@ -5,7 +5,6 @@ import { CategoryModal } from '../../../components/modals/categoryModal/Category
 import { useGetCategories } from '../../../hooks/categories.hooks';
 import { SearchInput } from '../../../components/searchInput/SearchInput';
 import { validateUserRolePermission } from '../../../services/user.service';
-import Button from 'react-bootstrap/esm/Button';
 import { LoadingSpinner } from '../../../components/loadingSpinner/LoadingSpinner';
 import { useUserStore } from '../../../stores/user.store';
 
@@ -33,8 +32,8 @@ export const Categories = () => {
       <div className="row">
         <div>
           {user && validateUserRolePermission(['Admin', 'Manager']) && (
-            <Button
-              variant="dark"
+            <button
+              className="btn btn-dark"
               onClick={() => {
                 setSelectedCategory(null);
                 toggleModal();
@@ -42,7 +41,7 @@ export const Categories = () => {
             >
               <i className="bi bi-plus-lg"></i>
               &nbsp;Add New Category
-            </Button>
+            </button>
           )}
         </div>
         <div>
@@ -68,15 +67,15 @@ export const Categories = () => {
                   </td>
                   <td>
                     {validateUserRolePermission(['Admin', 'Manager']) && (
-                      <Button
-                        variant="outline-dark"
+                      <button
+                        className="btn btn-outline-dark"
                         onClick={() => {
                           setSelectedCategory(category);
                           toggleModal();
                         }}
                       >
                         <i className="bi bi-pencil"></i>&nbsp;Edit
-                      </Button>
+                      </button>
                     )}
                   </td>
                 </tr>

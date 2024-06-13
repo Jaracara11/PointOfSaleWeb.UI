@@ -1,6 +1,5 @@
 import { useNavigate } from 'react-router-dom';
 import { useGetOrderByID } from '../../../hooks/orders.hooks';
-import { Button } from 'react-bootstrap';
 
 export const InvoiceByIdBtn = ({ orderID }: { orderID: string }) => {
   const navigate = useNavigate();
@@ -13,8 +12,8 @@ export const InvoiceByIdBtn = ({ orderID }: { orderID: string }) => {
   };
 
   return (
-    <Button variant="outline-dark" onClick={() => handleOrderInvoiceRequest()}>
+    <button className="btn btn-outline-dark" onClick={() => handleOrderInvoiceRequest()}>
       <i className="bi bi-file-text"></i>&nbsp; Invoice
-    </Button>
+    </button>
   );
 };

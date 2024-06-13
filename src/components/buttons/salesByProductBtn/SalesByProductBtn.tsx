@@ -1,12 +1,7 @@
-import { Button } from 'react-bootstrap';
 import { useGetProductsSoldByDate } from '../../../hooks/products.hooks';
 import { SalesInfoByDateBtnProps } from '../../../interfaces/SalesInfoByDateBtnProps';
 
-export const SalesByProductBtn = ({
-  initialDate,
-  finalDate,
-  onProductsFetched = () => {}
-}: SalesInfoByDateBtnProps) => {
+export const SalesByProductBtn = ({ initialDate, finalDate, onProductsFetched = () => {} }: SalesInfoByDateBtnProps) => {
   const getProductsSoldByDate = useGetProductsSoldByDate(initialDate, finalDate);
 
   const handleOrdersByDateRequest = () => {
@@ -16,12 +11,8 @@ export const SalesByProductBtn = ({
   };
 
   return (
-    <Button
-      variant="dark"
-      onClick={() => handleOrdersByDateRequest()}
-      disabled={getProductsSoldByDate.isFetching}
-    >
+    <button className="dark" onClick={() => handleOrdersByDateRequest()} disabled={getProductsSoldByDate.isFetching}>
       <i className="bi bi-file-text"></i>&nbsp; Search Products
-    </Button>
+    </button>
   );
 };

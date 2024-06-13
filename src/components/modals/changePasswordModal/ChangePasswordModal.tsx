@@ -1,5 +1,5 @@
 import './changePasswordModal.css';
-import { Button, Form, Modal } from 'react-bootstrap';
+import { Form, Modal } from 'react-bootstrap';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { changePasswordValidationSchema } from '../../../services/yupValidation.service';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -14,11 +14,7 @@ import { useNavigate } from 'react-router-dom';
 import { ChangePasswordModalProps } from '../../../interfaces/modals/ChangePasswordModalProps';
 import { LoadingSpinner } from '../../loadingSpinner/LoadingSpinner';
 
-export const ChangePasswordModal = ({
-  toggle,
-  username,
-  resetPasswordRequest
-}: ChangePasswordModalProps) => {
+export const ChangePasswordModal = ({ toggle, username, resetPasswordRequest }: ChangePasswordModalProps) => {
   const {
     register,
     handleSubmit,
@@ -45,11 +41,7 @@ export const ChangePasswordModal = ({
     };
 
     try {
-      const isConfirmed = await swalConfirmAlert(
-        'Are you sure you want to change your password?',
-        'Save',
-        'question'
-      );
+      const isConfirmed = await swalConfirmAlert('Are you sure you want to change your password?', 'Save', 'question');
 
       if (isConfirmed) {
         setLoadingData(true);
@@ -72,11 +64,7 @@ export const ChangePasswordModal = ({
     };
 
     try {
-      const isConfirmed = await swalConfirmAlert(
-        `Are you sure you want to change ${username}'s password?`,
-        'Change',
-        'question'
-      );
+      const isConfirmed = await swalConfirmAlert(`Are you sure you want to change ${username}'s password?`, 'Change', 'question');
 
       if (isConfirmed) {
         setLoadingData(true);
@@ -98,38 +86,20 @@ export const ChangePasswordModal = ({
       <Form onSubmit={handleSubmit(resetPasswordRequest ? resetPassword : changePassword)}>
         <h3 className="title">{resetPasswordRequest ? `Reset ${username}` : 'Change'} Password</h3>
         <Modal.Body>
-          {!resetPasswordRequest && (
-            <Form.Control
-              type="password"
-              placeholder="Old Password..."
-              {...register('oldPassword')}
-            />
-          )}
-          <Form.Control
-            type="password"
-            placeholder="New Password..."
-            {...register('newPassword')}
-          />
+          {!resetPasswordRequest && <Form.Control type="password" placeholder="Old Password..." {...register('oldPassword')} />}
+          <Form.Control type="password" placeholder="New Password..." {...register('newPassword')} />
           <ErrorInputView error={errors.newPassword} />
-          <Form.Control
-            type="password"
-            placeholder="Repeat New Password..."
-            {...register('repeatNewPassword')}
-          />
+          <Form.Control type="password" placeholder="Repeat New Password..." {...register('repeatNewPassword')} />
           <ErrorInputView error={errors.repeatNewPassword} />
           <div>
-            <Button
-              variant="dark"
-              disabled={!isDirty}
-              onClick={handleSubmit(resetPasswordRequest ? resetPassword : changePassword)}
-            >
+            <button className="dark" disabled={!isDirty} onClick={handleSubmit(resetPasswordRequest ? resetPassword : changePassword)}>
               <i className="bi bi-shield-exclamation"></i>&nbsp;
               {resetPasswordRequest ? 'Reset' : 'Update'} Password
-            </Button>
+            </button>
 
-            <Button variant="outline-dark" onClick={toggle}>
+            <button className="outline-dark" onClick={toggle}>
               <i className="bi bi-x-lg"></i>&nbsp;Cancel
-            </Button>
+            </button>
           </div>
         </Modal.Body>
       </Form>

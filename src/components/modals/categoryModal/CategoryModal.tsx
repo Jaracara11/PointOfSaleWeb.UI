@@ -1,6 +1,6 @@
 import './categoryModa.css';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Button, Form, Modal } from 'react-bootstrap';
+import { Form, Modal } from 'react-bootstrap';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { categoryValidationSchema } from '../../../services/yupValidation.service';
 import { ErrorInputView } from '../../errorInputView/ErrorInputView';
@@ -9,11 +9,7 @@ import { useEffect, useState } from 'react';
 import { firstCharToUpper } from '../../../utils/string.utils';
 import { swalConfirmAlert, swalMessageAlert } from '../../../services/swal.service';
 import { CategoryModalProps } from '../../../interfaces/modals/CategoryModalProps';
-import {
-  useDeleteCategory,
-  useSaveNewCategory,
-  useUpdateCategory
-} from '../../../hooks/categories.hooks';
+import { useDeleteCategory, useSaveNewCategory, useUpdateCategory } from '../../../hooks/categories.hooks';
 import { LoadingSpinner } from '../../loadingSpinner/LoadingSpinner';
 
 export const CategoryModal = ({ toggle, category }: CategoryModalProps) => {
@@ -27,7 +23,6 @@ export const CategoryModal = ({ toggle, category }: CategoryModalProps) => {
   });
 
   const [showModal, setShowModal] = useState<boolean>(true);
-
   const newCategoryMutation = useSaveNewCategory();
   const updateCategoryMutation = useUpdateCategory();
   const deleteCategoryMutation = useDeleteCategory();
@@ -68,23 +63,17 @@ export const CategoryModal = ({ toggle, category }: CategoryModalProps) => {
 
   const deleteCategory = async (categoryData: Category) => {
     const confirmTitle = `Are you sure you want to <strong>DELETE</strong> the ${categoryData.categoryName} category?`;
-
     const isConfirmed = await swalConfirmAlert(confirmTitle, 'Delete', 'warning');
 
     if (isConfirmed) {
       categoryData.categoryID
         ? deleteCategoryMutation.mutateAsync(categoryData.categoryID)
-        : swalMessageAlert(
-            'Error while trying to delete category, please refresh the page and try again.',
-            'error'
-          );
+        : swalMessageAlert('Error while trying to delete category, please refresh the page and try again.', 'error');
       toggle();
     }
   };
 
-  return newCategoryMutation.isPending ||
-    updateCategoryMutation.isPending ||
-    deleteCategoryMutation.isPending ? (
+  return newCategoryMutation.isPending || updateCategoryMutation.isPending || deleteCategoryMutation.isPending ? (
     <LoadingSpinner />
   ) : (
     <Modal className="category-modal" show={showModal} onHide={closeModal} centered>
@@ -94,19 +83,19 @@ export const CategoryModal = ({ toggle, category }: CategoryModalProps) => {
           <Form.Control type="text" placeholder="New Category Name" {...register('categoryName')} />
           <ErrorInputView error={errors.categoryName} />
 
-          <Button variant="dark" disabled={!isDirty} onClick={handleSubmit(upsertCategory)}>
+          <button className="btn btn-dark" disabled={!isDirty} onClick={handleSubmit(upsertCategory)}>
             <i className="bi bi-database"></i>&nbsp;{category ? ' Update' : ' Save'}
-          </Button>
+          </button>
 
           {category && (
-            <Button variant="danger" onClick={() => deleteCategory(category)}>
+            <button className="btn btn-danger" onClick={() => deleteCategory(category)}>
               <i className="bi bi-exclamation-circle"></i>&nbsp; Delete
-            </Button>
+            </button>
           )}
 
-          <Button variant="outline-dark" onClick={toggle}>
+          <button className="btn btn-outline-dark" onClick={toggle}>
             <i className="bi bi-x-lg"></i>&nbsp;Cancel
-          </Button>
+          </button>
         </Modal.Body>
       </Form>
     </Modal>

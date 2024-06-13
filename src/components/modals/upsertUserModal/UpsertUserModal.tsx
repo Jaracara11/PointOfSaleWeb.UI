@@ -2,7 +2,7 @@ import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { userValidationSchema } from '../../../services/yupValidation.service';
 import { useEffect, useState } from 'react';
-import { Button, Form, Modal } from 'react-bootstrap';
+import { Form, Modal } from 'react-bootstrap';
 import { ErrorInputView } from '../../errorInputView/ErrorInputView';
 import { UserRole } from '../../../interfaces/user/UserRole';
 import { swalConfirmAlert } from '../../../services/swal.service';
@@ -90,9 +90,7 @@ export const UpsertUserModal = ({ toggle, user, roles }: UpsertUserModalProps) =
     toggle();
   };
 
-  return newUserMutation.isPending ||
-    updateUserMutation.isPending ||
-    deleteUserMutation.isPending ? (
+  return newUserMutation.isPending || updateUserMutation.isPending || deleteUserMutation.isPending ? (
     <LoadingSpinner />
   ) : (
     <Modal className="form-modal" show={showModal} onHide={closeModal} centered>
@@ -100,12 +98,7 @@ export const UpsertUserModal = ({ toggle, user, roles }: UpsertUserModalProps) =
         <h3 className="title">{user ? 'Edit' : 'Add New'} User</h3>
         <Form.Group>
           <Form.Label>Username</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Enter username"
-            {...register('username')}
-            disabled={user !== null}
-          />
+          <Form.Control type="text" placeholder="Enter username" {...register('username')} disabled={user !== null} />
           <ErrorInputView error={errors.username} />
           <Form.Label>First Name</Form.Label>
           <Form.Control type="text" placeholder="Enter first name" {...register('firstName')} />
@@ -133,37 +126,29 @@ export const UpsertUserModal = ({ toggle, user, roles }: UpsertUserModalProps) =
           {!user && (
             <div className="password-inputs">
               <Form.Label>Password</Form.Label>
-              <Form.Control
-                type="password"
-                placeholder="New Password..."
-                {...register('newPassword')}
-              />
+              <Form.Control type="password" placeholder="New Password..." {...register('newPassword')} />
               <ErrorInputView error={errors.newPassword} />
               <Form.Label>Repeat Password</Form.Label>
-              <Form.Control
-                type="password"
-                placeholder="Repeat New Password..."
-                {...register('repeatNewPassword')}
-              />
+              <Form.Control type="password" placeholder="Repeat New Password..." {...register('repeatNewPassword')} />
               <ErrorInputView error={errors.repeatNewPassword} />
             </div>
           )}
         </Form.Group>
 
-        <Button variant="btn btn-dark" disabled={!isDirty} onClick={handleSubmit(upsertUser)}>
+        <button className="btn btn-dark" disabled={!isDirty} onClick={handleSubmit(upsertUser)}>
           <i className="bi bi-database"></i>&nbsp;
           {user ? ' Update' : ' Save'}
-        </Button>
+        </button>
 
         {user && (
-          <Button variant="btn btn-danger" onClick={() => deleteUser(user.username)}>
+          <button className="btn btn-danger" onClick={() => deleteUser(user.username)}>
             <i className="bi bi-exclamation-circle"></i>&nbsp; Delete
-          </Button>
+          </button>
         )}
 
-        <Button variant="outline-dark" onClick={toggle}>
+        <button className="btn btn-outline-dark" onClick={toggle}>
           <i className="bi bi-x-lg"></i>&nbsp;Cancel
-        </Button>
+        </button>
       </Form>
     </Modal>
   );

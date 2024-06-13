@@ -1,4 +1,4 @@
-import { Button, Table } from 'react-bootstrap';
+import { Table } from 'react-bootstrap';
 import { useGetRoles, useGetUsers } from '../../hooks/users.hooks';
 import { swalMessageAlert } from '../../services/swal.service';
 import { useNavigate } from 'react-router-dom';
@@ -32,9 +32,7 @@ export const UserManagement = () => {
   );
 
   if ((user && user.role !== 'Admin') || !user) {
-    swalMessageAlert('Your user does not have permission to view this page', 'warning').then(() =>
-      navigate('/home')
-    );
+    swalMessageAlert('Your user does not have permission to view this page', 'warning').then(() => navigate('/home'));
   }
 
   return usersQuery.isPending || rolesQuery.isPending ? (
@@ -47,8 +45,8 @@ export const UserManagement = () => {
 
       <div className="row">
         <div>
-          <Button
-            variant="dark"
+          <button
+            className="btn btn-dark"
             onClick={() => {
               setSelectedUser(undefined);
               toggleUpsertModal();
@@ -56,7 +54,7 @@ export const UserManagement = () => {
           >
             <i className="bi bi-plus-lg"></i>
             &nbsp;Add New User
-          </Button>
+          </button>
         </div>
         <div>
           <SearchInput searchQuery={searchUserQuery} setSearchQuery={setSearchUserQuery} />
@@ -83,24 +81,24 @@ export const UserManagement = () => {
                   <td>{user.email}</td>
                   <td>{getUserRoleName(user.userRoleID || 0, rolesQuery.data || [])}</td>
                   <td>
-                    <Button
-                      variant="outline-dark"
+                    <button
+                      className="btn btn-outline-dark"
                       onClick={() => {
                         setSelectedUser(user);
                         toggleUpsertModal();
                       }}
                     >
                       <i className="bi bi-pencil"></i>&nbsp;Edit
-                    </Button>
-                    <Button
-                      variant="dark"
+                    </button>
+                    <button
+                      className="btn btn-dark"
                       onClick={() => {
                         setSelectedUser(user);
                         toggleResetPasswordModal();
                       }}
                     >
                       <i className="bi bi-shield-exclamation"></i>&nbsp;Reset Password
-                    </Button>
+                    </button>
                   </td>
                 </tr>
               ))}
@@ -109,20 +107,10 @@ export const UserManagement = () => {
         )}
       </div>
 
-      {showUpsertModal && (
-        <UpsertUserModal
-          toggle={toggleUpsertModal}
-          user={selectedUser || null}
-          roles={rolesQuery.data || []}
-        />
-      )}
+      {showUpsertModal && <UpsertUserModal toggle={toggleUpsertModal} user={selectedUser || null} roles={rolesQuery.data || []} />}
 
       {showResetPasswordModal && selectedUser && (
-        <ChangePasswordModal
-          toggle={toggleResetPasswordModal}
-          username={selectedUser.username}
-          resetPasswordRequest={true}
-        />
+        <ChangePasswordModal toggle={toggleResetPasswordModal} username={selectedUser.username} resetPasswordRequest={true} />
       )}
     </div>
   );

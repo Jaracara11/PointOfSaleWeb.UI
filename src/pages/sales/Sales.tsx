@@ -2,7 +2,6 @@ import './sales.css';
 import 'react-datepicker/dist/react-datepicker.css';
 import 'react-datepicker/dist/react-datepicker-cssmodules.css';
 import { useState } from 'react';
-import { Button } from 'react-bootstrap';
 import DatePicker from 'react-datepicker';
 import { InvoicesByDateBtn } from '../../components/buttons/invoicesByDateBtn/InvoicesByDateBtn';
 import { SearchInput } from '../../components/searchInput/SearchInput';
@@ -26,11 +25,9 @@ export const Sales = () => {
 
   const handleSalesFetched = (salesByDate: number) => setTotalSales(salesByDate);
 
-  const handleInvoicesFetched = (invoicesByDate: RecentOrder[]) =>
-    invoicesByDate && setOrders(invoicesByDate || []);
+  const handleInvoicesFetched = (invoicesByDate: RecentOrder[]) => invoicesByDate && setOrders(invoicesByDate || []);
 
-  const handleProductsSoldFetched = (productsSoldByDate: ProductSold[]) =>
-    productsSoldByDate && setProductsSold(productsSoldByDate || []);
+  const handleProductsSoldFetched = (productsSoldByDate: ProductSold[]) => productsSoldByDate && setProductsSold(productsSoldByDate || []);
 
   const filteredOrders: RecentOrder[] = (orders || []).filter((order) =>
     order.orderID.toLowerCase().includes(searchOrderQuery.trim().toLowerCase())
@@ -38,17 +35,9 @@ export const Sales = () => {
 
   const toggleView = () => setInvoiceView((prev) => !prev);
 
-  const excelFileHeaders = [
-    'Product ID',
-    'Product Name',
-    'Product Description',
-    'Unit(s) Sold',
-    'Total Sold'
-  ];
+  const excelFileHeaders = ['Product ID', 'Product Name', 'Product Description', 'Unit(s) Sold', 'Total Sold'];
 
-  const excelFileName = `Sold Products Report From ${formatDate(
-    initialDate.toString()
-  )} to ${formatDate(finalDate.toString())}`;
+  const excelFileName = `Sold Products Report From ${formatDate(initialDate.toString())} to ${formatDate(finalDate.toString())}`;
 
   const excelFileData = productsSold.map((product) => [
     product.productID,
@@ -63,9 +52,9 @@ export const Sales = () => {
       <div className="row">
         <h1 className="title">Sales By {invoiceView ? 'Invoices' : 'Products'}</h1>
         <div>
-          <Button variant="dark" onClick={() => toggleView()}>
+          <button className="btn btn-dark" onClick={() => toggleView()}>
             Change View
-          </Button>
+          </button>
         </div>
       </div>
       <div className="row">
@@ -90,53 +79,24 @@ export const Sales = () => {
         <div className="history-panel">
           {invoiceView ? (
             <>
-              <InvoicesByDateBtn
-                initialDate={initialDate}
-                finalDate={finalDate}
-                onInvoicesFetched={handleInvoicesFetched}
-              />
+              <InvoicesByDateBtn initialDate={initialDate} finalDate={finalDate} onInvoicesFetched={handleInvoicesFetched} />
 
-              <SalesByDateBtn
-                initialDate={initialDate}
-                finalDate={finalDate}
-                onTotalSalesFetched={handleSalesFetched}
-              />
+              <SalesByDateBtn initialDate={initialDate} finalDate={finalDate} onTotalSalesFetched={handleSalesFetched} />
 
-              <input
-                className="form-control text-muted"
-                disabled
-                type="text"
-                value={'$' + totalSales}
-              />
+              <input className="form-control text-muted" disabled type="text" value={'$' + totalSales} />
             </>
           ) : (
             <>
-              <SalesByProductBtn
-                initialDate={initialDate}
-                finalDate={finalDate}
-                onProductsFetched={handleProductsSoldFetched}
-              />
-              <ExportDataToExcelBtn
-                headers={excelFileHeaders}
-                fileName={excelFileName}
-                data={excelFileData}
-              />
+              <SalesByProductBtn initialDate={initialDate} finalDate={finalDate} onProductsFetched={handleProductsSoldFetched} />
+              <ExportDataToExcelBtn headers={excelFileHeaders} fileName={excelFileName} data={excelFileData} />
             </>
           )}
         </div>
-        <div>
-          {invoiceView && (
-            <SearchInput searchQuery={searchOrderQuery} setSearchQuery={setSearchOrderQuery} />
-          )}
-        </div>
+        <div>{invoiceView && <SearchInput searchQuery={searchOrderQuery} setSearchQuery={setSearchOrderQuery} />}</div>
       </div>
 
       <div className="row">
-        {invoiceView ? (
-          <SalesByInvoiceTable orders={filteredOrders} />
-        ) : (
-          <SalesByProductTable products={productsSold} />
-        )}
+        {invoiceView ? <SalesByInvoiceTable orders={filteredOrders} /> : <SalesByProductTable products={productsSold} />}
       </div>
     </div>
   );
